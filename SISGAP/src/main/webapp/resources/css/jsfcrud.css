@@ -1,0 +1,22 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    
+    
+    
+}
+
+.left {
+    text-align: left !important;
+}
+.right {
+    text-align: right !important;
+}
+
+a {
+    color: #e33b06;
+}
+
+table {
+    empty-cells: show;
+}
+

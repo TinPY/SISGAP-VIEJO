@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewConvocatoriaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewConvocatoriaLabel_id}"/>
+                    <h:outputText value="#{convocatoriaController.selected.id}" title="#{bundle.ViewConvocatoriaTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewConvocatoriaLabel_convocatoria}"/>
+                    <h:outputText value="#{convocatoriaController.selected.convocatoria}" title="#{bundle.ViewConvocatoriaTitle_convocatoria}"/>
+                    <h:outputText value="#{bundle.ViewConvocatoriaLabel_descripcion}"/>
+                    <h:outputText value="#{convocatoriaController.selected.descripcion}" title="#{bundle.ViewConvocatoriaTitle_descripcion}"/>
+                    <h:outputText value="#{bundle.ViewConvocatoriaLabel_bases}"/>
+                    <h:outputText value="#{convocatoriaController.selected.bases}" title="#{bundle.ViewConvocatoriaTitle_bases}"/>
+                    <h:outputText value="#{bundle.ViewConvocatoriaLabel_link}"/>
+                    <h:outputText value="#{convocatoriaController.selected.link}" title="#{bundle.ViewConvocatoriaTitle_link}"/>
+                    <h:outputText value="#{bundle.ViewConvocatoriaLabel_formulario}"/>
+                    <h:outputText value="#{convocatoriaController.selected.formulario}" title="#{bundle.ViewConvocatoriaTitle_formulario}"/>
+                    <h:outputText value="#{bundle.ViewConvocatoriaLabel_fechapublicacion}"/>
+                    <h:outputText value="#{convocatoriaController.selected.fechapublicacion}" title="#{bundle.ViewConvocatoriaTitle_fechapublicacion}">
+                        <f:convertDateTime pattern="HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewConvocatoriaLabel_fechainicio}"/>
+                    <h:outputText value="#{convocatoriaController.selected.fechainicio}" title="#{bundle.ViewConvocatoriaTitle_fechainicio}">
+                        <f:convertDateTime pattern="HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewConvocatoriaLabel_fechacierre}"/>
+                    <h:outputText value="#{convocatoriaController.selected.fechacierre}" title="#{bundle.ViewConvocatoriaTitle_fechacierre}">
+                        <f:convertDateTime pattern="HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewConvocatoriaLabel_tipoproyectoid}"/>
+                    <h:outputText value="#{convocatoriaController.selected.tipoproyectoid}" title="#{bundle.ViewConvocatoriaTitle_tipoproyectoid}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{convocatoriaController.destroyAndView}" value="#{bundle.ViewConvocatoriaDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewConvocatoriaEditLink}"/>
+                <br />
+                <h:commandLink action="#{convocatoriaController.prepareCreate}" value="#{bundle.ViewConvocatoriaCreateLink}" />
+                <br />
+                <h:commandLink action="#{convocatoriaController.prepareList}" value="#{bundle.ViewConvocatoriaShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewConvocatoriaIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListPresupuestoRubroTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListPresupuestoRubroEmpty}" rendered="#{presupuestoRubroController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{presupuestoRubroController.items.rowCount > 0}">
+                    <h:outputText value="#{presupuestoRubroController.pagination.pageFirstItem + 1}..#{presupuestoRubroController.pagination.pageLastItem + 1}/#{presupuestoRubroController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{presupuestoRubroController.previous}" value="#{bundle.Previous} #{presupuestoRubroController.pagination.pageSize}" rendered="#{presupuestoRubroController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{presupuestoRubroController.next}" value="#{bundle.Next} #{presupuestoRubroController.pagination.pageSize}" rendered="#{presupuestoRubroController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{presupuestoRubroController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPresupuestoRubroTitle_gastoentidad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.gastoentidad}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPresupuestoRubroTitle_gastouniversidad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.gastouniversidad}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPresupuestoRubroTitle_estado}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.estado}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPresupuestoRubroTitle_rubro}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.rubro}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPresupuestoRubroTitle_presupuesto}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.presupuesto}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{presupuestoRubroController.prepareView}" value="#{bundle.ListPresupuestoRubroViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{presupuestoRubroController.prepareEdit}" value="#{bundle.ListPresupuestoRubroEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{presupuestoRubroController.destroy}" value="#{bundle.ListPresupuestoRubroDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{presupuestoRubroController.prepareCreate}" value="#{bundle.ListPresupuestoRubroCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListPresupuestoRubroIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

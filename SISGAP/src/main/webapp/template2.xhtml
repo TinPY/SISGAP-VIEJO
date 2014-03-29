@@ -1,0 +1,215 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+        <link rel="icon" href="#{resource['img:/undec.ico']}" type="image/x-icon" />  
+        <link rel="shortcut icon" href="#{resource['img:/undec.ico']}" type="image/x-icon" /> 
+
+
+        <h:outputScript name="js/bootstrap.min.js" />
+        <!--<h:outputScript name="js/jquery-1.11.0.min.js" />-->
+
+        <h:outputStylesheet name="css/estilos.css"/>
+        <h:outputStylesheet name="css/Cerulean-bootstrap.css"/>
+        <h:outputStylesheet name="css/font-awesome.css"/>
+        <!--<h:outputStylesheet name="css/Flatly-bootstrap.css"/>-->
+        <!--<h:outputStylesheet name="css/Darkly-bootstrap.css"/>-->
+<!--        <h:outputStylesheet name="css/Slate-bootstrap.css"/>-->
+
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+        <!--<h:outputStylesheet name="css/cssLayout.css"/>-->
+
+        <title>UNdeC :: Sistema de Gestión y Administración de Proyectos</title>
+
+    </h:head>
+
+    <h:body styleClass="fondoTextura">
+        <header class="header">
+            <ui:insert name="top">
+                <div class="jumbotron">
+                    <h1>Universidad Nacional de Chilecito</h1>
+                    <h3>[SisGAP] Sistema de Gestión y Administración de Proyectos</h3>
+                </div>
+            </ui:insert>
+        </header><!-- .header-->
+
+        <div class="wrapper">
+
+            <h:form id="formmenu">               
+                <!-- Sidebar -->
+                <nav class="navbar navbar-default" role="navigation">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                            <span class="sr-only">Navegación</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="index.html">SisGAP</a>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse navbar-ex1-collapse">
+                        <ul class="nav navbar-nav side-nav">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-calendar-o"></i> Proyectos <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="secure/Solicitud.xhtml"> Nuevo Proyecto </a></li>
+                                    <li><a href="secure/proyecto/List.xhtml"> Lista de Proyectos </a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="secure/tipoproyecto/Create.xhtml">Nuevo Tipo de Proyecto</a></li>
+                                    <li><a href="secure/tipoproyecto/List.xhtml"> Lista de Tipos de Proyecto </a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-flag"></i> Convocatorias <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="secure/convocatoria/Create.xhtml"> Nueva Convocatoria </a></li>
+                                    <li><a href="secure/convocatoria/List.xhtml"> Lista de Convocatorias </a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-users"></i> Entidades <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="secure/entidadbeneficiaria/Create.xhtml"> Nueva Entidad </a></li>
+                                    <li><a href="secure/entidadbeneficiaria/List.xhtml"> Lista de Entidades </a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="secure/tipoentidad/Create.xhtml">Nuevo Tipo de Entidad</a></li>
+                                    <li><a href="secure/tipoentidad/List.xhtml">Lista de Tipos de Entidad</a></li>                                    
+                                    <li class="divider"></li>
+                                    <li><a href="secure/dependencia/Create.xhtml">Nueva Dependencia</a></li>
+                                    <li><a href="secure/dependencia/List.xhtml">Lista de Dependencias</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="secure/agente/Create.xhtml">Nuevo Agente</a></li>
+                                    <li><a href="secure/agente/List.xhtml">Lista de Agentes</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-wrench"></span> Configuración <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="secure/usuario/Create.xhtml"> Nuevo Usuario </a></li>
+                                    <li><a href="secure/agente/List.xhtml"> Lista de Usuarios </a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="secure/perfil/Create.xhtml"> Nuevo Perfil </a></li>
+                                    <li><a href="secure/perfil/List.xhtml"> Lista de Perfiles </a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="secure/tipodocumento/Create.xhtml"> Nuevo Tipo de Documento </a></li>
+                                    <li><a href="secure/tipodocumento/List.xhtml"> Lista de Tipos de Documento </a></li>                
+                                </ul>
+                            </li>
+
+                        </ul>
+
+                        <ul class="nav navbar-nav navbar-right navbar-user">
+                            <li class="dropdown messages-dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-bell"></span> Notificaciones <span class="badge">3</span> <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown-header">3 Nuevas Notificaciones</li>
+                                    <li class="message-preview">
+                                        <a href="#">
+                                            <span class="avatar img-rounded"><h:graphicImage library="img" name="solicitud-50x50.png"/></span>
+                                            <span class="name"><strong>Solicitud: </strong></span>
+                                            <span class="message ">Nueva Solicitud de Caritas</span><br />
+                                            <span class="time"><small class="text-right"><i class="fa fa-clock-o"></i> 19-03-2014 16:34hs</small></span>
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li class="message-preview">
+                                        <a href="#">
+                                            <span class="avatar img-rounded"><h:graphicImage library="img" name="solicitud-50x50.png" /></span>
+                                            <span class="name"><strong>Solicitud: </strong></span>
+                                            <span class="message">Vencimiento de evaluación - Asocacion San Roque</span><br />
+                                            <span class="time"><small class="text-right"><i class="fa fa-clock-o"></i> 18-03-2014 19:47hs</small></span>
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li class="message-preview">
+                                        <a href="#">
+                                            <span class="avatar img-rounded"><h:graphicImage library="img" name="proyecto-50x50.png"/></span>
+                                            <span class="name"><strong>Proyecto: </strong></span>
+                                            <span class="message">Automatizacion de Riego Parque Municipal - Inicio de etapa Ejecucion</span><br />
+                                            <span class="time"><small class="text-right"><span class="fa fa-clock-o"></span> 17-03-2014 08:38hs</small></span>
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">Todas las Notificaciones <span class="badge">18</span></a></li>
+                                </ul>
+                            </li>
+
+                            <li class="dropdown user-dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> #{request.getUserPrincipal()}<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> Perfil</a></li>
+                                    <li><a href="#"><span class="glyphicon glyphicon-envelope"></span> Mensajes <span class="badge">11</span></a></li>
+                                    <li><a href="#"><span class="glyphicon glyphicon-bell"></span> Notificaciones <span class="badge">18</span></a></li>
+                                    <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Configuraciones</a></li>
+                                    <li class="divider"></li>
+                                    <li><p:commandLink actionListener="#{usuarioController.logout()}"><span class="glyphicon glyphicon-off"></span> Salir </p:commandLink></li>
+                                </ul>
+                            </li>
+
+                            <!--********************************************-->
+
+                            <!--            <li class="dropdown messages-dropdown">
+                                          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-envelope"></span> Asdasd <span class="badge">3</span> <b class="caret"></b></a>
+                                             <ul class="dropdown-menu">
+                                          <div class="list-group">
+                                            <a href="#" class="list-group-item">
+                                              <span class="avatar"><h:graphicImage library="img" name="proyecto-50x50.png" /></span>
+                                              <h4 class="list-group-item-heading">Aasdasd</h4>
+                                              <p class="list-group-item-text">ajksdjkashdkjha asdas kjahsd khakjsd kajsd hkasd </p>
+                                            </a>
+                                            <a href="#" class="list-group-item">
+                                              <h4 class="list-group-item-heading">qweqwe</h4>
+                                              <span class="avatar"><h:graphicImage library="img" name="proyecto-50x50.png" /></span>
+                                              <p class="list-group-item-text">ajksdjkashdkjha asdas kjahsd khakjsd kajsd hkasd </p>
+                                            </a>
+                                            <a href="#" class="list-group-item">
+                                              <h4 class="list-group-item-heading">zxczxc</h4>
+                                              <p class="list-group-item-text">ajksdjkashdkjha asdas kjahsd khakjsd kajsd hkasd </p>
+                                              <span class="avatar"><h:graphicImage library="img" name="proyecto-50x50.png" /></span>
+                                            </a>
+                                          </div>
+                                          </ul>
+                                        </li>-->
+
+                            <!--********************************************-->  
+
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </nav>
+            </h:form>               
+
+
+            <div class="middle">
+
+                <div class="container">
+                    <main class="content">
+                        <ui:insert name="body">body</ui:insert>
+                    </main><!-- .content -->
+                </div><!-- .container-->
+
+            </div><!-- .middle-->
+
+        </div><!-- .wrapper -->
+
+        <footer class="footer">
+            <ui:insert name="bottom">  
+                <div align="center">
+                    UNIVERSIDAD NACIONAL DE CHILECITO.
+                </div></ui:insert>
+        </footer><!-- .footer -->
+
+    </h:body>
+
+</html>
+

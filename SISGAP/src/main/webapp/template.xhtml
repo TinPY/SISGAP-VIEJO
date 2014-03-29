@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <title>SISGAP</title>
+<h:outputStylesheet name="css/jsfcrud.css"/>
+    </h:head>
+   
+    <h:body>
+
+                 
+           <div class="wrapper">
+
+	<header class="header">
+		 <ui:insert name="top">
+                       <div align="center">
+                           <h2> Sistema de Gestión y Administración de Proyectos</h2>
+                            <h3>UNIVERSIDAD NACIONAL DE CHILECITO</h3>
+                        </div>   
+                           <h:form id="formmenu">
+                           <p:menubar autoDisplay="Home"   >
+                               <p:submenu label="Solicitudes" icon="ui-icon-document">  
+                                   <p:menuitem value="Nueva Solicitud" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/solicitud/Solicitud.xhtml' />  
+                                   <p:menuitem value="Listado de Solicitudes" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/solicitud/List.xhtml' />  
+                                   
+                            </p:submenu>  
+
+                            <p:submenu label="Proyectos" icon="ui-icon-pencil">  
+                                <p:menuitem value="Listado de Proyectos" url="#" icon="ui-icon-arrowreturnthick-1-w" />  
+                            </p:submenu>  
+
+                            <p:submenu label="Ayuda" icon="ui-icon-help">  
+                                <p:menuitem value="Acerca de ..." url="#" />  
+                                <p:submenu label="Manual" icon="ui-icon-search">  
+                                   
+                                </p:submenu>  
+                            </p:submenu>  
+
+                          
+
+                            <p:menuitem value="Mi Cuenta" url="http://www.primefaces.org" icon="ui-icon-close" />  
+
+                            <f:facet name="options">  
+                                 Bienvenido #{request.getUserPrincipal()}  
+                                <h:commandLink actionListener="#{usuarioController.logout()}" value="Logout"  />  
+                            </f:facet>  
+                           </p:menubar> 
+                           </h:form>
+                        
+                 </ui:insert>
+	</header><!-- .header-->
+
+	<div class="middle">
+
+		<div class="container">
+			<main class="content">
+				 <ui:insert name="body">body</ui:insert>
+			</main><!-- .content -->
+		</div><!-- .container-->
+
+		
+	</div><!-- .middle-->
+
+</div><!-- .wrapper -->
+
+<footer class="footer">
+	 <ui:insert name="bottom">  
+         <div align="center">
+            UNIVERSIDAD NACIONAL DE CHILECITO.
+        </div></ui:insert>
+</footer><!-- .footer -->
+
+    </h:body>
+
+</html>

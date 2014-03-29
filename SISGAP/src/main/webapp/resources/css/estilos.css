@@ -1,0 +1,35 @@
+/*.ui-panelgrid td, .ui-panelgrid tr
+{
+    border-style: none !important
+}*/
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 13px !important;
+}
+
+.fondoTextura{
+/*    background: #e3e3e3 url("#{resource['img:/fondoLogin.png']}") repeat;*/
+    background-image: url("#{resource['img:/tweed.png']}");
+/*    background-color: #e3e3e3;*/
+    background-repeat: repeat;
+}
+
+.sinBordes tr, .sinBordes td {
+    background: none !important;
+    border: none !important;
+}
+
+.ui-widget {
+/*     font-size: 95% !important;*/
+    font-size: 12px !important;
+}
+
+.etiqueta{
+/*    display: inline-block !important;*/
+/*    width: 300px;*/
+}
+
+.columnaGrid{
+    width: 200px;
+}

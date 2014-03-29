@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateAgenteTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateAgenteLabel_apellido}" for="apellido" />
+                    <h:inputText id="apellido" value="#{agenteController.selected.apellido}" title="#{bundle.CreateAgenteTitle_apellido}" />
+                    <h:outputLabel value="#{bundle.CreateAgenteLabel_nombres}" for="nombres" />
+                    <h:inputText id="nombres" value="#{agenteController.selected.nombres}" title="#{bundle.CreateAgenteTitle_nombres}" />
+                    <h:outputLabel value="#{bundle.CreateAgenteLabel_numerodocumento}" for="numerodocumento" />
+                    <h:inputText id="numerodocumento" value="#{agenteController.selected.numerodocumento}" title="#{bundle.CreateAgenteTitle_numerodocumento}" />
+                    <h:outputLabel value="#{bundle.CreateAgenteLabel_telefono}" for="telefono" />
+                    <h:inputText id="telefono" value="#{agenteController.selected.telefono}" title="#{bundle.CreateAgenteTitle_telefono}" />
+                    <h:outputLabel value="#{bundle.CreateAgenteLabel_celular}" for="celular" />
+                    <h:inputText id="celular" value="#{agenteController.selected.celular}" title="#{bundle.CreateAgenteTitle_celular}" />
+                    <h:outputLabel value="#{bundle.CreateAgenteLabel_email}" for="email" />
+                    <h:inputText id="email" value="#{agenteController.selected.email}" title="#{bundle.CreateAgenteTitle_email}" />
+                    <h:outputLabel value="#{bundle.CreateAgenteLabel_otroemail}" for="otroemail" />
+                    <h:inputText id="otroemail" value="#{agenteController.selected.otroemail}" title="#{bundle.CreateAgenteTitle_otroemail}" />
+                    <h:outputLabel value="#{bundle.CreateAgenteLabel_profesion}" for="profesion" />
+                    <h:inputText id="profesion" value="#{agenteController.selected.profesion}" title="#{bundle.CreateAgenteTitle_profesion}" />
+                    <h:outputLabel value="#{bundle.CreateAgenteLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{agenteController.selected.id}" title="#{bundle.CreateAgenteTitle_id}" required="true" requiredMessage="#{bundle.CreateAgenteRequiredMessage_id}"/>
+                    <h:outputLabel value="#{bundle.CreateAgenteLabel_domicilio}" for="domicilio" />
+                    <h:inputText id="domicilio" value="#{agenteController.selected.domicilio}" title="#{bundle.CreateAgenteTitle_domicilio}" />
+                    <h:outputLabel value="#{bundle.CreateAgenteLabel_tipodocumentoid}" for="tipodocumentoid" />
+                    <h:selectOneMenu id="tipodocumentoid" value="#{agenteController.selected.tipodocumentoid}" title="#{bundle.CreateAgenteTitle_tipodocumentoid}" >
+                        <f:selectItems value="#{tipodocumentoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateAgenteLabel_dependenciaid}" for="dependenciaid" />
+                    <h:selectOneMenu id="dependenciaid" value="#{agenteController.selected.dependenciaid}" title="#{bundle.CreateAgenteTitle_dependenciaid}" >
+                        <f:selectItems value="#{dependenciaController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{agenteController.create}" value="#{bundle.CreateAgenteSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{agenteController.prepareList}" value="#{bundle.CreateAgenteShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateAgenteIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

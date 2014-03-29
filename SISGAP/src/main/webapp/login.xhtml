@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Sistema de Gestión y  Administración de Proyectos</title>
+    </h:head>
+    <h:body>
+        
+        <p:dialog appendTo="@(body)" maximizable="false" visible="true" 
+                  minimizable="false" modal="true" header="Login" closable="false"
+                  resizable="false" width="350px"  >
+          <form method="POST" action="j_security_check" >
+             <p:messages ></p:messages>
+             <h:panelGrid columns="2" >
+                <h:outputText value="Username:" /> <input required="true"  type="text" name="j_username" />
+               
+                <h:outputText value="Password:" /> <input required="true" type="password" name="j_password" />
+           
+             </h:panelGrid>   
+             <div align="center">   
+                 <table style=" width: 100%">
+                 <td></td>
+                 <tr>
+                     <td style="text-align: left" >
+                        <h:link outcome="registrar" value="Registrarse" ></h:link>
+                     </td>
+                     <td align="right" >
+                     <p:inputText type="submit" value="Login" />
+                     </td>
+                 </tr>
+             </table>
+                      <h:link outcome="recuperarpassword" value="Olvide la contraseña" ></h:link>
+                
+             </div>
+             </form>
+             </p:dialog>
+             
+    </h:body>
+</html>

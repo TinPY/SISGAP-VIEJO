@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateUsuarioTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <p:messages id="messages" showDetail="true" autoUpdate="true"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Id" for="usuarioid" />
+                    <p:inputText disabled="true" id="usuarioid" value="#{usuarioController.selected.usuarioid}" title="Id" />
+                    <p:outputLabel value="Name" for="usuarionombre" />
+                    <p:inputText id="usuarionombre" value="#{usuarioController.selected.usuarionombre}" title="Name" />
+                    <p:outputLabel value="Password" for="usuarioclave" />
+                    <p:password id="usuarioclave" value="#{usuarioController.selected.usuarioclave}" title="Password" feedback="true" required="true"  
+                        promptLabel="Nivel de seguridad de la Contraseña" weakLabel="Debil"  
+                        goodLabel="Buena" strongLabel="Muy Buena" match="usuarioclave2" />
+                    <p:outputLabel value="Repita el password" for="usuarioclave2" />
+                    <p:password id="usuarioclave2" feedback="true" required="true"   
+                        promptLabel="Nivel de seguridad de la Contraseña" weakLabel="Debil"  
+                        goodLabel="Buena" strongLabel="Muy Buena" />
+                    <p:outputLabel value="Fecha de Alta" for="usuariofechaalta" />
+                    <p:calendar id="usuariofechaalta" value="#{usuarioController.selected.usuariofechaalta}" showOn="button" pattern="dd/MM/yyyy HH:mm" title="Fecha de Alta" >
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                    </p:calendar>
+                    <p:outputLabel value="Fecha de Baja" for="usuariofechabaja" />
+                    <p:calendar id="usuariofechabaja" value="#{usuarioController.selected.usuariofechabaja}" showOn="button" pattern="dd/MM/yyyy HH:mm" title="Fecha de Baja" >
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                    </p:calendar>
+                    <p:outputLabel value="Estado" for="usuarioestado" />
+                    <p:inputText id="usuarioestado" value="#{usuarioController.selected.usuarioestado}" title="Estado" required="true" requiredMessage="Por favor Ingrese el Estado"/>
+                    <p:outputLabel value="Rol" for="ususariorol" />
+                    <p:selectOneMenu id="ususariorol" value="#{usuarioController.selected.usuariorol}" label="Rol" required="true" requiredMessage="Por favor ingrese el Rol">
+                        <f:selectItems value="#{perfilController.itemsAvailableSelectOne}"/>
+                    </p:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{usuarioController.create}" value="#{bundle.CreateUsuarioSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{usuarioController.prepareList}" value="#{bundle.CreateUsuarioShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateUsuarioIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

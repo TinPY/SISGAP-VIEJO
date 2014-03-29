@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>Error</title>
+    </h:head>
+    <h:body>
+        <p:dialog closable="false" maximizable="false"
+                  minimizable="false" visible="true" appendTo="@(body)"
+                  modal="true" header="Login Error">
+            Lo sentimos tenes un error. Por favor intenta de nuevo: <a href="#{facesContext.externalContext.requestContextPath}/index.xhtml" >Login</a>
+        </p:dialog>
+    </h:body>
+</html>

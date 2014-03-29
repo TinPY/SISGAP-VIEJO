@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreatePresupuestoRubroTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreatePresupuestoRubroLabel_gastoentidad}" for="gastoentidad" />
+                    <h:inputText id="gastoentidad" value="#{presupuestoRubroController.selected.gastoentidad}" title="#{bundle.CreatePresupuestoRubroTitle_gastoentidad}" />
+                    <h:outputLabel value="#{bundle.CreatePresupuestoRubroLabel_gastouniversidad}" for="gastouniversidad" />
+                    <h:inputText id="gastouniversidad" value="#{presupuestoRubroController.selected.gastouniversidad}" title="#{bundle.CreatePresupuestoRubroTitle_gastouniversidad}" />
+                    <h:outputLabel value="#{bundle.CreatePresupuestoRubroLabel_estado}" for="estado" />
+                    <h:inputText id="estado" value="#{presupuestoRubroController.selected.estado}" title="#{bundle.CreatePresupuestoRubroTitle_estado}" />
+                    <h:outputLabel value="#{bundle.CreatePresupuestoRubroLabel_rubro}" for="rubro" />
+                    <h:selectOneMenu id="rubro" value="#{presupuestoRubroController.selected.rubro}" title="#{bundle.CreatePresupuestoRubroTitle_rubro}" required="true" requiredMessage="#{bundle.CreatePresupuestoRubroRequiredMessage_rubro}">
+                        <f:selectItems value="#{rubroController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreatePresupuestoRubroLabel_presupuesto}" for="presupuesto" />
+                    <h:selectOneMenu id="presupuesto" value="#{presupuestoRubroController.selected.presupuesto}" title="#{bundle.CreatePresupuestoRubroTitle_presupuesto}" required="true" requiredMessage="#{bundle.CreatePresupuestoRubroRequiredMessage_presupuesto}">
+                        <f:selectItems value="#{presupuestoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{presupuestoRubroController.create}" value="#{bundle.CreatePresupuestoRubroSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{presupuestoRubroController.prepareList}" value="#{bundle.CreatePresupuestoRubroShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreatePresupuestoRubroIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
