@@ -3,56 +3,110 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
             <h:outputText value="#{bundle.ViewProyectoTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
+
+            <f:event type="preRenderView" listener="#{agenteController.findAgente(request.getUserPrincipal().toString())}" ></f:event>
+            <f:event type="preRenderView" listener="#{proyectoController.buscarProyectoAgente(agenteController.selected.id)}" ></f:event>
+
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewProyectoLabel_fecha}"/>
-                    <h:outputText value="#{proyectoController.selected.fecha}" title="#{bundle.ViewProyectoTitle_fecha}">
-                        <f:convertDateTime pattern="HH:mm:ss" />
-                    </h:outputText>
-                    <h:outputText value="#{bundle.ViewProyectoLabel_nombre}"/>
-                    <h:outputText value="#{proyectoController.selected.nombre}" title="#{bundle.ViewProyectoTitle_nombre}"/>
-                    <h:outputText value="#{bundle.ViewProyectoLabel_resumen}"/>
-                    <h:outputText value="#{proyectoController.selected.resumen}" title="#{bundle.ViewProyectoTitle_resumen}"/>
-                    <h:outputText value="#{bundle.ViewProyectoLabel_documentacion}"/>
-                    <h:outputText value="#{proyectoController.selected.documentacion}" title="#{bundle.ViewProyectoTitle_documentacion}"/>
-                    <h:outputText value="#{bundle.ViewProyectoLabel_observaciones}"/>
-                    <h:outputText value="#{proyectoController.selected.observaciones}" title="#{bundle.ViewProyectoTitle_observaciones}"/>
-                    <h:outputText value="#{bundle.ViewProyectoLabel_duracion}"/>
-                    <h:outputText value="#{proyectoController.selected.duracion}" title="#{bundle.ViewProyectoTitle_duracion}"/>
-                    <h:outputText value="#{bundle.ViewProyectoLabel_estado}"/>
-                    <h:outputText value="#{proyectoController.selected.estado}" title="#{bundle.ViewProyectoTitle_estado}"/>
-                    <h:outputText value="#{bundle.ViewProyectoLabel_id}"/>
-                    <h:outputText value="#{proyectoController.selected.id}" title="#{bundle.ViewProyectoTitle_id}"/>
-                    <h:outputText value="#{bundle.ViewProyectoLabel_cudap}"/>
-                    <h:outputText value="#{proyectoController.selected.cudap}" title="#{bundle.ViewProyectoTitle_cudap}"/>
-                    <h:outputText value="#{bundle.ViewProyectoLabel_tipoproyectoid}"/>
-                    <h:outputText value="#{proyectoController.selected.tipoproyectoid}" title="#{bundle.ViewProyectoTitle_tipoproyectoid}"/>
-                    <h:outputText value="#{bundle.ViewProyectoLabel_convocatoriaid}"/>
-                    <h:outputText value="#{proyectoController.selected.convocatoriaid}" title="#{bundle.ViewProyectoTitle_convocatoriaid}"/>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{proyectoController.destroyAndView}" value="#{bundle.ViewProyectoDestroyLink}"/>
-                <br />
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewProyectoEditLink}"/>
-                <br />
-                <h:commandLink action="#{proyectoController.prepareCreate}" value="#{bundle.ViewProyectoCreateLink}" />
-                <br />
-                <h:commandLink action="#{proyectoController.prepareList}" value="#{bundle.ViewProyectoShowAllLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ViewProyectoIndexLink}"/>
-
+                <p:panel id="detalleSolicitud" header="Detalles de la Solicitud">
+                    <h:panelGrid columns="2">
+                        <h:column>
+                            <h:outputText value="#{bundle.ViewProyectoLabel_fecha}"/>
+                        </h:column>
+                        <h:column>
+                            <h:outputText value="#{proyectoController.selected.fecha}" title="#{Bundle.ViewProyectoTitle_fecha}" style="font-weight: bold; text-align: right;">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <h:outputText value="#{bundle.ViewProyectoLabel_nombre}"/>
+                        </h:column>
+                        <h:column>
+                            <h:outputText value="#{proyectoController.selected.nombre}" title="#{Bundle.ViewProyectoTitle_nombre}"/>
+                        </h:column>
+                        <h:column>
+                            <h:outputText value="#{bundle.ViewProyectoLabel_resumen}"/>
+                        </h:column>
+                        <h:column>
+                            <h:outputText value="#{proyectoController.selected.resumen}" title="#{Bundle.ViewProyectoTitle_resumen}"/>
+                        </h:column>
+                        <h:column>
+                            <h:outputText value="#{bundle.ViewProyectoLabel_documentacion}"/>
+                        </h:column>
+                        <h:column>
+                            <h:outputText value="#{proyectoController.selected.documentacion}" title="#{Bundle.ViewProyectoTitle_documentacion}"/>
+                        </h:column>
+                        <h:column>
+                            <h:outputText value="#{bundle.ViewProyectoLabel_observaciones}"/>
+                        </h:column>
+                        <h:column>
+                            <h:outputText value="#{proyectoController.selected.observaciones}" title="#{Bundle.ViewProyectoTitle_observaciones}"/>
+                        </h:column>
+                        <h:column>
+                            <h:outputText value="#{bundle.ViewProyectoLabel_duracion}"/>
+                        </h:column>
+                        <h:column>
+                            <h:outputText value="#{proyectoController.selected.duracion}" title="#{Bundle.ViewProyectoTitle_duracion}"/>
+                        </h:column>
+                        <h:column>
+                            <h:outputText value="#{bundle.ViewProyectoLabel_estado}"/>
+                        </h:column>
+                        <h:column>
+                            <h:outputText value="#{proyectoController.selected.estado}" title="#{Bundle.ViewProyectoTitle_estado}"/>
+                        </h:column>
+                        <h:column>
+                            <h:outputText value="#{bundle.ViewProyectoLabel_id}"/>
+                        </h:column>
+                        <h:column>
+                            <h:outputText value="#{proyectoController.selected.id}" title="#{Bundle.ViewProyectoTitle_id}"/>
+                        </h:column>
+                        <h:column>
+                            <h:outputText value="#{bundle.ViewProyectoLabel_cudap}"/>
+                        </h:column>
+                        <h:column>
+                            <h:outputText value="#{proyectoController.selected.cudap}" title="#{Bundle.ViewProyectoTitle_cudap}"/>
+                        </h:column>
+                        <h:column>
+                            <h:outputText value="#{bundle.ViewProyectoLabel_tipoproyectoid}"/>
+                        </h:column>
+                        <h:column>
+                            <h:outputText value="#{proyectoController.selected.tipoproyectoid.tipo}" title="#{Bundle.ViewProyectoTitle_tipoproyectoid}"/>
+                        </h:column>
+                        
+                        <h:column>
+                            <h:outputText value="#{bundle.ViewProyectoLabel_convocatoriaid}"/>
+                        </h:column>
+                        <h:column>
+                            <h:outputText value="#{proyectoController.selected.convocatoriaid.convocatoria}" title="#{Bundle.ViewProyectoTitle_convocatoriaid}"/>
+                        </h:column>
+                    </h:panelGrid>
+                    <br />
+                    <h:commandLink action="#{proyectoController.destroyAndView}" value="#{Bundle.ViewProyectoDestroyLink}"/>
+                    <br />
+                    <br />
+                    <h:link outcome="Edit" value="#{Bundle.ViewProyectoEditLink}"/>
+                    <br />
+                    <h:commandLink action="#{proyectoController.prepareCreate}" value="#{Bundle.ViewProyectoCreateLink}" />
+                    <br />
+                    <h:commandLink action="#{proyectoController.prepareList}" value="#{Bundle.ViewProyectoShowAllLink}"/>
+                    <br />
+                    <br />
+                    <h:link outcome="/index" value="#{Bundle.ViewProyectoIndexLink}"/>
+                </p:panel>
+                <h:commandButton value="Imprimir" type="button">  
+                    <p:printer target="detalleSolicitud" />  
+                </h:commandButton>  
             </h:form>
         </ui:define>
     </ui:composition>
