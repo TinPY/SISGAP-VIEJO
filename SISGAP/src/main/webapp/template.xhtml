@@ -8,9 +8,12 @@
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="icon" href="#{resource['img:/undec.ico']}" type="image/x-icon" />  
+        <link rel="shortcut icon" href="#{resource['img:/undec.ico']}" type="image/x-icon" /> 
+
         <h:outputStylesheet name="./css/cssLayout.css"/>
         <title>SISGAP</title>
-<h:outputStylesheet name="css/jsfcrud.css"/>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
     </h:head>
    
     <h:body>
@@ -25,7 +28,7 @@
                             <h3>UNIVERSIDAD NACIONAL DE CHILECITO</h3>
                         </div>   
                            <h:form id="formmenu">
-                           <p:menubar autoDisplay="Home"   >
+                           <p:menubar autoDisplay="Home">
                                <p:submenu label="Solicitudes" icon="ui-icon-document">  
                                    <p:menuitem value="Nueva Solicitud" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/solicitud/Solicitud.xhtml' />  
                                    <p:menuitem value="Listado de Solicitudes" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/solicitud/List.xhtml' />  
