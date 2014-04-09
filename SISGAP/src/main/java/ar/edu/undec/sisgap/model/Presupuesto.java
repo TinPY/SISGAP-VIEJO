@@ -42,22 +42,29 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Presupuesto.findByFecha", query = "SELECT p FROM Presupuesto p WHERE p.fecha = :fecha"),
     @NamedQuery(name = "Presupuesto.findByEstado", query = "SELECT p FROM Presupuesto p WHERE p.estado = :estado")})
 public class Presupuesto implements Serializable {
+    
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="presupuesto_id_seq")
     @Basic(optional = true)
     @Column(name = "id")
     private Integer id;
+    
     @Column(name = "fecha")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecha;
+    
     @Column(name = "estado")
     private Character estado;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "presupuesto")
     private List<PresupuestoRubro> presupuestoRubroList;
+    
     @JoinColumn(name = "proyectoid", referencedColumnName = "id")
     @ManyToOne
     private Proyecto proyectoid;
+    
     public Presupuesto() {
     }
 

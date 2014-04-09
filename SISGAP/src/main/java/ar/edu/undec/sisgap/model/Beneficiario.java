@@ -39,6 +39,7 @@ public class Beneficiario implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    
     @Size(max = 35)
     @Column(name = "beneficiario")
     private String beneficiario;

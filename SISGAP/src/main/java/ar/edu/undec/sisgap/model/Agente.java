@@ -43,29 +43,38 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Agente.findById", query = "SELECT a FROM Agente a WHERE a.id = :id"),
     @NamedQuery(name = "Agente.findByDomicilio", query = "SELECT a FROM Agente a WHERE a.domicilio = :domicilio")})
 public class Agente implements Serializable {
+    
     private static final long serialVersionUID = 1L;
+    
     @Size(max = 25)
     @Column(name = "apellido")
     private String apellido;
+    
     @Size(max = 35)
     @Column(name = "nombres")
     private String nombres;
+    
     @Size(max = 15)
     @Column(name = "numerodocumento")
     private String numerodocumento;
+    
     @Size(max = 25)
     @Column(name = "telefono")
     private String telefono;
+    
     @Size(max = 25)
     @Column(name = "celular")
     private String celular;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    
     @Size(max = 60)
     @Column(name = "email")
     private String email;
+    
     @Size(max = 60)
     @Column(name = "otroemail")
     private String otroemail;
+    
     @Size(max = 100)
     @Column(name = "profesion")
     private String profesion;
@@ -75,15 +84,19 @@ public class Agente implements Serializable {
     @Basic(optional = true)
     @Column(name = "id")
     private Integer id;
+    
     @Size(max = 2147483647)
     @Column(name = "domicilio")
     private String domicilio;
+    
     @JoinColumn(name = "tipodocumentoid", referencedColumnName = "tipodocumentoid")
     @ManyToOne
     private Tipodocumento tipodocumentoid;
+    
     @JoinColumn(name = "dependenciaid", referencedColumnName = "id")
     @ManyToOne
     private Dependencia dependenciaid;
+    
     @JoinColumn(name = "usuarioid", referencedColumnName = "usuarioid" )
     @ManyToOne
     private Usuario usuarioid;

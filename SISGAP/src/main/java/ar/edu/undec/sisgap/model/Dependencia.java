@@ -35,14 +35,17 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Dependencia.findByDependencia", query = "SELECT d FROM Dependencia d WHERE d.dependencia = :dependencia")})
 public class Dependencia implements Serializable {
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    
     @Size(max = 2147483647)
     @Column(name = "dependencia")
     private String dependencia;
+    
     @OneToMany(mappedBy = "dependenciaid")
     private List<Agente> agenteList;
 

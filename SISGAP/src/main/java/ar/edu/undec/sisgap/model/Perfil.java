@@ -42,11 +42,13 @@ public class Perfil implements Serializable {
     @Basic(optional = false)
     @Column(name = "rolid")
     private Integer rolid;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30)
     @Column(name = "rol")
     private String rol;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuariorol")
     private List<Usuario> usuarioList;
 

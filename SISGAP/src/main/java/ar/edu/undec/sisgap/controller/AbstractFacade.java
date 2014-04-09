@@ -33,8 +33,6 @@ public abstract class AbstractFacade<T> {
 
     public void create(T entity) {
         getEntityManager().persist(entity);
-        
-        
     }
 
     public void edit(T entity) {
@@ -49,7 +47,7 @@ public abstract class AbstractFacade<T> {
         return getEntityManager().find(entityClass, id);
     }
    
-     public Usuario find2(String valor1, String valor2) {
+    public Usuario find2(String valor1, String valor2) {
         Query q=null;
          try{
          

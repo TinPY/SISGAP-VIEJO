@@ -39,24 +39,30 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Entidadbeneficiaria.findByEmail", query = "SELECT e FROM Entidadbeneficiaria e WHERE e.email = :email")})
 public class Entidadbeneficiaria implements Serializable {
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="entidadbeneficiaria_id_seq")
     @Basic(optional = true)
     @Column(name = "id")
     private Integer id;
+    
     @Size(max = 150)
     @Column(name = "razonsocial")
     private String razonsocial;
+    
     @Size(max = 20)
     @Column(name = "cuit")
     private String cuit;
+    
     @Size(max = 25)
     @Column(name = "telefono")
     private String telefono;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    
     @Size(max = 100)
     @Column(name = "email")
     private String email;
+    
     @JoinColumn(name = "tipoentidadid", referencedColumnName = "id")
     @ManyToOne
     private Tipoentidad tipoentidadid;

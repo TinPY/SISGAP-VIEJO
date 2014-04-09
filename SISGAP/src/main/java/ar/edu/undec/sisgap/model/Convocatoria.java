@@ -47,39 +47,51 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Convocatoria.findByFechainicio", query = "SELECT c FROM Convocatoria c WHERE c.fechainicio = :fechainicio"),
     @NamedQuery(name = "Convocatoria.findByFechacierre", query = "SELECT c FROM Convocatoria c WHERE c.fechacierre = :fechacierre")})
 public class Convocatoria implements Serializable {
+    
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="convocatoria_id_seq")
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    
     @Size(max = 150)
     @Column(name = "convocatoria")
     private String convocatoria;
+    
     @Size(max = 2147483647)
     @Column(name = "descripcion")
     private String descripcion;
+    
     //@Lob
     @Column(name = "bases")
     private byte[] bases;
+
     @Size(max = 2147483647)
     @Column(name = "link")
     private String link;
     //@Lob
+    
     @Column(name = "formulario")
     private byte[] formulario;
+    
     @Column(name = "fechapublicacion")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechapublicacion;
+    
     @Column(name = "fechainicio")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechainicio;
+    
     @Column(name = "fechacierre")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechacierre;
+    
     @JoinColumn(name = "tipoproyectoid", referencedColumnName = "id")
     @ManyToOne
     private Tipoproyecto tipoproyectoid;
+    
     @OneToMany(mappedBy = "convocatoriaid")
     private List<Proyecto> proyectoList;
 

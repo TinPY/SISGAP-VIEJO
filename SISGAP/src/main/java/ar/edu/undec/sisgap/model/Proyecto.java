@@ -52,45 +52,59 @@ public class Proyecto implements Serializable {
     @Column(name = "fecha")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecha;
+    
     @Size(max = 2147483647)
     @Column(name = "nombre")
     private String nombre;
+    
     @Size(max = 2147483647)
     @Column(name = "resumen")
     private String resumen;
-    //@Lob
+    
+//@Lob
     @Column(name = "documentacion")
     private byte[] documentacion;
+
     @Size(max = 2147483647)
     @Column(name = "observaciones")
     private String observaciones;
+    
     @Column(name = "duracion")
     private Short duracion;
+    
     @Column(name = "estado")
     private Character estado;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="proyecto_id_seq")
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    
     @Size(max = 30)
     @Column(name = "cudap")
     private String cudap;
+    
     @JoinColumn(name = "tipoproyectoid", referencedColumnName = "id")
     @ManyToOne
     private Tipoproyecto tipoproyectoid;
+    
     @JoinColumn(name = "convocatoriaid", referencedColumnName = "id")
     @ManyToOne
     private Convocatoria convocatoriaid;
+    
     @JoinColumn(name = "entidadid", referencedColumnName = "id")
     @ManyToOne
     private Entidadbeneficiaria entidadid;
+    
     @JoinColumn(name = "agenteid", referencedColumnName = "id")
     @ManyToOne
     private Agente agenteid;
+    
     @JoinColumn(name = "beneficiarioid", referencedColumnName = "id")
     @ManyToOne
     private Beneficiario beneficiarioid;
+    
     @JoinColumn(name = "tipofinanciamientoid", referencedColumnName = "id")
     @ManyToOne
     private Tipofinanciamiento tipofinanciamientoid;

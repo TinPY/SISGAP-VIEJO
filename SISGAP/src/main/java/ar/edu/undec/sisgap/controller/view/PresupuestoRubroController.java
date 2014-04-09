@@ -28,48 +28,46 @@ import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import org.primefaces.event.CellEditEvent;
 
-
 @ManagedBean(name = "presupuestoRubroController")
 @SessionScoped
 public class PresupuestoRubroController implements Serializable {
 
     private PresupuestoRubro current;
-    
+
     private DataModel items = null;
-    private List<PresupuestoRubro> presupuestosrubros=new ArrayList<PresupuestoRubro>();
+    private List<PresupuestoRubro> presupuestosrubros = new ArrayList<PresupuestoRubro>();
     @EJB
     private ar.edu.undec.sisgap.controller.PresupuestoRubroFacade ejbFacade;
     @EJB
     private ar.edu.undec.sisgap.controller.RubroFacade rubroFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
-    private BigDecimal sumagastoentidad=BigDecimal.ZERO;
-    private BigDecimal sumagastouniversidad=BigDecimal.ZERO;
-    private BigDecimal sumagastoorganismo=BigDecimal.ZERO;
-    
+    private BigDecimal sumagastoentidad = BigDecimal.ZERO;
+    private BigDecimal sumagastouniversidad = BigDecimal.ZERO;
+    private BigDecimal sumagastoorganismo = BigDecimal.ZERO;
+
     public PresupuestoRubroController() {
-        
-         
+
     }
-    
+
     @PostConstruct
-public void init() {
-   try{
-          // presupuestosrubros=new ArrayList<PresupuestoRubro>();
-               for (Rubro rubro : rubroFacade.findAll()) {
-                   PresupuestoRubro presupuestorubro=new PresupuestoRubro();
-                   presupuestorubro.setRubro(rubro);
-                   presupuestorubro.setGastocomitente(new BigDecimal(0));
-                   presupuestorubro.setGastouniversidad(new BigDecimal(0));
-                   presupuestorubro.setGastoorganismo(new BigDecimal(0));
-                   presupuestosrubros.add(presupuestorubro);
-               }
-          
-         // System.out.println( presupuestosrubros.size());
-        }catch(Exception e){
-           System.out.println("mmmmmmmmmmmmmm"+e);
-        } 
-}
+    public void init() {
+        try {
+            // presupuestosrubros=new ArrayList<PresupuestoRubro>();
+            for (Rubro rubro : rubroFacade.findAll()) {
+                PresupuestoRubro presupuestorubro = new PresupuestoRubro();
+                presupuestorubro.setRubro(rubro);
+                presupuestorubro.setGastocomitente(new BigDecimal(0));
+                presupuestorubro.setGastouniversidad(new BigDecimal(0));
+                presupuestorubro.setGastoorganismo(new BigDecimal(0));
+                presupuestosrubros.add(presupuestorubro);
+            }
+
+            // System.out.println( presupuestosrubros.size());
+        } catch (Exception e) {
+            System.out.println("mmmmmmmmmmmmmm" + e);
+        }
+    }
 
     public PresupuestoRubro getSelected() {
         if (current == null) {
@@ -234,10 +232,9 @@ public void init() {
     }
 
     public List<PresupuestoRubro> getPresupuestosrubros() {
-       
-       return presupuestosrubros;
-         
-    
+
+        return presupuestosrubros;
+
     }
 
     public void setPresupuestosrubros() {
@@ -245,9 +242,8 @@ public void init() {
         this.init();
     }
 
-    
-   public BigDecimal getSumagastoorganismo() {
-       
+    public BigDecimal getSumagastoorganismo() {
+
         return sumagastoorganismo;
     }
 
@@ -256,7 +252,7 @@ public void init() {
     }
 
     public BigDecimal getSumagastocomitente() {
-       
+
         return sumagastoentidad;
     }
 
@@ -265,50 +261,48 @@ public void init() {
     }
 
     public BigDecimal getSumagastouniversidad() {
-          return sumagastouniversidad;
+        return sumagastouniversidad;
     }
 
     public void setSumagastouniversidad(BigDecimal sumagastouniversidad) {
         this.sumagastouniversidad = sumagastouniversidad;
     }
-    
-    public void sumarGastos(CellEditEvent event){
-        
-        Object oldValue = event.getOldValue();  
-        Object newValue = event.getNewValue();  
-          
-                    Iterator it=presupuestosrubros.iterator();
-                 BigDecimal totalcomitente=BigDecimal.ZERO;
-                BigDecimal totaluniversidad=BigDecimal.ZERO;
-                BigDecimal totalorganismo=BigDecimal.ZERO;
-                    sumagastoentidad=BigDecimal.ZERO;
-                    sumagastouniversidad=BigDecimal.ZERO;
-                 while(it.hasNext()){
-                     PresupuestoRubro pr=(PresupuestoRubro)it.next();
-                    totalcomitente=totalcomitente.add(new BigDecimal(pr.getGastocomitente().setScale(2).toString()));
-                    totaluniversidad=totaluniversidad.add(new BigDecimal(pr.getGastouniversidad().setScale(2).toString()));
-                    totalorganismo=totalorganismo.add(new BigDecimal(pr.getGastoorganismo().setScale(2).toString()));
-                  // sumagastoentidad=new BigDecimal(totalentidad).setScale(2);
-                  // sumagastouniversidad=new BigDecimal(totaluniversidad).setScale(2);
-                 // System.out.println("000000000000000+"+totalentidad.setScale(2).toString());
-                 }
-                 sumagastoentidad=totalcomitente;
-                 sumagastouniversidad=totaluniversidad;
-                 sumagastoorganismo=totalorganismo;
-         
-        
-        
+
+    public void sumarGastos(CellEditEvent event) {
+
+        Object oldValue = event.getOldValue();
+        Object newValue = event.getNewValue();
+
+        Iterator it = presupuestosrubros.iterator();
+        BigDecimal totalcomitente = BigDecimal.ZERO;
+        BigDecimal totaluniversidad = BigDecimal.ZERO;
+        BigDecimal totalorganismo = BigDecimal.ZERO;
+        sumagastoentidad = BigDecimal.ZERO;
+        sumagastouniversidad = BigDecimal.ZERO;
+        while (it.hasNext()) {
+            PresupuestoRubro pr = (PresupuestoRubro) it.next();
+            totalcomitente = totalcomitente.add(new BigDecimal(pr.getGastocomitente().setScale(2).toString()));
+            totaluniversidad = totaluniversidad.add(new BigDecimal(pr.getGastouniversidad().setScale(2).toString()));
+            totalorganismo = totalorganismo.add(new BigDecimal(pr.getGastoorganismo().setScale(2).toString()));
+            // sumagastoentidad=new BigDecimal(totalentidad).setScale(2);
+            // sumagastouniversidad=new BigDecimal(totaluniversidad).setScale(2);
+            // System.out.println("000000000000000+"+totalentidad.setScale(2).toString());
+        }
+        sumagastoentidad = totalcomitente;
+        sumagastouniversidad = totaluniversidad;
+        sumagastoorganismo = totalorganismo;
+
     }
-    
-    public void soloCrear(PresupuestoRubro pr){
-       
-        pr.setPresupuestoRubroPK(new PresupuestoRubroPK(pr.getPresupuesto().getId(),pr.getRubro().getId()));
+
+    public void soloCrear(PresupuestoRubro pr) {
+
+        pr.setPresupuestoRubroPK(new PresupuestoRubroPK(pr.getPresupuesto().getId(), pr.getRubro().getId()));
        //  p.getPresupuestoRubroPK().setRubroid(pr.getRubro().getId());
-       // p.getPresupuestoRubroPK().setPresupuestoid(pr.getPresupuesto().getId());
-         System.out.println("--------------"+pr.getRubro().getId());
-        System.out.println("--------------"+pr.getPresupuesto().getId());
+        // p.getPresupuestoRubroPK().setPresupuestoid(pr.getPresupuesto().getId());
+        System.out.println("--------------" + pr.getRubro().getId());
+        System.out.println("--------------" + pr.getPresupuesto().getId());
         System.out.println("--------------ppppppppppppppppppppppppppppppp");
-        
+
         getFacade().create(pr);
     }
 
