@@ -37,19 +37,16 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Tipodocumento.findByTipodocumento", query = "SELECT t FROM Tipodocumento t WHERE t.tipodocumento = :tipodocumento")})
 public class Tipodocumento implements Serializable {
     private static final long serialVersionUID = 1L;
-   
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Basic(optional = false)
     @Column(name = "tipodocumentoid")
     private Integer tipodocumentoid;
-   
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2147483647)
     @Column(name = "tipodocumento")
     private String tipodocumento;
-    
     @OneToMany(mappedBy = "tipodocumentoid")
     private List<Agente> agenteList;
 

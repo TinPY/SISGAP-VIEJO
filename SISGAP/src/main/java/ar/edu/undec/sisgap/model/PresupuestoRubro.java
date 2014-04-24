@@ -34,29 +34,23 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "PresupuestoRubro.findByGastouniversidad", query = "SELECT p FROM PresupuestoRubro p WHERE p.gastouniversidad = :gastouniversidad"),
     @NamedQuery(name = "PresupuestoRubro.findByEstado", query = "SELECT p FROM PresupuestoRubro p WHERE p.estado = :estado")})
 public class PresupuestoRubro implements Serializable {
-    
     private static final long serialVersionUID = 1L;
-    
     @EmbeddedId
     protected PresupuestoRubroPK presupuestoRubroPK;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    
     @Column(name = "gastocomitente")
     private BigDecimal gastocomitente;
-    
     @Column(name = "gastouniversidad")
     private BigDecimal gastouniversidad;
-    
     @Column(name = "gastoorganismo")
     private BigDecimal gastoorganismo;
-    
+    @Column(name = "total")
+    private BigDecimal total;
     @Column(name = "estado")
     private Character estado;
-    
     @JoinColumn(name = "rubroid", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Rubro rubro;
-    
     @JoinColumn(name = "presupuestoid", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Presupuesto presupuesto;
@@ -106,6 +100,16 @@ public class PresupuestoRubro implements Serializable {
         this.gastouniversidad = gastouniversidad;
     }
 
+    public BigDecimal getTotal() {
+        return total;
+    }
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
+    }
+    
+    
+    
     public Character getEstado() {
         return estado;
     }

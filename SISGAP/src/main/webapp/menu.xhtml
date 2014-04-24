@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+   <h:form id="formmenu">
+     <p:menubar autoDisplay="Home"   >
+                             <c:if test="#{request.isUserInRole('Administrador')}" > 
+                             
+                               <p:submenu label="Idea Proyecto" icon="ui-icon-document">  
+                                    <p:menuitem value="Evaluacion de Ideas Proyectos" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/evaluacionideaproyecto/List.xhtml' />  
+                                   
+                            </p:submenu>  
+
+                            <p:submenu label="Proyectos" icon="ui-icon-pencil">  
+                                <p:menuitem value="Listado de Proyectos" url="#" icon="ui-icon-arrowreturnthick-1-w" />  
+                            </p:submenu>  
+
+                            <p:submenu label="Ayuda" icon="ui-icon-help">  
+                                <p:menuitem value="Acerca de ..." url="#" />  
+                                <p:submenu label="Manual" icon="ui-icon-search">  
+                                   
+                                </p:submenu>  
+                            </p:submenu>  
+
+                          
+
+                            <p:menuitem value="Mi Cuenta" url="http://www.primefaces.org" icon="ui-icon-close" />  
+
+                            <f:facet name="options">  
+                                 Bienvenido #{request.getUserPrincipal()}  
+                                <h:commandLink actionListener="#{usuarioController.logout()}" value="Logout"  />  
+                            </f:facet>  
+                           
+                        
+    </c:if>
+                             
+         <c:if test="#{!request.isUserInRole('Administrador')}" > 
+                               
+                               <p:submenu label="Solicitudes" icon="ui-icon-document">  
+                                   <p:menuitem value="Nueva Solicitud" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/solicitud/Solicitud.xhtml' />  
+                                   <p:menuitem value="Listado de Solicitudes" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/solicitud/List.xhtml' />  
+                                   
+                            </p:submenu>  
+
+                            <p:submenu label="Proyectos" icon="ui-icon-pencil">  
+                                <p:menuitem value="Listado de Proyectos" url="#" icon="ui-icon-arrowreturnthick-1-w" />  
+                            </p:submenu>  
+
+                            <p:submenu label="Ayuda" icon="ui-icon-help">  
+                                <p:menuitem value="Acerca de ..." url="#" />  
+                                <p:submenu label="Manual" icon="ui-icon-search">  
+                                   
+                                </p:submenu>  
+                            </p:submenu>  
+
+                          
+
+                            <p:menuitem value="Mi Cuenta" url="http://www.primefaces.org" icon="ui-icon-close" />  
+
+                            <f:facet name="options">  
+                                 Bienvenido #{request.getUserPrincipal()}  
+                                <h:commandLink actionListener="#{usuarioController.logout()}" value="Logout"  />  
+                            </f:facet>  
+                          
+    </c:if>                    
+                             
+    </p:menubar> 
+   </h:form>
+  
+</html>

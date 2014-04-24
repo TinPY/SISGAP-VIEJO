@@ -1,9 +1,9 @@
 package ar.edu.undec.sisgap.controller.view;
 
-import ar.edu.undec.sisgap.model.Tipoentidad;
+import ar.edu.undec.sisgap.model.Avanceproyecto;
 import ar.edu.undec.sisgap.controller.view.util.JsfUtil;
 import ar.edu.undec.sisgap.controller.view.util.PaginationHelper;
-import ar.edu.undec.sisgap.controller.TipoentidadFacade;
+import ar.edu.undec.sisgap.controller.AvanceproyectoFacade;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -18,29 +18,29 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
-@ManagedBean(name = "tipoentidadController")
+@ManagedBean(name = "avanceproyectoController")
 @SessionScoped
-public class TipoentidadController implements Serializable {
+public class AvanceproyectoController implements Serializable {
 
-    private Tipoentidad current;
+    private Avanceproyecto current;
     private DataModel items = null;
     @EJB
-    private ar.edu.undec.sisgap.controller.TipoentidadFacade ejbFacade;
+    private ar.edu.undec.sisgap.controller.AvanceproyectoFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
-    public TipoentidadController() {
+    public AvanceproyectoController() {
     }
 
-    public Tipoentidad getSelected() {
+    public Avanceproyecto getSelected() {
         if (current == null) {
-            current = new Tipoentidad();
+            current = new Avanceproyecto();
             selectedItemIndex = -1;
         }
         return current;
     }
 
-    private TipoentidadFacade getFacade() {
+    private AvanceproyectoFacade getFacade() {
         return ejbFacade;
     }
 
@@ -68,13 +68,13 @@ public class TipoentidadController implements Serializable {
     }
 
     public String prepareView() {
-        current = (Tipoentidad) getItems().getRowData();
+        current = (Avanceproyecto) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
     public String prepareCreate() {
-        current = new Tipoentidad();
+        current = new Avanceproyecto();
         selectedItemIndex = -1;
         return "Create";
     }
@@ -82,7 +82,7 @@ public class TipoentidadController implements Serializable {
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TipoentidadCreated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AvanceproyectoCreated"));
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -91,7 +91,7 @@ public class TipoentidadController implements Serializable {
     }
 
     public String prepareEdit() {
-        current = (Tipoentidad) getItems().getRowData();
+        current = (Avanceproyecto) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
@@ -99,7 +99,7 @@ public class TipoentidadController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TipoentidadUpdated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AvanceproyectoUpdated"));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -108,7 +108,7 @@ public class TipoentidadController implements Serializable {
     }
 
     public String destroy() {
-        current = (Tipoentidad) getItems().getRowData();
+        current = (Avanceproyecto) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
@@ -132,7 +132,7 @@ public class TipoentidadController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TipoentidadDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AvanceproyectoDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
@@ -188,16 +188,16 @@ public class TipoentidadController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    @FacesConverter(forClass = Tipoentidad.class)
-    public static class TipoentidadControllerConverter implements Converter {
+    @FacesConverter(forClass = Avanceproyecto.class)
+    public static class AvanceproyectoControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            TipoentidadController controller = (TipoentidadController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "tipoentidadController");
+            AvanceproyectoController controller = (AvanceproyectoController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "avanceproyectoController");
             return controller.ejbFacade.find(getKey(value));
         }
 
@@ -218,11 +218,11 @@ public class TipoentidadController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Tipoentidad) {
-                Tipoentidad o = (Tipoentidad) object;
+            if (object instanceof Avanceproyecto) {
+                Avanceproyecto o = (Avanceproyecto) object;
                 return getStringKey(o.getId());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Tipoentidad.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Avanceproyecto.class.getName());
             }
         }
 

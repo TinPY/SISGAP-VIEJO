@@ -11,63 +11,71 @@ import ar.edu.undec.sisgap.model.Rubro;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIData;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.event.ActionEvent;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import org.primefaces.component.datatable.DataTable;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.CellEditEvent;
+import org.primefaces.model.chart.PieChartModel;
+
 
 @ManagedBean(name = "presupuestoRubroController")
 @SessionScoped
 public class PresupuestoRubroController implements Serializable {
 
     private PresupuestoRubro current;
-
+    
     private DataModel items = null;
-    private List<PresupuestoRubro> presupuestosrubros = new ArrayList<PresupuestoRubro>();
+    private List<PresupuestoRubro> presupuestosrubros=null;
     @EJB
     private ar.edu.undec.sisgap.controller.PresupuestoRubroFacade ejbFacade;
     @EJB
     private ar.edu.undec.sisgap.controller.RubroFacade rubroFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
-    private BigDecimal sumagastoentidad = BigDecimal.ZERO;
-    private BigDecimal sumagastouniversidad = BigDecimal.ZERO;
-    private BigDecimal sumagastoorganismo = BigDecimal.ZERO;
-
+    private BigDecimal sumagastocomitente=BigDecimal.ZERO;
+    private BigDecimal sumagastouniversidad=BigDecimal.ZERO;
+    private BigDecimal sumagastoorganismo=BigDecimal.ZERO;
+    private BigDecimal sumatotal=BigDecimal.ZERO;
+    private PieChartModel pieModel;
+    private PieChartModel pieModelRubro;
+    
+    
     public PresupuestoRubroController() {
-
+        
+         
     }
-
+    
     @PostConstruct
-    public void init() {
-        try {
-            // presupuestosrubros=new ArrayList<PresupuestoRubro>();
-            for (Rubro rubro : rubroFacade.findAll()) {
-                PresupuestoRubro presupuestorubro = new PresupuestoRubro();
-                presupuestorubro.setRubro(rubro);
-                presupuestorubro.setGastocomitente(new BigDecimal(0));
-                presupuestorubro.setGastouniversidad(new BigDecimal(0));
-                presupuestorubro.setGastoorganismo(new BigDecimal(0));
-                presupuestosrubros.add(presupuestorubro);
-            }
-
-            // System.out.println( presupuestosrubros.size());
-        } catch (Exception e) {
-            System.out.println("mmmmmmmmmmmmmm" + e);
-        }
-    }
+public void init() {
+   try{
+          // presupuestosrubros=new ArrayList<PresupuestoRubro>();
+              
+         
+         // System.out.println( presupuestosrubros.size());
+        }catch(Exception e){
+           System.out.println("mmmmmmmmmmmmmm"+e);
+        } 
+}
 
     public PresupuestoRubro getSelected() {
         if (current == null) {
@@ -232,9 +240,23 @@ public class PresupuestoRubroController implements Serializable {
     }
 
     public List<PresupuestoRubro> getPresupuestosrubros() {
+       if (presupuestosrubros==null){
+          
+           presupuestosrubros = new ArrayList<PresupuestoRubro>(); 
+           for (Rubro rubro : rubroFacade.findAll()) {
+                   PresupuestoRubro presupuestorubro=new PresupuestoRubro();
+                   presupuestorubro.setRubro(rubro);
+                   presupuestorubro.setGastocomitente(new BigDecimal(0));
+                   presupuestorubro.setGastouniversidad(new BigDecimal(0));
+                   presupuestorubro.setGastoorganismo(new BigDecimal(0));
+                   presupuestorubro.setTotal(new BigDecimal(0));
 
-        return presupuestosrubros;
-
+                   presupuestosrubros.add(presupuestorubro);
+               } 
+       }
+       return presupuestosrubros;
+         
+    
     }
 
     public void setPresupuestosrubros() {
@@ -242,8 +264,9 @@ public class PresupuestoRubroController implements Serializable {
         this.init();
     }
 
-    public BigDecimal getSumagastoorganismo() {
-
+    
+   public BigDecimal getSumagastoorganismo() {
+       
         return sumagastoorganismo;
     }
 
@@ -252,57 +275,95 @@ public class PresupuestoRubroController implements Serializable {
     }
 
     public BigDecimal getSumagastocomitente() {
-
-        return sumagastoentidad;
+       
+        return sumagastocomitente;
     }
 
-    public void setSumagastocomitente(BigDecimal sumagastoentidad) {
-        this.sumagastoentidad = sumagastoentidad;
+    public void setSumagastocomitente(BigDecimal sumagastocomitente) {
+        this.sumagastocomitente = sumagastocomitente;
     }
 
     public BigDecimal getSumagastouniversidad() {
-        return sumagastouniversidad;
+          return sumagastouniversidad;
     }
 
     public void setSumagastouniversidad(BigDecimal sumagastouniversidad) {
         this.sumagastouniversidad = sumagastouniversidad;
     }
 
-    public void sumarGastos(CellEditEvent event) {
-
-        Object oldValue = event.getOldValue();
-        Object newValue = event.getNewValue();
-
-        Iterator it = presupuestosrubros.iterator();
-        BigDecimal totalcomitente = BigDecimal.ZERO;
-        BigDecimal totaluniversidad = BigDecimal.ZERO;
-        BigDecimal totalorganismo = BigDecimal.ZERO;
-        sumagastoentidad = BigDecimal.ZERO;
-        sumagastouniversidad = BigDecimal.ZERO;
-        while (it.hasNext()) {
-            PresupuestoRubro pr = (PresupuestoRubro) it.next();
-            totalcomitente = totalcomitente.add(new BigDecimal(pr.getGastocomitente().setScale(2).toString()));
-            totaluniversidad = totaluniversidad.add(new BigDecimal(pr.getGastouniversidad().setScale(2).toString()));
-            totalorganismo = totalorganismo.add(new BigDecimal(pr.getGastoorganismo().setScale(2).toString()));
-            // sumagastoentidad=new BigDecimal(totalentidad).setScale(2);
-            // sumagastouniversidad=new BigDecimal(totaluniversidad).setScale(2);
-            // System.out.println("000000000000000+"+totalentidad.setScale(2).toString());
-        }
-        sumagastoentidad = totalcomitente;
-        sumagastouniversidad = totaluniversidad;
-        sumagastoorganismo = totalorganismo;
-
+    
+    public BigDecimal getSumatotal() {
+        return sumatotal;
     }
 
-    public void soloCrear(PresupuestoRubro pr) {
+    public void setSumatotal(BigDecimal sumatotal) {
+        this.sumatotal = sumatotal;
+    }
+    
+    
+    
+    public void sumarGastos(ActionEvent event){
+        
+//        Object oldValue = event.getOldValue();  
+//        Object newValue = event.getNewValue();  
+//           DataTable s = (DataTable) event.getSource();
+       // MyEntity d = (MyEntity) s.getRowData();
+                    Iterator it=presupuestosrubros.iterator();
+                 BigDecimal totalcomitente=BigDecimal.ZERO;
+                BigDecimal totaluniversidad=BigDecimal.ZERO;
+                BigDecimal totalorganismo=BigDecimal.ZERO;
+                    sumagastocomitente=BigDecimal.ZERO;
+                    sumagastouniversidad=BigDecimal.ZERO;
+                    int contador=-1;
+                 while(it.hasNext()){
+                     contador++;
+                     PresupuestoRubro pr=(PresupuestoRubro)it.next();
+                    totalcomitente=totalcomitente.add(new BigDecimal(pr.getGastocomitente().setScale(2).toString()));
+                   totaluniversidad=totaluniversidad.add(new BigDecimal(pr.getGastouniversidad().setScale(2).toString()));
+                    totalorganismo=totalorganismo.add(new BigDecimal(pr.getGastoorganismo().setScale(2).toString()));
+                  // sumagastoentidad=new BigDecimal(totalentidad).setScale(2);
+                  // sumagastouniversidad=new BigDecimal(totaluniversidad).setScale(2);
+                 // System.out.println("000000000000000+"+totalentidad.setScale(2).toString());
+                    pr.setTotal(pr.getGastoorganismo().add(pr.getGastocomitente()).add(pr.getGastouniversidad()));
+                  //  System.out.println("-------------------------------------total "+pr.getTotal());
+                    this.presupuestosrubros.get(contador).setTotal(pr.getTotal());
+                 }
+                 sumagastocomitente=totalcomitente;
+                 sumagastouniversidad=totaluniversidad;
+                 sumagastoorganismo=totalorganismo;
+                 sumatotal=sumagastoorganismo.add(sumagastouniversidad).add(sumagastocomitente).add(sumagastouniversidad);
+                 
+                  pieModel = new PieChartModel();  
+  
+                pieModel.set("Aporte Organismo", sumagastoorganismo);  
+                pieModel.set("Aporte Comitente", sumagastocomitente);  
+                pieModel.set("Aporte Universidad", sumagastouniversidad);  
+                
+                  pieModelRubro = new PieChartModel();  
+            for(PresupuestoRubro pre : presupuestosrubros){
+                pieModelRubro.set(pre.getRubro().getRubro(), pre.getTotal());
+                
+            }
+                
+                // RequestContext.getCurrentInstance().update(s.getClientId(FacesContext.getCurrentInstance()) +  ":" + event.getRowIndex() +  ":isAutomatic");
+                  //  RequestContext.getCurrentInstance().update(":tpresupuesto:" + event.getRowIndex() +  ":total");
+  //               System.out.println("gggggggggggggggggggggggggggggg");
+//                  UIData table = (UIData) event.getComponent();
+//                    String updateClientId = table.getClientId() + ":" + table.getRowIndex() + ":total";
+//                    FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add(updateClientId);
 
-        pr.setPresupuestoRubroPK(new PresupuestoRubroPK(pr.getPresupuesto().getId(), pr.getRubro().getId()));
+        
+    }
+    
+    
+    
+    public void soloCrear(PresupuestoRubro pr){
+       
+        pr.setPresupuestoRubroPK(new PresupuestoRubroPK(pr.getPresupuesto().getId(),pr.getRubro().getId()));
        //  p.getPresupuestoRubroPK().setRubroid(pr.getRubro().getId());
-        // p.getPresupuestoRubroPK().setPresupuestoid(pr.getPresupuesto().getId());
-        System.out.println("--------------" + pr.getRubro().getId());
-        System.out.println("--------------" + pr.getPresupuesto().getId());
-        System.out.println("--------------ppppppppppppppppppppppppppppppp");
-
+       // p.getPresupuestoRubroPK().setPresupuestoid(pr.getPresupuesto().getId());
+      
+        
         getFacade().create(pr);
     }
 
@@ -353,5 +414,44 @@ public class PresupuestoRubroController implements Serializable {
         }
 
     }
+
+    public PieChartModel getPieModel() {
+        if(pieModel==null){
+            pieModel = new PieChartModel();  
+  
+                pieModel.set("Gasto Organismo", sumagastoorganismo);  
+                pieModel.set("Gasto Comitente", sumagastocomitente);  
+                pieModel.set("Gasto Universidad", sumagastouniversidad);  
+        }
+        return pieModel;
+    }
+
+    public void setPieModel(PieChartModel pieModel) {
+        this.pieModel = pieModel;
+    }
+    
+    public PieChartModel getPieModelRubro() {
+        if(pieModelRubro==null){
+            pieModelRubro = new PieChartModel();  
+            for(PresupuestoRubro pre : presupuestosrubros){
+                pieModelRubro.set(pre.getRubro().getRubro(), pre.getTotal());
+                System.out.println("-------rubrp pie------------------"+pre.getTotal());
+            }
+                  
+                
+        }
+        return pieModelRubro;
+    }
+
+    public void setPieModelRubro(PieChartModel pieModelRubro) {
+        this.pieModelRubro = pieModel;
+    }
+    
+     public void soloEditar(PresupuestoRubro pr){
+       
+            
+        getFacade().edit(pr);
+    }
+        
 
 }

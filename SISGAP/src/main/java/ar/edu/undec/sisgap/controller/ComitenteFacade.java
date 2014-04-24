@@ -6,7 +6,8 @@
 
 package ar.edu.undec.sisgap.controller;
 
-import ar.edu.undec.sisgap.model.Tipoentidad;
+import ar.edu.undec.sisgap.model.Comitente;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -16,7 +17,7 @@ import javax.persistence.PersistenceContext;
  * @author Hugo
  */
 @Stateless
-public class TipoentidadFacade extends AbstractFacade<Tipoentidad> {
+public class ComitenteFacade extends AbstractFacade<Comitente> {
     @PersistenceContext(unitName = "ar.edu.undec_SYSGAP_war_1.0-SNAPSHOTPU")
     private EntityManager em;
 
@@ -25,8 +26,12 @@ public class TipoentidadFacade extends AbstractFacade<Tipoentidad> {
         return em;
     }
 
-    public TipoentidadFacade() {
-        super(Tipoentidad.class);
+    public ComitenteFacade() {
+        super(Comitente.class);
+    }
+    public List<Comitente> findallsort() {
+        return em.createQuery("select c from Comitente c order by c.id", Comitente.class).getResultList();
+
     }
     
 }

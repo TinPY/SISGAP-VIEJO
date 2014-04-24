@@ -18,12 +18,10 @@ import javax.validation.constraints.NotNull;
  */
 @Embeddable
 public class PresupuestoRubroPK implements Serializable {
-    
     @Basic(optional = true)
     @NotNull
     @Column(name = "presupuestoid")
     private int presupuestoid;
-    
     @Basic(optional = true)
     @NotNull
     @Column(name = "rubroid")

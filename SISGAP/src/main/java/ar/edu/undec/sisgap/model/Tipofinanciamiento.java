@@ -39,7 +39,6 @@ public class Tipofinanciamiento implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    
     @Size(max = 100)
     @Column(name = "tipofinanciamiento")
     private String tipofinanciamiento;

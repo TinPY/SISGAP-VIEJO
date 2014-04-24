@@ -8,6 +8,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,6 +36,7 @@ public class ConvocatoriaController implements Serializable {
     private PaginationHelper pagination;
     private int selectedItemIndex;
     private StreamedContent file;
+    private List<Convocatoria> tablafiltrada; 
 
     public ConvocatoriaController() {
     }
@@ -45,6 +47,9 @@ public class ConvocatoriaController implements Serializable {
             selectedItemIndex = -1;
         }
         return current;
+    }
+    public void setSelected(Convocatoria convocatoria){
+        current=convocatoria;
     }
 
     private ConvocatoriaFacade getFacade() {
@@ -246,4 +251,26 @@ public class ConvocatoriaController implements Serializable {
 
     }
 
+    public void findConvocatoriafinanciamiento(Integer tipoproyectoid, Integer tipofinanciamientoid){
+        
+        items= new ListDataModel(getFacade().findConvocatoriafinanciamiento(tipoproyectoid, tipofinanciamientoid));
+    }
+    
+    public StreamedContent getFileConvocatoria() {          
+        System.out.println("vvvvvvvvvvv");
+        InputStream stream = new ByteArrayInputStream(this.getSelected().getFormulario());
+        file = new DefaultStreamedContent(stream, "docx/doc/pdf/rar", current.getLink());  
+            System.out.println("qqqqqqqqqqqqqqqq");
+            return file;
+            
+    }
+
+    public List<Convocatoria> getTablafiltrada() {
+        return tablafiltrada;
+    }
+
+    public void setTablafiltrada(List<Convocatoria> tablafiltrada) {
+        this.tablafiltrada = tablafiltrada;
+    }
+    
 }

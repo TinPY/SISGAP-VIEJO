@@ -1,10 +1,15 @@
 package ar.edu.undec.sisgap.controller.view;
 
+import ar.edu.undec.sisgap.controller.EnviarMail;
 import ar.edu.undec.sisgap.model.Proyecto;
 import ar.edu.undec.sisgap.controller.view.util.JsfUtil;
 import ar.edu.undec.sisgap.controller.view.util.PaginationHelper;
 import ar.edu.undec.sisgap.controller.ProyectoFacade;
-import ar.edu.undec.sisgap.controller.view.util.URLWEB;
+import ar.edu.undec.sisgap.model.Archivoproyecto;
+import ar.edu.undec.sisgap.model.Estadoproyecto;
+import ar.edu.undec.sisgap.model.Evaluacion;
+import ar.edu.undec.sisgap.model.EvaluacionPregunta;
+import ar.edu.undec.sisgap.model.EvaluacionPreguntaPK;
 import ar.edu.undec.sisgap.model.Presupuesto;
 import ar.edu.undec.sisgap.model.PresupuestoRubro;
 
@@ -12,13 +17,9 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
 import java.io.Serializable;
-import java.net.MalformedURLException;
 import java.util.Date;
 import java.util.Iterator;
-import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -30,6 +31,7 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -44,12 +46,27 @@ public class ProyectoController implements Serializable {
     private ar.edu.undec.sisgap.controller.ProyectoFacade ejbFacade;
     @EJB
     private ar.edu.undec.sisgap.controller.PresupuestoFacade ejbFacadep;
+    @EJB
+    private ar.edu.undec.sisgap.controller.ArchivoproyectoFacade ejbFacadeap;
+    @EJB
+    private ar.edu.undec.sisgap.controller.EvaluacionFacade ejbevaluacion;
+    @EJB
+    private ar.edu.undec.sisgap.controller.EvaluacionPreguntaFacade ejbevaluacionproyecto;
+    
     private PaginationHelper pagination;
     private int selectedItemIndex;
     private byte[] imagen=null ;
     private StreamedContent file;
     private boolean columnorganismo=false;
-
+    private boolean columncomitente=false;
+    private boolean columnuniversidad=false;
+    private boolean verarchivo=false;
+    private boolean iseditableSolicitud=false;
+    private String habilitarcomitente="0";
+    private String observacionfinal;
+    
+    
+    
     public ProyectoController() {
     }
 
@@ -112,56 +129,93 @@ public class ProyectoController implements Serializable {
         }
     }
     
-    public String soloCrear() throws MalformedURLException{
+    public String soloCrear() {
         try{
             //Capturo el managed bean en el contexto
-           
-            FacesContext context = FacesContext.getCurrentInstance();
-            AgenteController agente= (AgenteController) context.getApplication().evaluateExpressionGet(context, "#{agenteController}", AgenteController.class);
-            FacesContext context3 = FacesContext.getCurrentInstance();
-            PresupuestoRubroController pr = (PresupuestoRubroController) context3.getApplication().evaluateExpressionGet(context3, "#{presupuestoRubroController}", PresupuestoRubroController.class);
-            //FacesContext context2 = FacesContext.getCurrentInstance();
-            //PresupuestoController p= (PresupuestoController)context2.getApplication().evaluateExpressionGet(context2, "#{presupuestoController}", PresupuestoController.class);
-           
-            current.setAgenteid(agente.getSelected());
-            current.setEstado('S');
-            current.setFecha(new Date());
-            getFacade().create(current);
-            Presupuesto p= new Presupuesto();
-            p.setFecha(new Date());
-            p.setProyectoid(current);
-            p.setEstado('P');
-            
-             ejbFacadep.create(p);
-               System.out.println("--------------------------ttttt-------------------------"+p.getId() );
-            PresupuestoRubro prerub;
-            Iterator i= pr.getPresupuestosrubros().iterator();
-            while(i.hasNext()){
-                prerub=((PresupuestoRubro)i.next());
-                prerub.setPresupuesto(p);
-                pr.soloCrear(prerub);
-            }
-            //p.getSelected().setPresupuestoRubroList(pr.getPresupuestosrubros());
-          
-         
-            
-            System.out.println("---------------------------------------------------" );
-           
-            
-            current = new Proyecto();
-           // pr=null;
-           pr.setPresupuestosrubros();
-           
-            
-            p=null;
-             FacesContext context4 = FacesContext.getCurrentInstance();
-         
-        context4.addMessage("growlprincipal", new FacesMessage("Excelente! " + context4.getExternalContext().getUserPrincipal(),"Su Solicitud a Proyecto fue creado"));
-        
-        return new URLWEB().getAbsoluteApplicationUrl()+"/index.xhtml"; 
+            FacesContext contextc = FacesContext.getCurrentInstance();
+            ConvocatoriaController convocatoria= (ConvocatoriaController) contextc.getApplication().evaluateExpressionGet(contextc, "#{convocatoriaController}", ConvocatoriaController.class);
+                    
+           if(convocatoria.getSelected()!=null){
+                    FacesContext context = FacesContext.getCurrentInstance();
+                    AgenteController agente= (AgenteController) context.getApplication().evaluateExpressionGet(context, "#{agenteController}", AgenteController.class);
+                    FacesContext context3 = FacesContext.getCurrentInstance();
+                    PresupuestoRubroController pr = (PresupuestoRubroController) context3.getApplication().evaluateExpressionGet(context3, "#{presupuestoRubroController}", PresupuestoRubroController.class);
+                    FacesContext context2 = FacesContext.getCurrentInstance();
+                    ArchivoproyectoController ap= (ArchivoproyectoController)context2.getApplication().evaluateExpressionGet(context2, "#{archivoproyectoController}", ArchivoproyectoController.class);
+
+                    current.setAgenteid(agente.getSelected());
+                    
+                    Estadoproyecto ep= new Estadoproyecto();
+                    ep.setId(1);
+                    current.setEstadoproyectoid(ep);
+                    current.setFecha(new Date());
+                    current.setConvocatoriaid(convocatoria.getSelected());
+                    getFacade().createWithPersist(current);
+                    Presupuesto p= new Presupuesto();
+                    p.setFecha(new Date());
+                    p.setProyectoid(current);
+                    p.setEstado('P');
+
+                     ejbFacadep.createWithPersist(p);
+                     //  System.out.println("--------------------------ttttt-------------------------"+p.getId() );
+                    PresupuestoRubro prerub;
+                    Iterator i= pr.getPresupuestosrubros().iterator();
+                    while(i.hasNext()){
+                        prerub=((PresupuestoRubro)i.next());
+                        prerub.setPresupuesto(p);
+                        pr.soloCrear(prerub);
+                    }
+                    //p.getSelected().setPresupuestoRubroList(pr.getPresupuestosrubros());
+
+                   // 
+                   pr.setPresupuestosrubros();
+                    System.out.println("--------------------final1-------------------------------"+ap.getCollectorArchivoProyecto().size() );
+
+                   i=ap.getCollectorArchivoProyecto().iterator();
+                    System.out.println("--------------------final12-------------------------------" );
+
+                   while(i.hasNext()){
+                       Archivoproyecto archivoproyecto=new Archivoproyecto();
+                        archivoproyecto=((Archivoproyecto)i.next());
+                        archivoproyecto.setId(null);
+                        archivoproyecto.setProyectoid(current);
+                        ap.soloCrear(archivoproyecto);
+                    }
+
+                    p=null;
+                    pr=null;
+                    //current=null;
+                    ap=null;
+                   System.out.println("--------------------final2-------------------------------" );
+
+
+                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alta idea proyecto Creada!", "Su Solicitud a Proyecto fue creado, en breve recibira un email");  
+                    EnviarMail enviarmail = new EnviarMail();
+                 //   enviarmail.enviarMailIngresoIdeaProyecto(FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName(),current.getAgenteid().getEmail() , habilitarcomitente);
+
+                     RequestContext.getCurrentInstance().execute("dfinal.show()"); 
+                   //  FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath()+"/secure/solicitud/View.xhtml");
+                // context4.addMessage("growlprincipal", new FacesMessage("Excelente! " + context4.getExternalContext().getUserPrincipal(),"Su Solicitud a Proyecto fue creado, en breve recibira un email"));
+                    
+                System.out.println("iiiiiiiiiiiiiiiiiiiii");
+                    //current = new Proyecto();
+                 return null;
+           }else{
+               RequestContext.getCurrentInstance().scrollTo("wconvocatoria");
+               FacesMessage message = new FacesMessage();
+               message.setSeverity(FacesMessage.SEVERITY_ERROR);
+                message.setSummary("ERROR");
+                message.setDetail("Por favor seleccione una fila en la tabla de Convocatoria");
+               FacesContext.getCurrentInstance().addMessage("growlprincipal", message);
+                return null;
+           }
         }catch(Exception e){
-            FacesContext.getCurrentInstance().addMessage("growlprincipal", new FacesMessage("Error! ","No se pudo crear la Solicitud del Proyecto "));
-        
+             FacesMessage message = new FacesMessage();
+               message.setSeverity(FacesMessage.SEVERITY_ERROR);
+                message.setSummary("ERROR");
+                message.setDetail("No se pudo crear la Solicitud del Proyecto "+e);
+            FacesContext.getCurrentInstance().addMessage("growlprincipal", message);
+         System.out.println("llll"+e);
             return null;
         }
     }
@@ -266,7 +320,7 @@ public class ProyectoController implements Serializable {
     
     public void handleFileUpload(FileUploadEvent event) { 
         System.out.println("fdsfdsdfadf");
-       
+       current.setDocumentacionnombre(event.getFile().getFileName());
         current.setDocumentacion(event.getFile().getContents());
          System.out.println("Succesful"+event.getFile().getFileName() + " is uploaded.");  
        // FacesContext.getCurrentInstance().addMessage(null, msg);  
@@ -350,6 +404,11 @@ public class ProyectoController implements Serializable {
         recreateModel();
         items=new ListDataModel(getFacade().buscarProyectoAgente(agenteid));
     }
+    
+    public void buscarProyectoEstado(int estado){
+        recreateModel();
+        items=new ListDataModel(getFacade().buscarProyectoEstado(estado));
+    }
 
     public boolean isColumnorganismo() {
         return columnorganismo;
@@ -358,9 +417,154 @@ public class ProyectoController implements Serializable {
     public void setColumnorganismo(boolean columnorganismo) {
         this.columnorganismo = columnorganismo;
     }
+
+    public boolean isColumncomitente() {
+        return columncomitente;
+    }
+
+    public void setColumncomitente(boolean columncomitente) {
+        this.columncomitente = columncomitente;
+    }
+
+    public boolean isColumnuniversidad() {
+        return columnuniversidad;
+    }
+
+    public void setColumnuniversidad(boolean columnuniversidad) {
+        this.columnuniversidad = columnuniversidad;
+    }
+
+    public void isVerarchivox() {
+        
+        System.out.println("---------------------------------------is-----"+current.getConvocatoriaid());
+        if(current.getConvocatoriaid().getId()>0){
+            this.verarchivo = true;
+        }else{
+           this.verarchivo = false; 
+        }
+        System.out.println("---------------------------------------is-----"+verarchivo+current.getConvocatoriaid().getId());
+        
+    }
+
+    public boolean getVerarchivo() {
+        return verarchivo;
+       // System.out.println("---------------------------------------set-----"+verarchivo);
+    }
+    
+    
     
     public void cambioColPresupuesto(){
-        if(current.getTipofinanciamientoid().getId()<3)
-        columnorganismo=true;
+        if(current.getTipofinanciamientoid().getId()<3){
+            columnorganismo=true;
+        }else{
+            columnorganismo=false;
+        }
     }
+
+    public boolean isIseditableSolicitud() {
+            if(current.getEstadoproyectoid().getId()==1 ){
+                iseditableSolicitud=true;
+            }else{
+                iseditableSolicitud =false;
+            }
+            
+        return iseditableSolicitud;
+    }
+
+    public void setIseditableSolicitud(boolean iseditableSolicitud) {
+        this.iseditableSolicitud = iseditableSolicitud;
+    }
+    
+    
+    public void actualizarTabla(){
+        System.out.println("actalizando tabla000000000000000000000000000");
+        RequestContext.getCurrentInstance().update("tpresupuesto");
+    }
+    
+     public String soloEditar() {
+        try{
+            //Capturo el managed bean en el contexto
+           
+           FacesContext context = FacesContext.getCurrentInstance();
+           PresupuestoController p= (PresupuestoController)context.getApplication().evaluateExpressionGet(context, "#{presupuestoController}", PresupuestoController.class);
+           
+            current.setFecha(new Date());
+            getFacade().edit(current);
+            
+             PresupuestoRubro prerub;
+            Iterator i= p.getSelected().getPresupuestoRubroList().iterator();
+            while(i.hasNext()){
+                prerub=((PresupuestoRubro)i.next());
+               // p.soloEditar(prerub);
+            }
+         
+            
+             FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath()+"/secure/solicitud/View.xhtml");
+             System.out.println("iiiiiiiiiiiiiiiiiiiii");
+           
+         return "ViewSolicitud";
+        }catch(Exception e){
+            FacesContext.getCurrentInstance().addMessage("growlprincipal", new FacesMessage("Error! ","No se pudo crear la Solicitud del Proyecto "));
+        
+            return null;
+        }
+    }
+
+    public String getHabilitarcomitente() {
+        return habilitarcomitente;
+    }
+
+    public void setHabilitarcomitente(String habilitarcomitente) {
+        this.habilitarcomitente = habilitarcomitente;
+    }
+    
+    public void evaluarIdea(){
+        FacesContext context = FacesContext.getCurrentInstance();
+        EvaluacionPreguntaController evaluacionpregunta= (EvaluacionPreguntaController) context.getApplication().evaluateExpressionGet(context, "#{evaluacionPreguntaController}", EvaluacionPreguntaController.class);
+        EvaluacionController evaluacion = (EvaluacionController) context.getApplication().evaluateExpressionGet(context, "#{evaluacionController}", EvaluacionController.class);;
+        AgenteController agente = (AgenteController) context.getApplication().evaluateExpressionGet(context, "#{agenteController}", AgenteController.class);;
+       
+        evaluacion.getSelected().setFecha(new Date());
+        evaluacion.getSelected().setProyectoid(current);
+        evaluacion.getSelected().setUsuarioid(agente.getSelected().getUsuarioid());
+        ejbevaluacion.createWithPersist(evaluacion.getSelected());
+        
+        for(EvaluacionPregunta eval:evaluacionpregunta.getEvaluaciones()){
+             eval.setEvaluacionPreguntaPK(new EvaluacionPreguntaPK());
+           eval.getEvaluacionPreguntaPK().setEvaluacionid(evaluacion.getSelected().getId());
+          eval.getEvaluacionPreguntaPK().setPreguntaid(eval.getPregunta().getId());
+            
+          ejbevaluacionproyecto.create(eval);
+         }
+         
+         this.ejbFacade.edit(current);
+        
+        
+        
+    }
+     
+  public void armarObservaciones(){
+       observacionfinal="";
+      FacesContext context = FacesContext.getCurrentInstance();
+        EvaluacionPreguntaController evaluacionpregunta = (EvaluacionPreguntaController) context.getApplication().evaluateExpressionGet(context, "#{evaluacionPreguntaController}", EvaluacionPreguntaController.class);
+        EvaluacionController evaluacion = (EvaluacionController) context.getApplication().evaluateExpressionGet(context, "#{evaluacionController}", EvaluacionController.class);;
+       
+      for(EvaluacionPregunta eval:evaluacionpregunta.getEvaluaciones()){
+          if(eval.getObservacion()!=null)
+            observacionfinal+= " - "+eval.getObservacion()+"\n";
+         }
+      evaluacion.getSelected().setObservacion(observacionfinal);
+      
+  }   
+
+    public String getObservacionfinal() {
+        return observacionfinal;
+    }
+
+    public void setObservacionfinal(String observacionfinal) {
+        this.observacionfinal = observacionfinal;
+    }
+  
+  
+    
 }

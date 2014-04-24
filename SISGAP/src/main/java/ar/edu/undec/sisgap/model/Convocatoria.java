@@ -7,6 +7,7 @@
 package ar.edu.undec.sisgap.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -47,51 +48,51 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Convocatoria.findByFechainicio", query = "SELECT c FROM Convocatoria c WHERE c.fechainicio = :fechainicio"),
     @NamedQuery(name = "Convocatoria.findByFechacierre", query = "SELECT c FROM Convocatoria c WHERE c.fechacierre = :fechacierre")})
 public class Convocatoria implements Serializable {
-    
     private static final long serialVersionUID = 1L;
-    
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="convocatoria_id_seq")
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    
     @Size(max = 150)
     @Column(name = "convocatoria")
     private String convocatoria;
-    
     @Size(max = 2147483647)
     @Column(name = "descripcion")
     private String descripcion;
-    
     //@Lob
     @Column(name = "bases")
     private byte[] bases;
-
     @Size(max = 2147483647)
     @Column(name = "link")
     private String link;
     //@Lob
-    
     @Column(name = "formulario")
     private byte[] formulario;
-    
     @Column(name = "fechapublicacion")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechapublicacion;
-    
     @Column(name = "fechainicio")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechainicio;
-    
     @Column(name = "fechacierre")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechacierre;
+    @Column(name="estado")
+    private Character estado;
+    @Column(name="organismo")
+    private String organismo;
+    @Column(name="beneficiario")
+    private String beneficiario;
+    @Column(name="montofinanciamiento")
+    private BigDecimal montofinanciamiento;
     
     @JoinColumn(name = "tipoproyectoid", referencedColumnName = "id")
     @ManyToOne
     private Tipoproyecto tipoproyectoid;
-    
+    @JoinColumn(name = "tipofinanciamientoid", referencedColumnName = "id")
+    @ManyToOne
+    private Tipofinanciamiento tipofinanciamientoid;
     @OneToMany(mappedBy = "convocatoriaid")
     private List<Proyecto> proyectoList;
 
@@ -181,6 +182,48 @@ public class Convocatoria implements Serializable {
     public void setTipoproyectoid(Tipoproyecto tipoproyectoid) {
         this.tipoproyectoid = tipoproyectoid;
     }
+
+    public Tipofinanciamiento getTipofinanciamientoid() {
+        return tipofinanciamientoid;
+    }
+
+    public void setTipofinanciamientoid(Tipofinanciamiento tipofinanciamientoid) {
+        this.tipofinanciamientoid = tipofinanciamientoid;
+    }
+
+    public Character getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Character estado) {
+        this.estado = estado;
+    }
+
+    public String getOrganismo() {
+        return organismo;
+    }
+
+    public void setOrganismo(String organismo) {
+        this.organismo = organismo;
+    }
+
+    public String getBeneficiario() {
+        return beneficiario;
+    }
+
+    public void setBeneficiario(String beneficiario) {
+        this.beneficiario = beneficiario;
+    }
+
+    public BigDecimal getMontofinanciamiento() {
+        return montofinanciamiento;
+    }
+
+    public void setMontofinanciamiento(BigDecimal montofinanciamiento) {
+        this.montofinanciamiento = montofinanciamiento;
+    }
+    
+    
 
     @XmlTransient
     public List<Proyecto> getProyectoList() {

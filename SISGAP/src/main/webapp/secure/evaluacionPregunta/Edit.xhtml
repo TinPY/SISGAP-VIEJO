@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditEvaluacionPreguntaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditEvaluacionPreguntaLabel_rating}" for="rating" />
+                    <h:inputText id="rating" value="#{evaluacionPreguntaController.selected.rating}" title="#{bundle.EditEvaluacionPreguntaTitle_rating}" />
+                    <h:outputLabel value="#{bundle.EditEvaluacionPreguntaLabel_observacion}" for="observacion" />
+                    <h:inputText id="observacion" value="#{evaluacionPreguntaController.selected.observacion}" title="#{bundle.EditEvaluacionPreguntaTitle_observacion}" />
+                    <h:outputLabel value="#{bundle.EditEvaluacionPreguntaLabel_aprobado}" for="aprobado" />
+                    <h:inputText id="aprobado" value="#{evaluacionPreguntaController.selected.aprobado}" title="#{bundle.EditEvaluacionPreguntaTitle_aprobado}" />
+                    <h:outputLabel value="#{bundle.EditEvaluacionPreguntaLabel_pregunta}" for="pregunta" />
+                    <h:selectOneMenu id="pregunta" value="#{evaluacionPreguntaController.selected.pregunta}" title="#{bundle.EditEvaluacionPreguntaTitle_pregunta}" required="true" requiredMessage="#{bundle.EditEvaluacionPreguntaRequiredMessage_pregunta}">
+                        <f:selectItems value="#{preguntaController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditEvaluacionPreguntaLabel_evaluacion}" for="evaluacion" />
+                    <h:selectOneMenu id="evaluacion" value="#{evaluacionPreguntaController.selected.evaluacion}" title="#{bundle.EditEvaluacionPreguntaTitle_evaluacion}" required="true" requiredMessage="#{bundle.EditEvaluacionPreguntaRequiredMessage_evaluacion}">
+                        <f:selectItems value="#{evaluacionController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{evaluacionPreguntaController.update}" value="#{bundle.EditEvaluacionPreguntaSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditEvaluacionPreguntaViewLink}"/>
+                <br />
+                <h:commandLink action="#{evaluacionPreguntaController.prepareList}" value="#{bundle.EditEvaluacionPreguntaShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditEvaluacionPreguntaIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

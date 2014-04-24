@@ -1,9 +1,9 @@
 package ar.edu.undec.sisgap.controller.view;
 
-import ar.edu.undec.sisgap.model.Entidadbeneficiaria;
+import ar.edu.undec.sisgap.model.Pregunta;
 import ar.edu.undec.sisgap.controller.view.util.JsfUtil;
 import ar.edu.undec.sisgap.controller.view.util.PaginationHelper;
-import ar.edu.undec.sisgap.controller.EntidadbeneficiariaFacade;
+import ar.edu.undec.sisgap.controller.PreguntaFacade;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -18,29 +18,29 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
-@ManagedBean(name = "entidadbeneficiariaController")
+@ManagedBean(name = "preguntaController")
 @SessionScoped
-public class EntidadbeneficiariaController implements Serializable {
+public class PreguntaController implements Serializable {
 
-    private Entidadbeneficiaria current;
+    private Pregunta current;
     private DataModel items = null;
     @EJB
-    private ar.edu.undec.sisgap.controller.EntidadbeneficiariaFacade ejbFacade;
+    private ar.edu.undec.sisgap.controller.PreguntaFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
-    public EntidadbeneficiariaController() {
+    public PreguntaController() {
     }
 
-    public Entidadbeneficiaria getSelected() {
+    public Pregunta getSelected() {
         if (current == null) {
-            current = new Entidadbeneficiaria();
+            current = new Pregunta();
             selectedItemIndex = -1;
         }
         return current;
     }
 
-    private EntidadbeneficiariaFacade getFacade() {
+    private PreguntaFacade getFacade() {
         return ejbFacade;
     }
 
@@ -68,13 +68,13 @@ public class EntidadbeneficiariaController implements Serializable {
     }
 
     public String prepareView() {
-        current = (Entidadbeneficiaria) getItems().getRowData();
+        current = (Pregunta) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
     public String prepareCreate() {
-        current = new Entidadbeneficiaria();
+        current = new Pregunta();
         selectedItemIndex = -1;
         return "Create";
     }
@@ -82,29 +82,16 @@ public class EntidadbeneficiariaController implements Serializable {
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("EntidadbeneficiariaCreated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("PreguntaCreated"));
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
         }
     }
-    
-    public String soloCrear(){
-        try{
-            getFacade().create(current);
-            this.getItemsAvailableSelectMany();
-            
-            return null;
-            
-        }catch(Exception e){
-            System.out.println("ERROR "+e);
-            return null;
-        }
-    }
 
     public String prepareEdit() {
-        current = (Entidadbeneficiaria) getItems().getRowData();
+        current = (Pregunta) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
@@ -112,7 +99,7 @@ public class EntidadbeneficiariaController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("EntidadbeneficiariaUpdated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("PreguntaUpdated"));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -121,7 +108,7 @@ public class EntidadbeneficiariaController implements Serializable {
     }
 
     public String destroy() {
-        current = (Entidadbeneficiaria) getItems().getRowData();
+        current = (Pregunta) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
@@ -145,7 +132,7 @@ public class EntidadbeneficiariaController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("EntidadbeneficiariaDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("PreguntaDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
@@ -201,16 +188,16 @@ public class EntidadbeneficiariaController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    @FacesConverter(forClass = Entidadbeneficiaria.class)
-    public static class EntidadbeneficiariaControllerConverter implements Converter {
+    @FacesConverter(forClass = Pregunta.class)
+    public static class PreguntaControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            EntidadbeneficiariaController controller = (EntidadbeneficiariaController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "entidadbeneficiariaController");
+            PreguntaController controller = (PreguntaController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "preguntaController");
             return controller.ejbFacade.find(getKey(value));
         }
 
@@ -231,11 +218,11 @@ public class EntidadbeneficiariaController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Entidadbeneficiaria) {
-                Entidadbeneficiaria o = (Entidadbeneficiaria) object;
+            if (object instanceof Pregunta) {
+                Pregunta o = (Pregunta) object;
                 return getStringKey(o.getId());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Entidadbeneficiaria.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Pregunta.class.getName());
             }
         }
 

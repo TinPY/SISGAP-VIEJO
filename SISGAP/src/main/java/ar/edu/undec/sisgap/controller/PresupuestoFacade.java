@@ -28,5 +28,7 @@ public class PresupuestoFacade extends AbstractFacade<Presupuesto> {
     public PresupuestoFacade() {
         super(Presupuesto.class);
     }
-    
+    public Presupuesto findporProyecto(int id){
+        return em.createQuery("select p from Presupuesto p where p.proyectoid.id=:id", Presupuesto.class).setParameter("id",id).getSingleResult();
+    }
 }
