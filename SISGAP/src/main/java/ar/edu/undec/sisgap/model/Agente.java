@@ -87,6 +87,9 @@ public class Agente implements Serializable {
     @JoinColumn(name = "usuarioid", referencedColumnName = "usuarioid" )
     @ManyToOne
     private Usuario usuarioid;
+    @Size(max = 60)
+    @Column(name = "especialidad")
+    private String especialidad;
     
 
     public Agente() {
@@ -199,6 +202,15 @@ public class Agente implements Serializable {
     public void setUsuarioid(Usuario usuarioid) {
         this.usuarioid = usuarioid;
     }
+
+    public String getEspecialidad() {
+        return especialidad;
+    }
+
+    public void setEspecialidad(String especialidad) {
+        this.especialidad = especialidad;
+    }
+    
     
     
 

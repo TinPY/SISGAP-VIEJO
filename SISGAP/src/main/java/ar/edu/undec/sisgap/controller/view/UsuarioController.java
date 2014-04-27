@@ -191,16 +191,16 @@ public class UsuarioController implements Serializable {
             current.setUsuariorol(new Perfil(2,"Docente"));
             current.setUsuariofechaalta(new java.sql.Timestamp(new Date().getTime()));
             
-            getFacade().create(current);
+            getFacade().createWithPersist(current);
             
             
             System.out.println("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"+current.getUsuarioid());
             currenta.setUsuarioid(current);
-            getFacadea().create(currenta);
+            getFacadea().createWithPersist(currenta);
             if(!new EnviarMail().enviarMailConfirmacion(currenta, current)){
                 JsfUtil.addErrorMessage("No se pudo enviar el mail para activar su cuenta!");
                 
-                getFacadea().remove(currenta);
+                //getFacadea().remove(currenta);
                 getFacade().remove(current);
                 current=null;
                currenta=null;
@@ -219,7 +219,7 @@ public class UsuarioController implements Serializable {
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, "No se pudo crear el usuario!");
             getFacade().remove(current);
-            getFacadea().remove(currenta);
+           // getFacadea().remove(currenta);
             current=null;
             currenta=null;
             

@@ -13,9 +13,11 @@ import ar.edu.undec.sisgap.model.Usuario;
 import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.security.MessageDigest;
+import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ManagedBean;
 import javax.mail.Address;
@@ -37,7 +39,8 @@ import org.codemonkey.simplejavamail.Mailer;
 @ManagedBean(name = "enviarMail")
 @SessionScoped
 public class EnviarMail implements Serializable {
-
+      @EJB
+      AgenteFacade facadeagente;
     public EnviarMail() {
     }
     public boolean enviarMailConfirmacion(Agente agente, Usuario usuario){
@@ -195,6 +198,70 @@ public class EnviarMail implements Serializable {
              return false;
 
          
+         }
+             //Correo tuvo exito dara una salida en este punto indicando que si se envio
+             return true;
+ 
+    }
+    public boolean enviarMailIngresoIdeaProyecto(String nombreusuario, String mail, String tipo){
+       Email email = new Email();
+        List<Agente> agentesadministradores=this.facadeagente.getEntityManager().createQuery("select a from Agente a join a.usuarioid u where u.usuariorol.rolid=1", Agente.class).getResultList();
+        for(Agente agente:agentesadministradores){
+            //email.addRecipient(agente.getUsuarioid().getUsuarionombre(),agente.getEmail() , RecipientType.BCC);
+        }
+        try{
+           
+ email.setFromAddress("SISGAP UNDEC", "sisgap@undec.edu.ar");
+ email.addRecipient(nombreusuario, mail, RecipientType.TO);
+ //email.addRecipient(agente.getApellido(), agente.getOtroemail(), RecipientType.BCC);
+ email.setTextHTML("Hola, usuario = "+nombreusuario+ "su nuevo password es = "+tipo +
+
+" <br />Usted puede cambiar el password cuando ingrese al sistema <br />" +
+
+"Muchas Gracias");
+ System.out.println("-----------"+mail);
+ email.setSubject("UNDEC - Recuperar Password SISGAP UNDEC");
+ 
+ // or:
+ new Mailer("localhost", 25, "sisgap@undec.edu.ar", "sgap*9812").sendMail(email);
+  System.out.println("-----------enviado");
+         } catch (Exception ex) {
+
+             ex.printStackTrace();
+             //Si el correo tiene algun error lo retornaremos aca
+            JsfUtil.addErrorMessage(ex,"No se pudo crear el Usuario");
+
+             return false;
+
+         
+         }
+             //Correo tuvo exito dara una salida en este punto indicando que si se envio
+             return true;
+        
+    }
+    
+    public boolean enviarMailEvaluacionIdeaProyecto(Agente agente,String mail){
+
+         try {
+
+           Email email = new Email();
+ email.setFromAddress("SISGAP UNDEC", "sisgap@undec.edu.ar");
+ email.addRecipient(agente.getApellido(), agente.getEmail(), RecipientType.TO);
+ email.addRecipient(agente.getApellido(), agente.getOtroemail(), RecipientType.BCC);
+ email.setTextHTML(mail);
+ email.setSubject("UNDEC - EEvaluacion Idea Proyecto SISGAP UNDEC");
+ 
+ // or:
+ new Mailer("localhost", 25, "sisgap@undec.edu.ar", "sgap*9812").sendMail(email);
+         } catch (Exception ex) {
+
+             ex.printStackTrace();
+             //Si el correo tiene algun error lo retornaremos aca
+            JsfUtil.addErrorMessage(ex,"No se pudo enviar");
+
+             return false;
+
+
          }
              //Correo tuvo exito dara una salida en este punto indicando que si se envio
              return true;

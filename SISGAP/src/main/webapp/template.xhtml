@@ -8,12 +8,9 @@
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<!--        <link rel="icon" href="#{resource['img:/undec.ico']}" type="image/x-icon" />  
-        <link rel="shortcut icon" href="#{resource['img:/undec.ico']}" type="image/x-icon" /> -->
-
         <h:outputStylesheet name="./css/cssLayout.css"/>
         <title>SISGAP</title>
-        <h:outputStylesheet name="css/jsfcrud.css"/>
+<h:outputStylesheet name="css/jsfcrud.css"/>
     </h:head>
    
     <h:body>
@@ -26,37 +23,9 @@
                        <div align="center">
                            <h2> Sistema de Gestión y Administración de Proyectos</h2>
                             <h3>UNIVERSIDAD NACIONAL DE CHILECITO</h3>
-                        </div>   
-                           <h:form id="formmenu">
-                           <p:menubar autoDisplay="Home">
-                               <p:submenu label="Solicitudes" icon="ui-icon-document">  
-                                   <p:menuitem value="Nueva Solicitud" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/solicitud/Solicitud.xhtml' />  
-                                   <p:menuitem value="Listado de Solicitudes" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/solicitud/List.xhtml' />  
-                                   
-                            </p:submenu>  
-
-                            <p:submenu label="Proyectos" icon="ui-icon-pencil">  
-                                <p:menuitem value="Listado de Proyectos" url="#" icon="ui-icon-arrowreturnthick-1-w" />  
-                            </p:submenu>  
-
-                            <p:submenu label="Ayuda" icon="ui-icon-help">  
-                                <p:menuitem value="Acerca de ..." url="#" />  
-                                <p:submenu label="Manual" icon="ui-icon-search">  
-                                   
-                                </p:submenu>  
-                            </p:submenu>  
-
+                        </div> 
+                     <ui:include src="./menu.xhtml"></ui:include>
                           
-
-                            <p:menuitem value="Mi Cuenta" url="http://www.primefaces.org" icon="ui-icon-close" />  
-
-                            <f:facet name="options">  
-                                 Bienvenido #{request.getUserPrincipal()}  
-                                <h:commandLink actionListener="#{usuarioController.logout()}" value="Logout"  />  
-                            </f:facet>  
-                           </p:menubar> 
-                           </h:form>
-                        
                  </ui:insert>
 	</header><!-- .header-->
 

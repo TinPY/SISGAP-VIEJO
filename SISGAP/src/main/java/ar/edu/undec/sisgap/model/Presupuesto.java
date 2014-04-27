@@ -13,6 +13,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -53,7 +54,7 @@ public class Presupuesto implements Serializable {
     private Date fecha;
     @Column(name = "estado")
     private Character estado;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "presupuesto")
+    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL, mappedBy = "presupuesto")
     private List<PresupuestoRubro> presupuestoRubroList;
     @JoinColumn(name = "proyectoid", referencedColumnName = "id")
     @ManyToOne
@@ -101,6 +102,7 @@ public class Presupuesto implements Serializable {
 
     @XmlTransient
     public List<PresupuestoRubro> getPresupuestoRubroList() {
+        
         return presupuestoRubroList;
     }
 

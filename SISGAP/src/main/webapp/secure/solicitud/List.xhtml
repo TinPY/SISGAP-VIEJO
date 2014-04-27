@@ -21,7 +21,7 @@
                     <h:outputText value="#{proyectoController.pagination.pageFirstItem + 1}..#{proyectoController.pagination.pageLastItem + 1}/#{proyectoController.pagination.itemsCount}"/>&nbsp;
                     <h:commandLink action="#{proyectoController.previous}" value="#{bundle.Previous} #{proyectoController.pagination.pageSize}" rendered="#{proyectoController.pagination.hasPreviousPage}"/>&nbsp;
                     <h:commandLink action="#{proyectoController.next}" value="#{bundle.Next} #{proyectoController.pagination.pageSize}" rendered="#{proyectoController.pagination.hasNextPage}"/>&nbsp;
-                    <p:dataTable value="#{proyectoController.items}" var="item" >
+                    <p:dataTable id="tbl" paginator="true" rows="10" value="#{proyectoController.items}" var="item" >
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="Fecha"/>
@@ -64,7 +64,7 @@
                             <f:facet name="header">
                                 <h:outputText value="Estado del Proyecto"/>
                             </f:facet>
-                            <h:outputText value="#{item.estado}"/>
+                            <h:outputText value="#{item.estadoproyectoid.estado}"/>
                         </p:column>
                         
                         <p:column>
@@ -89,15 +89,35 @@
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
-                            <h:commandLink action="#{proyectoController.prepareView}" value="Ver"/>
+                            <p:commandLink action="#{proyectoController.prepareView}" value="Ver" ajax="false" />
                             <h:outputText value=" "/>
-                            <h:commandLink action="#{proyectoController.prepareEdit}" value="Editar"/>
+                            <p:commandLink action="#{proyectoController.prepareEdit}" value="Editar" ajax="false" />
                           </p:column>
                     </p:dataTable>
                 </h:panelGroup>
+               
                 <br />
-                <h:commandLink action="#{proyectoController.prepareCreate}" value="Listado de Solicitudes"/>
-                <br />
+                <p:panel header="Exportar">  
+        <h:commandLink>  
+            <p:graphicImage value="/resources/img/excel.png" />  
+            <p:dataExporter type="xls" target="tbl" fileName="cars" pageOnly="true"/>  
+        </h:commandLink>  
+  
+        <h:commandLink>  
+            <p:graphicImage value="/resources/img/pdf.png" />  
+            <p:dataExporter type="pdf" target="tbl" fileName="cars" pageOnly="true"/>  
+        </h:commandLink>  
+          
+        <h:commandLink>  
+            <p:graphicImage value="/resources/img/csv.png" />  
+            <p:dataExporter type="csv" target="tbl" fileName="cars" pageOnly="true"/>  
+        </h:commandLink>  
+          
+        <h:commandLink>  
+            <p:graphicImage value="/resources/img/xml.png" />  
+            <p:dataExporter type="xml" target="tbl" fileName="cars" pageOnly="true"/>  
+        </h:commandLink>  
+    </p:panel>  
                 <br />
                 <h:link outcome="/index" value="Inicio"/>
             </h:form>

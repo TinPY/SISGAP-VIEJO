@@ -79,4 +79,8 @@ body {
 	position: relative;
 }
 
-
+.ui-icon-imprimir {   
+    width: 32px;   
+    height: 32px;   
+    background-image: url("#{resource['img:print_printer.png']}");   
+} 

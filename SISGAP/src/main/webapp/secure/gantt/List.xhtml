@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListTareaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/highcharts-more.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
+            <h:form id="form" >
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <p:commandButton id="btn_add" value="Agregar Tarea" update="tareasdeproyecto @parent"  
+                                 action="#{tareaController.amarTareasProyecto}" >  
+                    
+            </p:commandButton> 
+                <br />
+                <h:panelGrid id="ptarea" columns="2" >
+                <p:dataTable id="tareasdeproyecto" value="#{tareaController.tareasdeproyecto}" var="item" editable="true" editMode="cell" widgetVar="wtareasdeproyecto" >
+                        
+                    <p:column headerText="Tarea">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{item.tarea}" /></f:facet>
+                                <f:facet name="input"><p:inputText value="#{item.tarea}"/></f:facet>
+                            </p:cellEditor>
+                    </p:column>
+                    <p:column headerText="Prioridad">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{item.prioridad}" /></f:facet>
+                                <f:facet name="input"><p:inputText value="#{item.prioridad}"/></f:facet>
+                            </p:cellEditor>
+                    </p:column>
+                    <p:column headerText="Estado">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{item.estado}" /></f:facet>
+                                <f:facet name="input"><p:inputText value="#{item.estado}"/></f:facet>
+                            </p:cellEditor>
+                    </p:column>
+                    <p:column headerText="Dias">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{item.dias}" /></f:facet>
+                                <f:facet name="input"><p:inputText value="#{item.dias}"/></f:facet>
+                            </p:cellEditor>
+                    </p:column>
+                    <p:column headerText="Descripcion">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{item.descripcion}" /></f:facet>
+                                <f:facet name="input"><p:inputText value="#{item.descripcion}"/></f:facet>
+                            </p:cellEditor>
+                    </p:column>
+                    <p:column headerText="Fecha de Inicio">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{item.fechainicio}" /></f:facet>
+                                <f:facet name="input"><p:calendar value="#{item.fechainicio}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                </p:calendar></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                    <p:column headerText="Fecha Fin">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{item.fechafin}" /></f:facet>
+                                <f:facet name="input"><p:calendar value="#{item.fechafin}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                </p:calendar></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column>  
+                             
+                            <p:commandLink id="cborrar" immediate="true" value="Eliminar" action="#{tareaController.removerTareadeProyecto()}" update=":form:tareasdeproyecto"  >
+                                <f:setPropertyActionListener value="#{item}" target="#{tareaController.selected}" />  
+                            </p:commandLink>  
+                        </p:column>  
+                       
+                    </p:dataTable>
+                    <h:panelGroup id="containergrafico" layout="block">
+                    Grafico
+                </h:panelGroup>
+                    
+                </h:panelGrid>
+                <br />
+                <p:commandButton actionListener="#{tareaController.prueba}" onclick="crearGrafico();" update="beanvalue containergrafico"  ></p:commandButton>
+                <h:inputHidden value="#{tareaController.gsoncategoria}" id="beanvalue"  />
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListTareaIndexLink}"/>
+                <div id="containergrafico"  style="min-width: 400px; height: 400px; margin: 0 auto">
+                     <script type="text/javascript" >
+   $(function crearGrafico() {
+    var chart;
+     
+    chart = new Highcharts.Chart({
+        chart: {
+            renderTo: "containergrafico",
+            type: 'columnrange',
+                inverted: true
+        },
+            exporting: {
+            enabled: true
+        },
+            title: {
+            text: 'Projects incomplete in 2013'
+        },
+            xAxis: {
+            categories: []
+        },
+            yAxis: {
+                tickInterval:  7 * 24 * 3600 * 1000,
+            title: 'Date',
+                type: 'datetime',
+                dateTimeLabelFormats: {
+                 week: '%e. %b'
+            },
+                min: Date.UTC(2013, 00, 01)
+        },
+            tooltip: {
+            formatter: function () {
+                console.log(this);
+                return '<b>' + this.series.name + ':</b> ' + Highcharts.dateFormat('%e %b, %Y', this.point.low) + ' - ' + Highcharts.dateFormat('%e %b, %Y', this.point.high) + '<br/>';
+            }
+        },
+            legend: {
+            enabled: false
+        },
+        
+        
+            series: [{
+            name: 'Start - End',
+                data: [
+                [1357603200000, 1373324400000],
+                [1360886400000, 1.3686588e+12],
+                [1359072000000, 1374793200000]
+                
+            ]
+        },  {
+            name: 'Actual',
+                data: [
+                [1360886400000, 1.3686588e+12],
+                [1360885500100, 1364431500000],
+                [1359072000000, 1365412320000]
+            ],
+                color: 'yellow'
+        }]
+    });
+    //chart.series[1].setData(eval(oneArray), false, true);
+     //   chart.series[0].setData(eval(twoArray), false, true);
+        chart.xAxis[0].setCategories(#{tareaController.gsoncategoria}, true, true);
+});
+</script>
+
+                   </div>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

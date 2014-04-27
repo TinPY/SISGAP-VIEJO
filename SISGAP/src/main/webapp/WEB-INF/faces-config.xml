@@ -4,7 +4,14 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
     <application>
-       
+        <resource-bundle>
+            <base-name>/Bundle</base-name>
+            <var>bundle</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/Bundle</base-name>
+            <var>bundle</var>
+        </resource-bundle>
         <resource-bundle>
             <base-name>/Bundle</base-name>
             <var>bundle</var>
@@ -14,5 +21,11 @@
             <var>bundle</var>
         </resource-bundle>
     </application>
-    
+    <navigation-rule>
+        <from-view-id>/secure/solicitud/Solicitud.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>ViewSolicitud</from-outcome>
+            <to-view-id>/secure/solicitud/View.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>

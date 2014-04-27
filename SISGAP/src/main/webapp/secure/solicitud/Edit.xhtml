@@ -1,229 +1,292 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 
     <ui:composition template="/template.xhtml">
-
+        
         <ui:define name="body">
-
+           <f:event type="preRenderView" listener="#{presupuestoController.findProyecto(proyectoController.selected.id)}" />
+           <f:event type="preRenderView" listener="#{presupuestoController.sumarGastosEdit}" />
             <f:event type="preRenderView" listener="#{agenteController.findAgente(request.getUserPrincipal().toString())}" ></f:event>
-            <script type="text/javascript">
-                function start() {
-                    PF('statusDialog').show();
-                }
-
-                function stop() {
-                    PF('statusDialog').hide();
-                }
-            </script>
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <p:dialog modal="true" widgetVar="statusDialog" header="Status" draggable="false" closable="false" resizable="false">
-                <p:graphicImage value="/img/ajaxloadingbar.gif" />
+             <script type="text/javascript">
+function showStatus() {
+ 	 statusDialog.show();
+	 }
+ 
+	 function hideStatus() {
+ 	 statusDialog.hide();
+	 }
+        
+        </script>
+            
+            <p:dialog modal="true" widgetVar="statusDialog" header="Espere" draggable="false" closable="false" resizable="false">
+                <p:graphicImage value="/resources/img/ajaxloadingbar.gif" />
             </p:dialog>
-            <h:form id="formprincipal">
-                <p:growl life="2000" for="growlprincipal" id="growlprincipal" showDetail="true" sticky="true" />
-                <p:panel header="Solicitud" style="margin-bottom:10px;">
-                    <div align="right">
-                        <p:clock pattern="dd.MM.yyyy HH:mm:ss " />  
-                    </div>
+            
+                <p:growl for="growlprincipal" id="growlprincipal" showDetail="true" sticky="true" />
+                 
+                <h:form id="formprincipal" enctype="multipart/form-data" >
+                                              
+                <div align="right">
+                    <p:clock pattern="dd.MM.yyyy HH:mm:ss " />  
+                </div>
+                       
+                    <p:panel id="pprincipal" header="Alta Idea Proyecto" style="margin-bottom:10px;">
+                   
+                
                     <div align="center">
-                        <h:panelGrid columns="3" cellpadding="5" cellspacing="10">
-                            <p:outputLabel style="font-weight:bold;font-size:larger" value="Convocatoria" for="convocatoriaid" />
-
-                            <p:selectOneMenu id="convocatoriaid" value="#{proyectoController.selected.convocatoriaid}" >
-                                <f:selectItems value="#{convocatoriaController.itemsAvailableSelectOne}"/>
-                            </p:selectOneMenu>
-                            <h:panelGrid columns="2">
-                                <p:outputLabel style="color: red" value="Formulario para bajar y completar --> " />
-                                <p:commandLink id="downloadLink" value="Download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop)" >
-                                    <p:fileDownload value="#{proyectoController.fileConvocatoria}" />
-                                </p:commandLink> 
-                            </h:panelGrid>
-                        </h:panelGrid>
-
+                        
                         <br />
                         <p:outputLabel style="font-weight:bold;font-size:larger" value="Tipo de Proyecto" for="tipoproyectoid" />
                         <br />  
-                        <p:selectOneMenu id="tipoproyectoid" value="#{proyectoController.selected.tipoproyectoid}"  >
-                            <f:selectItems value="#{tipoproyectoController.itemsAvailableSelectOne}"/>
-                        </p:selectOneMenu>    
+                        <p:selectOneMenu id="tipoproyectoid" value="#{proyectoController.selected.tipoproyectoid}" >
+                               <f:selectItems value="#{tipoproyectoController.itemsAvailableSelectOne}"/>
+                           </p:selectOneMenu>    
+                       <br />
                         <br />
-                        <br />
-                    </div>
+                 </div>
                     <p:panel style="margin-bottom:10px;" header="Nombre del Proyecto"  id="titulo" >
                         <br />
-                        <p:inputText style="font-weight:bold;font-size:larger" size="150" id="nombre" value="#{proyectoController.selected.nombre}" title="Nombre del Proyecto" />
+                        <p:inputText style="font-weight:bold;font-size:larger;width: 100%"  id="nombre" value="#{proyectoController.selected.nombre}" title="Nombre del Proyecto" />
                         <br />
-                    </p:panel>
-                    <br />
-                    <p:panel header="Responsable Técnico" style="margin-bottom:10px;">   
-                        <h:panelGrid id="pagente" columns="8"  >  
-
-                            <h:outputText style="font-weight:bold;font-size:larger" value="Apellido"/>
-                            <p:outputLabel  value="#{agenteController.selected.apellido}" title="Apellido" rendered="#{not empty agenteController.selected.apellido}"/>
-                            <p:outputLabel style="font-weight:bold;font-size:larger" value="Nombres"/>
-                            <p:outputLabel value="#{agenteController.selected.nombres}" title="Nombres" rendered="#{not empty agenteController.selected.nombres}"/>
-                            <p:outputLabel style="font-weight:bold;font-size:larger" value="Tipo de Documento"/>
-                            <p:outputLabel value="#{agenteController.selected.tipodocumentoid.tipodocumento}" title="Tipo de Documento" rendered="#{not empty agenteController.selected.tipodocumentoid.tipodocumento}"/>
-                            <p:outputLabel style="font-weight:bold;font-size:larger" value="Numero de Documento"/>
-                            <p:outputLabel value="#{agenteController.selected.numerodocumento}" title="Numero de Documento" rendered="#{not empty agenteController.selected.numerodocumento}"/>
-                            <p:outputLabel style="font-weight:bold;font-size:larger" value="Telefono}"/>
-                            <p:outputLabel value="#{agenteController.selected.telefono}" title="Telefono" rendered="#{not empty agenteController.selected.telefono}"/>
-                            <p:outputLabel style="font-weight:bold;font-size:larger" value="Celular"/>
-                            <p:outputLabel value="#{agenteController.selected.celular}" title="Celular" rendered="#{not empty agenteController.selected.celular}"/>
-                            <p:outputLabel style="font-weight:bold;font-size:larger" value="Email"/>
-                            <p:outputLabel value="#{agenteController.selected.email}" title="Email" rendered="#{not empty agenteController.selected.email}"/>
-                            <p:outputLabel style="font-weight:bold;font-size:larger" value="Otro Email"/>
-                            <p:outputLabel value="#{agenteController.selected.otroemail}" title="Otro Email" rendered="#{not empty agenteController.selected.otroemail}"/>
-                            <p:outputLabel style="font-weight:bold;font-size:larger" value="Profesion"/>
-                            <p:outputLabel value="#{agenteController.selected.profesion}" title="Profesion" rendered="#{not empty agenteController.selected.profesion}"/>
-                            <p:outputLabel style="font-weight:bold;font-size:larger" value="Domicilio"/>
-                            <p:outputLabel value="#{agenteController.selected.domicilio}" title="Domicilio" rendered="#{not empty agenteController.selected.domicilio}"/>
-                            <p:outputLabel style="font-weight:bold;font-size:larger" value="Dependencia"/>
-                            <p:outputLabel value="#{agenteController.selected.dependenciaid.dependencia}" title="Dependencia" rendered="#{not empty agenteController.selected.dependenciaid.dependencia}"/>
-                        </h:panelGrid>
-
-                        <p:separator />
-                        <p:commandButton onclick="PF('dagenteeditar').show()" type="button" value="Editar Responsable Técnico" />
-
-                    </p:panel>
-                    <br />
-                    <p:panel header=" La Solicitud del Proyecto responde a una demanda o necesidad de un comitente especifico?" style="margin-bottom:10px;">    
-                        <h:panelGrid id="pentidad" columns="3">  
-
-                            <p:outputLabel style="font-weight:bold;font-size:larger"  value="Ingrese el N° de CUIT/CUIL" />
-                            <p:selectOneMenu widgetVar="entidadid" id="entidadid" value="#{proyectoController.selected.entidadid}" label="Entidad" filter="true" filterMatchMode="contains"  >
-                                <f:selectItems value="#{entidadbeneficiariaController.itemsAvailableSelectOne}"/>
-                            </p:selectOneMenu>
-                        </h:panelGrid>
-                        <p:separator />
-                        <p:commandButton value="Crear Comitente" onclick="PF('dentidadcrear').show()" />
-
-                    </p:panel> 
-                    <br />
-                    <h:panelGrid cellpadding="5" cellspacing="10" columnClasses="right,left" columns="2">
-                        <p:outputLabel style="font-weight:bold;font-size:larger"  value="Diagnostico y resumen descriptivo" for="resumen" />
-                        <p:inputTextarea rows="6" cols="150" id="resumen" value="#{proyectoController.selected.resumen}" label="resumen}" />
-
+                </p:panel>
+                     <br />
+                 <p:panel header="Responsable Técnico" style="margin-bottom:10px;">   
+                     <h:panelGrid id="pagente" columns="8" cellspacing="5" columnClasses="right,left"  >  
+                        
+                    <h:outputText style="font-weight:bold;font-size:larger" value="Apellido"/>
+                    <p:outputLabel  value="#{agenteController.selected.apellido}" title="Apellido" rendered="#{not empty agenteController.selected.apellido}"/>
+                    <p:outputLabel style="font-weight:bold;font-size:larger" value="Nombres"/>
+                    <p:outputLabel value="#{agenteController.selected.nombres}" title="Nombres" rendered="#{not empty agenteController.selected.nombres}"/>
+                     <p:outputLabel style="font-weight:bold;font-size:larger" value="Tipo de Documento"/>
+                     <p:outputLabel value="#{agenteController.selected.tipodocumentoid.tipodocumento}" title="Tipo de Documento" rendered="#{not empty agenteController.selected.tipodocumentoid.tipodocumento}"/>
+                   
+                    <p:outputLabel style="font-weight:bold;font-size:larger" value="Numero de Documento"/>
+                    <p:outputLabel value="#{agenteController.selected.numerodocumento}" title="Numero de Documento" rendered="#{not empty agenteController.selected.numerodocumento}"/>
+                    <p:outputLabel style="font-weight:bold;font-size:larger" value="Telefono"/>
+                    <p:outputLabel value="#{agenteController.selected.telefono}" title="Telefono" rendered="#{not empty agenteController.selected.telefono}"/>
+                    <p:outputLabel style="font-weight:bold;font-size:larger" value="Celular"/>
+                    <p:outputLabel value="#{agenteController.selected.celular}" title="Celular" rendered="#{not empty agenteController.selected.celular}"/>
+                    <p:outputLabel style="font-weight:bold;font-size:larger" value="Email"/>
+                    <p:outputLabel value="#{agenteController.selected.email}" title="Email" rendered="#{not empty agenteController.selected.email}"/>
+                    <p:outputLabel style="font-weight:bold;font-size:larger" value="Otro Email"/>
+                    <p:outputLabel value="#{agenteController.selected.otroemail}" title="Otro Email" rendered="#{not empty agenteController.selected.otroemail}"/>
+                    <p:outputLabel style="font-weight:bold;font-size:larger" value="Profesion"/>
+                    <p:outputLabel value="#{agenteController.selected.profesion}" title="Profesion" rendered="#{not empty agenteController.selected.profesion}"/>
+                    <p:outputLabel style="font-weight:bold;font-size:larger" value="Domicilio"/>
+                    <p:outputLabel value="#{agenteController.selected.domicilio}" title="Domicilio" rendered="#{not empty agenteController.selected.domicilio}"/>
+                    <p:outputLabel style="font-weight:bold;font-size:larger" value="Dependencia"/>
+                    <p:outputLabel value="#{agenteController.selected.dependenciaid.dependencia}" title="Dependencia" rendered="#{not empty agenteController.selected.dependenciaid.dependencia}"/>
+                    </h:panelGrid>
+                    
+                     <p:separator />
+                    <p:commandButton onclick="dagenteeditar.show()" type="button" value="Editar Responsable Técnico" />
+                    
+                 </p:panel>
+                      <br />
+                 <p:panel header=" La Solicitud del Proyecto responde a una demanda o necesidad de un comitente especifico?" style="margin-bottom:10px;">    
+                    <h:panelGrid id="pcomitente" columns="3">  
+                        
+                        <p:outputLabel style="font-weight:bold;font-size:larger"  value="Ingrese el N° de CUIT/CUIL" />
+                        <p:selectOneMenu widgetVar="comitentedid" id="comitenteid"  value="#{proyectoController.selected.comitenteid}" label="Comitente" filter="true" filterMatchMode="contains"  >
+                            <f:selectItems  value="#{comitenteController.itemsAvailableSelectMany}"/>
+                        </p:selectOneMenu>
+                     </h:panelGrid>
+                     <p:separator />
+                     <p:commandButton value="Crear Comitente" onclick="dcomitentecrear.show()" />
+                     
+                 </p:panel> 
+                       <br />
+                       <h:panelGrid cellpadding="5" cellspacing="10" columnClasses="right,left" columns="2">
+                    <p:outputLabel style="font-weight:bold;font-size:larger"  value="Diagnostico y resumen descriptivo" for="resumen" />
+                    <p:inputTextarea rows="7" cols="100" id="resumen" value="#{proyectoController.selected.resumen}" label="resumen}" autoResize="true"  />
                         <p:outputLabel style="font-weight:bold;font-size:larger" value="Documentacion" for="fupload:documentacion" />
-
+                          
+                     <h:panelGrid cellpadding="5" cellspacing="10" columnClasses="right,left" columns="3">    
+                    
                         <h:form id="fupload" enctype="multipart/form-data">
                             <p:fileUpload id="documentacion" fileUploadListener="#{proyectoController.handleFileUpload}" mode="advanced"  
-                                          sizeLimit="10000000" auto="true" allowTypes="/(\.|\/)(gif|jpe?g|png|doc|docx|pdf)$/"  />
+                                          sizeLimit="10000000" auto="true" allowTypes="/(\.|\/)(gif|jpe?g|png|doc|docx|pdf)$/" update=":formprincipal:odocumentacionnombre,:formprincipal:odocumentacionnombre1"   />
                         </h:form>
-
-                        <p:outputLabel style="font-weight:bold;font-size:larger" value="Observaciones" for="observaciones" />
-                        <p:inputTextarea rows="6" cols="150" id="observaciones" value="#{proyectoController.selected.observaciones}" title="observaciones" />
-
-                        <p:outputLabel style="font-weight:bold;font-size:larger" value="Duracion en meses" for="duracion" />
-                        <p:spinner maxlength="3" id="duracion" value="#{proyectoController.selected.duracion}" title="duracion" min="0" />
-
-                        <p:outputLabel style="font-weight:bold;font-size:larger"  value="Beneficiario" />
-                        <p:selectOneMenu widgetVar="beneficiarioid" id="beneficiarioid" value="#{proyectoController.selected.beneficiarioid}" label="Beneficiario" >
+                        <p:outputLabel id="odocumentacionnombre" style="font-weight:bold;font-size:larger" value="" />
+                        <p:outputLabel id="odocumentacionnombre1" value='#{proyectoController.selected.documentacionnombre}' style="font-weight:bold;font-size:larger" />
+                    </h:panelGrid>
+                    <p:outputLabel style="font-weight:bold;font-size:larger" value="Observaciones" for="observaciones" />
+                    <p:inputTextarea rows="5" cols="100" id="observaciones" value="#{proyectoController.selected.observaciones}" title="observaciones" />
+                     
+                    <p:outputLabel style="font-weight:bold;font-size:larger" value="Lugar donde se realizara el Proyecto" for="localizacion" />
+                    <p:inputTextarea rows="1" cols="100" id="localizacion" value="#{proyectoController.selected.localizacion}" title="localizacion" label="Por ejemplo = Martin Fierro 1054 - Chilecito - La Rioja" />
+                    
+                    
+                    <p:outputLabel style="font-weight:bold;font-size:larger" value="Duracion en meses" for="duracion" />
+                    <p:spinner maxlength="3" id="duracion" value="#{proyectoController.selected.duracion}" title="duracion" min="1"  />
+                </h:panelGrid>
+                 <p:panel header="Financiamiento" style="margin-bottom:10px;">       
+                     <h:panelGrid cellpadding="5" cellspacing="10" columnClasses="right,left" columns="2" >
+                     <p:outputLabel style="font-weight:bold;font-size:larger"  value="Beneficiario" for="beneficiarioid" />
+                    <p:selectOneMenu widgetVar="beneficiarioid" id="beneficiarioid" value="#{proyectoController.selected.beneficiarioid}" label="Beneficiario"  >
                             <f:selectItems value="#{beneficiarioController.itemsAvailableSelectOne}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel style="font-weight:bold;font-size:larger"  value="Tipo de Financiamiento" />
-                        <p:selectOneMenu widgetVar="tipofinanciamientoid" id="tipofinanciamientoid" value="#{proyectoController.selected.tipofinanciamientoid}" label="Tipo de Financiamiento"   >
+                   <p:outputLabel style="font-weight:bold;font-size:larger"  value="Fuente de Financiamiento" for="fuentefinanciamientoid" />
+                   <p:selectOneMenu widgetVar="fuentefinanciamientoid" id="fuentefinanciamientoid" value="#{proyectoController.selected.fuentefinanciamientoid}" label="Fuente de Financiamiento" >
+                            <f:selectItems value="#{fuentefinanciamientoController.itemsAvailableSelectOne}"/>
+                           
+                   </p:selectOneMenu>
+                   <p:outputLabel style="font-weight:bold;font-size:larger"  value="Tipo de Financiamiento" for="tipofinanciamientoid" />
+                   <p:selectOneMenu widgetVar="tipofinanciamientoid" id="tipofinanciamientoid" value="#{proyectoController.selected.tipofinanciamientoid}" label="Tipo de Financiamiento" >
                             <f:selectItems value="#{tipofinanciamientoController.itemsAvailableSelectOne}"/>
-                            <p:ajax update="tpresupuesto" listener="#{proyectoController.cambioColPresupuesto()}" /> 
-                        </p:selectOneMenu>
-
-                    </h:panelGrid>
-                    <br />
-                    <br />
-                    <p:panel widgetVar="wpresupuesto" id="presupuesto" header="Presupuesto" style="margin-bottom:10px;"> 
-                        <h:inputHidden value="#{presupuestoController.selected.estado}" />                          
-                        <p:dataTable id="tpresupuesto" value="#{presupuestoRubroController.presupuestosrubros}" var="item" editable="true" editMode="cell" widgetVar="presupuestoTablaz" >
-                            <p:commandButton id="toggler" type="button" value="Columns" style="float:right" icon="ui-icon-calculator" />
-
-                            <p:ajax event="cellEdit" listener="#{presupuestoRubroController.sumarGastos}" update=":formprincipal:isuma" />                 
-                            <p:column style="text-align:right">
-                                <f:facet name="header">
-
-                                    <h:outputText value="Rubro"/>
-                                </f:facet>
-                                <h:outputText value="#{item.rubro.rubro}"/>
-
-                            </p:column>
-
-                            <p:column rendered="#{proyectoController.columnorganismo}" headerText="Gasto Organismo">
-                                <p:cellEditor>  
-                                    <f:facet name="output">
-                                        <h:outputText value="#{item.gastoorganismo}" />
-                                    </f:facet>  
-                                    <f:facet name="input">
-                                        <p:inputText id="gastoorganismo" value="#{item.gastoorganismo}" />
-                                    </f:facet>  
-                                </p:cellEditor> 
-
-                            </p:column>
-                            <p:column headerText="Gasto Comitente">
-
-                                <p:cellEditor>  
-                                    <f:facet name="output">
-                                        <h:outputText value="#{item.gastocomitente}" />
-                                    </f:facet>  
-                                    <f:facet name="input">
-                                        <p:inputText id="gastocomitente" value="#{item.gastocomitente}" >
-
-                                        </p:inputText>
-                                    </f:facet> 
-
-                                </p:cellEditor>  
-
-                            </p:column>
-
-
-                            <p:column headerText="Gasto Universidad">
-                                <p:cellEditor>  
-                                    <f:facet name="output">
-                                        <h:outputText value="#{item.gastouniversidad}" />
-                                    </f:facet>  
-                                    <f:facet name="input">
-                                        <p:inputText id="gastouniversidad" value="#{item.gastouniversidad}" />
-                                    </f:facet>  
-                                </p:cellEditor> 
-
-                            </p:column>
-                            <p:summaryRow id="isuma1">
-                                <p:column colspan="3" >
-                                    Total:
+                           <!-- <p:ajax update="tpresupuesto" listener="#{proyectoController.cambioColPresupuesto()}" />  -->
+                   </p:selectOneMenu>
+                    <h:panelGrid columns="2" cellpadding="5" cellspacing="10">
+                            
+                            <p:outputLabel style="font-weight:bold;font-size:larger" value="Convocatoria" for="convocatoriaid" />
+                       
+                             <p:selectOneMenu id="convocatoriaid" value="#{proyectoController.selected.convocatoriaid}" >
+                                <f:selectItems value="#{convocatoriaController.itemsAvailableSelectOne}"  />
+                             </p:selectOneMenu>
+                            </h:panelGrid>
+                             <h:panelGrid id="panelarchivo" columns="2" >
+                                 
+                                    <p:outputLabel style="color: red" value="Formulario para bajar y completar --> " />
+                                    <p:commandLink id="downloadLink" value="Download" ajax="false" process="@this" onclick="PrimeFaces.monitorDownload(showStatus, hideStatus)" >
+                                        <p:fileDownload id="f1" value="#{proyectoController.fileConvocatoria}" contentDisposition="inline" />
+                                        
+                                    </p:commandLink> 
+                                 
+                            
+                            
+                        </h:panelGrid> 
+                </h:panelGrid>
+                 </p:panel>
+                <br />
+                <br />
+                <p:remoteCommand id="rc" name="sumarGastos" actionListener="#{presupuestoController.sumarGastosEdit}"  update=":formprincipal:caportes,:formprincipal:paportes,:formprincipal:prubros, :formprincipal:crubros" /> 
+                <p:dataTable id="tpresupuesto" value="#{presupuestoController.presupuestosrubrosedilist}"  var="item" editable="true" editMode="cell" style="width:100%" >
+                  
+                    
+                    
+                    <f:facet name="header">  
+                            Presupuesto  
+                        </f:facet>  
+                    
+                        <p:column style="text-align:right;width:20%">
+                                    <f:facet name="header">
+                                       
+                                        <h:outputText value="Rubro"/>
+                                    </f:facet>
+                                     <h:outputText style="width:96%" value="#{item.rubro.rubro}"/>
+                                    
                                 </p:column>
-
-                                <p:column >
-                                    0
+                        
+                    <p:column style="width:20%;" headerText="Aporte Organismo">
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <p:outputLabel value="#{item.gastoorganismo}" />
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText style="width:96%" id="gastoorganismo" value="#{item.gastoorganismo}" />
+                                        </f:facet>  
+                                    </p:cellEditor> 
+                           
                                 </p:column>
-                            </p:summaryRow>
-                        </p:dataTable>
-                        <br />
-
-                        <p:outputLabel style="font-weight:bold;font-size:larger" id="isuma" value="Total Gasto Organismo = $#{presupuestoRubroController.sumagastoorganismo} | Total Gasto Comitente = $#{presupuestoRubroController.sumagastocomitente} | Total Gasto Universidad = $#{presupuestoRubroController.sumagastouniversidad}" />
-                        <br /> 
-                    </p:panel>
+                                <p:column style="width:20%;" headerText="Aporte Comitente">
+                                    
+                                        <p:cellEditor >  
+                                            <f:facet name="output">
+                                                <p:outputLabel value="#{item.gastocomitente}" />
+                                            </f:facet>  
+                                            <f:facet name="input">
+                                                <p:inputText style="width:96%" id="gastocomitente" value="#{item.gastocomitente}" >
+                                                    
+                                                </p:inputText>
+                                            </f:facet> 
+                                            
+                                        </p:cellEditor>  
+                                       
+                                </p:column>
+                                
+                        
+                                <p:column style="width:20%;" headerText="Aporte Universidad">
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <p:outputLabel value="#{item.gastouniversidad}" />
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText style="width:96%" id="gastouniversidad" value="#{item.gastouniversidad}" />
+                                        </f:facet>  
+                                    </p:cellEditor> 
+                                     
+                                </p:column>
+                       
+                             
+                             
+                            </p:dataTable>
                     <br />
-                    <p:separator />
-                    <br />
-                    <br />
-                    <p:commandButton action="#{proyectoController.soloCrear}" value="Grabar" ajax="false" />
-                </p:panel>
-
-
-
-
-
-
-
+                         <h:panelGrid columns="4">
+                                <p:panelGrid style="font-weight:bold;" id="paportes" columnClasses="right,right" columns="2">
+                                          <f:facet name="header">  
+                                                Total de Aportes  
+                                          </f:facet>
+                                         <p:outputLabel value="Aportes Organismo"/>
+                                         <p:outputLabel value="$#{presupuestoController.sumagastoorganismo}"/>
+                                         <p:outputLabel value="Aportes Comitente"/>
+                                         <p:outputLabel value="$#{presupuestoController.sumagastocomitente}"/>
+                                         <p:outputLabel value="Aportes Universidad"/>
+                                         <p:outputLabel value="$#{presupuestoController.sumagastouniversidad}"/>
+                                         <f:facet name="footer">  
+                                             Total = $#{presupuestoController.sumatotal}  
+                                          </f:facet>
+                                     </p:panelGrid>
+                             <p:pieChart id="caportes" value="#{presupuestoController.pieModelAportes}" legendPosition="e" showDataLabels="true"  
+                            title="Aportes" style="width:15%;height:300px" sliceMargin="5" diameter="150" /> 
+                                
+                               
+                               
+                                       <p:dataTable id="prubros" value="#{presupuestoController.presupuestosrubrosedilist}" var="data" >
+                    
+                                          <f:facet name="header">  
+                                                Total de Rubros  
+                                          </f:facet>
+                                 <p:column >
+                                    <p:outputLabel style="font-weight:bold;" value="#{data.rubro.rubro}"/>
+                                 </p:column>
+                                 <p:column>
+                                    <p:outputLabel style="font-weight:bold;" value="$#{data.total}"/>
+                                 </p:column>    
+                                            <f:facet name="footer">  
+                                             Total = $#{presupuestoController.sumatotal}  
+                                          </f:facet>
+                                    </p:dataTable>
+                                        <p:pieChart id="crubros" value="#{presupuestoController.pieModelRubro}" legendPosition="e" showDataLabels="true"  
+                            title="Rubros" style="width:15%;height:300px" sliceMargin="5" diameter="150" /> 
+                                
+                             
+                   </h:panelGrid>
+                <p:separator />
+                 <br />
+                  <br />
+                  <div align="center">
+                    <p:commandButton icon="ui-icon-disk" ajax="false" value="Grabar" update="growlprincipal" />
+                  </div>
+               </p:panel>
+                
+               
+                
+                
+               
+                
+                
             </h:form>
             <h:form>
                 <p:dialog id="dagenteeditar" widgetVar="dagenteeditar" modal="true"  header="Editar Responsable Técnico" >
-
+               
                     <h:panelGrid columns="2">
-
+                        
                         <h:outputLabel value="Apellido" for="apellido" />
                         <h:inputText id="apellido" value="#{agenteController.selected.apellido}" />
                         <h:outputLabel value="Nombres" for="nombres" />
@@ -253,34 +316,34 @@
                         <p:commandButton ajax="true" action="#{agenteController.solograbar()}" value="Editar" oncomplete="dagenteeditar.hide()" update=":formprincipal:pagente" />
 
 
-                    </h:panelGrid>
-                    <br />
-
+                        </h:panelGrid>
+                        <br />
+                             
                 </p:dialog>
             </h:form>
-
+            
             <h:form>
-                <p:dialog id="dentidadcrear" widgetVar="dentidadcrear" modal="true"  header="Crear Comitente" >
-
-                    <h:panelGrid columns="2">
-                        <h:outputLabel value="Razon Social" for="razonsocial" />
-                        <h:inputText id="razonsocial" value="#{entidadbeneficiariaController.selected.razonsocial}" />
-                        <h:outputLabel value="CUIT/CUIL" for="cuit" />
-                        <h:inputText id="cuit" value="#{entidadbeneficiariaController.selected.cuit}" />
-                        <h:outputLabel value="Teléfono" for="telefono" />
-                        <h:inputText id="telefono" value="#{entidadbeneficiariaController.selected.telefono}" />
-                        <h:outputLabel value="Email" for="email" />
-                        <h:inputText id="email" value="#{entidadbeneficiariaController.selected.email}" />
-                        <h:outputLabel value="Tipo de Entidad" for="tipoentidadid" />
-                        <h:selectOneMenu id="tipoentidadid" value="#{entidadbeneficiariaController.selected.tipoentidadid}" >
-                            <f:selectItems value="#{tipoentidadController.itemsAvailableSelectOne}"/>
-                        </h:selectOneMenu>
-                    </h:panelGrid>
-                    <br />
-                    <p:commandButton action="#{entidadbeneficiariaController.soloCrear()}" value="Crear" oncomplete="PF('dentidadcrear').hide()" update=":formprincipal:pentidad" />
+                <p:dialog id="dcomitentecrear" widgetVar="dcomitentecrear" modal="true"  header="Crear Comitente" >
+               
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Razon Social" for="razonsocial" />
+                    <h:inputText id="razonsocial" value="#{comitenteController.selected.razonsocial}" />
+                    <h:outputLabel value="CUIT/CUIL" for="cuit" />
+                    <h:inputText id="cuit" value="#{comitenteController.selected.cuit}" />
+                    <h:outputLabel value="Teléfono" for="telefono" />
+                    <h:inputText id="telefono" value="#{comitenteController.selected.telefono}" />
+                    <h:outputLabel value="Email" for="email" />
+                    <h:inputText id="email" value="#{comitenteController.selected.email}" />
+                    <h:outputLabel value="Tipo de Comitente" for="tipocomitenteid" />
+                    <h:selectOneMenu id="tipocomitenteid" value="#{comitenteController.selected.tipocomitenteid}" >
+                        <f:selectItems value="#{tipocomitenteController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <p:commandButton action="#{comitenteController.soloCrear()}" value="Crear" oncomplete="PF('dcomitentecrear').hide()" update=":formprincipal:pcomitente" />
                 </p:dialog>
             </h:form>
-
+            
         </ui:define>
     </ui:composition>
 

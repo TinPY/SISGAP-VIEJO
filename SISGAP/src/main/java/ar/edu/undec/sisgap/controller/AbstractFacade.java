@@ -32,6 +32,12 @@ public abstract class AbstractFacade<T> {
     protected abstract EntityManager getEntityManager();
 
     public void create(T entity) {
+        getEntityManager().merge(entity);
+        
+        
+    }
+    
+    public void createWithPersist(T entity) {
         getEntityManager().persist(entity);
         
         

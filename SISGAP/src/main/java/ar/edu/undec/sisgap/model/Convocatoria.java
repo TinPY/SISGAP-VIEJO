@@ -7,6 +7,7 @@
 package ar.edu.undec.sisgap.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -77,9 +78,21 @@ public class Convocatoria implements Serializable {
     @Column(name = "fechacierre")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechacierre;
+    @Column(name="estado")
+    private Character estado;
+    @Column(name="organismo")
+    private String organismo;
+    @Column(name="beneficiario")
+    private String beneficiario;
+    @Column(name="montofinanciamiento")
+    private BigDecimal montofinanciamiento;
+    
     @JoinColumn(name = "tipoproyectoid", referencedColumnName = "id")
     @ManyToOne
     private Tipoproyecto tipoproyectoid;
+    @JoinColumn(name = "tipofinanciamientoid", referencedColumnName = "id")
+    @ManyToOne
+    private Tipofinanciamiento tipofinanciamientoid;
     @OneToMany(mappedBy = "convocatoriaid")
     private List<Proyecto> proyectoList;
 
@@ -169,6 +182,48 @@ public class Convocatoria implements Serializable {
     public void setTipoproyectoid(Tipoproyecto tipoproyectoid) {
         this.tipoproyectoid = tipoproyectoid;
     }
+
+    public Tipofinanciamiento getTipofinanciamientoid() {
+        return tipofinanciamientoid;
+    }
+
+    public void setTipofinanciamientoid(Tipofinanciamiento tipofinanciamientoid) {
+        this.tipofinanciamientoid = tipofinanciamientoid;
+    }
+
+    public Character getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Character estado) {
+        this.estado = estado;
+    }
+
+    public String getOrganismo() {
+        return organismo;
+    }
+
+    public void setOrganismo(String organismo) {
+        this.organismo = organismo;
+    }
+
+    public String getBeneficiario() {
+        return beneficiario;
+    }
+
+    public void setBeneficiario(String beneficiario) {
+        this.beneficiario = beneficiario;
+    }
+
+    public BigDecimal getMontofinanciamiento() {
+        return montofinanciamiento;
+    }
+
+    public void setMontofinanciamiento(BigDecimal montofinanciamiento) {
+        this.montofinanciamiento = montofinanciamiento;
+    }
+    
+    
 
     @XmlTransient
     public List<Proyecto> getProyectoList() {

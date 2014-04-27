@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewArchivoproyectoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewArchivoproyectoLabel_id}"/>
+                    <h:outputText value="#{archivoproyectoController.selected.id}" title="#{bundle.ViewArchivoproyectoTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewArchivoproyectoLabel_link}"/>
+                    <h:outputText value="#{archivoproyectoController.selected.link}" title="#{bundle.ViewArchivoproyectoTitle_link}"/>
+                    <h:outputText value="#{bundle.ViewArchivoproyectoLabel_nombre}"/>
+                    <h:outputText value="#{archivoproyectoController.selected.nombre}" title="#{bundle.ViewArchivoproyectoTitle_nombre}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{archivoproyectoController.destroyAndView}" value="#{bundle.ViewArchivoproyectoDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewArchivoproyectoEditLink}"/>
+                <br />
+                <h:commandLink action="#{archivoproyectoController.prepareCreate}" value="#{bundle.ViewArchivoproyectoCreateLink}" />
+                <br />
+                <h:commandLink action="#{archivoproyectoController.prepareList}" value="#{bundle.ViewArchivoproyectoShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewArchivoproyectoIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,11 +1,14 @@
 package ar.edu.undec.sisgap.controller.view;
 
-import ar.edu.undec.sisgap.model.Tipoentidad;
+import ar.edu.undec.sisgap.model.Tarea;
 import ar.edu.undec.sisgap.controller.view.util.JsfUtil;
 import ar.edu.undec.sisgap.controller.view.util.PaginationHelper;
-import ar.edu.undec.sisgap.controller.TipoentidadFacade;
+import ar.edu.undec.sisgap.controller.TareaFacade;
+import com.google.gson.Gson;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -18,29 +21,32 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
-@ManagedBean(name = "tipoentidadController")
+@ManagedBean(name = "tareaController")
 @SessionScoped
-public class TipoentidadController implements Serializable {
+public class TareaController implements Serializable {
 
-    private Tipoentidad current;
+    private Tarea current;
     private DataModel items = null;
     @EJB
-    private ar.edu.undec.sisgap.controller.TipoentidadFacade ejbFacade;
+    private ar.edu.undec.sisgap.controller.TareaFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    private List<Tarea> tareasdeproyecto = new ArrayList<Tarea>() ;
+    private Tarea tareanueva=new Tarea();
+    private String gsoncategoria="[]";
 
-    public TipoentidadController() {
+    public TareaController() {
     }
 
-    public Tipoentidad getSelected() {
+    public Tarea getSelected() {
         if (current == null) {
-            current = new Tipoentidad();
+            current = new Tarea();
             selectedItemIndex = -1;
         }
         return current;
     }
 
-    private TipoentidadFacade getFacade() {
+    private TareaFacade getFacade() {
         return ejbFacade;
     }
 
@@ -68,13 +74,13 @@ public class TipoentidadController implements Serializable {
     }
 
     public String prepareView() {
-        current = (Tipoentidad) getItems().getRowData();
+        current = (Tarea) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
     public String prepareCreate() {
-        current = new Tipoentidad();
+        current = new Tarea();
         selectedItemIndex = -1;
         return "Create";
     }
@@ -82,7 +88,7 @@ public class TipoentidadController implements Serializable {
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TipoentidadCreated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TareaCreated"));
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -91,7 +97,7 @@ public class TipoentidadController implements Serializable {
     }
 
     public String prepareEdit() {
-        current = (Tipoentidad) getItems().getRowData();
+        current = (Tarea) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
@@ -99,7 +105,7 @@ public class TipoentidadController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TipoentidadUpdated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TareaUpdated"));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -108,7 +114,7 @@ public class TipoentidadController implements Serializable {
     }
 
     public String destroy() {
-        current = (Tipoentidad) getItems().getRowData();
+        current = (Tarea) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
@@ -132,7 +138,7 @@ public class TipoentidadController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TipoentidadDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TareaDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
@@ -188,16 +194,16 @@ public class TipoentidadController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    @FacesConverter(forClass = Tipoentidad.class)
-    public static class TipoentidadControllerConverter implements Converter {
+    @FacesConverter(forClass = Tarea.class)
+    public static class TareaControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            TipoentidadController controller = (TipoentidadController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "tipoentidadController");
+            TareaController controller = (TareaController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "tareaController");
             return controller.ejbFacade.find(getKey(value));
         }
 
@@ -218,14 +224,73 @@ public class TipoentidadController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Tipoentidad) {
-                Tipoentidad o = (Tipoentidad) object;
+            if (object instanceof Tarea) {
+                Tarea o = (Tarea) object;
                 return getStringKey(o.getId());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Tipoentidad.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Tarea.class.getName());
             }
         }
 
     }
+
+    public List<Tarea> getTareasdeproyecto() {
+        
+        return tareasdeproyecto;
+    }
+
+    public void setTareasdeproyecto(List<Tarea> tareasdeproyecto) {
+        this.tareasdeproyecto = tareasdeproyecto;
+    }
+    
+    public String amarTareasProyecto(){
+        
+        current = new Tarea();
+        
+       // System.out.println(this.tareasdeproyecto.size());
+        current.setId(this.tareasdeproyecto.size()+1);
+        this.tareasdeproyecto.add(current);
+        return null;
+    }
+
+    public Tarea getTareanueva() {
+        return tareanueva;
+    }
+
+    public void setTareanueva(Tarea tareanueva) {
+        this.tareanueva = tareanueva;
+    }
+    
+    public void prueba(){
+        Gson gson= new Gson();
+        List<String> categoria=new ArrayList<String>();
+        
+        for(Tarea t:this.tareasdeproyecto){
+            categoria.add(t.getTarea());
+            
+        }
+        gsoncategoria=""+gson.toJson(categoria);
+        System.out.println("--------------------"+gsoncategoria);
+    }
+    
+    public void removerTareadeProyecto(){
+        System.out.println("oooooooooooo"+current.getId());
+        this.tareasdeproyecto.remove(current);
+        
+    }
+    
+    public void setSelected(Tarea tarea){
+        current=tarea;
+    }
+
+    public String getGsoncategoria() {
+        return gsoncategoria;
+    }
+
+    public void setGsoncategoria(String gsoncategoria) {
+        this.gsoncategoria = gsoncategoria;
+    }
+    
+    
 
 }

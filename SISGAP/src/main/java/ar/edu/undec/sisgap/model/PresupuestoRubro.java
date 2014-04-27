@@ -44,6 +44,8 @@ public class PresupuestoRubro implements Serializable {
     private BigDecimal gastouniversidad;
     @Column(name = "gastoorganismo")
     private BigDecimal gastoorganismo;
+    @Column(name = "total")
+    private BigDecimal total;
     @Column(name = "estado")
     private Character estado;
     @JoinColumn(name = "rubroid", referencedColumnName = "id", insertable = false, updatable = false)
@@ -98,6 +100,16 @@ public class PresupuestoRubro implements Serializable {
         this.gastouniversidad = gastouniversidad;
     }
 
+    public BigDecimal getTotal() {
+        return total;
+    }
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
+    }
+    
+    
+    
     public Character getEstado() {
         return estado;
     }

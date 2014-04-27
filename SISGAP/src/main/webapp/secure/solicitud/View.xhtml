@@ -4,317 +4,165 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 
     <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ViewProyectoTitle}"></h:outputText>
-        </ui:define>
+        
         <ui:define name="body">
-            
-            <f:event type="preRenderView" listener="#{agenteController.findAgente(request.getUserPrincipal().toString())}" ></f:event>
-            <f:event type="preRenderView" listener="#{proyectoController.buscarProyectoAgente(agenteController.selected.id)}" ></f:event>
-            <f:event type="preRenderView" listener="#{proyectoController.buscarProyectoAgente(agenteController.selected.id)}" ></f:event>
-
+            <f:event type="preRenderView" listener="#{presupuestoController.findProyecto(proyectoController.selected.id)}" />
+            <f:event type="preRenderView" listener="#{presupuestoController.sumarGastosView}" />
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
+             <script type="text/javascript">
+function showStatus() {
+ 	 statusDialog.show();
+	 }
+ 
+	 function hideStatus() {
+ 	 statusDialog.hide();
+	 }
+        </script>
+            
+            <p:dialog modal="true" widgetVar="statusDialog" header="Espere" draggable="false" closable="false" resizable="false">
+                <p:graphicImage value="/resources/img/ajaxloadingbar.gif" />
+            </p:dialog>
             <h:form>
-                <p:panel id="detalleSolicitud" header="Detalles de la Solicitud Nº: #{proyectoController.selected.id}">
-                    <p:panelGrid style="border: none !important;" >
-                        <p:row>
-                            <p:column  style="font-weight: bold; text-align: right;">
-                                <h:outputText value="#{bundle.ViewProyectoLabel_nombre}: "/>
-                            </p:column>
-                            <p:column>
-                                <h:outputText value="#{proyectoController.selected.nombre}" title="#{bundle.ViewProyectoTitle_nombre}"/>
-                            </p:column>
-                        </p:row>
-                        <p:row>
-                            <p:column style="font-weight: bold; text-align: right;">
-                                <h:outputText value="#{bundle.ViewProyectoLabel_fecha}: "/>
-                            </p:column>
-                            <p:column>
-                                <h:outputText value="#{proyectoController.selected.fecha}" title="#{bundle.ViewProyectoTitle_fecha}">
-                                    <f:convertDateTime pattern="dd/MM/yyyy" />
-                                </h:outputText>
-                            </p:column>
-                        </p:row>
-                        <p:row>
-                            <p:column style="font-weight: bold; text-align: right;">
-                                <h:outputText value="#{bundle.ViewProyectoLabel_resumen}: "/>
-                            </p:column>
-                            <p:column>
-                                <h:outputText value="#{proyectoController.selected.resumen}" title="#{bundle.ViewProyectoTitle_resumen}"/>
-                            </p:column>
-                        </p:row>
-                        <p:row>
-                            <p:column style="font-weight: bold; text-align: right;">
-                                <h:outputText value="#{bundle.ViewProyectoLabel_documentacion}: "/>
-                            </p:column>
-                            <p:column>
-                                <h:outputText value="#{proyectoController.selected.documentacion}" title="#{bundle.ViewProyectoTitle_documentacion}"/>
-                            </p:column>
-                        </p:row>
-                        <p:row>
-                            <p:column style="font-weight: bold; text-align: right;">
-                                <h:outputText value="#{bundle.ViewProyectoLabel_observaciones}: "/>
-                            </p:column>
-                            <p:column>
-                                <h:outputText value="#{proyectoController.selected.observaciones}" title="#{bundle.ViewProyectoTitle_observaciones}"/>
-                            </p:column>
-                        </p:row>
-                        <p:row>
-                            <p:column style="font-weight: bold; text-align: right;">
-                                <h:outputText value="#{bundle.ViewProyectoLabel_duracion}: "/>
-                            </p:column>
-                            <p:column>
-                                <h:outputText value="#{proyectoController.selected.duracion}" title="#{bundle.ViewProyectoTitle_duracion}"/>
-                            </p:column>
-                        </p:row>
-                        <p:row>
-                            <p:column style="font-weight: bold; text-align: right;">
-                                <h:outputText value="#{bundle.ViewProyectoLabel_estado}: "/>
-                            </p:column>
-                            <p:column>
-                                <h:outputText value="#{proyectoController.selected.estado}" title="#{bundle.ViewProyectoTitle_estado}"/>
-                            </p:column>
-                        </p:row>
-                        <p:row>
-                            <p:column style="font-weight: bold; text-align: right;">
-                                <h:outputText value="#{bundle.ViewProyectoLabel_id}: "/>
-                            </p:column>
-                            <p:column>
-                                <h:outputText value="#{proyectoController.selected.id}" title="#{bundle.ViewProyectoTitle_id}"/>
-                            </p:column>
-                        </p:row>
-                        <p:row>
-                            <p:column style="font-weight: bold; text-align: right;">
-                                <h:outputText value="#{bundle.ViewProyectoLabel_cudap}: "/>
-                            </p:column>
-                            <p:column>
-                                <h:outputText value="#{proyectoController.selected.cudap}" title="#{bundle.ViewProyectoTitle_cudap}"/>
-                            </p:column>
-                        </p:row>
-                        <p:row>
-                            <p:column style="font-weight: bold; text-align: right;">
-                                <h:outputText value="#{bundle.ViewProyectoLabel_tipoproyectoid}: "/>
-                            </p:column>
-                            <p:column>
-                                <h:outputText value="#{proyectoController.selected.tipoproyectoid.tipo}" title="#{bundle.ViewProyectoTitle_tipoproyectoid}"/>
-                            </p:column>
-                        </p:row>
-                        <p:row>
-                            <p:column style="font-weight: bold; text-align: right;">
-                                <h:outputText value="#{bundle.ViewProyectoLabel_convocatoriaid}: "/>
-                            </p:column>
-                            <p:column>
-                                <h:outputText value="#{proyectoController.selected.convocatoriaid.convocatoria}" title="#{bundle.ViewProyectoTitle_convocatoriaid}"/>
-                            </p:column>
-                        </p:row>
-                    </p:panelGrid>
-
-                    <p:separator id="separator"/>  
+                <p:growl  for="growlprincipal" id="growlprincipal" showDetail="true" sticky="true" />
                     
-                    <p:panel header="Presupuesto">
-                        <p:dataTable id="tpresupuesto" value="#{presupuestoRubroController.presupuestosrubros}" var="item" widgetVar="presupuestoTablaz" >
-                            <p:commandButton id="toggler" type="button" value="Columns" style="float:right" icon="ui-icon-calculator" />
-
-                            <p:column style="text-align:right">
-                                <f:facet name="header">
-
-                                    <h:outputText value="Rubro"/>
-                                </f:facet>
-                                <h:outputText value="#{item.rubro.rubro}"/>
-
-                            </p:column>
-
-                            <p:column rendered="#{proyectoController.columnorganismo}" headerText="Gasto Organismo">
-                                <p:cellEditor>  
-                                    <f:facet name="output">
-                                        <h:outputText value="#{item.gastoorganismo}" />
-                                    </f:facet>  
-                                    <f:facet name="input">
-                                        <p:inputText id="gastoorganismo" value="#{item.gastoorganismo}" />
-                                    </f:facet>  
-                                </p:cellEditor> 
-
-                            </p:column>
-                            <p:column headerText="Gasto Comitente">
-
-                                <p:cellEditor>  
-                                    <f:facet name="output">
-                                        <h:outputText value="#{item.gastocomitente}" />
-                                    </f:facet>  
-                                    <f:facet name="input">
-                                        <p:inputText id="gastocomitente" value="#{item.gastocomitente}" >
-
-                                        </p:inputText>
-                                    </f:facet> 
-
-                                </p:cellEditor>  
-
-                            </p:column>
-
-
-                            <p:column headerText="Gasto Universidad">
-                                <p:cellEditor>  
-                                    <f:facet name="output">
-                                        <h:outputText value="#{item.gastouniversidad}" />
-                                    </f:facet>  
-                                    <f:facet name="input">
-                                        <p:inputText id="gastouniversidad" value="#{item.gastouniversidad}" />
-                                    </f:facet>  
-                                </p:cellEditor> 
-
-                            </p:column>
-                            <p:summaryRow id="isuma1">
-                                <p:column colspan="3" >
-                                    Total:
-                                </p:column>
-
-                                <p:column >
-                                    0
-                                </p:column>
-                            </p:summaryRow>
-                        </p:dataTable>
-                    </p:panel>
-
-                    <p:separator id="separator"/>  
+                <div align="center">
+                    <p:commandButton value="IMPRIMIR"  image="ui-icon-imprimir" ajax="false"   >  
+                    <p:printer target="panel1" />  
+                </p:commandButton> 
+                </div>
+                <p:panel id="panel1" header="Solicitud de Proyecto">
+                <h:panelGrid columns="2" cellspacing="5" columnClasses="right,left"  >
+                     <p:outputLabel value="N° de Solicitud"/>
+                    <p:outputLabel value="#{proyectoController.selected.id}" title="#{bundle.ViewProyectoTitle_id}"/>
                     
-                    <p:panel header="Presupuesto">
-                        <p:panelGrid>
-                            <p:row>
+                    <p:outputLabel value="Fecha"/>
+                    <p:outputLabel value="#{proyectoController.selected.fecha}" title="#{bundle.ViewProyectoTitle_fecha}">
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                    </p:outputLabel>
+                    <p:outputLabel value="Tituto del Proyecto"/>
+                    <p:outputLabel value="#{proyectoController.selected.nombre}" title="#{bundle.ViewProyectoTitle_nombre}"/>
+                    <p:outputLabel value="Comitente"/>
+                    <p:outputLabel value="#{proyectoController.selected.comitenteid.cuit}/#{proyectoController.selected.comitenteid.razonsocial}" title="#{bundle.ViewProyectoTitle_nombre}"/>
+                    
+                    <p:outputLabel value="Resumen y Diagnostico"/>
+                    <p:outputLabel value="#{proyectoController.selected.resumen}" title="#{bundle.ViewProyectoTitle_resumen}"/>
+                    <p:outputLabel value="Documentacion "/>
+                    <p:commandLink id="downloadLink" value="#{proyectoController.selected.documentacionnombre}" ajax="false" process="@this" onclick="PrimeFaces.monitorDownload(showStatus, hideStatus)" >
+                                        <p:fileDownload id="f1" value="#{proyectoController.selected.documentacion}" contentDisposition="inline" />
+                                        
+                                    </p:commandLink>
+                    <p:outputLabel value="Observaciones"/>
+                    <p:outputLabel value="#{proyectoController.selected.observaciones}" title="#{bundle.ViewProyectoTitle_observaciones}"/>
+                    <p:outputLabel value="Duracion"/>
+                    <p:outputLabel value="#{proyectoController.selected.duracion}" title="#{bundle.ViewProyectoTitle_duracion}"/>
+                    <p:outputLabel value="Estado"/>
+                    <p:outputLabel value="#{proyectoController.selected.estadoproyectoid.estado}" title="#{bundle.ViewProyectoTitle_estado}"/>
+                   <p:outputLabel value="CUDAP"/>
+                    <p:outputLabel value="#{proyectoController.selected.cudap}" title="#{bundle.ViewProyectoTitle_cudap}"/>
+                    <p:outputLabel value="Tipo de Proyecto"/>
+                    <p:outputLabel value="#{proyectoController.selected.tipoproyectoid.tipo}" title="#{bundle.ViewProyectoTitle_tipoproyectoid}"/>
+                    <p:outputLabel value="Convocatoria"/>
+                    <p:outputLabel value="#{proyectoController.selected.convocatoriaid.convocatoria}" title="#{bundle.ViewProyectoTitle_convocatoriaid}"/>
+                   <p:outputLabel value="Localizacion"/>
+                    <p:outputLabel value="#{proyectoController.selected.localizacion}" title="#{bundle.ViewProyectoTitle_convocatoriaid}"/>
+                   <p:outputLabel value="Beneficiario"/>
+                   <p:outputLabel value="#{proyectoController.selected.beneficiarioid.beneficiario}" title="#{bundle.ViewProyectoTitle_convocatoriaid}"/>
+                   <p:outputLabel value="Tipo de Financiamiento"/>
+                   <p:outputLabel value="#{proyectoController.selected.tipofinanciamientoid.tipofinanciamiento}" title="#{bundle.ViewProyectoTitle_convocatoriaid}"/>
+                  </h:panelGrid>
+                   
+                            
+                            <p:dataTable value="#{presupuestoController.selected.presupuestoRubroList}" var="item">
+                               <f:attribute name="”collectionType”" value="”java.util.ArrayList”/">
+                               </f:attribute>
                                 <p:column>
-                                    <h:outputText value="Rubro"/>
+                                    <f:facet name="header">
+                                        <p:outputLabel value="Rubro"/>
+                                    </f:facet>
+                                    <p:outputLabel value="#{item.rubro.rubro}"/>
                                 </p:column>
                                 <p:column>
-                                    <h:outputText value="Gasto Organismo"/>
+                                    <f:facet name="header">
+                                        <p:outputLabel value="Gastocomitente"/>
+                                    </f:facet>
+                                    <p:outputLabel value="#{item.gastocomitente}"/>
                                 </p:column>
                                 <p:column>
-                                    <h:outputText value="Gasto Comitente"/>
+                                    <f:facet name="header">
+                                        <p:outputLabel value="Gastoorganismo"/>
+                                    </f:facet>
+                                    <p:outputLabel value="#{item.gastoorganismo}"/>
                                 </p:column>
                                 <p:column>
-                                    <h:outputText value="Gasto Universidad"/>
-                                </p:column>                            
-                            </p:row>
-                            <p:row>
-                                <p:column>
-                                    <h:outputText value="Equipos e Instrumentos"/>
+                                    <f:facet name="header">
+                                        <p:outputLabel value="Gastouniversidad"/>
+                                    </f:facet>
+                                    <p:outputLabel value="#{item.gastouniversidad}"/>
                                 </p:column>
-                                <p:column>
+                                
+                                
+                                
+                            </p:dataTable>
+                      
+                 </p:panel>
+                
+                <br />
+                         <h:panelGrid columns="4">
+                                <p:panelGrid style="font-weight:bold;" id="paportes" columnClasses="right,right" columns="2">
+                                          <f:facet name="header">  
+                                                Total de Aportes  
+                                          </f:facet>
+                                         <p:outputLabel value="Aportes Organismo"/>
+                                         <p:outputLabel value="$#{presupuestoController.sumagastoorganismo}"/>
+                                         <p:outputLabel value="Aportes Comitente"/>
+                                         <p:outputLabel value="$#{presupuestoController.sumagastocomitente}"/>
+                                         <p:outputLabel value="Aportes Universidad"/>
+                                         <p:outputLabel value="$#{presupuestoController.sumagastouniversidad}"/>
+                                         <f:facet name="footer">  
+                                             Total = $#{presupuestoController.sumatotal}  
+                                          </f:facet>
+                                     </p:panelGrid>
 
-                                </p:column>
-                                <p:column>
-
-                                </p:column>
-                                <p:column>
-
-                                </p:column>                            
-                            </p:row>
-                            <p:row>
-                                <p:column>
-                                    <h:outputText value="Infraestructura"/>
-                                </p:column>
-                                <p:column>
-
-                                </p:column>
-                                <p:column>
-
-                                </p:column>
-                                <p:column>
-
-                                </p:column>                            
-                            </p:row>
-                            <p:row>
-                                <p:column>
-                                    <h:outputText value="Materiales e Insumos"/>
-                                </p:column>
-                                <p:column>
-
-                                </p:column>
-                                <p:column>
-
-                                </p:column>
-                                <p:column>
-
-                                </p:column>                            
-                            </p:row>
-                            <p:row>
-                                <p:column>
-                                    <h:outputText value="Consultoría o Servicios de Terceros"/>
-                                </p:column>
-                                <p:column>
-
-                                </p:column>
-                                <p:column>
-
-                                </p:column>
-                                <p:column>
-
-                                </p:column>                            
-                            </p:row>
-                            <p:row>
-                                <p:column>
-                                    <h:outputText value="Recursos Humanos"/>
-                                </p:column>
-                                <p:column>
-
-                                </p:column>
-                                <p:column>
-
-                                </p:column>
-                                <p:column>
-
-                                </p:column>                            
-                            </p:row>
-                            <p:row>
-                                <p:column>
-                                    <h:outputText value="Otros"/>
-                                </p:column>
-                                <p:column>
-
-                                </p:column>
-                                <p:column>
-
-                                </p:column>
-                                <p:column>
-
-                                </p:column>                            
-                            </p:row>
-                            <p:row>
-                                <p:column>
-                                    <h:outputText value="Totales"/>
-                                </p:column>
-                                <p:column>
-
-                                </p:column>
-                                <p:column>
-
-                                </p:column>
-                                <p:column>
-
-                                </p:column>                            
-                            </p:row>                        
-                        </p:panelGrid>
-                    </p:panel>
-                    <br />
-                    <h:commandLink action="#{proyectoController.destroyAndView}" value="#{Bundle.ViewProyectoDestroyLink}"/>
-                    <br />
-                    <br />
-                    <h:link outcome="Edit" value="#{Bundle.ViewProyectoEditLink}"/>
-                    <br />
-                    <h:commandLink action="#{proyectoController.prepareCreate}" value="#{Bundle.ViewProyectoCreateLink}" />
-                    <br />
-                    <h:commandLink action="#{proyectoController.prepareList}" value="#{Bundle.ViewProyectoShowAllLink}"/>
-                    <br />
-                    <br />
-                    <h:link outcome="/index" value="#{Bundle.ViewProyectoIndexLink}"/>
-                </p:panel>
-                <h:commandButton value="Imprimir" type="button">  
-                    <p:printer target="detalleSolicitud" />  
-                </h:commandButton>  
+                               
+                             <p:pieChart id="caportes" value="#{presupuestoController.pieModelAportes}" legendPosition="e" showDataLabels="true"  
+                            title="Aportes" style="width:15%;height:300px" sliceMargin="5" diameter="150" /> 
+                                
+                               
+                                <p:dataTable value="#{presupuestoController.selected.presupuestoRubroList}" var="data" >
+                    
+                                          <f:facet name="header">  
+                                                Total de Rubros  
+                                          </f:facet>
+                                 <p:column >
+                                    <p:outputLabel style="font-weight:bold;" value="#{data.rubro.rubro}"/>
+                                 </p:column>
+                                 <p:column>
+                                    <p:outputLabel style="font-weight:bold;" value="$#{data.total}"/>
+                                 </p:column>    
+                                            <f:facet name="footer">  
+                                             Total = $#{presupuestoController.sumatotal}  
+                                          </f:facet>
+                                    </p:dataTable>
+                                <p:pieChart id="crubros" value="#{presupuestoController.pieModelRubro}" legendPosition="e" showDataLabels="true"  
+                            title="Rubros" style="width:15%;height:300px" sliceMargin="5" diameter="150" /> 
+                                
+                   </h:panelGrid>
+                
+                <br />
+                <br />
+                <h:commandLink action="#{proyectoController.prepareList}" value="Listado"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="Home"/>
+              
             </h:form>
+              
         </ui:define>
     </ui:composition>
 

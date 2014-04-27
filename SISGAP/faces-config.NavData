@@ -1,6 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scene Scope="Project" version="2">
     <Scope Scope="Faces Configuration Only"/>
-    <Scope Scope="Project"/>
+    <Scope Scope="Project">
+        <Node id="secure/presupuesto/Create.xhtml" x="2150" y="450" zoom="true"/>
+        <Node id="secure/proyecto/Create.xhtml" x="150" y="600" zoom="true"/>
+        <Node id="activarcuenta.xhtml" x="1900" y="300" zoom="true"/>
+        <Node id="secure/solicitud/List.xhtml" x="900" y="1050" zoom="true"/>
+        <Node id="secure/proyecto/View.xhtml" x="1650" y="450" zoom="true"/>
+        <Node id="secure/tipodocumento/Create.xhtml" x="650" y="1050" zoom="true"/>
+        <Node id="secure/entidadbeneficiaria/List.xhtml" x="150" y="300" zoom="true"/>
+        <Node id="secure/perfil/Create.xhtml" x="150" y="750" zoom="true"/>
+        <Node id="recuperarpassword.xhtml" x="1650" y="150" zoom="true"/>
+        <Node id="secure/tipoproyecto/Edit.xhtml" x="900" y="1200" zoom="true"/>
+        <Node id="template2.xhtml" x="650" y="450" zoom="true"/>
+        <Node id="secure/proyecto/Edit.xhtml" x="650" y="150" zoom="true"/>
+        <Node id="secure/tipoentidad/List.xhtml" x="400" y="1200" zoom="true"/>
+        <Node id="secure/agente/View.xhtml" x="650" y="300" zoom="true"/>
+        <Node id="error.xhtml" x="2650" y="300" zoom="true"/>
+        <Node id="secure/presupuestoRubro/View.xhtml" x="2150" y="600" zoom="true"/>
+        <Node id="registracionexitosa.xhtml" x="2650" y="150" zoom="true"/>
+        <Node id="secure/perfil/Edit.xhtml" x="150" y="1200" zoom="true"/>
+        <Node id="secure/tipodocumento/List.xhtml" x="650" y="900" zoom="true"/>
+        <Node id="secure/presupuesto/List.xhtml" x="1150" y="150" zoom="true"/>
+        <Node id="secure/presupuestoRubro/Edit.xhtml" x="150" y="1350" zoom="true"/>
+        <Node id="secure/convocatoria/List.xhtml" x="2400" y="300" zoom="true"/>
+        <Node id="secure/tipoentidad/View.xhtml" x="1150" y="450" zoom="true"/>
+        <Node id="secure/tipodocumento/View.xhtml" x="1400" y="300" zoom="true"/>
+        <Node id="secure/rubro/List.xhtml" x="150" y="900" zoom="true"/>
+        <Node id="secure/usuario/Create.xhtml" x="1900" y="150" zoom="true"/>
+        <Node id="secure/rubro/Create.xhtml" x="1900" y="450" zoom="true"/>
+        <Node id="secure/tipoproyecto/List.xhtml" x="1650" y="750" zoom="true"/>
+        <Node id="secure/entidadbeneficiaria/Edit.xhtml" x="900" y="150" zoom="true"/>
+        <Node id="secure/convocatoria/Edit.xhtml" x="1650" y="600" zoom="true"/>
+        <Node id="secure/dependencia/List.xhtml" x="1150" y="300" zoom="true"/>
+        <Node id="registrar.xhtml" x="650" y="600" zoom="true"/>
+        <Node id="secure/usuario/Edit.xhtml" x="400" y="900" zoom="true"/>
+        <Node id="secure/dependencia/Edit.xhtml" x="1150" y="750" zoom="true"/>
+        <Node id="secure/tipoentidad/Create.xhtml" x="650" y="1350" zoom="true"/>
+        <Node id="secure/agente/List.xhtml" x="1150" y="600" zoom="true"/>
+        <Node id="secure/perfil/List.xhtml" x="1150" y="1200" zoom="true"/>
+        <Node id="secure/dependencia/View.xhtml" x="400" y="150" zoom="true"/>
+        <Node id="secure/rubro/View.xhtml" x="1150" y="1050" zoom="true"/>
+        <Node id="secure/solicitud/View.xhtml" x="1900" y="750" zoom="true"/>
+        <Node id="secure/solicitud/Solicitud.xhtml" x="1475" y="846" zoom="false"/>
+        <Node id="secure/usuario/View.xhtml" x="900" y="300" zoom="true"/>
+        <Node id="secure/tipofinanciamiento/Edit.xhtml" x="1900" y="600" zoom="true"/>
+        <Node id="secure/solicitud/Edit.xhtml" x="1400" y="1050" zoom="true"/>
+        <Node id="recuperacionpassexitoso.xhtml" x="1400" y="600" zoom="true"/>
+        <Node id="template.xhtml" x="2400" y="450" zoom="true"/>
+        <Node id="secure/presupuestoRubro/List.xhtml" x="400" y="1050" zoom="true"/>
+        <Node id="secure/agente/Create.xhtml" x="900" y="750" zoom="true"/>
+        <Node id="secure/tipofinanciamiento/Create.xhtml" x="2150" y="300" zoom="true"/>
+        <Node id="secure/rubro/Edit.xhtml" x="900" y="450" zoom="true"/>
+        <Node id="secure/entidadbeneficiaria/Create.xhtml" x="1400" y="150" zoom="true"/>
+        <Node id="secure/tipoproyecto/View.xhtml" x="400" y="300" zoom="true"/>
+        <Node id="secure/beneficiario/Edit.xhtml" x="1400" y="900" zoom="true"/>
+        <Node id="secure/tipofinanciamiento/List.xhtml" x="150" y="1650" zoom="true"/>
+        <Node id="secure/agente/Edit.xhtml" x="1650" y="300" zoom="true"/>
+        <Node id="secure/entidadbeneficiaria/View.xhtml" x="2400" y="150" zoom="true"/>
+        <Node id="secure/beneficiario/List.xhtml" x="150" y="1500" zoom="true"/>
+        <Node id="secure/convocatoria/Create.xhtml" x="1400" y="450" zoom="true"/>
+        <Node id="secure/tipodocumento/Edit.xhtml" x="150" y="1050" zoom="true"/>
+        <Node id="secure/presupuesto/View.xhtml" x="900" y="900" zoom="true"/>
+        <Node id="secure/presupuesto/Edit.xhtml" x="1400" y="750" zoom="true"/>
+        <Node id="login.xhtml" x="150" y="450" zoom="true"/>
+        <Node id="secure/beneficiario/View.xhtml" x="650" y="750" zoom="true"/>
+        <Node id="secure/usuario/List.xhtml" x="2900" y="150" zoom="true"/>
+        <Node id="secure/beneficiario/Create.xhtml" x="400" y="1500" zoom="true"/>
+        <Node id="secure/proyecto/List.xhtml" x="2150" y="150" zoom="true"/>
+        <Node id="secure/tipoentidad/Edit.xhtml" x="150" y="150" zoom="true"/>
+        <Node id="secure/convocatoria/View.xhtml" x="1650" y="900" zoom="true"/>
+        <Node id="secure/presupuestoRubro/Create.xhtml" x="900" y="600" zoom="true"/>
+        <Node id="index.xhtml" x="400" y="450" zoom="true"/>
+        <Node id="secure/tipoproyecto/Create.xhtml" x="400" y="1350" zoom="true"/>
+        <Node id="secure/tipofinanciamiento/View.xhtml" x="650" y="1200" zoom="true"/>
+        <Node id="secure/dependencia/Create.xhtml" x="400" y="750" zoom="true"/>
+        <Node id="secure/perfil/View.xhtml" x="400" y="600" zoom="true"/>
+    </Scope>
     <Scope Scope="All Faces Configurations"/>
 </Scene>

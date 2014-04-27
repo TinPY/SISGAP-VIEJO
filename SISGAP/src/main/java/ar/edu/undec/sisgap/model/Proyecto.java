@@ -42,7 +42,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Proyecto.findByResumen", query = "SELECT p FROM Proyecto p WHERE p.resumen = :resumen"),
     @NamedQuery(name = "Proyecto.findByObservaciones", query = "SELECT p FROM Proyecto p WHERE p.observaciones = :observaciones"),
     @NamedQuery(name = "Proyecto.findByDuracion", query = "SELECT p FROM Proyecto p WHERE p.duracion = :duracion"),
-    @NamedQuery(name = "Proyecto.findByEstado", query = "SELECT p FROM Proyecto p WHERE p.estado = :estado"),
     @NamedQuery(name = "Proyecto.findById", query = "SELECT p FROM Proyecto p WHERE p.id = :id"),
     @NamedQuery(name = "Proyecto.findByCudap", query = "SELECT p FROM Proyecto p WHERE p.cudap = :cudap")})
 public class Proyecto implements Serializable {
@@ -61,13 +60,17 @@ public class Proyecto implements Serializable {
     //@Lob
     @Column(name = "documentacion")
     private byte[] documentacion;
+    @Column(name = "documentacionnombre")
+    private String documentacionnombre;
     @Size(max = 2147483647)
     @Column(name = "observaciones")
     private String observaciones;
+    @Size(max = 2147483647)
+    @Column(name = "localizacion")
+    private String localizacion;
     @Column(name = "duracion")
     private Short duracion;
-    @Column(name = "estado")
-    private Character estado;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="proyecto_id_seq")
     @Basic(optional = false)
@@ -82,9 +85,9 @@ public class Proyecto implements Serializable {
     @JoinColumn(name = "convocatoriaid", referencedColumnName = "id")
     @ManyToOne
     private Convocatoria convocatoriaid;
-    @JoinColumn(name = "entidadid", referencedColumnName = "id")
+    @JoinColumn(name = "comitenteid", referencedColumnName = "id")
     @ManyToOne
-    private Entidadbeneficiaria entidadid;
+    private Comitente comitenteid;
     @JoinColumn(name = "agenteid", referencedColumnName = "id")
     @ManyToOne
     private Agente agenteid;
@@ -94,6 +97,15 @@ public class Proyecto implements Serializable {
     @JoinColumn(name = "tipofinanciamientoid", referencedColumnName = "id")
     @ManyToOne
     private Tipofinanciamiento tipofinanciamientoid;
+    @JoinColumn(name = "fuentefinanciamientoid", referencedColumnName = "id")
+    @ManyToOne
+    private Fuentefinanciamiento fuentefinanciamientoid;
+    @JoinColumn(name = "avanceproyectoid", referencedColumnName = "id")
+    @ManyToOne
+    private Avanceproyecto avanceproyectoid;
+    @JoinColumn(name = "estadoproyectoid", referencedColumnName = "id")
+    @ManyToOne
+    private Estadoproyecto estadoproyectoid;
 
     public Proyecto() {
     }
@@ -140,6 +152,16 @@ public class Proyecto implements Serializable {
         this.documentacion = documentacion;
     }
 
+    public String getDocumentacionnombre() {
+        return documentacionnombre;
+    }
+
+    public void setDocumentacionnombre(String documentacionnombre) {
+        this.documentacionnombre = documentacionnombre;
+    }
+
+    
+    
     public String getObservaciones() {
         return observaciones;
     }
@@ -148,6 +170,16 @@ public class Proyecto implements Serializable {
         this.observaciones = observaciones;
     }
 
+    public String getLocalizacion() {
+        return localizacion;
+    }
+
+    public void setLocalizacion(String localizacion) {
+        this.localizacion = localizacion;
+    }
+    
+    
+    
     public Short getDuracion() {
         return duracion;
     }
@@ -156,13 +188,7 @@ public class Proyecto implements Serializable {
         this.duracion = duracion;
     }
 
-    public Character getEstado() {
-        return estado;
-    }
-
-    public void setEstado(Character estado) {
-        this.estado = estado;
-    }
+   
 
     public Integer getId() {
         return id;
@@ -196,12 +222,12 @@ public class Proyecto implements Serializable {
         this.convocatoriaid = convocatoriaid;
     }
 
-    public Entidadbeneficiaria getEntidadid() {
-        return entidadid;
+    public Comitente getComitenteid() {
+        return comitenteid;
     }
 
-    public void setEntidadid(Entidadbeneficiaria entidadid) {
-        this.entidadid = entidadid;
+    public void setComitenteid(Comitente comitenteid) {
+        this.comitenteid = comitenteid;
     }
 
     public Agente getAgenteid() {
@@ -226,6 +252,30 @@ public class Proyecto implements Serializable {
 
     public void setTipofinanciamientoid(Tipofinanciamiento tipofinanciamientoid) {
         this.tipofinanciamientoid = tipofinanciamientoid;
+    }
+
+    public Fuentefinanciamiento getFuentefinanciamientoid() {
+        return fuentefinanciamientoid;
+    }
+
+    public void setFuentefinanciamientoid(Fuentefinanciamiento fuentefinanciamientoid) {
+        this.fuentefinanciamientoid = fuentefinanciamientoid;
+    }
+
+    public Avanceproyecto getAvanceproyectoid() {
+        return avanceproyectoid;
+    }
+
+    public void setAvanceproyectoid(Avanceproyecto avanceproyectoid) {
+        this.avanceproyectoid = avanceproyectoid;
+    }
+
+    public Estadoproyecto getEstadoproyectoid() {
+        return estadoproyectoid;
+    }
+
+    public void setEstadoproyectoid(Estadoproyecto estadoproyectoid) {
+        this.estadoproyectoid = estadoproyectoid;
     }
     
     
@@ -254,7 +304,7 @@ public class Proyecto implements Serializable {
 
     @Override
     public String toString() {
-        return "ar.edu.undec.sysgap.model.Proyecto[ id=" + id + " ]";
+        return "N° de Proyecto" + id + " ]";
     }
     
 }

@@ -27,20 +27,20 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Hugo
  */
 @Entity
-@Table(name = "entidadbeneficiaria", schema = "ap")
-@SequenceGenerator(name="entidadbeneficiaria_id_seq", sequenceName="ap.entidadbeneficiaria_id_seq", allocationSize=1)
+@Table(name = "comitente", schema = "ap")
+@SequenceGenerator(name="comitente_id_seq", sequenceName="ap.comitente_id_seq", allocationSize=1)
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Entidadbeneficiaria.findAll", query = "SELECT e FROM Entidadbeneficiaria e"),
-    @NamedQuery(name = "Entidadbeneficiaria.findById", query = "SELECT e FROM Entidadbeneficiaria e WHERE e.id = :id"),
-    @NamedQuery(name = "Entidadbeneficiaria.findByRazonsocial", query = "SELECT e FROM Entidadbeneficiaria e WHERE e.razonsocial = :razonsocial"),
-    @NamedQuery(name = "Entidadbeneficiaria.findByCuit", query = "SELECT e FROM Entidadbeneficiaria e WHERE e.cuit = :cuit"),
-    @NamedQuery(name = "Entidadbeneficiaria.findByTelefono", query = "SELECT e FROM Entidadbeneficiaria e WHERE e.telefono = :telefono"),
-    @NamedQuery(name = "Entidadbeneficiaria.findByEmail", query = "SELECT e FROM Entidadbeneficiaria e WHERE e.email = :email")})
-public class Entidadbeneficiaria implements Serializable {
+    @NamedQuery(name = "Comitente.findAll", query = "SELECT e FROM Comitente e"),
+    @NamedQuery(name = "Comitente.findById", query = "SELECT e FROM Comitente e WHERE e.id = :id"),
+    @NamedQuery(name = "Comitente.findByRazonsocial", query = "SELECT e FROM Comitente e WHERE e.razonsocial = :razonsocial"),
+    @NamedQuery(name = "Comitente.findByCuit", query = "SELECT e FROM Comitente e WHERE e.cuit = :cuit"),
+    @NamedQuery(name = "Comitente.findByTelefono", query = "SELECT e FROM Comitente e WHERE e.telefono = :telefono"),
+    @NamedQuery(name = "Comitente.findByEmail", query = "SELECT e FROM Comitente e WHERE e.email = :email")})
+public class Comitente implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="entidadbeneficiaria_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="comitente_id_seq")
     @Basic(optional = true)
     @Column(name = "id")
     private Integer id;
@@ -57,14 +57,23 @@ public class Entidadbeneficiaria implements Serializable {
     @Size(max = 100)
     @Column(name = "email")
     private String email;
-    @JoinColumn(name = "tipoentidadid", referencedColumnName = "id")
+    @JoinColumn(name = "tipocomitenteid", referencedColumnName = "id")
     @ManyToOne
-    private Tipoentidad tipoentidadid;
+    private Tipocomitente tipocomitenteid;
+    @Size(max = 150)
+    @Column(name = "contacto")
+    private String contacto;
+    @Size(max = 150)
+    @Column(name = "cargocontacto")
+    private String cargocontacto;
+    @JoinColumn(name = "sectorid", referencedColumnName = "id")
+    @ManyToOne
+    private Sector sectorid;
 
-    public Entidadbeneficiaria() {
+    public Comitente() {
     }
 
-    public Entidadbeneficiaria(Integer id) {
+    public Comitente(Integer id) {
         this.id = id;
     }
 
@@ -108,14 +117,40 @@ public class Entidadbeneficiaria implements Serializable {
         this.email = email;
     }
 
-    public Tipoentidad getTipoentidadid() {
-        return tipoentidadid;
+    public Tipocomitente getTipocomitenteid() {
+        return tipocomitenteid;
     }
 
-    public void setTipoentidadid(Tipoentidad tipoentidadid) {
-        this.tipoentidadid = tipoentidadid;
+    public void setTipocomitenteid(Tipocomitente tipocomitenteid) {
+        this.tipocomitenteid = tipocomitenteid;
     }
 
+    public String getContacto() {
+        return contacto;
+    }
+
+    public void setContacto(String contacto) {
+        this.contacto = contacto;
+    }
+
+    public String getCargocontacto() {
+        return cargocontacto;
+    }
+
+    public void setCargocontacto(String cargocontacto) {
+        this.cargocontacto = cargocontacto;
+    }
+
+    public Sector getSectorid() {
+        return sectorid;
+    }
+
+    public void setSectorid(Sector sectorid) {
+        this.sectorid = sectorid;
+    }
+
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -126,10 +161,10 @@ public class Entidadbeneficiaria implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Entidadbeneficiaria)) {
+        if (!(object instanceof Comitente)) {
             return false;
         }
-        Entidadbeneficiaria other = (Entidadbeneficiaria) object;
+        Comitente other = (Comitente) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -138,7 +173,13 @@ public class Entidadbeneficiaria implements Serializable {
 
     @Override
     public String toString() {
-        return cuit+" | "+ razonsocial;
+        if(this.id>1){
+            return cuit+" | "+ razonsocial;
+        }else{
+            return "NO";
+        }
     }
+    
+    
     
 }

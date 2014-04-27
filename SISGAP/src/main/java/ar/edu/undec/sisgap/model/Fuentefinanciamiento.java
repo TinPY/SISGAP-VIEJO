@@ -7,7 +7,6 @@
 package ar.edu.undec.sisgap.model;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,51 +15,39 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author Hugo
  */
 @Entity
-@Table(name = "tipoentidad", schema = "ap")
-@SequenceGenerator(name="tipoentidad_id_seq", sequenceName="ap.tipoentidad_id_seq", allocationSize=1)
+@Table(name = "fuentefinanciamiento", schema = "ap")
+@SequenceGenerator(name="fuentefinanciamiento_id_seq", sequenceName="ap.fuentefinanciamiento_id_seq", allocationSize=1)
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Tipoentidad.findAll", query = "SELECT t FROM Tipoentidad t"),
-    @NamedQuery(name = "Tipoentidad.findByTipoentidad", query = "SELECT t FROM Tipoentidad t WHERE t.tipoentidad = :tipoentidad"),
-    @NamedQuery(name = "Tipoentidad.findById", query = "SELECT t FROM Tipoentidad t WHERE t.id = :id")})
-public class Tipoentidad implements Serializable {
+    @NamedQuery(name = "Fuentefinanciamiento.findAll", query = "SELECT f FROM Fuentefinanciamiento f"),
+    @NamedQuery(name = "Fuentefinanciamiento.findById", query = "SELECT f FROM Fuentefinanciamiento f WHERE f.id = :id"),
+    @NamedQuery(name = "Fuentefinanciamiento.findByFuentefinanciamiento", query = "SELECT f FROM Fuentefinanciamiento f WHERE f.fuentefinanciamiento = :fuentefinanciamiento")})
+public class Fuentefinanciamiento implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Size(max = 2147483647)
-    @Column(name = "tipoentidad")
-    private String tipoentidad;
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="tipoentidad_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="fuentefinanciamiento_id_seq")
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @OneToMany(mappedBy = "tipoentidadid")
-    private List<Entidadbeneficiaria> entidadbeneficiariaList;
+    @Size(max = 2147483647)
+    @Column(name = "fuentefinanciamiento")
+    private String fuentefinanciamiento;
 
-    public Tipoentidad() {
+    public Fuentefinanciamiento() {
     }
 
-    public Tipoentidad(Integer id) {
+    public Fuentefinanciamiento(Integer id) {
         this.id = id;
-    }
-
-    public String getTipoentidad() {
-        return tipoentidad;
-    }
-
-    public void setTipoentidad(String tipoentidad) {
-        this.tipoentidad = tipoentidad;
     }
 
     public Integer getId() {
@@ -71,13 +58,12 @@ public class Tipoentidad implements Serializable {
         this.id = id;
     }
 
-    @XmlTransient
-    public List<Entidadbeneficiaria> getEntidadbeneficiariaList() {
-        return entidadbeneficiariaList;
+    public String getFuentefinanciamiento() {
+        return fuentefinanciamiento;
     }
 
-    public void setEntidadbeneficiariaList(List<Entidadbeneficiaria> entidadbeneficiariaList) {
-        this.entidadbeneficiariaList = entidadbeneficiariaList;
+    public void setFuentefinanciamiento(String fuentefinanciamiento) {
+        this.fuentefinanciamiento = fuentefinanciamiento;
     }
 
     @Override
@@ -90,10 +76,10 @@ public class Tipoentidad implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Tipoentidad)) {
+        if (!(object instanceof Fuentefinanciamiento)) {
             return false;
         }
-        Tipoentidad other = (Tipoentidad) object;
+        Fuentefinanciamiento other = (Fuentefinanciamiento) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -102,7 +88,7 @@ public class Tipoentidad implements Serializable {
 
     @Override
     public String toString() {
-        return tipoentidad ;
+        return this.fuentefinanciamiento;
     }
     
 }
