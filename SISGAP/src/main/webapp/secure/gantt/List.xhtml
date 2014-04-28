@@ -11,6 +11,9 @@
             <h:outputText value="#{bundle.ListTareaTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
+            <script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/highcharts-more.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
             <h:form id="form" >
                 <h:panelGroup id="messagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
@@ -20,7 +23,7 @@
                     
             </p:commandButton> 
                 <br />
-                <h:panelGrid columns="2" >
+                <h:panelGrid id="ptarea" columns="2" >
                 <p:dataTable id="tareasdeproyecto" value="#{tareaController.tareasdeproyecto}" var="item" editable="true" editMode="cell" widgetVar="wtareasdeproyecto" >
                         
                     <p:column headerText="Tarea">
@@ -77,13 +80,82 @@
                         </p:column>  
                        
                     </p:dataTable>
+                    <h:panelGroup id="containergrafico" layout="block">
+                    Grafico
+                </h:panelGroup>
                     
                 </h:panelGrid>
                 <br />
-                <p:commandButton actionListener="#{tareaController.prueba}" ></p:commandButton>
+                <p:commandButton actionListener="#{tareaController.prueba}" onclick="crearGrafico();" update="beanvalue containergrafico"  ></p:commandButton>
+                <h:inputHidden value="#{tareaController.gsoncategoria}" id="beanvalue"  />
                 <br />
                 <br />
                 <h:link outcome="/index" value="#{bundle.ListTareaIndexLink}"/>
+                <div id="containergrafico"  style="min-width: 400px; height: 400px; margin: 0 auto">
+                     <script type="text/javascript" >
+   $(function crearGrafico() {
+    var chart;
+     
+    chart = new Highcharts.Chart({
+        chart: {
+            renderTo: "containergrafico",
+            type: 'columnrange',
+                inverted: true
+        },
+            exporting: {
+            enabled: true
+        },
+            title: {
+            text: 'Projects incomplete in 2013'
+        },
+            xAxis: {
+            categories: []
+        },
+            yAxis: {
+                tickInterval:  7 * 24 * 3600 * 1000,
+            title: 'Date',
+                type: 'datetime',
+                dateTimeLabelFormats: {
+                 week: '%e. %b'
+            },
+                min: Date.UTC(2013, 00, 01)
+        },
+            tooltip: {
+            formatter: function () {
+                console.log(this);
+                return '<b>' + this.series.name + ':</b> ' + Highcharts.dateFormat('%e %b, %Y', this.point.low) + ' - ' + Highcharts.dateFormat('%e %b, %Y', this.point.high) + '<br/>';
+            }
+        },
+            legend: {
+            enabled: false
+        },
+        
+        
+            series: [{
+            name: 'Start - End',
+                data: [
+                [1357603200000, 1373324400000],
+                [1360886400000, 1.3686588e+12],
+                [1359072000000, 1374793200000]
+                
+            ]
+        },  {
+            name: 'Actual',
+                data: [
+                [1360886400000, 1.3686588e+12],
+                [1360885500100, 1364431500000],
+                [1359072000000, 1365412320000]
+            ],
+                color: 'yellow'
+        }]
+    });
+    //chart.series[1].setData(eval(oneArray), false, true);
+     //   chart.series[0].setData(eval(twoArray), false, true);
+        chart.xAxis[0].setCategories(#{tareaController.gsoncategoria}, true, true);
+});
+</script>
+
+                   </div>
             </h:form>
         </ui:define>
     </ui:composition>

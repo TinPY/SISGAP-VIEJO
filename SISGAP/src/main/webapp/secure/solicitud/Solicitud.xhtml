@@ -223,16 +223,14 @@ function showStatus() {
                  </p:panel>
                 <br />
                 <br />
-                <p:remoteCommand id="rc" name="sumarGastos"  actionListener="#{presupuestoRubroController.sumarGastos}"  update=":formprincipal:caportes,:formprincipal:paportes,:formprincipal:prubros,:formprincipal:crubros" />
+                <p:remoteCommand id="rc" name="sumarGastos" actionListener="#{presupuestoRubroController.sumarGastos}" update=":formprincipal:caportes,:formprincipal:paportes,:formprincipal:prubros,:formprincipal:crubros" />
                 <p:dataTable id="tpresupuesto" value="#{presupuestoRubroController.presupuestosrubros}"  var="item" editable="true" editMode="cell" style="width:100%" >
-                   <!-- <p:ajax process="@this" partialSubmit="true" update="@this, :formprincipal:caportes" event="cellEdit"  listener="#{presupuestoRubroController.sumarGastos}" />                 
-                    -->
-                    <p:ajax event="cellEdit" onsuccess="sumarGastos()" oncomplete="setfocus('tpresupuesto');"  />
+                   
                         <f:facet name="header">  
                             Presupuesto  
                         </f:facet>  
-                    
-                        <p:column style="text-align:right;width:20%">
+                    <p:ajax event="cellEdit" oncomplete="sumarGastos()"  /> 
+                             <p:column style="text-align:right;width:20%">
                                     <f:facet name="header">
                                        
                                         <h:outputText value="Rubro"/>
@@ -490,7 +488,7 @@ function showStatus() {
                         </h:panelGrid>
                  </p:dialog>
                 <p:dialog id="dfinal" widgetVar="dfinal"  modal="true" closable="false"  header="ALta Idea Proyecto Creada" >
-                     Felicitaciones la Alta Idea Proyecto fue creada Satisfactoriamente en breve le llegara un email!
+                     Felicitaciones la Alta Idea Proyecto fue creada Satisfactoriamente!!!
                      <div align="center" ><p:commandButton value="OK" action="View" ></p:commandButton></div>
                      
                 </p:dialog>

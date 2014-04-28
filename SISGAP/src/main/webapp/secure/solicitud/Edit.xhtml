@@ -168,7 +168,6 @@ function showStatus() {
                 <p:remoteCommand id="rc" name="sumarGastos" actionListener="#{presupuestoController.sumarGastosEdit}"  update=":formprincipal:caportes,:formprincipal:paportes,:formprincipal:prubros, :formprincipal:crubros" /> 
                 <p:dataTable id="tpresupuesto" value="#{presupuestoController.presupuestosrubrosedilist}"  var="item" editable="true" editMode="cell" style="width:100%" >
                   
-                    <p:ajax event="cellEdit" oncomplete="sumarGastos()"  /> 
                     
                     
                     <f:facet name="header">  

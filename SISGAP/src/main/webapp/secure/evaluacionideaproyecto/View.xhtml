@@ -162,10 +162,12 @@ function showStatus() {
                             <p:outputLabel style="font-weight:bold;" value="#{data.pregunta.pregunta}"  />
                             <p:selectBooleanCheckbox value="#{data.aprobado}" />
 
-                            <p:rating style="width:100%"  value="#{data.rating}" />  
+                            <p:rating style="width:100%"  value="#{data.rating}" >
+                                <p:ajax event="rate" listener="#{proyectoController.armarObservaciones()}" update="observacionfinal"  />  
+                            </p:rating>
 
                             <p:inputTextarea value="#{data.observacion}" cols="70" rows="3" >
-                                <p:ajax event="keyup" listener="#{proyectoController.armarObservaciones}" update="observacionfinal"  />  
+                                <p:ajax event="keyup" listener="#{proyectoController.armarObservaciones()}" update="observacionfinal"  />  
                             </p:inputTextarea>
                         </c:forEach>
                         </h:panelGrid>
@@ -174,7 +176,7 @@ function showStatus() {
                        
                         <p:selectOneMenu id="sestado" value="#{proyectoController.selected.estadoproyectoid}" >
                             <f:selectItems value="#{estadoproyectoController.getItemspersonalizado(false)}"/>
-                           
+                           <p:ajax listener="#{proyectoController.armarObservaciones()}" update="observacionfinal"  />  
                         </p:selectOneMenu>
                     
                         <p:outputLabel style="font-weight:bold;" id="oobservaciones" value="Observaciones" />

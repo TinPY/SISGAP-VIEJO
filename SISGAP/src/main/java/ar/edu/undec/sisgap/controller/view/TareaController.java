@@ -4,6 +4,7 @@ import ar.edu.undec.sisgap.model.Tarea;
 import ar.edu.undec.sisgap.controller.view.util.JsfUtil;
 import ar.edu.undec.sisgap.controller.view.util.PaginationHelper;
 import ar.edu.undec.sisgap.controller.TareaFacade;
+import com.google.gson.Gson;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class TareaController implements Serializable {
     private int selectedItemIndex;
     private List<Tarea> tareasdeproyecto = new ArrayList<Tarea>() ;
     private Tarea tareanueva=new Tarea();
+    private String gsoncategoria="[]";
 
     public TareaController() {
     }
@@ -260,9 +262,15 @@ public class TareaController implements Serializable {
     }
     
     public void prueba(){
+        Gson gson= new Gson();
+        List<String> categoria=new ArrayList<String>();
+        
         for(Tarea t:this.tareasdeproyecto){
-            System.out.println("----"+t.getId());
+            categoria.add(t.getTarea());
+            
         }
+        gsoncategoria=""+gson.toJson(categoria);
+        System.out.println("--------------------"+gsoncategoria);
     }
     
     public void removerTareadeProyecto(){
@@ -274,5 +282,15 @@ public class TareaController implements Serializable {
     public void setSelected(Tarea tarea){
         current=tarea;
     }
+
+    public String getGsoncategoria() {
+        return gsoncategoria;
+    }
+
+    public void setGsoncategoria(String gsoncategoria) {
+        this.gsoncategoria = gsoncategoria;
+    }
+    
+    
 
 }

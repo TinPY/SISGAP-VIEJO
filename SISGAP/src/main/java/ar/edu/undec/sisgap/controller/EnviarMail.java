@@ -239,4 +239,32 @@ public class EnviarMail implements Serializable {
              return true;
         
     }
+    
+    public boolean enviarMailEvaluacionIdeaProyecto(Agente agente,String mail){
+
+         try {
+
+           Email email = new Email();
+ email.setFromAddress("SISGAP UNDEC", "sisgap@undec.edu.ar");
+ email.addRecipient(agente.getApellido(), agente.getEmail(), RecipientType.TO);
+ email.addRecipient(agente.getApellido(), agente.getOtroemail(), RecipientType.BCC);
+ email.setTextHTML(mail);
+ email.setSubject("UNDEC - EEvaluacion Idea Proyecto SISGAP UNDEC");
+ 
+ // or:
+ new Mailer("localhost", 25, "sisgap@undec.edu.ar", "sgap*9812").sendMail(email);
+         } catch (Exception ex) {
+
+             ex.printStackTrace();
+             //Si el correo tiene algun error lo retornaremos aca
+            JsfUtil.addErrorMessage(ex,"No se pudo enviar");
+
+             return false;
+
+
+         }
+             //Correo tuvo exito dara una salida en este punto indicando que si se envio
+             return true;
+ 
+    }
 }

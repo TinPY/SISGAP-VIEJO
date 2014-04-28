@@ -24,7 +24,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIData;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
@@ -32,8 +31,6 @@ import javax.faces.event.ActionEvent;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
-import org.primefaces.component.datatable.DataTable;
-import org.primefaces.context.RequestContext;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.model.chart.PieChartModel;
 
@@ -302,12 +299,13 @@ public void init() {
     
     
     
-    public void sumarGastos(ActionEvent event){
+    public void sumarGastos(CellEditEvent event){
         
 //        Object oldValue = event.getOldValue();  
 //        Object newValue = event.getNewValue();  
 //           DataTable s = (DataTable) event.getSource();
        // MyEntity d = (MyEntity) s.getRowData();
+        System.out.println("PRE------RUB");
                     Iterator it=presupuestosrubros.iterator();
                  BigDecimal totalcomitente=BigDecimal.ZERO;
                 BigDecimal totaluniversidad=BigDecimal.ZERO;
@@ -325,7 +323,7 @@ public void init() {
                   // sumagastouniversidad=new BigDecimal(totaluniversidad).setScale(2);
                  // System.out.println("000000000000000+"+totalentidad.setScale(2).toString());
                     pr.setTotal(pr.getGastoorganismo().add(pr.getGastocomitente()).add(pr.getGastouniversidad()));
-                  //  System.out.println("-------------------------------------total "+pr.getTotal());
+                 System.out.println("-------------------------------------total "+pr.getTotal());
                     this.presupuestosrubros.get(contador).setTotal(pr.getTotal());
                  }
                  sumagastocomitente=totalcomitente;
