@@ -7,28 +7,55 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
-        
+
         <ui:define name="body">
             <f:event type="preRenderView" listener="#{agenteController.findAgente(request.getUserPrincipal().toString())}" ></f:event>
             <f:event type="preRenderView" listener="#{proyectoController.buscarProyectoAgente(agenteController.selected.id)}" ></f:event>
-            
+
             <h:form >
                 <h:panelGroup id="messagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
+
+                <p:accordionPanel>  
+                    <p:tab title="Filtro 1">
+                        <h:panelGrid columns="2" cellpadding="10">  
+                            <!--<p:graphicImage value="/images/godfather/godfather1.jpg" />-->  
+                            <h:outputText  
+                                value="" />  
+                        </h:panelGrid>  
+                    </p:tab>  
+                    <p:tab title="Filtro 2">  
+                        <h:panelGrid columns="2" cellpadding="10">  
+                            <!--<p:graphicImage value="/images/godfather/godfather2.jpg" />-->  
+                            <h:outputText 
+                                value="" />  
+                        </h:panelGrid>  
+                    </p:tab>  
+                    <p:tab title="Filtro 3">  
+                        <h:panelGrid columns="2" cellpadding="10">  
+                            <!--<p:graphicImage value="/images/godfather/godfather3.jpg" />-->  
+                            <h:outputText 
+                                value="" />  
+                        </h:panelGrid>  
+                    </p:tab>  
+                </p:accordionPanel>  
+
+                <p:separator />
+
+                <p:panel header="qweqwe" toggleable="true" toggleTitle="Minimizar">
+                    <p:outputLabel value="asdasd" />
+                </p:panel>
+
                 <h:outputText escape="false" value="#{bundle.ListProyectoEmpty}" rendered="#{proyectoController.items.rowCount == 0}"/>
                 <h:panelGroup rendered="#{proyectoController.items.rowCount > 0}">
-                    <h:outputText value="#{proyectoController.pagination.pageFirstItem + 1}..#{proyectoController.pagination.pageLastItem + 1}/#{proyectoController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{proyectoController.previous}" value="#{bundle.Previous} #{proyectoController.pagination.pageSize}" rendered="#{proyectoController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{proyectoController.next}" value="#{bundle.Next} #{proyectoController.pagination.pageSize}" rendered="#{proyectoController.pagination.hasNextPage}"/>&nbsp;
+
                     <p:dataTable id="tbl" paginator="true" rows="10" value="#{proyectoController.items}" var="item" >
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="Fecha"/>
+                                <h:outputText value="Id"/>
                             </f:facet>
-                            <h:outputText value="#{item.fecha}">
-                                <f:convertDateTime pattern="HH:mm:ss" />
-                            </h:outputText>
+                            <h:outputText value="#{item.id}" />
                         </p:column>
                         <p:column>
                             <f:facet name="header">
@@ -38,46 +65,34 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="Resumen y Diagnostico"/>
-                            </f:facet>
-                            <h:outputText value="#{item.resumen}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="Documentacion"/>
-                            </f:facet>
-                            <h:outputText value="#{item.documentacion}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="Observaciones"/>
-                            </f:facet>
-                            <h:outputText value="#{item.observaciones}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="Duracion en meses"/>
-                            </f:facet>
-                            <h:outputText value="#{item.duracion}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="Estado del Proyecto"/>
+                                <h:outputText value="Estado"/>
                             </f:facet>
                             <h:outputText value="#{item.estadoproyectoid.estado}"/>
-                        </p:column>
-                        
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="CUDAP"/>
-                            </f:facet>
-                            <h:outputText value="#{item.cudap}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="Tipo de Proyecto"/>
                             </f:facet>
                             <h:outputText value="#{item.tipoproyectoid.tipo}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Financiamiento"/>
+                            </f:facet>
+                            <h:outputText value="#{item.estadoproyectoid.estado}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Responsable"/>
+                            </f:facet>
+                            <h:outputText value="#{item.agenteid.apellido}, #{item.agenteid.nombres}"/>
+                        </p:column>                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Presupuesto Total"/>
+                            </f:facet>
+                            <h:outputText value="#{proyectoController.totalPresupuesto}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
@@ -87,37 +102,37 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
+                                <h:outputText value="Acciones"/>
                             </f:facet>
                             <p:commandLink action="#{proyectoController.prepareView}" value="Ver" ajax="false" />
                             <h:outputText value=" "/>
                             <p:commandLink action="#{proyectoController.prepareEdit}" value="Editar" ajax="false" />
-                          </p:column>
+                        </p:column>
                     </p:dataTable>
                 </h:panelGroup>
-               
+
                 <br />
                 <p:panel header="Exportar">  
-        <h:commandLink>  
-            <p:graphicImage value="/resources/img/excel.png" />  
-            <p:dataExporter type="xls" target="tbl" fileName="cars" pageOnly="true"/>  
-        </h:commandLink>  
-  
-        <h:commandLink>  
-            <p:graphicImage value="/resources/img/pdf.png" />  
-            <p:dataExporter type="pdf" target="tbl" fileName="cars" pageOnly="true"/>  
-        </h:commandLink>  
-          
-        <h:commandLink>  
-            <p:graphicImage value="/resources/img/csv.png" />  
-            <p:dataExporter type="csv" target="tbl" fileName="cars" pageOnly="true"/>  
-        </h:commandLink>  
-          
-        <h:commandLink>  
-            <p:graphicImage value="/resources/img/xml.png" />  
-            <p:dataExporter type="xml" target="tbl" fileName="cars" pageOnly="true"/>  
-        </h:commandLink>  
-    </p:panel>  
+                    <h:commandLink>  
+                        <p:graphicImage value="/resources/img/excel.png" />  
+                        <p:dataExporter type="xls" target="tbl" fileName="cars" pageOnly="true"/>  
+                    </h:commandLink>  
+
+                    <h:commandLink>  
+                        <p:graphicImage value="/resources/img/pdf.png" />  
+                        <p:dataExporter type="pdf" target="tbl" fileName="cars" pageOnly="true"/>  
+                    </h:commandLink>  
+
+                    <h:commandLink>  
+                        <p:graphicImage value="/resources/img/csv.png" />  
+                        <p:dataExporter type="csv" target="tbl" fileName="cars" pageOnly="true"/>  
+                    </h:commandLink>  
+
+                    <h:commandLink>  
+                        <p:graphicImage value="/resources/img/xml.png" />  
+                        <p:dataExporter type="xml" target="tbl" fileName="cars" pageOnly="true"/>  
+                    </h:commandLink>  
+                </p:panel>  
                 <br />
                 <h:link outcome="/index" value="Inicio"/>
             </h:form>

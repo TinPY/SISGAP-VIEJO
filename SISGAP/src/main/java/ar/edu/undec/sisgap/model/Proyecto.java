@@ -277,10 +277,6 @@ public class Proyecto implements Serializable {
     public void setEstadoproyectoid(Estadoproyecto estadoproyectoid) {
         this.estadoproyectoid = estadoproyectoid;
     }
-    
-    
-    
-    
 
     @Override
     public int hashCode() {
