@@ -20,6 +20,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -66,6 +67,10 @@ public class ProyectoController implements Serializable {
     private String habilitarcomitente = "0";
     private String observacionfinal;
     private Proyecto proyectoViejo;
+
+    // Opciones para filtrado por estado
+    private SelectItem[] opcionesEstado;
+    private List<Estadoproyecto> listaEstadosFiltrados;
 
     public ProyectoController() {
     }
@@ -193,7 +198,7 @@ public class ProyectoController implements Serializable {
                 //   enviarmail.enviarMailIngresoIdeaProyecto(FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName(),current.getAgenteid().getEmail() , habilitarcomitente);
 
                 RequestContext.getCurrentInstance().execute("dfinal.show()");
-                   //  FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath()+"/secure/solicitud/View.xhtml");
+                //  FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath()+"/secure/solicitud/View.xhtml");
                 // context4.addMessage("growlprincipal", new FacesMessage("Excelente! " + context4.getExternalContext().getUserPrincipal(),"Su Solicitud a Proyecto fue creado, en breve recibira un email"));
 
                 System.out.println("iiiiiiiiiiiiiiiiiiiii");
@@ -360,7 +365,7 @@ public class ProyectoController implements Serializable {
         return file;
 
     }
- 
+
     @FacesConverter(forClass = Proyecto.class)
     public static class ProyectoControllerConverter implements Converter {
 
@@ -614,15 +619,23 @@ public class ProyectoController implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         PresupuestoController p = (PresupuestoController) context.getApplication().evaluateExpressionGet(context, "#{presupuestoController}", PresupuestoController.class);
 
-        PresupuestoRubro prerub;
-        Iterator i = p.getSelected().getPresupuestoRubroList().iterator();
-        while (i.hasNext()) {
-            prerub = ((PresupuestoRubro) i.next());
-            total = total.add(prerub.getTotal());
-            // p.soloEditar(prerub);
-        }
+//        PresupuestoRubro prerub;
+//        Iterator i = p.getSelected().getPresupuestoRubroList().iterator();
+//        while (i.hasNext()) {
+//            prerub = ((PresupuestoRubro) i.next());
+//            total = total.add(prerub.getTotal());
+//            // p.soloEditar(prerub);
+//        }
+//        return total;
+        return p.getSumatotal();
+    }
 
-        return total;
+    public List<Estadoproyecto> getListaEstadosFiltrados() {
+        return listaEstadosFiltrados;
+    }
+
+    public void setListaEstadosFiltrados(List<Estadoproyecto> listaEstadosFiltrados) {
+        this.listaEstadosFiltrados = listaEstadosFiltrados;
     }
 
 }

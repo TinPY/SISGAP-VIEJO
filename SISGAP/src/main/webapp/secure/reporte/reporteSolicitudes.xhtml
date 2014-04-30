@@ -50,57 +50,67 @@
                 <h:outputText escape="false" value="#{bundle.ListProyectoEmpty}" rendered="#{proyectoController.items.rowCount == 0}"/>
                 <h:panelGroup rendered="#{proyectoController.items.rowCount > 0}">
 
-                    <p:dataTable id="tbl" paginator="true" rows="10" value="#{proyectoController.items}" var="item" >
-                        <p:column>
+                    <p:dataTable id="tbl" paginator="true" rows="10" value="#{proyectoController.items}" var="item" emptyMessage="No se encontraron Ideas-Proyecto con los criterios de busqueda" >
+
+                        <!--<p:column id="modelColumn" filterBy="model" headerText="Model" footerText="contains" filterMatchMode="contains">-->  
+                        <p:column id="columnaId" filterBy="id" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="Id"/>
                             </f:facet>
                             <h:outputText value="#{item.id}" />
                         </p:column>
-                        <p:column>
+
+
+                        <p:column id="columnaNombre" filterBy="nombre" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="Titulo del proyecto"/>
                             </f:facet>
                             <h:outputText value="#{item.nombre}"/>
                         </p:column>
-                        <p:column>
+
+                        <p:column id="columnaEstado" filterMatchMode="exact" filterBy="estado" filterOptions="#{estadoproyectoController.itemsAvailableSelectOne}">
                             <f:facet name="header">
                                 <h:outputText value="Estado"/>
                             </f:facet>
                             <h:outputText value="#{item.estadoproyectoid.estado}"/>
                         </p:column>
-                        <p:column>
+
+                        <p:column id="columnaTipo">
                             <f:facet name="header">
                                 <h:outputText value="Tipo de Proyecto"/>
                             </f:facet>
                             <h:outputText value="#{item.tipoproyectoid.tipo}"/>
                         </p:column>
 
-                        <p:column>
+                        <p:column id="columnaFinanciamiento">
                             <f:facet name="header">
                                 <h:outputText value="Financiamiento"/>
                             </f:facet>
                             <h:outputText value="#{item.estadoproyectoid.estado}"/>
                         </p:column>
-                        <p:column>
+
+                        <p:column id="columnaResponsable">
                             <f:facet name="header">
                                 <h:outputText value="Responsable"/>
                             </f:facet>
                             <h:outputText value="#{item.agenteid.apellido}, #{item.agenteid.nombres}"/>
                         </p:column>                        
-                        <p:column>
+
+                        <p:column id="columnaPresupuesto">
                             <f:facet name="header">
                                 <h:outputText value="Presupuesto Total"/>
                             </f:facet>
                             <h:outputText value="#{proyectoController.totalPresupuesto}"/>
                         </p:column>
-                        <p:column>
+
+                        <p:column id="columnaConvocatoria">
                             <f:facet name="header">
                                 <h:outputText value="Convocatoria"/>
                             </f:facet>
                             <h:outputText value="#{item.convocatoriaid.convocatoria}"/>
                         </p:column>
-                        <p:column>
+
+                        <p:column id="columnaAcciones">
                             <f:facet name="header">
                                 <h:outputText value="Acciones"/>
                             </f:facet>
@@ -108,6 +118,7 @@
                             <h:outputText value=" "/>
                             <p:commandLink action="#{proyectoController.prepareEdit}" value="Editar" ajax="false" />
                         </p:column>
+
                     </p:dataTable>
                 </h:panelGroup>
 
