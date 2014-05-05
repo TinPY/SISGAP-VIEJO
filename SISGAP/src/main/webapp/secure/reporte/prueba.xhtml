@@ -9,8 +9,6 @@
     <ui:composition template="/template.xhtml">
 
         <ui:define name="body">
-            <f:event type="preRenderView" listener="#{agenteController.findAgente(request.getUserPrincipal().toString())}" ></f:event>
-            <f:event type="preRenderView" listener="#{proyectoController.buscarProyectoAgente(agenteController.selected.id)}" ></f:event>
 
             <h:form id="form1" >
                 
@@ -23,7 +21,7 @@
                         filteredValue="#{proyectoController.proyectosFiltrados}"
                         rowKey="#{item.id}" >
                         
-                        <p:column id="columnaId" headerText="Id" filterBy="id" filterMatchMode="startsWith"  sortBy="#{item.id}">
+                        <p:column id="columnaId" headerText="Id" filterBy="id" filterMatchMode="contains"  sortBy="#{item.id}">
                             <h:outputText value="#{item.id}" />
                         </p:column>
 
@@ -63,56 +61,7 @@
 
                     </p:dataTable>
                 
-                <h:panelGroup id="messagePanel" layout="block">
-                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-                </h:panelGroup>
-
-                <p:separator />
-
-                <p:panel header="qweqwe" toggleable="true" toggleTitle="Minimizar" style="display: inline-block;">
-                    <p:outputLabel value="qweqwe" />
-                </p:panel>
-                
-                <p:panel header="asdasd" toggleable="true" toggleTitle="Minimizar" style="display: inline-block;">
-                    <p:outputLabel value="asdasd" />
-                </p:panel>
-                
-                <p:panel header="zxczxc" toggleable="true" toggleTitle="Minimizar" style="display: inline-block;">
-                    <p:outputLabel value="zxczxc" />
-                </p:panel>
-
-                <p:separator />
-                
-                <h:outputText escape="false" value="#{bundle.ListProyectoEmpty}" rendered="#{proyectoController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{proyectoController.items.rowCount > 0}">
-
-                    
-                </h:panelGroup>
-
-                <br />
-                <p:panel header="Exportar">  
-                    <h:commandLink>  
-                        <p:graphicImage value="/resources/img/excel.png" />  
-                        <p:dataExporter type="xls" target="tbl" fileName="cars" pageOnly="true"/>  
-                    </h:commandLink>  
-
-                    <h:commandLink>  
-                        <p:graphicImage value="/resources/img/pdf.png" />  
-                        <p:dataExporter type="pdf" target="tbl" fileName="cars" pageOnly="true"/>  
-                    </h:commandLink>  
-
-                    <h:commandLink>  
-                        <p:graphicImage value="/resources/img/csv.png" />  
-                        <p:dataExporter type="csv" target="tbl" fileName="cars" pageOnly="true"/>  
-                    </h:commandLink>  
-
-                    <h:commandLink>  
-                        <p:graphicImage value="/resources/img/xml.png" />  
-                        <p:dataExporter type="xml" target="tbl" fileName="cars" pageOnly="true"/>  
-                    </h:commandLink>  
-                </p:panel>  
-                <br />
-                <h:link outcome="/index" value="Inicio"/>
+              
             </h:form>
         </ui:define>
     </ui:composition>

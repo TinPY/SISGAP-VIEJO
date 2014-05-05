@@ -6,12 +6,15 @@ import ar.edu.undec.sisgap.controller.view.util.JsfUtil;
 import ar.edu.undec.sisgap.controller.view.util.PaginationHelper;
 import ar.edu.undec.sisgap.controller.ProyectoFacade;
 import ar.edu.undec.sisgap.model.Archivoproyecto;
+import ar.edu.undec.sisgap.model.Convocatoria;
 import ar.edu.undec.sisgap.model.Estadoproyecto;
 import ar.edu.undec.sisgap.model.Evaluacion;
 import ar.edu.undec.sisgap.model.EvaluacionPregunta;
 import ar.edu.undec.sisgap.model.EvaluacionPreguntaPK;
+import ar.edu.undec.sisgap.model.Fuentefinanciamiento;
 import ar.edu.undec.sisgap.model.Presupuesto;
 import ar.edu.undec.sisgap.model.PresupuestoRubro;
+import ar.edu.undec.sisgap.model.Tipoproyecto;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -69,8 +72,8 @@ public class ProyectoController implements Serializable {
     private Proyecto proyectoViejo;
 
     // Opciones para filtrado por estado
-    private SelectItem[] opcionesEstado;
-    private List<Estadoproyecto> listaEstadosFiltrados;
+    private List<Proyecto> proyectosFiltrados;
+
 
     public ProyectoController() {
     }
@@ -629,13 +632,15 @@ public class ProyectoController implements Serializable {
 //        return total;
         return p.getSumatotal();
     }
-
-    public List<Estadoproyecto> getListaEstadosFiltrados() {
-        return listaEstadosFiltrados;
+    
+    public List<Proyecto> getProyectosFiltrados() {
+        return proyectosFiltrados;
     }
 
-    public void setListaEstadosFiltrados(List<Estadoproyecto> listaEstadosFiltrados) {
-        this.listaEstadosFiltrados = listaEstadosFiltrados;
+    public void setProyectosFiltrados(List<Proyecto> proyectosFiltrados) {
+        this.proyectosFiltrados = proyectosFiltrados;
     }
+    
+    
 
 }
