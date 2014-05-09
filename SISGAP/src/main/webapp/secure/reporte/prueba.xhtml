@@ -11,57 +11,81 @@
         <ui:define name="body">
 
             <h:form id="form1" >
-                
+
+                <p:panel header="Filtros">
+
+                    <p:panel header="Tipo de Proyecto" style="display: inline-block;">
+                        <p:outputLabel value="qweqwe" />
+                        <!--                        <p:selectOneMenu >
+                                                </p:selectOneMenu>-->
+
+                    </p:panel>
+
+                    <p:panel header="asdasd" style="display: inline-block;">
+                        <p:outputLabel value="asdasd" />
+                    </p:panel>
+
+                    <p:panel header="zxczxc" style="display: inline-block;">
+                        <p:outputLabel value="zxczxc" />
+                    </p:panel>
+
+                </p:panel>
+
+                <p:separator />
+
                 <p:dataTable 
-                        id="tbl" 
-                        widgetVar="tblProyectos" 
-                        value="#{proyectoController.items}" 
-                        var="item" 
-                        emptyMessage="No se encontraron Ideas-Proyecto con los criterios de busqueda" 
-                        filteredValue="#{proyectoController.proyectosFiltrados}"
-                        rowKey="#{item.id}" >
-                        
-                        <p:column id="columnaId" headerText="Id" filterBy="id" filterMatchMode="contains"  sortBy="#{item.id}">
-                            <h:outputText value="#{item.id}" />
-                        </p:column>
+                    id="tbl"  
+                    widgetVar="tblProyectos"
+                    value="#{proyectoController.items}" 
+                    var="item"
+                    selectionMode="single" 
+                    selection="#{proyectoController.selected}"
+                    filteredValue="#{proyectoController.proyectosFiltrados}"
+                    emptyMessage="No se encontraron Ideas-Proyecto con los criterios de busqueda" 
+                    rowKey="item.id"
+                    >
 
-                        <p:column id="columnaNombre" headerText="Titulo de Proyecto" filterBy="nombre" sortBy="#{item.nombre}">
-                            <h:outputText value="#{item.nombre}"/>
-                        </p:column>
+                    <p:ajax event="filter" global="false" />
 
-                        <p:column id="columnaEstado" headerText="Estado" filterMatchMode="exact" filterBy="estado" filterOptions="#{estadoproyectoController.itemsAvailableSelectOne}" sortBy="#{item.estadoproyectoid.estado}">
-                            <h:outputText value="#{item.estadoproyectoid.estado}"/>
-                        </p:column>
+                    <p:column id="columnaId" headerText="Id" filterBy="id" filterMatchMode="contains">
+                        <h:outputText value="#{item.id}" />
+                    </p:column>
 
-                        <p:column id="columnaTipo" headerText="Tipo de Proyecto" filterBy="tipo" filterMatchMode="exact" filterOptions="#{tipoproyectoController.itemsAvailableSelectOne}" sortBy="#{item.tipoproyectoid.tipo}">
-                            <h:outputText value="#{item.tipoproyectoid.tipo}"/>
-                        </p:column>
+                    <p:column id="columnaNombre" headerText="Titulo de Proyecto" filterBy="nombre" filterMatchMode="contains">
+                        <h:outputText value="#{item.nombre}"/>
+                    </p:column>
 
-                        <p:column id="columnaFinanciamiento" headerText="Financiamiento" filterBy="estado" filterMatchMode="exact" filterOptions="#{fuentefinanciamientoController.itemsAvailableSelectOne}" sortBy="#{item.fuentefinanciamientoid.fuentefinanciamiento}">
-                            <h:outputText value="#{item.fuentefinanciamientoid.fuentefinanciamiento}"/>
-                        </p:column>
+                    <p:column id="columnaEstado" headerText="Estado" filterBy="estado" filterMatchMode="contains">
+                        <h:outputText value="#{item.estadoproyectoid.estado}"/>
+                    </p:column>
 
-                        <p:column id="columnaResponsable" headerText="Responsable" filterBy="apellido" sortBy="#{item.agenteid.apellido}">
-                            <h:outputText value="#{item.agenteid.apellido}, #{item.agenteid.nombres}"/>
-                        </p:column>                        
+                    <p:column id="columnaTipo" headerText="Tipo de Proyecto" filterBy="tipo" filterMatchMode="contains">
+                        <h:outputText value="#{item.tipoproyectoid.tipo}"/>
+                    </p:column>
 
-                        <p:column id="columnaPresupuesto" headerText="Presupuesto Total" >
-                            <h:outputText value="#{proyectoController.totalPresupuesto}"/>
-                        </p:column>
+                    <p:column id="columnaFinanciamiento" headerText="Financiamiento" filterBy="estado" filterMatchMode="contains">
+                        <h:outputText value="#{item.fuentefinanciamientoid.fuentefinanciamiento}"/>
+                    </p:column>
 
-                        <p:column id="columnaConvocatoria" headerText="Convocatoria" filterMatchMode="exact" filterOptions="#{convocatoriaController.itemsAvailableSelectOne}" sortBy="#{item.convocatoriaid.convocatoria}">
-                            <h:outputText value="#{item.convocatoriaid.convocatoria}"/>
-                        </p:column>
+                    <p:column id="columnaResponsable" headerText="Responsable" filterBy="apellido" filterMatchMode="contains">
+                        <h:outputText value="#{item.agenteid.apellido}, #{item.agenteid.nombres}"/>
+                    </p:column>
 
-                        <p:column id="columnaAcciones" headerText="Acciones">
-                            <p:commandLink action="#{proyectoController.prepareView}" value="Ver" ajax="false" />
-                            <h:outputText value=" "/>
-                            <p:commandLink action="#{proyectoController.prepareEdit}" value="Editar" ajax="false" />
-                        </p:column>
+                    <p:column id="columnaPresupuesto" headerText="Presupuesto Total" >
+                        <h:outputText value="#{proyectoController.totalPresupuesto}"/>
+                    </p:column>
 
-                    </p:dataTable>
-                
-              
+                    <p:column id="columnaConvocatoria" headerText="Convocatoria" filterBy="convocatoria" filterMatchMode="contains">
+                        <h:outputText value="#{item.convocatoriaid.convocatoria}"/>
+                    </p:column>
+
+                </p:dataTable>
+
+                <p:commandLink action="#{proyectoController.prepareView}" value="Ver" ajax="false" />
+                <h:outputText value=" "/>
+                <p:commandLink action="#{proyectoController.prepareEdit}" value="Editar" ajax="false" />
+
+
             </h:form>
         </ui:define>
     </ui:composition>
