@@ -12,13 +12,14 @@
 
             <h:form id="form1" >
 
-                <p:panel header="Filtros">
+                <p:panel header="Filtros" toggleable="true" toggleTitle="Minimizar">
 
                     <p:panel header="Tipo de Proyecto" style="display: inline-block;">
-                        <p:outputLabel value="qweqwe" />
-                        <!--                        <p:selectOneMenu >
-                                                </p:selectOneMenu>-->
-
+                        <p:outputLabel value="Buscar por ID" />
+                        
+                        <p:inputText id="buscarPorId" title="Buscar por Id">
+                            
+                        </p:inputText>
                     </p:panel>
 
                     <p:panel header="asdasd" style="display: inline-block;">
@@ -36,11 +37,8 @@
                 <p:dataTable 
                     id="tbl"  
                     widgetVar="tblProyectos"
-                    value="#{proyectoController.items}" 
+                    value="#{proyectoController.proyectosFiltrados}" 
                     var="item"
-                    selectionMode="single" 
-                    selection="#{proyectoController.selected}"
-                    filteredValue="#{proyectoController.proyectosFiltrados}"
                     emptyMessage="No se encontraron Ideas-Proyecto con los criterios de busqueda" 
                     rowKey="item.id"
                     >

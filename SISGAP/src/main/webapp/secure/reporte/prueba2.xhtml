@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+        <ui:define name="body">
+
+            <h:form id="form1" >
+
+                <p:dataTable 
+                    id="tbl" 
+                    value="#{proyectoController.items}" 
+                    var="item" 
+                    emptyMessage="No se encontraron resultados para el criterio de busqueda"
+                    >
+
+                    <p:column id="columnaId" headerText="Id" filterBy="id" filterMatchMode="startsWith" sortBy="id">
+                        <h:outputText value="#{item.id}" />
+                    </p:column>
+
+                    <p:column id="columnaNombre" headerText="Titulo de Proyecto" filterBy="nombre" filterMatchMode="contains" sortBy="nombre">
+                        <h:outputText value="#{item.nombre}"/>
+                    </p:column>
+
+                    <p:column id="columnaEstado" headerText="Estado" filterBy="#{item.estadoproyectoid}" filterMatchMode="exact" filterOptions="#{estadoproyectoController.itemsAvailableSelectOne}" sortBy="estado">
+                        <h:outputText value="#{item.estadoproyectoid.estado}"/>
+                    </p:column>
+
+                    <p:column id="columnaTipo" headerText="Tipo de Proyecto" filterBy="#{item.tipoproyectoid}" filterMatchMode="exact" filterOptions="#{tipoproyectoController.itemsAvailableSelectOne}" sortBy="tipo">
+                        <h:outputText value="#{item.tipoproyectoid.tipo}"/>
+                    </p:column>
+
+                    <p:column id="columnaFinanciamiento" headerText="Financiamiento" filterBy="#{item.fuentefinanciamientoid}" filterMatchMode="exact" filterOptions="#{fuentefinanciamientoController.itemsAvailableSelectOne}" sortBy="fuentefinanciamiento">
+                        <h:outputText value="#{item.fuentefinanciamientoid.fuentefinanciamiento}"/>
+                    </p:column>                    
+
+                    <p:column id="columnaResponsable" headerText="Responsable" filterBy="#{item.agenteid}" filterMatchMode="exact" filterOptions="#{agenteController.itemsAvailableSelectOne}" sortBy="apellido">
+                        <h:outputText value="#{item.agenteid.apellido}, #{item.agenteid.nombres}"/>
+                    </p:column>                    
+
+                    <p:column id="columnaConvocatoria" headerText="Convocatoria" filterBy="#{item.convocatoriaid}" filterMatchMode="exact" filterOptions="#{convocatoriaController.itemsAvailableSelectOne}" sortBy="convocatoria">
+                        <h:outputText value="#{item.convocatoriaid.convocatoria}"/>
+                    </p:column>
+
+                </p:dataTable>
+
+                <h:link outcome="/index" value="Inicio"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

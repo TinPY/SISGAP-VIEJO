@@ -72,7 +72,7 @@ public class ProyectoController implements Serializable {
     private Proyecto proyectoViejo;
 
     // Opciones para filtrado por estado
-    private List<Proyecto> proyectosFiltrados;
+    private List<SelectItem> proyectosFiltrados;
 
 
     public ProyectoController() {
@@ -633,14 +633,12 @@ public class ProyectoController implements Serializable {
         return p.getSumatotal();
     }
     
-    public List<Proyecto> getProyectosFiltrados() {
+    public List<SelectItem> getProyectosFiltrados() {
         return proyectosFiltrados;
     }
 
-    public void setProyectosFiltrados(List<Proyecto> proyectosFiltrados) {
+    public void setProyectosFiltrados(List<SelectItem> proyectosFiltrados) {
         this.proyectosFiltrados = proyectosFiltrados;
     }
-    
-    
 
 }
