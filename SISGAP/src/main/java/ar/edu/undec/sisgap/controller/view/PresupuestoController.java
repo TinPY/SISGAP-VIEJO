@@ -399,4 +399,14 @@ public class PresupuestoController implements Serializable {
         this.presupuestosrubrosedilist = presupuestosrubrosedilist;
     }
 
+    public BigDecimal getPresupuestoTotalProyecto(int idProyecto){
+        if(current==null){
+            return BigDecimal.ZERO;
+        }else{
+            findProyecto(idProyecto);
+            sumarGastosView();
+            return this.getSumatotal();
+        }
+        
+    }
 }

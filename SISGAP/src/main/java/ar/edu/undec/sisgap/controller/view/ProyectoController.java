@@ -29,6 +29,7 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -38,6 +39,7 @@ import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
@@ -70,10 +72,18 @@ public class ProyectoController implements Serializable {
     private String habilitarcomitente = "0";
     private String observacionfinal;
     private Proyecto proyectoViejo;
+    private Date fechaFiltrado;
 
     // Opciones para filtrado por estado
     private List<SelectItem> proyectosFiltrados;
 
+    public Date getFechaFiltrado() {
+        return fechaFiltrado;
+    }
+
+    public void setFechaFiltrado(Date fechaFiltrado) {
+        this.fechaFiltrado = fechaFiltrado;
+    }
 
     public ProyectoController() {
     }
@@ -85,6 +95,14 @@ public class ProyectoController implements Serializable {
             selectedItemIndex = -1;
         }
         return current;
+    }
+
+    public void setSelected(Proyecto selected) {
+        this.current = selected;
+    }
+
+    public void onRowSelect(SelectEvent event) {
+        //this.current = ((Proyecto) event.getObject()).getModel();
     }
 
     private ProyectoFacade getFacade() {
@@ -408,6 +426,16 @@ public class ProyectoController implements Serializable {
         }
     }
 
+    public void buscarTodos() {
+        recreateModel();
+        items = new ListDataModel(getFacade().findAll());
+    }
+
+    public void buscarPorFecha() {
+        recreateModel();
+        items = new ListDataModel(getFacade().buscarProyectoFecha(fechaFiltrado));
+    }
+
     public void buscarProyectoAgente(int agenteid) {
         recreateModel();
         items = new ListDataModel(getFacade().buscarProyectoAgente(agenteid));
@@ -558,7 +586,7 @@ public class ProyectoController implements Serializable {
         observacionfinal = "";
         FacesContext context = FacesContext.getCurrentInstance();
         EvaluacionPreguntaController evaluacionpregunta = (EvaluacionPreguntaController) context.getApplication().evaluateExpressionGet(context, "#{evaluacionPreguntaController}", EvaluacionPreguntaController.class);
-        EvaluacionController evaluacion = (EvaluacionController) context.getApplication().evaluateExpressionGet(context, "#{evaluacionController}", EvaluacionController.class);;
+        EvaluacionController evaluacion = (EvaluacionController) context.getApplication().evaluateExpressionGet(context, "#{evaluacionController}", EvaluacionController.class);
 
         String obs = "";
         String calificacionpregunta = "";
@@ -617,22 +645,30 @@ public class ProyectoController implements Serializable {
 
     public BigDecimal getTotalPresupuesto() {
 
-        BigDecimal total = new BigDecimal(0.00);
+        BigDecimal total = BigDecimal.ZERO;
 
         FacesContext context = FacesContext.getCurrentInstance();
         PresupuestoController p = (PresupuestoController) context.getApplication().evaluateExpressionGet(context, "#{presupuestoController}", PresupuestoController.class);
 
-//        PresupuestoRubro prerub;
-//        Iterator i = p.getSelected().getPresupuestoRubroList().iterator();
-//        while (i.hasNext()) {
-//            prerub = ((PresupuestoRubro) i.next());
-//            total = total.add(prerub.getTotal());
-//            // p.soloEditar(prerub);
+        p.findProyecto(86);
+
+        Iterator i = p.getSelected().getPresupuestoRubroList().iterator();
+
+        while (i.hasNext()) {
+            i.
+            
+        }
+
+        return p.getSumagastocomitente().add(p.getSumagastoorganismo()).add(p.getSumagastouniversidad());
+
+//        if (current==null){
+//            return total;
+//        }else{
+//            p.findProyecto(current.getId());
+//            return p.getSumatotal();
 //        }
-//        return total;
-        return p.getSumatotal();
     }
-    
+
     public List<SelectItem> getProyectosFiltrados() {
         return proyectosFiltrados;
     }
