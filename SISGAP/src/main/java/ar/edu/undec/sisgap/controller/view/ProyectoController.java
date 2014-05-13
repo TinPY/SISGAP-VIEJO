@@ -650,8 +650,14 @@ public class ProyectoController implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         PresupuestoController p = (PresupuestoController) context.getApplication().evaluateExpressionGet(context, "#{presupuestoController}", PresupuestoController.class);
 
+        Proyecto proyecto = this.getSelected();
+        
+        //this.setSelected((Proyecto) this.getItems().getRowData());
         //p.findProyecto(86);
-        p.findProyecto(current.getId());
+        this.items.getRowCount();
+        
+        
+        p.findProyecto(getSelected().getId());
 
         Iterator i = p.getSelected().getPresupuestoRubroList().iterator();
 
