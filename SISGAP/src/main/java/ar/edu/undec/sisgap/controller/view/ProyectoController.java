@@ -650,16 +650,22 @@ public class ProyectoController implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         PresupuestoController p = (PresupuestoController) context.getApplication().evaluateExpressionGet(context, "#{presupuestoController}", PresupuestoController.class);
 
-        p.findProyecto(86);
+        //p.findProyecto(86);
+        p.findProyecto(current.getId());
 
         Iterator i = p.getSelected().getPresupuestoRubroList().iterator();
 
         while (i.hasNext()) {
-            i.
+            PresupuestoRubro pr = new PresupuestoRubro();
+            pr = (PresupuestoRubro) i.next();
+            
+            total.add(pr.getGastocomitente().add(pr.getGastoorganismo().add(pr.getGastouniversidad())));
             
         }
 
-        return p.getSumagastocomitente().add(p.getSumagastoorganismo()).add(p.getSumagastouniversidad());
+        //return p.getSumagastocomitente().add(p.getSumagastoorganismo()).add(p.getSumagastouniversidad());
+        
+        return total;
 
 //        if (current==null){
 //            return total;
