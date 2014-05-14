@@ -72,19 +72,31 @@ public class ProyectoController implements Serializable {
     private String habilitarcomitente = "0";
     private String observacionfinal;
     private Proyecto proyectoViejo;
-    private Date fechaFiltrado;
+    
+    private Date filtroFechaInicio;
+    private Date filtroFechaFin;
 
     // Opciones para filtrado por estado
     private List<SelectItem> proyectosFiltrados;
 
-    public Date getFechaFiltrado() {
-        return fechaFiltrado;
+    public Date getFiltroFechaInicio() {
+        return filtroFechaInicio;
     }
 
-    public void setFechaFiltrado(Date fechaFiltrado) {
-        this.fechaFiltrado = fechaFiltrado;
+    public void setFiltroFechaInicio(Date filtroFechaInicio) {
+        this.filtroFechaInicio = filtroFechaInicio;
     }
 
+    public Date getFiltroFechaFin() {
+        return filtroFechaFin;
+    }
+
+    public void setFiltroFechaFin(Date filtroFechaFin) {
+        this.filtroFechaFin = filtroFechaFin;
+    }
+
+    
+    
     public ProyectoController() {
     }
 
@@ -433,7 +445,16 @@ public class ProyectoController implements Serializable {
 
     public void buscarPorFecha() {
         recreateModel();
-        items = new ListDataModel(getFacade().buscarProyectoFecha(fechaFiltrado));
+        items = new ListDataModel(getFacade().buscarProyectoFecha(filtroFechaInicio));
+    }
+    
+    public void buscarEntreFechas() {
+        recreateModel();
+        items = new ListDataModel(getFacade().buscarProyectoEntreFechas(filtroFechaInicio,filtroFechaFin));
+        
+        DataModel asdasd = items;
+        
+        
     }
 
     public void buscarProyectoAgente(int agenteid) {
@@ -653,11 +674,11 @@ public class ProyectoController implements Serializable {
         Proyecto proyecto = this.getSelected();
         
         //this.setSelected((Proyecto) this.getItems().getRowData());
-        //p.findProyecto(86);
-        this.items.getRowCount();
+        p.findProyecto(86);
+        //this.items.getRowCount();
         
         
-        p.findProyecto(getSelected().getId());
+        //p.findProyecto(getSelected().getId());
 
         Iterator i = p.getSelected().getPresupuestoRubroList().iterator();
 
@@ -673,12 +694,6 @@ public class ProyectoController implements Serializable {
         
         return total;
 
-//        if (current==null){
-//            return total;
-//        }else{
-//            p.findProyecto(current.getId());
-//            return p.getSumatotal();
-//        }
     }
 
     public List<SelectItem> getProyectosFiltrados() {

@@ -4,24 +4,32 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      >
 
     <ui:composition template="/template.xhtml">
+
 
         <ui:define name="body">
 
             <f:event type="preRenderView" listener="#{proyectoController.buscarTodos()}" ></f:event> 
+
+            
             
             <h:form id="form1" >
 
                 <p:panel header="Filtros" toggleable="true" toggleTitle="Minimizar">
 
-                    <p:panel header="Por fechas" style="display: inline-block;">
-                        <p:outputLabel value="Buscar por ID" />
+                    <p:panel header="Rango de fechas" style="display: inline-block;">
+                        <p:calendar value="#{proyectoController.filtroFechaInicio}" id="fechaInicio"/>  
 
-                        <p:inputText id="buscarPorId" title="Buscar por Id">
+                        <p:calendar value="#{proyectoController.filtroFechaFin}" id="fechaFin"/>  
 
-                        </p:inputText>
+                        <p:commandButton value="Filtrar" actionListener="#{proyectoController.buscarEntreFechas()}" onclick="tblW.filter();" id="filtrarRangoFechas" update=":form1:tbl" >
+
+                        </p:commandButton>
+
                     </p:panel>
 
                     <p:panel header="asdasd" style="display: inline-block;">
@@ -35,16 +43,29 @@
                 </p:panel>
 
                 <p:separator />
-                
+
                 <p:dataTable 
                     id="tbl" 
                     value="#{proyectoController.items}" 
                     var="item" 
+                    widgetVar="tblW"
                     rowKey="#{item.id}" 
-                    paginator="true" paginatorPosition="bottom" rows="10" 
                     filteredValue="#{proyectoController.proyectosFiltrados}"
                     emptyMessage="No se encontraron resultados para el criterio de busqueda"
                     >
+
+                    <f:facet name="header">
+                        Fecha
+                        <div style="display: block;  width: 90%; margin: auto;">
+                            <p:calendar id="firstDate" styleClass="calendarFilter" value="#{proyectoController.filtroFechaInicio}">
+                                <p:ajax event="dateSelect" listener="#{proyectoController.buscarEntreFechas()}" update="tbl" />
+                            </p:calendar>
+                            -
+                            <p:calendar id="lastDate" styleClass="calendarFilter" value="#{proyectoController.filtroFechaFin}">
+                                <p:ajax event="dateSelect" listener="#{proyectoController.buscarEntreFechas()}" update="tbl" />
+                            </p:calendar>
+                        </div>
+                    </f:facet>
 
                     <p:column id="columnaId" headerText="Id" filterBy="id" filterMatchMode="startsWith" sortBy="id" width="10px" style="width: 10px;">
                         <h:outputText value="#{item.id}" />
@@ -79,7 +100,9 @@
                             <f:setPropertyActionListener value="#{item}" target="#{proyectoController.selected}" />
                         </p:commandButton>
                     </p:column>
-
+                    <f:facet name="footer">
+                        Hay un total de #{proyectoController.items.rowCount} Ideas-Proyecto.
+                    </f:facet>
                 </p:dataTable>
 
                 <p:separator />
@@ -118,7 +141,7 @@
                         <h:outputLabel id="estado" value="#{proyectoController.selected.estadoproyectoid.estado}" />
                         <h:outputLabel value="Presupuesto" for="presupuesto" />
                         <h:outputLabel id="presupuesto" value="#{proyectoController.totalPresupuesto}">
-                                <f:convertNumber currencySymbol="$" groupingUsed="true" maxFractionDigits="2" type="currency" />
+                            <f:convertNumber currencySymbol="$" groupingUsed="true" maxFractionDigits="2" type="currency" />
                         </h:outputLabel>
 
                     </h:panelGrid>

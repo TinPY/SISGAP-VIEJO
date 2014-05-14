@@ -11,6 +11,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -54,15 +55,28 @@ public class ProyectoFacade extends AbstractFacade<Proyecto> {
     }
 
     public List<Proyecto> buscarProyectoFecha(Date fecha) {
-        List<Proyecto> lista;
-
         try {
             return em.createQuery("select p from Proyecto p join p.agenteid a where p.fecha = :fechaBuscada", Proyecto.class).setParameter("fechaBuscada", fecha).getResultList();
         } catch (Exception e) {
             System.out.println("No se pudo realizar la consulta" + e);
             return null;
         }
+    }
 
+    public List<Proyecto> buscarProyectoEntreFechas(Date fechaInicio, Date fechaFin) {
+        List<Proyecto> lista;
+        
+        try {
+            //SELECT e FROM Events e WHERE e.eventsDate BETWEEN :startDate AND :endDate
+            lista= em.createQuery("SELECT p FROM Proyecto p join p.agenteid a WHERE p.fecha BETWEEN :fechaInicio AND :fechaFin", Proyecto.class).setParameter("fechaInicio", fechaInicio, TemporalType.DATE).setParameter("fechaFin", fechaFin, TemporalType.DATE).getResultList();
+        } catch (Exception e) {
+            System.out.println("No se pudo realizar la consulta en el rango de fechas" + e);
+            lista = null;
+        }
+        
+        System.out.println(lista.toString());
+        
+        return lista;
     }
 
 }
