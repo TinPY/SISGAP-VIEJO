@@ -77,7 +77,7 @@ public class ProyectoController implements Serializable {
     private Date filtroFechaFin;
 
     // Opciones para filtrado por estado
-    private List<SelectItem> proyectosFiltrados;
+    private List<Proyecto> proyectosFiltrados;
 
     public Date getFiltroFechaInicio() {
         return filtroFechaInicio;
@@ -95,8 +95,6 @@ public class ProyectoController implements Serializable {
         this.filtroFechaFin = filtroFechaFin;
     }
 
-    
-    
     public ProyectoController() {
     }
 
@@ -452,8 +450,10 @@ public class ProyectoController implements Serializable {
         recreateModel();
         items = new ListDataModel(getFacade().buscarProyectoEntreFechas(filtroFechaInicio,filtroFechaFin));
         
-        DataModel asdasd = items;
+        proyectosFiltrados = getFacade().buscarProyectoEntreFechas(filtroFechaInicio,filtroFechaFin);
         
+//      List<Proyecto> asdasd = proyectosFiltrados;
+//      System.out.println("Items proyectos => " + this.proyectosFiltrados.toString());
         
     }
 
@@ -696,12 +696,11 @@ public class ProyectoController implements Serializable {
 
     }
 
-    public List<SelectItem> getProyectosFiltrados() {
+    public List<Proyecto> getProyectosFiltrados() {
         return proyectosFiltrados;
     }
 
-    public void setProyectosFiltrados(List<SelectItem> proyectosFiltrados) {
+    public void setProyectosFiltrados(List<Proyecto> proyectosFiltrados) {
         this.proyectosFiltrados = proyectosFiltrados;
     }
-
 }

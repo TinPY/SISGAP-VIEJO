@@ -15,8 +15,6 @@
 
             <f:event type="preRenderView" listener="#{proyectoController.buscarTodos()}" ></f:event> 
 
-            
-            
             <h:form id="form1" >
 
                 <p:panel header="Filtros" toggleable="true" toggleTitle="Minimizar">
@@ -26,7 +24,7 @@
 
                         <p:calendar value="#{proyectoController.filtroFechaFin}" id="fechaFin"/>  
 
-                        <p:commandButton value="Filtrar" actionListener="#{proyectoController.buscarEntreFechas()}" onclick="tblW.filter();" id="filtrarRangoFechas" update=":form1:tbl" >
+                        <p:commandButton value="Filtrar" actionListener="#{proyectoController.buscarEntreFechas()}" oncomplete="tblW.filter();" id="filtrarRangoFechas" update="form1" >
 
                         </p:commandButton>
 

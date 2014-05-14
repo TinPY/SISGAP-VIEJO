@@ -73,8 +73,7 @@ public class ProyectoFacade extends AbstractFacade<Proyecto> {
             System.out.println("No se pudo realizar la consulta en el rango de fechas" + e);
             lista = null;
         }
-        
-        System.out.println(lista.toString());
+//        System.out.println(lista.toString());
         
         return lista;
     }
