@@ -51,10 +51,12 @@
                     rowKey="#{item.id}" 
                     filteredValue="#{proyectoController.proyectosFiltrados}"
                     emptyMessage="No se encontraron resultados para el criterio de busqueda"
-                    paginator="true" paginatorPosition="bottom" rows="10"
-                    draggableColumns="true" sortBy="id"
+                    paginator="true" rows="10"
+                    draggableColumns="true"
+                    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                    rowsPerPageTemplate="5,10,15"
                     >
-                    
+
                     <f:facet name="header">
                         <p:outputLabel value="Ideas-Proyecto" />
                     </f:facet>
@@ -112,7 +114,7 @@
                         <f:facet name="header">
                             <h:outputText value="Presupuesto" />
                         </f:facet>                                                
-                        <h:outputText value="#{proyectoController.obtenerTotalPresupuesto()}"/>
+                        <h:outputText id="presupuesto" value="#{proyectoController.obtenerTotalPresupuesto(item.id)}"/>
                     </p:column>
 
                     <p:column style="width:4%" exportable="false">
@@ -121,8 +123,20 @@
                         </p:commandButton>
                     </p:column>
 
+                    <p:summaryRow>
+                        <p:column colspan="7" style="text-align:right">
+                            Total:
+                        </p:column>
+                        <p:column>
+                            #{proyectoController.items.rowCount}$
+                        </p:column>
+                        <p:column>
+                            
+                        </p:column>                        
+                    </p:summaryRow>
+
                     <f:facet id="fPieTbl" name="footer">
-                        
+
                     </f:facet>
                 </p:dataTable>
 
@@ -167,7 +181,7 @@
                         <p:outputLabel id="nombre" value="#{proyectoController.selected.nombre}" />
                         <p:outputLabel value="Estado" for="estado" />
                         <p:outputLabel id="estado" value="#{proyectoController.selected.estadoproyectoid.estado}" />
-                        
+
                         <p:commandButton id="botonazo" value="Total" actionListener="#{proyectoController.obtenerTotalPresupuesto()}" />
                     </h:panelGrid>
                     <br />

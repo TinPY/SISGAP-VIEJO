@@ -681,6 +681,24 @@ public class ProyectoController implements Serializable {
         return total;
 
     }
+    
+        public BigDecimal obtenerTotalPresupuesto(int idProyecto) {
+
+        BigDecimal total = BigDecimal.ZERO;
+
+        FacesContext context = FacesContext.getCurrentInstance();
+        PresupuestoController p = (PresupuestoController) context.getApplication().evaluateExpressionGet(context, "#{presupuestoController}", PresupuestoController.class);
+
+        //total = p.getPresupuestoTotalProyecto(this.getSelected().getId());
+        //total = p.getPresupuestoTotalProyecto(86);
+        
+        total = p.obtenerTotal(idProyecto);
+        
+        System.out.println("ProyectoController >> obtenerTotalPresupuesto: " + total.toString());
+        
+        return total;
+
+    }
 
     public List<Proyecto> getProyectosFiltrados() {
         return proyectosFiltrados;
