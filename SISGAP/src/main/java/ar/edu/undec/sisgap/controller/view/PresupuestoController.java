@@ -246,10 +246,6 @@ public class PresupuestoController implements Serializable {
 
     }
 
-    public void findProyecto(int id) {
-        current = getFacade().findporProyecto(id);
-    }
-
     public void sumarGastosView() {
 
         Iterator it = this.getSelected().getPresupuestoRubroList().iterator();
@@ -266,7 +262,7 @@ public class PresupuestoController implements Serializable {
             totalcomitente = totalcomitente.add(new BigDecimal(pr.getGastocomitente().setScale(2).toString()));
             totaluniversidad = totaluniversidad.add(new BigDecimal(pr.getGastouniversidad().setScale(2).toString()));
             totalorganismo = totalorganismo.add(new BigDecimal(pr.getGastoorganismo().setScale(2).toString()));
-                  // sumagastoentidad=new BigDecimal(totalentidad).setScale(2);
+            // sumagastoentidad=new BigDecimal(totalentidad).setScale(2);
             // sumagastouniversidad=new BigDecimal(totaluniversidad).setScale(2);
             // System.out.println("000000000000000+"+totalentidad.setScale(2).toString());
             // pr.setTotal(pr.getGastoorganismo().add(pr.getGastocomitente()).add(pr.getGastouniversidad()));
@@ -290,7 +286,7 @@ public class PresupuestoController implements Serializable {
 
         }
 
-                // RequestContext.getCurrentInstance().update(s.getClientId(FacesContext.getCurrentInstance()) +  ":" + event.getRowIndex() +  ":isAutomatic");
+        // RequestContext.getCurrentInstance().update(s.getClientId(FacesContext.getCurrentInstance()) +  ":" + event.getRowIndex() +  ":isAutomatic");
         //  RequestContext.getCurrentInstance().update(":tpresupuesto:" + event.getRowIndex() +  ":total");
         //               System.out.println("gggggggggggggggggggggggggggggg");
 //                  UIData table = (UIData) event.getComponent();
@@ -318,7 +314,7 @@ public class PresupuestoController implements Serializable {
                 totalorganismo = totalorganismo.add(new BigDecimal(pr.getGastoorganismo().setScale(2).toString()));
 
                 pr.setTotal(pr.getGastoorganismo().add(pr.getGastocomitente()).add(pr.getGastouniversidad()));
-                //  System.out.println("-------------------------------------total "+pr.getTotal());
+                //System.out.println("Total " + pr.getTotal());
                 this.presupuestosrubrosedilist.get(contador).setTotal(pr.getTotal());
             }
         }
@@ -399,14 +395,52 @@ public class PresupuestoController implements Serializable {
         this.presupuestosrubrosedilist = presupuestosrubrosedilist;
     }
 
-    public BigDecimal getPresupuestoTotalProyecto(int idProyecto){
-        if(current==null){
+    public void findProyecto(int id) {
+        current = getFacade().findporProyecto(id);
+
+        System.out.println("PresupuestoController >> findProyecto: " + current.getId().toString() + " - " + current.toString());
+    }
+
+    public BigDecimal getPresupuestoTotalProyecto(int idProyecto) {
+        if (current == null) {
             return BigDecimal.ZERO;
-        }else{
+        } else {
             findProyecto(idProyecto);
             sumarGastosView();
+
+            System.out.println("Total " + this.getSumatotal().toString());
+
             return this.getSumatotal();
         }
-        
     }
+
+    public BigDecimal obtenerTotal(int idProyecto) {
+
+        this.findProyecto(idProyecto);
+
+        Iterator it = this.getSelected().getPresupuestoRubroList().iterator();
+        
+        BigDecimal totalcomitente = BigDecimal.ZERO;
+        BigDecimal totaluniversidad = BigDecimal.ZERO;
+        BigDecimal totalorganismo = BigDecimal.ZERO;
+        sumagastoorganismo = BigDecimal.ZERO;
+        sumagastocomitente = BigDecimal.ZERO;
+        sumagastouniversidad = BigDecimal.ZERO;
+
+        while (it.hasNext()) {
+            PresupuestoRubro pr = (PresupuestoRubro) it.next();
+            totalcomitente = totalcomitente.add(new BigDecimal(pr.getGastocomitente().setScale(2).toString()));
+            totaluniversidad = totaluniversidad.add(new BigDecimal(pr.getGastouniversidad().setScale(2).toString()));
+            totalorganismo = totalorganismo.add(new BigDecimal(pr.getGastoorganismo().setScale(2).toString()));
+        }
+        sumagastocomitente = totalcomitente;
+        sumagastouniversidad = totaluniversidad;
+        sumagastoorganismo = totalorganismo;
+        sumatotal = sumagastocomitente.add(sumagastouniversidad).add(sumagastoorganismo);
+
+        System.out.println("PresupuestoController >> obtenerTotal("+ current.getProyectoid().getNombre() +"): " + current.getId().toString() + " TOTAL " + sumatotal.toString());
+        
+        return sumatotal;
+    }
+
 }

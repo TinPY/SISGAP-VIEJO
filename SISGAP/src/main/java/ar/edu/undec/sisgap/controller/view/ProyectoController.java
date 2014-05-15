@@ -664,33 +664,19 @@ public class ProyectoController implements Serializable {
         System.out.println("bienn");
     }
 
-    public BigDecimal getTotalPresupuesto() {
+    public BigDecimal obtenerTotalPresupuesto() {
 
         BigDecimal total = BigDecimal.ZERO;
 
         FacesContext context = FacesContext.getCurrentInstance();
         PresupuestoController p = (PresupuestoController) context.getApplication().evaluateExpressionGet(context, "#{presupuestoController}", PresupuestoController.class);
 
-        Proyecto proyecto = this.getSelected();
+        //total = p.getPresupuestoTotalProyecto(this.getSelected().getId());
+        //total = p.getPresupuestoTotalProyecto(86);
         
-        //this.setSelected((Proyecto) this.getItems().getRowData());
-        p.findProyecto(86);
-        //this.items.getRowCount();
+        total = p.obtenerTotal(current.getId());
         
-        
-        //p.findProyecto(getSelected().getId());
-
-        Iterator i = p.getSelected().getPresupuestoRubroList().iterator();
-
-        while (i.hasNext()) {
-            PresupuestoRubro pr = new PresupuestoRubro();
-            pr = (PresupuestoRubro) i.next();
-            
-            total.add(pr.getGastocomitente().add(pr.getGastoorganismo().add(pr.getGastouniversidad())));
-            
-        }
-
-        //return p.getSumagastocomitente().add(p.getSumagastoorganismo()).add(p.getSumagastouniversidad());
+        System.out.println("ProyectoController >> obtenerTotalPresupuesto: " + total.toString());
         
         return total;
 
@@ -702,5 +688,11 @@ public class ProyectoController implements Serializable {
 
     public void setProyectosFiltrados(List<Proyecto> proyectosFiltrados) {
         this.proyectosFiltrados = proyectosFiltrados;
+    }
+    
+    public void resetearFiltroEntreFechas(){
+        filtroFechaInicio= null;
+        filtroFechaFin = null;
+        
     }
 }

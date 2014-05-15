@@ -67,7 +67,6 @@ public class ProyectoFacade extends AbstractFacade<Proyecto> {
         List<Proyecto> lista;
         
         try {
-            //SELECT e FROM Events e WHERE e.eventsDate BETWEEN :startDate AND :endDate
             lista= em.createQuery("SELECT p FROM Proyecto p join p.agenteid a WHERE p.fecha BETWEEN :fechaInicio AND :fechaFin", Proyecto.class).setParameter("fechaInicio", fechaInicio, TemporalType.DATE).setParameter("fechaFin", fechaFin, TemporalType.DATE).getResultList();
         } catch (Exception e) {
             System.out.println("No se pudo realizar la consulta en el rango de fechas" + e);
