@@ -75,6 +75,8 @@ public class ProyectoController implements Serializable {
     
     private Date filtroFechaInicio;
     private Date filtroFechaFin;
+    
+    private BigDecimal totalSumaryRow;
 
     // Opciones para filtrado por estado
     private List<Proyecto> proyectosFiltrados;
@@ -680,6 +682,31 @@ public class ProyectoController implements Serializable {
         
         return total;
 
+    }
+    
+    //http://forum.primefaces.org/viewtopic.php?f=3&t=16926
+    public BigDecimal calcularSumaryRow(Object o){
+        this.totalSumaryRow = BigDecimal.ZERO;
+        String name = "";
+        if(o != null) {
+            if(o instanceof String) {
+                name = (String) o;
+                for(Proyecto p : (List<Proyecto>) items.getWrappedData()) { // The loop should find the sortBy value rows in all dataTable data.
+                    switch(sortColumnCase) { // sortColumnCase was set in the onSort event
+                        case 0:
+                            if(p.getcolumn0data().getName().equals(name)) {
+                                this.totalSumaryRow += p.getcolumn0data().getValue();
+                            }
+                            break;
+                        case 1:
+                            if(p.getcolumn1data().getName().equals(name)) {
+                                this.totalSumaryRow += p.getcolumn1data().getValue();
+                            }
+                            break;
+                    }
+                }
+            }
+        }
     }
     
         public BigDecimal obtenerTotalPresupuesto(int idProyecto) {
