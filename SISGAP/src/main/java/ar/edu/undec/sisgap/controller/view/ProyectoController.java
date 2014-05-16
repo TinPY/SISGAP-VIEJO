@@ -72,13 +72,14 @@ public class ProyectoController implements Serializable {
     private String habilitarcomitente = "0";
     private String observacionfinal;
     private Proyecto proyectoViejo;
-    
+
     private Date filtroFechaInicio;
     private Date filtroFechaFin;
-    
-    private BigDecimal totalSumaryRow;
 
-    // Opciones para filtrado por estado
+    // Sumado del total de presupuestos de todos los proyectos
+    private BigDecimal totalPresupuestosProyectos;
+
+    // Usado para el filtrado del datatable
     private List<Proyecto> proyectosFiltrados;
 
     public Date getFiltroFechaInicio() {
@@ -447,16 +448,15 @@ public class ProyectoController implements Serializable {
         recreateModel();
         items = new ListDataModel(getFacade().buscarProyectoFecha(filtroFechaInicio));
     }
-    
+
     public void buscarEntreFechas() {
         recreateModel();
-        items = new ListDataModel(getFacade().buscarProyectoEntreFechas(filtroFechaInicio,filtroFechaFin));
-        
-        proyectosFiltrados = getFacade().buscarProyectoEntreFechas(filtroFechaInicio,filtroFechaFin);
-        
+        items = new ListDataModel(getFacade().buscarProyectoEntreFechas(filtroFechaInicio, filtroFechaFin));
+
+        proyectosFiltrados = getFacade().buscarProyectoEntreFechas(filtroFechaInicio, filtroFechaFin);
+
 //      List<Proyecto> asdasd = proyectosFiltrados;
 //      System.out.println("Items proyectos => " + this.proyectosFiltrados.toString());
-        
     }
 
     public void buscarProyectoAgente(int agenteid) {
@@ -675,56 +675,65 @@ public class ProyectoController implements Serializable {
 
         //total = p.getPresupuestoTotalProyecto(this.getSelected().getId());
         //total = p.getPresupuestoTotalProyecto(86);
-        
         total = p.obtenerTotal(current.getId());
-        
+
         System.out.println("ProyectoController >> obtenerTotalPresupuesto: " + total.toString());
-        
+
         return total;
 
     }
+
+//    //http://forum.primefaces.org/viewtopic.php?f=3&t=16926
+//    public void calcularSummaryRow(Object o){
+//        this.totalSummaryRow = BigDecimal.ZERO;
+//        String nombre = "";
+//        if(o != null) {
+//            if(o instanceof String) {
+//                nombre = (String) o;
+//                for(Proyecto p : (List<Proyecto>) items.getWrappedData()) { // El loop deberia encontrar los valores de filas sortBy en todos los datos del dataTable.
+//                    switch(sortColumnCase) { // sortColumnCase fue seteado en el evento onSort
+//                        case 0:
+//                            if(p.getConvocatoriaid().getConvocatoria().equals(nombre)) {
+//                                this.totalSummaryRow += p.getcolumn0data().getValue();
+//                            }
+//                            break;
+//                        case 1:
+//                            if(p.getcolumn1data().getName().equals(nombre)) {
+//                                this.totalSummaryRow += p.getcolumn1data().getValue();
+//                            }
+//                            break;
+//                    }
+//                }
+//            }
+//        }
+//    }
     
-    //http://forum.primefaces.org/viewtopic.php?f=3&t=16926
-    public BigDecimal calcularSumaryRow(Object o){
-        this.totalSumaryRow = BigDecimal.ZERO;
-        String name = "";
-        if(o != null) {
-            if(o instanceof String) {
-                name = (String) o;
-                for(Proyecto p : (List<Proyecto>) items.getWrappedData()) { // The loop should find the sortBy value rows in all dataTable data.
-                    switch(sortColumnCase) { // sortColumnCase was set in the onSort event
-                        case 0:
-                            if(p.getcolumn0data().getName().equals(name)) {
-                                this.totalSumaryRow += p.getcolumn0data().getValue();
-                            }
-                            break;
-                        case 1:
-                            if(p.getcolumn1data().getName().equals(name)) {
-                                this.totalSumaryRow += p.getcolumn1data().getValue();
-                            }
-                            break;
-                    }
-                }
-            }
-        }
-    }
-    
-        public BigDecimal obtenerTotalPresupuesto(int idProyecto) {
+    public BigDecimal obtenerPresupuestoTotalProyecto(int idProyecto) {
 
         BigDecimal total = BigDecimal.ZERO;
 
         FacesContext context = FacesContext.getCurrentInstance();
         PresupuestoController p = (PresupuestoController) context.getApplication().evaluateExpressionGet(context, "#{presupuestoController}", PresupuestoController.class);
 
-        //total = p.getPresupuestoTotalProyecto(this.getSelected().getId());
-        //total = p.getPresupuestoTotalProyecto(86);
-        
         total = p.obtenerTotal(idProyecto);
-        
-        System.out.println("ProyectoController >> obtenerTotalPresupuesto: " + total.toString());
-        
-        return total;
 
+        System.out.println("ProyectoController >> obtenerTotalPresupuesto: " + total.toString());
+
+        return total;
+    }
+    
+    public BigDecimal obtenerTotalPresupuestosColeccion(){
+        
+        Iterator i = items.iterator();
+        BigDecimal resultado = BigDecimal.ZERO;
+        while (i.hasNext()){
+            resultado.add(obtenerPresupuestoTotalProyecto(((Proyecto)i.next()).getId()));
+            System.out.println("ProyectoController >> obtenerTotalPresupuestosColeccion: $" + resultado.toString());
+        }
+        
+        System.out.println("ProyectoController >> obtenerTotalPresupuestosColeccion: $" + resultado.toString());
+        
+        return resultado;
     }
 
     public List<Proyecto> getProyectosFiltrados() {
@@ -734,10 +743,10 @@ public class ProyectoController implements Serializable {
     public void setProyectosFiltrados(List<Proyecto> proyectosFiltrados) {
         this.proyectosFiltrados = proyectosFiltrados;
     }
-    
-    public void resetearFiltroEntreFechas(){
-        filtroFechaInicio= null;
+
+    public void resetearFiltroEntreFechas() {
+        filtroFechaInicio = null;
         filtroFechaFin = null;
-        
+
     }
 }

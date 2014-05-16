@@ -114,7 +114,7 @@
                         <f:facet name="header">
                             <h:outputText value="Presupuesto" />
                         </f:facet>                                                
-                        <h:outputText id="presupuesto" value="#{proyectoController.obtenerTotalPresupuesto(item.id)}"/>
+                        <h:outputText id="presupuesto" value="#{proyectoController.obtenerPresupuestoTotalProyecto(item.id)}"/>
                     </p:column>
 
                     <p:column style="width:4%" exportable="false">
@@ -123,21 +123,12 @@
                         </p:commandButton>
                     </p:column>
 
-                    <p:summaryRow>
-                        <p:column colspan="7" style="text-align:right">
-                            Total:
-                        </p:column>
-                        <p:column>
-                            #{proyectoController.items.rowCount}$
-                        </p:column>
-                        <p:column>
-                            
-                        </p:column>                        
-                    </p:summaryRow>
-
-                    <f:facet id="fPieTbl" name="footer">
-
+                    <f:facet name="footer">
+                        <h:panelGroup style="display:block; text-align:right">
+                            <h:outputText value="Total: $ #{proyectoController.obtenerTotalPresupuestosColeccion()}" />
+                        </h:panelGroup>
                     </f:facet>
+                    
                 </p:dataTable>
 
                 <p:separator />
