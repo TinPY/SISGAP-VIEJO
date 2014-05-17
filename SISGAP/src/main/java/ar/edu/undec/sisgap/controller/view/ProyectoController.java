@@ -726,12 +726,20 @@ public class ProyectoController implements Serializable {
         
         Iterator i = items.iterator();
         BigDecimal resultado = BigDecimal.ZERO;
+        
+        System.out.println("ProyectoController >> (PRINCIPIO) obtenerTotalPresupuestosColeccion: $" + resultado.toString() + "************************************");
+        
         while (i.hasNext()){
-            resultado.add(obtenerPresupuestoTotalProyecto(((Proyecto)i.next()).getId()));
-            System.out.println("ProyectoController >> obtenerTotalPresupuestosColeccion: $" + resultado.toString());
+            
+            Proyecto proyecto = (Proyecto)i.next();
+            String id = proyecto.getId().toString();
+            
+            System.out.println(id + " - " + proyecto.getNombre());
+            resultado.add(obtenerPresupuestoTotalProyecto(proyecto.getId()));
+            System.out.println("ProyectoController >> (BUCLE) obtenerTotalPresupuestosColeccion: $" + resultado.toString());
         }
         
-        System.out.println("ProyectoController >> obtenerTotalPresupuestosColeccion: $" + resultado.toString());
+        System.out.println("ProyectoController >> (FINAL) obtenerTotalPresupuestosColeccion: $" + resultado.toString() + "************************************");
         
         return resultado;
     }
