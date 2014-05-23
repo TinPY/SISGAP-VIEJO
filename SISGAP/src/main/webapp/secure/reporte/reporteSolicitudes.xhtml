@@ -44,7 +44,7 @@
                     id="tbl" 
                     value="#{proyectoController.items}" 
                     var="item" 
-                    widgetVar="tblW"
+                    widgetVar="tblW" 
                     rowKey="#{item.id}" 
                     filteredValue="#{proyectoController.proyectosFiltrados}"
                     emptyMessage="No se encontraron resultados para el criterio de busqueda"
@@ -122,7 +122,7 @@
 
                     <f:facet name="footer">
                         <h:panelGroup style="display:block; text-align:right">
-
+                            <h:outputText value="Total: ${proyectoController.obtenerTotalPresupuestosItems()}" />
                         </h:panelGroup>
                     </f:facet>
 
@@ -135,7 +135,7 @@
                 </p:commandButton>
 
                 <h:commandLink>  
-                    <p:graphicImage value="/resources/img/print_printer.png" />  
+                    <p:graphicImage value="/resources/img/printer.png" />  
                     <p:printer target="tbl" />
                 </h:commandLink>  
 
