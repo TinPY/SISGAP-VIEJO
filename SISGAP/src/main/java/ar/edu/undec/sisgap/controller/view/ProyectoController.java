@@ -40,6 +40,7 @@ import javax.faces.model.SelectItem;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.SelectEvent;
+import org.primefaces.event.data.FilterEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
@@ -77,11 +78,10 @@ public class ProyectoController implements Serializable {
     private Date filtroFechaFin;
 
     // Sumado del total de presupuestos de todos los proyectos
-    private BigDecimal totalPresupuestosProyectos = BigDecimal.ZERO;
+    private float totalPresupuestosProyectos = 0;
 
     // Usado para el filtrado del datatable
     private List<Proyecto> proyectosFiltrados;
-
 
 
     public ProyectoController() {
@@ -142,6 +142,10 @@ public class ProyectoController implements Serializable {
         return filtroFechaFin;
     }
 
+    public float getTotalPresupuestosProyectos() {
+        return totalPresupuestosProyectos;
+    }
+    
     public List<Proyecto> getProyectosFiltrados() {
         return proyectosFiltrados;
     }
@@ -700,14 +704,16 @@ public class ProyectoController implements Serializable {
 
         resultado = p.obtenerTotal(idProyecto);
 
-        System.out.println("ProyectoController >> obtenerPresupuestoTotalProyecto: " + resultado.toString());
+//        System.out.println("ProyectoController >> obtenerPresupuestoTotalProyecto: " + resultado.toString());
 
         return resultado;
     }
 
-    public BigDecimal obtenerTotalPresupuestosItems() {
+    //public BigDecimal obtenerTotalPresupuestosItems() {
+    public float obtenerTotalPresupuestosItems() {
 
-        BigDecimal resultado = BigDecimal.ZERO;
+        //BigDecimal resultado = BigDecimal.ZERO;
+        float resultado = 0;
         Iterator i = items.iterator();
 
         FacesContext context = FacesContext.getCurrentInstance();
@@ -718,19 +724,61 @@ public class ProyectoController implements Serializable {
             Proyecto proyecto = (Proyecto) i.next();
 
             BigDecimal tmp = p.obtenerTotal(proyecto.getId());
+            float tmpF = tmp.floatValue();
+            resultado += tmpF;
+            
+//            System.out.println("obtenerTotalPresupuestosItems() >> tmp: " + tmp.toString());
+//            System.out.println(resultado);
 
-            resultado.add(tmp);
+            //resultado.add(tmp);
+
         }
 
-        System.out.println("obtenerTotalPresupuestosItems() >> " + resultado.toString());
+//        System.out.println("obtenerTotalPresupuestosItems() >> " + resultado);
         
         return resultado;
     }
+    
+public float obtenerTotalPresupuestosFiltrados() {
+
+        //BigDecimal resultado = BigDecimal.ZERO;
+        float resultado = 0;
+        //Iterator i = items.iterator();
+        Iterator i = proyectosFiltrados.iterator();
+
+        FacesContext context = FacesContext.getCurrentInstance();
+        PresupuestoController p = (PresupuestoController) context.getApplication().evaluateExpressionGet(context, "#{presupuestoController}", PresupuestoController.class);
+
+        while (i.hasNext()) {
+
+            Proyecto proyecto = (Proyecto) i.next();
+
+            BigDecimal tmp = p.obtenerTotal(proyecto.getId());
+            float tmpF = tmp.floatValue();
+            resultado += tmpF;
+            
+//            System.out.println("obtenerTotalPresupuestosItems() >> tmp: " + tmp.toString());
+//            System.out.println(resultado);
+
+            //resultado.add(tmp);
+
+        }
+
+//        System.out.println("obtenerTotalPresupuestosItems() >> " + resultado);
+        
+        return resultado;
+    }    
 
     public void resetearFiltroEntreFechas() {
         filtroFechaInicio = null;
         filtroFechaFin = null;
 
+    }
+    
+    public void filterListener(FilterEvent filterEvent) {
+        //List<Proyecto> lista = (List<Proyecto>)filterEvent.getData();
+        
+        totalPresupuestosProyectos = obtenerTotalPresupuestosFiltrados();
     }
 
 }
