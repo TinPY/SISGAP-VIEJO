@@ -4,116 +4,187 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      >
 
     <ui:composition template="/template.xhtml">
 
         <ui:define name="body">
-            <f:event type="preRenderView" listener="#{agenteController.findAgente(request.getUserPrincipal().toString())}" ></f:event>
-            <f:event type="preRenderView" listener="#{proyectoController.buscarProyectoAgente(agenteController.selected.id)}" ></f:event>
+
+            <f:event type="preRenderView" listener="#{proyectoController.buscarTodos()}" ></f:event> 
 
             <h:form id="form1" >
-                
+
+                <p:panel id="panelFiltroRangoFechas" header="Filtros" toggleable="true" toggleTitle="Minimizar" >
+
+                    <p:panel header="Rango de fechas" style="display: inline-block;" >
+                        <p:calendar id="fechaInicio" styleClass="calendarFilter" value="#{proyectoController.filtroFechaInicio}" >
+                            <p:ajax event="dateSelect" listener="#{proyectoController.buscarEntreFechas()}" update="tbl" />
+                        </p:calendar>
+                        -
+                        <p:calendar id="fechaFin" styleClass="calendarFilter" value="#{proyectoController.filtroFechaFin}" >
+                            <p:ajax event="dateSelect" listener="#{proyectoController.buscarEntreFechas()}" update="tbl" />
+                        </p:calendar>
+
+                        <p:commandButton value="Reset" actionListener="#{proyectoController.resetearFiltroEntreFechas()}" oncomplete="tblW.clearFilters();" update="panelFiltroRangoFechas" />
+                    </p:panel>
+
+                    <p:panel header="asdasd" style="display: inline-block;">
+                        <p:outputLabel value="qweqwe" />
+                    </p:panel>
+
+                    <p:panel header="zxczxc" style="display: inline-block;">
+                        <p:outputLabel value="zxczxc" />
+                    </p:panel>
+                </p:panel>
+
+                <p:separator />
+
                 <p:dataTable 
-                        id="tbl" 
-                        widgetVar="tblProyectos" 
-                        value="#{proyectoController.items}" 
-                        var="item" 
-                        emptyMessage="No se encontraron Ideas-Proyecto con los criterios de busqueda" 
-                        filteredValue="#{proyectoController.proyectosFiltrados}"
-                        rowKey="#{item.id}" >
-                        
-                        <p:column id="columnaId" headerText="Id" filterBy="id" filterMatchMode="startsWith"  sortBy="#{item.id}">
-                            <h:outputText value="#{item.id}" />
-                        </p:column>
+                    id="tbl" 
+                    value="#{proyectoController.items}" 
+                    var="item" 
+                    widgetVar="tblW"
+                    rowKey="#{item.id}" 
+                    filteredValue="#{proyectoController.proyectosFiltrados}"
+                    emptyMessage="No se encontraron resultados para el criterio de busqueda"
+                    paginator="true" rows="10"
+                    draggableColumns="true"
+                    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                    rowsPerPageTemplate="10,15,30"
+                    >
 
-                        <p:column id="columnaNombre" headerText="Titulo de Proyecto" filterBy="nombre" sortBy="#{item.nombre}">
-                            <h:outputText value="#{item.nombre}"/>
-                        </p:column>
+                    <f:facet name="header">
+                        <p:outputLabel value="Ideas-Proyecto" />
+                    </f:facet>
 
-                        <p:column id="columnaEstado" headerText="Estado" filterMatchMode="exact" filterBy="estado" filterOptions="#{estadoproyectoController.itemsAvailableSelectOne}" sortBy="#{item.estadoproyectoid.estado}">
-                            <h:outputText value="#{item.estadoproyectoid.estado}"/>
-                        </p:column>
+                    <p:column id="columnaId" sortBy="id" width="10px" style="width: 10px;">
+                        <f:facet name="header">
+                            <h:outputText value="Id" />
+                        </f:facet>
+                        <h:outputText value="#{item.id}" />
+                    </p:column>
 
-                        <p:column id="columnaTipo" headerText="Tipo de Proyecto" filterBy="tipo" filterMatchMode="exact" filterOptions="#{tipoproyectoController.itemsAvailableSelectOne}" sortBy="#{item.tipoproyectoid.tipo}">
-                            <h:outputText value="#{item.tipoproyectoid.tipo}"/>
-                        </p:column>
+                    <p:column id="columnaNombre" filterBy="nombre" filterMatchMode="contains" sortBy="nombre">
+                        <f:facet name="header">
+                            <h:outputText value="Titulo" />
+                        </f:facet>                        
+                        <h:outputText value="#{item.nombre}"/>
+                    </p:column>
 
-                        <p:column id="columnaFinanciamiento" headerText="Financiamiento" filterBy="estado" filterMatchMode="exact" filterOptions="#{fuentefinanciamientoController.itemsAvailableSelectOne}" sortBy="#{item.fuentefinanciamientoid.fuentefinanciamiento}">
-                            <h:outputText value="#{item.fuentefinanciamientoid.fuentefinanciamiento}"/>
-                        </p:column>
+                    <p:column id="columnaEstado" filterBy="#{item.estadoproyectoid}" filterMatchMode="exact" filterOptions="#{estadoproyectoController.itemsAvailableSelectOne}" sortBy="#{item.estadoproyectoid.estado}">
+                        <f:facet name="header">
+                            <h:outputText value="Estado" />
+                        </f:facet>                        
+                        <h:outputText value="#{item.estadoproyectoid.estado}"/>
+                    </p:column>
 
-                        <p:column id="columnaResponsable" headerText="Responsable" filterBy="apellido" sortBy="#{item.agenteid.apellido}">
-                            <h:outputText value="#{item.agenteid.apellido}, #{item.agenteid.nombres}"/>
-                        </p:column>                        
+                    <p:column id="columnaTipo" filterBy="#{item.tipoproyectoid}" filterMatchMode="exact" filterOptions="#{tipoproyectoController.itemsAvailableSelectOne}" sortBy="#{item.tipoproyectoid.tipo}">
+                        <f:facet name="header">
+                            <h:outputText value="Tipo" />
+                        </f:facet>                                                
+                        <h:outputText value="#{item.tipoproyectoid.tipo}"/>
+                    </p:column>
 
-                        <p:column id="columnaPresupuesto" headerText="Presupuesto Total" >
-                            <h:outputText value="#{proyectoController.totalPresupuesto}"/>
-                        </p:column>
+                    <p:column id="columnaFinanciamiento" filterBy="#{item.fuentefinanciamientoid}" filterMatchMode="exact" filterOptions="#{fuentefinanciamientoController.itemsAvailableSelectOne}" sortBy="#{item.fuentefinanciamientoid.fuentefinanciamiento}">
+                        <f:facet name="header">
+                            <h:outputText value="Financiamiento" />
+                        </f:facet>                                                
+                        <h:outputText value="#{item.fuentefinanciamientoid.fuentefinanciamiento}"/>
+                    </p:column>                    
 
-                        <p:column id="columnaConvocatoria" headerText="Convocatoria" filterMatchMode="exact" filterOptions="#{convocatoriaController.itemsAvailableSelectOne}" sortBy="#{item.convocatoriaid.convocatoria}">
-                            <h:outputText value="#{item.convocatoriaid.convocatoria}"/>
-                        </p:column>
+                    <p:column id="columnaResponsable" filterBy="#{item.agenteid}" filterMatchMode="exact" filterOptions="#{agenteController.itemsAvailableSelectOne}" sortBy="#{item.agenteid.apellido}">
+                        <f:facet name="header">
+                            <h:outputText value="Responsable" />
+                        </f:facet>                                                                        
+                        <h:outputText value="#{item.agenteid.apellido}, #{item.agenteid.nombres}"/>
+                    </p:column>           
 
-                        <p:column id="columnaAcciones" headerText="Acciones">
-                            <p:commandLink action="#{proyectoController.prepareView}" value="Ver" ajax="false" />
-                            <h:outputText value=" "/>
-                            <p:commandLink action="#{proyectoController.prepareEdit}" value="Editar" ajax="false" />
-                        </p:column>
+                    <p:column id="columnaConvocatoria" filterBy="#{item.convocatoriaid}" filterMatchMode="exact" filterOptions="#{convocatoriaController.itemsAvailableSelectOne}" sortBy="#{item.convocatoriaid.convocatoria}">
+                        <f:facet name="header">
+                            <h:outputText value="Convocatoria" />
+                        </f:facet>                                                
+                        <h:outputText value="#{item.convocatoriaid.convocatoria}"/>
+                    </p:column>
 
-                    </p:dataTable>
-                
-                <h:panelGroup id="messagePanel" layout="block">
-                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-                </h:panelGroup>
+                    <p:column id="columnaPresupuesto" sortBy="presupuesto">
+                        <f:facet name="header">
+                            <h:outputText value="Presupuesto" />
+                        </f:facet>                                                
+                        <h:outputText id="presupuesto" value="#{proyectoController.obtenerPresupuestoTotalProyecto(item.id)}"/>
+                    </p:column>
+
+                    <p:column style="width:4%" exportable="false">
+                        <p:commandButton id="selectButton" update=":formDialogoProyecto:verProy" oncomplete="PF('verProyecto').show()" icon="ui-icon-search" title="Ver">
+                            <f:setPropertyActionListener value="#{item}" target="#{proyectoController.selected}" />
+                        </p:commandButton>
+                    </p:column>
+
+                    <f:facet name="footer">
+                        <h:panelGroup style="display:block; text-align:right">
+
+                        </h:panelGroup>
+                    </f:facet>
+
+                </p:dataTable>
 
                 <p:separator />
 
-                <p:panel header="qweqwe" toggleable="true" toggleTitle="Minimizar" style="display: inline-block;">
-                    <p:outputLabel value="qweqwe" />
-                </p:panel>
-                
-                <p:panel header="asdasd" toggleable="true" toggleTitle="Minimizar" style="display: inline-block;">
-                    <p:outputLabel value="asdasd" />
-                </p:panel>
-                
-                <p:panel header="zxczxc" toggleable="true" toggleTitle="Minimizar" style="display: inline-block;">
-                    <p:outputLabel value="zxczxc" />
-                </p:panel>
+                <p:commandButton value="Imprimir" icon="ui-icon-print">
+                    <p:printer target="tbl" />
+                </p:commandButton>
 
-                <p:separator />
-                
-                <h:outputText escape="false" value="#{bundle.ListProyectoEmpty}" rendered="#{proyectoController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{proyectoController.items.rowCount > 0}">
+                <h:commandLink>  
+                    <p:graphicImage value="/resources/img/print_printer.png" />  
+                    <p:printer target="tbl" />
+                </h:commandLink>  
 
-                    
-                </h:panelGroup>
+                <h:commandLink>  
+                    <p:graphicImage value="/resources/img/excel.png" />  
+                    <p:dataExporter type="xls" target="tbl" fileName="IdeasProyecto" />  
+                </h:commandLink>  
 
-                <br />
-                <p:panel header="Exportar">  
-                    <h:commandLink>  
-                        <p:graphicImage value="/resources/img/excel.png" />  
-                        <p:dataExporter type="xls" target="tbl" fileName="cars" pageOnly="true"/>  
-                    </h:commandLink>  
+                <h:commandLink>  
+                    <p:graphicImage value="/resources/img/pdf.png" />  
+                    <p:dataExporter type="pdf" target="tbl" fileName="IdeasProyecto" preProcessor="#{utilidades.preProcesarPDF}" />  
+                </h:commandLink>  
 
-                    <h:commandLink>  
-                        <p:graphicImage value="/resources/img/pdf.png" />  
-                        <p:dataExporter type="pdf" target="tbl" fileName="cars" pageOnly="true"/>  
-                    </h:commandLink>  
+                <h:commandLink>  
+                    <p:graphicImage value="/resources/img/csv.png" />  
+                    <p:dataExporter type="csv" target="tbl" fileName="IdeasProyecto" />  
+                </h:commandLink>  
 
-                    <h:commandLink>  
-                        <p:graphicImage value="/resources/img/csv.png" />  
-                        <p:dataExporter type="csv" target="tbl" fileName="cars" pageOnly="true"/>  
-                    </h:commandLink>  
+                <h:commandLink>  
+                    <p:graphicImage value="/resources/img/xml.png" />  
+                    <p:dataExporter type="xml" target="tbl" fileName="IdeasProyecto" />  
+                </h:commandLink> 
 
-                    <h:commandLink>  
-                        <p:graphicImage value="/resources/img/xml.png" />  
-                        <p:dataExporter type="xml" target="tbl" fileName="cars" pageOnly="true"/>  
-                    </h:commandLink>  
-                </p:panel>  
-                <br />
+                <p:separator />                
+
                 <h:link outcome="/index" value="Inicio"/>
+
             </h:form>
+
+            <h:form id="formDialogoProyecto">
+                <p:dialog id="verProy" widgetVar="verProyecto" modal="true" header="Ver Proyecto" >
+
+                    <h:panelGrid id="panelProyecto" columns="2">
+
+                        <p:outputLabel value="Nombre" for="nombre" />
+                        <p:outputLabel id="nombre" value="#{proyectoController.selected.nombre}" />
+                        <p:outputLabel value="Estado" for="estado" />
+                        <p:outputLabel id="estado" value="#{proyectoController.selected.estadoproyectoid.estado}" />
+                        <p:outputLabel value="Totales de Presupuestos" for="totalPresupuesto" />
+                        <p:outputLabel id="totalPresupuesto" value="#{proyectoController.obtenerTotalPresupuestosItems()}" />
+
+
+                        <p:commandButton id="botonazo" value="Total" actionListener="#{proyectoController.obtenerPresupuestoTotalCurrent()}" />
+                    </h:panelGrid>
+                    <br />
+
+                </p:dialog>
+            </h:form>
+
         </ui:define>
     </ui:composition>
 

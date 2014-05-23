@@ -36,7 +36,6 @@
                     <p:panel header="zxczxc" style="display: inline-block;">
                         <p:outputLabel value="zxczxc" />
                     </p:panel>
-
                 </p:panel>
 
                 <p:separator />
@@ -52,7 +51,7 @@
                     paginator="true" rows="10"
                     draggableColumns="true"
                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                    rowsPerPageTemplate="5,10,15"
+                    rowsPerPageTemplate="10,15,30"
                     >
 
                     <f:facet name="header">
@@ -123,10 +122,10 @@
 
                     <f:facet name="footer">
                         <h:panelGroup style="display:block; text-align:right">
-                            <h:outputText value="Total: $ #{proyectoController.obtenerTotalPresupuestosColeccion()}" />
+                            <h:outputText value="Total: ${proyectoController.obtenerTotalPresupuestosItems()}" />
                         </h:panelGroup>
                     </f:facet>
-                    
+
                 </p:dataTable>
 
                 <p:separator />
@@ -134,6 +133,11 @@
                 <p:commandButton value="Imprimir" icon="ui-icon-print">
                     <p:printer target="tbl" />
                 </p:commandButton>
+
+                <h:commandLink>  
+                    <p:graphicImage value="/resources/img/printer.png" />  
+                    <p:printer target="tbl" />
+                </h:commandLink>  
 
                 <h:commandLink>  
                     <p:graphicImage value="/resources/img/excel.png" />  
@@ -170,8 +174,11 @@
                         <p:outputLabel id="nombre" value="#{proyectoController.selected.nombre}" />
                         <p:outputLabel value="Estado" for="estado" />
                         <p:outputLabel id="estado" value="#{proyectoController.selected.estadoproyectoid.estado}" />
+                        <p:outputLabel value="Totales de Presupuestos" for="totalPresupuesto" />
+                        <p:outputLabel id="totalPresupuesto" value="#{proyectoController.obtenerTotalPresupuestosItems()}" />
 
-                        <p:commandButton id="botonazo" value="Total" actionListener="#{proyectoController.obtenerTotalPresupuesto()}" />
+
+                        <p:commandButton id="botonazo" value="Total" actionListener="#{proyectoController.obtenerPresupuestoTotalCurrent()}" />
                     </h:panelGrid>
                     <br />
 
