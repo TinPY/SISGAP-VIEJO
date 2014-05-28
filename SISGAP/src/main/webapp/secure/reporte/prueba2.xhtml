@@ -44,7 +44,7 @@
                     id="tbl" 
                     value="#{proyectoController.items}" 
                     var="item" 
-                    widgetVar="tblW" 
+                    widgetVar="tblW"
                     rowKey="#{item.id}" 
                     filteredValue="#{proyectoController.proyectosFiltrados}"
                     emptyMessage="No se encontraron resultados para el criterio de busqueda"
@@ -54,8 +54,6 @@
                     rowsPerPageTemplate="10,15,30"
                     >
 
-                    <p:ajax event="filter" update="panelTotales" listener="#{proyectoController.obtenerTotalPresupuestosFiltrados()}"/>
-                    
                     <f:facet name="header">
                         <p:outputLabel value="Ideas-Proyecto" />
                     </f:facet>
@@ -123,14 +121,18 @@
                     </p:column>
 
                     <f:facet name="footer">
-                        <h:panelGroup id="panelTotales" style="display:block; text-align:right">
-                            <h:outputText value="Total: #{proyectoController.totalPresupuestosProyectos}" />
+                        <h:panelGroup style="display:block; text-align:right">
+                            <h:outputText value="Total: ${proyectoController.obtenerTotalPresupuestosItems()}" />
                         </h:panelGroup>
                     </f:facet>
 
                 </p:dataTable>
 
                 <p:separator />
+
+                <p:commandButton value="Imprimir" icon="ui-icon-print">
+                    <p:printer target="tbl" />
+                </p:commandButton>
 
                 <h:commandLink>  
                     <p:graphicImage value="/resources/img/printer.png" />  
@@ -176,7 +178,7 @@
                         <p:outputLabel id="totalPresupuesto" value="#{proyectoController.obtenerTotalPresupuestosItems()}" />
 
 
-                        <p:commandButton id="botonazo" value="Total" update="totalPresupuesto" actionListener="#{proyectoController.obtenerTotalPresupuestosItems()}" />
+                        <p:commandButton id="botonazo" value="Total" actionListener="#{proyectoController.obtenerPresupuestoTotalCurrent()}" />
                     </h:panelGrid>
                     <br />
 
