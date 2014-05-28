@@ -709,6 +709,10 @@ public class ProyectoController implements Serializable {
         return resultado;
     }
 
+<<<<<<< HEAD
+=======
+    //public BigDecimal obtenerTotalPresupuestosItems() {
+>>>>>>> c530d1979cdf3851f64072e539b74b924e605aa6
     public float obtenerTotalPresupuestosItems() {
 
         //BigDecimal resultado = BigDecimal.ZERO;

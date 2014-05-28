@@ -54,6 +54,8 @@
                     rowsPerPageTemplate="10,15,30"
                     >
 
+                    <p:ajax event="filter" update="panelTotales" listener="#{proyectoController.obtenerTotalPresupuestosFiltrados()}"/>
+                    
                     <f:facet name="header">
                         <p:outputLabel value="Ideas-Proyecto" />
                     </f:facet>
@@ -121,18 +123,19 @@
                     </p:column>
 
                     <f:facet name="footer">
+<<<<<<< HEAD
                         <h:panelGroup style="display:block; text-align:right">
                             <h:outputText value="Total: ${proyectoController.obtenerTotalPresupuestosItems()}" />
+=======
+                        <h:panelGroup id="panelTotales" style="display:block; text-align:right">
+                            <h:outputText value="Total: #{proyectoController.obtenerTotalPresupuestosItems()}" />
+>>>>>>> c530d1979cdf3851f64072e539b74b924e605aa6
                         </h:panelGroup>
                     </f:facet>
 
                 </p:dataTable>
 
                 <p:separator />
-
-                <p:commandButton value="Imprimir" icon="ui-icon-print">
-                    <p:printer target="tbl" />
-                </p:commandButton>
 
                 <h:commandLink>  
                     <p:graphicImage value="/resources/img/printer.png" />  
@@ -178,7 +181,7 @@
                         <p:outputLabel id="totalPresupuesto" value="#{proyectoController.obtenerTotalPresupuestosItems()}" />
 
 
-                        <p:commandButton id="botonazo" value="Total" actionListener="#{proyectoController.obtenerPresupuestoTotalCurrent()}" />
+                        <p:commandButton id="botonazo" value="Total" update="totalPresupuesto" actionListener="#{proyectoController.obtenerTotalPresupuestosItems()}" />
                     </h:panelGrid>
                     <br />
 
