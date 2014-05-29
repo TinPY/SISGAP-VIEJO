@@ -11,7 +11,10 @@
 
         <ui:define name="body">
 
-            <f:event type="preRenderView" listener="#{proyectoController.buscarTodos()}" ></f:event> 
+
+            <f:event type="preRenderView" listener="#{proyectoController.buscarProyectoEstado(1)}" ></f:event>
+            <f:event type="preRenderView" listener="#{proyectoController.armarGraficoLineas()}" ></f:event>
+            <f:event type="preRenderView" listener="#{proyectoController.armarGraficoTortas()}" ></f:event>
 
             <h:form id="form1" >
 
@@ -29,12 +32,12 @@
                         <p:commandButton value="Reset" actionListener="#{proyectoController.resetearFiltroEntreFechas()}" oncomplete="tblW.clearFilters();" update="panelFiltroRangoFechas" />
                     </p:panel>
 
-                    <p:panel header="asdasd" style="display: inline-block;">
-                        <p:outputLabel value="qweqwe" />
+                    <p:panel header="Cantidad de Proyectos" style="display: inline-block;">
+                        <p:outputLabel value="#{proyectoController.items.rowCount}" />
                     </p:panel>
 
-                    <p:panel header="zxczxc" style="display: inline-block;">
-                        <p:outputLabel value="zxczxc" />
+                    <p:panel header="Promedio de Presupuestos" style="display: inline-block;">
+                        <p:outputLabel value="#{proyectoController.promedioPresupuestoPorProyecto}" />
                     </p:panel>
                 </p:panel>
 
@@ -72,7 +75,8 @@
                         <h:outputText value="#{item.nombre}"/>
                     </p:column>
 
-                    <p:column id="columnaEstado" filterBy="#{item.estadoproyectoid}" filterMatchMode="exact" filterOptions="#{estadoproyectoController.itemsAvailableSelectOne}" sortBy="#{item.estadoproyectoid.estado}">
+                    <!--<p:column id="columnaEstado" filterBy="#{item.estadoproyectoid}" filterMatchMode="exact" filterOptions="#{estadoproyectoController.itemsAvailableSelectOne}" sortBy="#{item.estadoproyectoid.estado}">-->
+                    <p:column id="columnaEstado">
                         <f:facet name="header">
                             <h:outputText value="Estado" />
                         </f:facet>                        
@@ -122,17 +126,19 @@
 
                     <f:facet name="footer">
                         <h:panelGroup style="display:block; text-align:right">
-                            <h:outputText value="Total: ${proyectoController.obtenerTotalPresupuestosItems()}" />
+                            <h:outputText value="Total: #{proyectoController.obtenerTotalPresupuestosItems()}" />
                         </h:panelGroup>
                     </f:facet>
 
                 </p:dataTable>
 
                 <p:separator />
-
-                <p:commandButton value="Imprimir" icon="ui-icon-print">
-                    <p:printer target="tbl" />
-                </p:commandButton>
+                
+                <p:pieChart value="#{proyectoController.modeloGraficoTorta}" legendPosition="s" legendRows="1" showDataLabels="true" />
+                
+                <p:lineChart value="#{proyectoController.modeloGraficoLineas}" legendPosition="e" />
+                
+                <p:separator />
 
                 <h:commandLink>  
                     <p:graphicImage value="/resources/img/printer.png" />  

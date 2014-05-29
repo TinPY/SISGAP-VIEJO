@@ -21,6 +21,8 @@ import java.io.InputStream;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -43,6 +45,9 @@ import org.primefaces.event.SelectEvent;
 import org.primefaces.event.data.FilterEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
+import org.primefaces.model.chart.CartesianChartModel;
+import org.primefaces.model.chart.ChartSeries;
+import org.primefaces.model.chart.PieChartModel;
 
 @ManagedBean(name = "proyectoController")
 @SessionScoped
@@ -74,14 +79,26 @@ public class ProyectoController implements Serializable {
     private String observacionfinal;
     private Proyecto proyectoViejo;
 
+    // Filtrado entre fechas
     private Date filtroFechaInicio;
     private Date filtroFechaFin;
+    
+    // Promedio de Presupuestos de los proyectos
+    private float promedioPresupuestoPorProyecto = 0;
 
     // Sumado del total de presupuestos de todos los proyectos
     private float totalPresupuestosProyectos = 0;
 
     // Usado para el filtrado del datatable
     private List<Proyecto> proyectosFiltrados;
+    
+    // Grafico de Lineas
+    private CartesianChartModel modeloGraficoLineas;
+    public CartesianChartModel getmodeloGraficoLineas() { return modeloGraficoLineas; }
+    
+    // Grafico de torta
+    private PieChartModel modeloGraficoTorta;
+    public PieChartModel getmodeloGraficoTorta() { return modeloGraficoTorta; }
 
 
     public ProyectoController() {
@@ -154,6 +171,16 @@ public class ProyectoController implements Serializable {
         this.proyectosFiltrados = proyectosFiltrados;
     }
 
+    public float getPromedioPresupuestoPorProyecto() {
+        
+        // Poner esta logica en otro lugar
+        this.promedioPresupuestoPorProyecto =  obtenerTotalPresupuestosItems() / items.getRowCount();
+        
+        return promedioPresupuestoPorProyecto;
+    }
+
+    
+    
     public String prepareList() {
         recreateModel();
         return "List";
@@ -478,9 +505,10 @@ public class ProyectoController implements Serializable {
         items = new ListDataModel(getFacade().buscarProyectoAgente(agenteid));
     }
 
-    public void buscarProyectoEstado(int estado) {
+    // Estados [id > 1 Solicitud]
+    public void buscarProyectoEstado(int idEstado) {
         recreateModel();
-        items = new ListDataModel(getFacade().buscarProyectoEstado(estado));
+        items = new ListDataModel(getFacade().buscarProyectoEstado(idEstado));
     }
 
     public boolean isColumnorganismo() {
@@ -778,6 +806,45 @@ public float obtenerTotalPresupuestosFiltrados() {
         //List<Proyecto> lista = (List<Proyecto>)filterEvent.getData();
         
         totalPresupuestosProyectos = obtenerTotalPresupuestosFiltrados();
+    }
+    
+    public void armarGraficoLineas(){
+        modeloGraficoLineas = new CartesianChartModel();
+       
+        ChartSeries ideasProyecto = new ChartSeries();
+        ideasProyecto.setLabel("Presupuestos Ideas Proyecto");
+        
+        Iterator i = items.iterator();
+        
+        while(i.hasNext()){
+            
+            Proyecto proyecto = (Proyecto)i.next();
+            DateFormat formateador = DateFormat.getDateInstance(DateFormat.SHORT);
+            String fechaProyecto = formateador.format(proyecto.getFecha());
+            
+            ideasProyecto.set(proyecto.getId(),obtenerPresupuestoTotalProyecto(proyecto.getId()).floatValue());
+        }
+        
+        modeloGraficoLineas.addSeries(ideasProyecto);
+    }
+    
+    public void armarGraficoTortas(){
+        modeloGraficoTorta = new PieChartModel();
+        
+//        model.set("Brand 1", 540);
+//        model.set("Brand 2", 325);
+//        model.set("Brand 3", 702);
+//        model.set("Brand 4", 421);
+        
+        Iterator i = items.iterator();
+        
+        while(i.hasNext()){
+            
+            Proyecto proyecto = (Proyecto)i.next();
+            
+            modeloGraficoTorta.set(proyecto.getNombre(), obtenerPresupuestoTotalProyecto(proyecto.getId()).floatValue());
+        }
+        
     }
 
 }
