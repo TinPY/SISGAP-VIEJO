@@ -14,11 +14,25 @@
 
             <f:event type="preRenderView" listener="#{proyectoController.buscarProyectoEstado(1)}" ></f:event>
             <f:event type="preRenderView" listener="#{proyectoController.armarGraficoLineas()}" ></f:event>
-            <f:event type="preRenderView" listener="#{proyectoController.armarGraficoTortas()}" ></f:event>
+            <f:event type="preRenderView" listener="#{proyectoController.armarGraficoLineasAcumulado()}" ></f:event>
+            <!--<f:event type="preRenderView" listener="#{proyectoController.armarGraficoTortas()}" ></f:event>-->
+            <f:event type="preRenderView" listener="#{proyectoController.armarGraficoDonut()}" ></f:event>
 
             <h:form id="form1" >
+                
+                <p:panel id="panelInfo" header="Información">
+                    <p:panel header="Cantidad de Proyectos" style="display: inline-block;">
+                        <p:outputLabel value="#{proyectoController.items.rowCount}" />
+                    </p:panel>
 
-                <p:panel id="panelFiltroRangoFechas" header="Filtros" toggleable="true" toggleTitle="Minimizar" >
+                    <p:panel header="Promedio de Presupuestos" style="display: inline-block;">
+                        <p:outputLabel value="#{proyectoController.promedioPresupuestoPorProyecto}" />
+                    </p:panel>
+                </p:panel>
+
+                <p:separator />
+                
+                <p:panel id="panelFiltroRangoFechas" header="Filtros" toggleable="true" toggleTitle="Minimizar" collapsed="true" >
 
                     <p:panel header="Rango de fechas" style="display: inline-block;" >
                         <p:calendar id="fechaInicio" styleClass="calendarFilter" value="#{proyectoController.filtroFechaInicio}" >
@@ -32,13 +46,7 @@
                         <p:commandButton value="Reset" actionListener="#{proyectoController.resetearFiltroEntreFechas()}" oncomplete="tblW.clearFilters();" update="panelFiltroRangoFechas" />
                     </p:panel>
 
-                    <p:panel header="Cantidad de Proyectos" style="display: inline-block;">
-                        <p:outputLabel value="#{proyectoController.items.rowCount}" />
-                    </p:panel>
-
-                    <p:panel header="Promedio de Presupuestos" style="display: inline-block;">
-                        <p:outputLabel value="#{proyectoController.promedioPresupuestoPorProyecto}" />
-                    </p:panel>
+                    
                 </p:panel>
 
                 <p:separator />
@@ -76,7 +84,7 @@
                     </p:column>
 
                     <!--<p:column id="columnaEstado" filterBy="#{item.estadoproyectoid}" filterMatchMode="exact" filterOptions="#{estadoproyectoController.itemsAvailableSelectOne}" sortBy="#{item.estadoproyectoid.estado}">-->
-                    <p:column id="columnaEstado">
+                    <p:column id="columnaEstado" style="text-align: center;">
                         <f:facet name="header">
                             <h:outputText value="Estado" />
                         </f:facet>                        
@@ -90,7 +98,7 @@
                         <h:outputText value="#{item.tipoproyectoid.tipo}"/>
                     </p:column>
 
-                    <p:column id="columnaFinanciamiento" filterBy="#{item.fuentefinanciamientoid}" filterMatchMode="exact" filterOptions="#{fuentefinanciamientoController.itemsAvailableSelectOne}" sortBy="#{item.fuentefinanciamientoid.fuentefinanciamiento}">
+                    <p:column id="columnaFinanciamiento" filterBy="#{item.fuentefinanciamientoid}" filterMatchMode="exact" filterOptions="#{fuentefinanciamientoController.itemsAvailableSelectOne}" sortBy="#{item.fuentefinanciamientoid.fuentefinanciamiento}" style="text-align: center;">
                         <f:facet name="header">
                             <h:outputText value="Financiamiento" />
                         </f:facet>                                                
@@ -104,14 +112,14 @@
                         <h:outputText value="#{item.agenteid.apellido}, #{item.agenteid.nombres}"/>
                     </p:column>           
 
-                    <p:column id="columnaConvocatoria" filterBy="#{item.convocatoriaid}" filterMatchMode="exact" filterOptions="#{convocatoriaController.itemsAvailableSelectOne}" sortBy="#{item.convocatoriaid.convocatoria}">
+                    <p:column id="columnaConvocatoria" filterBy="#{item.convocatoriaid}" filterMatchMode="exact" filterOptions="#{convocatoriaController.itemsAvailableSelectOne}" sortBy="#{item.convocatoriaid.convocatoria}" style="text-align: center;">
                         <f:facet name="header">
                             <h:outputText value="Convocatoria" />
                         </f:facet>                                                
                         <h:outputText value="#{item.convocatoriaid.convocatoria}"/>
                     </p:column>
 
-                    <p:column id="columnaPresupuesto" sortBy="presupuesto">
+                    <p:column id="columnaPresupuesto" sortBy="presupuesto" width="50px" style="width: 50px; text-align: right;">
                         <f:facet name="header">
                             <h:outputText value="Presupuesto" />
                         </f:facet>                                                
@@ -134,9 +142,12 @@
 
                 <p:separator />
                 
-                <p:pieChart value="#{proyectoController.modeloGraficoTorta}" legendPosition="s" legendRows="1" showDataLabels="true" />
+<!--                <p:pieChart value="#{proyectoController.modeloGraficoTorta}" legendPosition="s" legendRows="1" showDataLabels="true" />-->
+                <p:donutChart value="#{proyectoController.modeloGraficoDonut}" legendPosition="s" legendRows="1" showDataLabels="true" shadow="true" title="Porcentaje de Presupuestos" />
                 
-                <p:lineChart value="#{proyectoController.modeloGraficoLineas}" legendPosition="e" />
+                <p:lineChart value="#{proyectoController.modeloGraficoLineas}" legendPosition="e" title="Presupuestos" showDatatip="true" />
+                
+                <p:lineChart value="#{proyectoController.modeloGraficoLineasAcumulado}" legendPosition="e" title="Presupuestos Acumulados" showDatatip="true" zoom="true"  />
                 
                 <p:separator />
 
@@ -180,11 +191,35 @@
                         <p:outputLabel id="nombre" value="#{proyectoController.selected.nombre}" />
                         <p:outputLabel value="Estado" for="estado" />
                         <p:outputLabel id="estado" value="#{proyectoController.selected.estadoproyectoid.estado}" />
-                        <p:outputLabel value="Totales de Presupuestos" for="totalPresupuesto" />
-                        <p:outputLabel id="totalPresupuesto" value="#{proyectoController.obtenerTotalPresupuestosItems()}" />
+                        <p:outputLabel value="Convocatoria" for="convocatoria" />
+                        <p:outputLabel id="convocatoria" value="#{proyectoController.selected.convocatoriaid.convocatoria}" />
+                        <p:outputLabel value="Comitente" for="comitente" />
+                        <p:outputLabel id="comitente" value="#{proyectoController.selected.comitenteid.toString()}" />
+                        <p:outputLabel value="Tipo de Comitente" for="tipoComitente" />
+                        <p:outputLabel id="tipoComitente" value="#{proyectoController.selected.comitenteid.tipocomitenteid.tipoentidad}" />
+                        <p:outputLabel value="Resumen" for="resumen" />
+                        <p:outputLabel id="resumen" value="#{proyectoController.selected.resumen}" />
+                        <p:outputLabel value="Observaciones" for="observaciones" />
+                        <p:outputLabel id="observaciones" value="#{proyectoController.selected.observaciones}" />
+                        <p:outputLabel value="Duracion (Meses)" for="duracion" />
+                        <p:outputLabel id="duracion" value="#{proyectoController.selected.duracion}" />
+                        <p:outputLabel value="Responsable" for="responsable" />
+                        <p:outputLabel id="responsable" value="#{proyectoController.selected.agenteid.apellido}, #{proyectoController.selected.agenteid.nombres}" />
+                        <p:outputLabel value="Tipo de Proyecto" for="tipoProyecto" />
+                        <p:outputLabel id="tipoProyecto" value="#{proyectoController.selected.tipoproyectoid.tipo}" />
+                        <p:outputLabel value="Fecha de Presentación" for="fechaPresentacion" />
+                        <p:outputLabel id="fechaPresentacion" value="#{proyectoController.selected.fecha}">
+                            <!--CONVERT-->
+                        </p:outputLabel>
+                        <p:outputLabel value="Nro Idea-Proyecto" for="id" />
+                        <p:outputLabel id="id" value="#{proyectoController.selected.id}" />
+                        <p:outputLabel value="Beneficiario" for="beneficiario" />
+                        <p:outputLabel id="beneficiario" value="#{proyectoController.selected.beneficiarioid.beneficiario}" />                        
+                        <p:outputLabel value="Tipo de Financiacion" for="tipoFinanciacion" />
+                        <p:outputLabel id="tipoFinanciacion" value="#{proyectoController.selected.tipofinanciamientoid.tipofinanciamiento}" />
+                        <p:outputLabel value="Fuente de Financiamiento" for="fuenteFinanciamiento" />
+                        <p:outputLabel id="fuenteFinanciamiento" value="#{proyectoController.selected.fuentefinanciamientoid.fuentefinanciamiento}" />
 
-
-                        <p:commandButton id="botonazo" value="Total" actionListener="#{proyectoController.obtenerPresupuestoTotalCurrent()}" />
                     </h:panelGrid>
                     <br />
 

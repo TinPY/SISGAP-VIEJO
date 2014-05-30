@@ -25,7 +25,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -47,6 +49,7 @@ import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.chart.CartesianChartModel;
 import org.primefaces.model.chart.ChartSeries;
+import org.primefaces.model.chart.DonutChartModel;
 import org.primefaces.model.chart.PieChartModel;
 
 @ManagedBean(name = "proyectoController")
@@ -82,7 +85,7 @@ public class ProyectoController implements Serializable {
     // Filtrado entre fechas
     private Date filtroFechaInicio;
     private Date filtroFechaFin;
-    
+
     // Promedio de Presupuestos de los proyectos
     private float promedioPresupuestoPorProyecto = 0;
 
@@ -91,15 +94,30 @@ public class ProyectoController implements Serializable {
 
     // Usado para el filtrado del datatable
     private List<Proyecto> proyectosFiltrados;
-    
+
     // Grafico de Lineas
     private CartesianChartModel modeloGraficoLineas;
-    public CartesianChartModel getmodeloGraficoLineas() { return modeloGraficoLineas; }
-    
+    public CartesianChartModel getmodeloGraficoLineas() {
+        return modeloGraficoLineas;
+    }
+
+    // Grafico de Lineas Acumulado
+    private CartesianChartModel modeloGraficoLineasAcumulado;
+    public CartesianChartModel getmodeloGraficoLineasAcumulado() {
+        return modeloGraficoLineasAcumulado;
+    }
+
     // Grafico de torta
     private PieChartModel modeloGraficoTorta;
-    public PieChartModel getmodeloGraficoTorta() { return modeloGraficoTorta; }
+    public PieChartModel getmodeloGraficoTorta() {
+        return modeloGraficoTorta;
+    }
 
+    // Grafico de Donuts
+    private DonutChartModel modeloGraficoDonut;
+    public DonutChartModel getmodeloGraficoDonut() {
+        return modeloGraficoDonut;
+    }
 
     public ProyectoController() {
     }
@@ -162,7 +180,7 @@ public class ProyectoController implements Serializable {
     public float getTotalPresupuestosProyectos() {
         return totalPresupuestosProyectos;
     }
-    
+
     public List<Proyecto> getProyectosFiltrados() {
         return proyectosFiltrados;
     }
@@ -172,15 +190,13 @@ public class ProyectoController implements Serializable {
     }
 
     public float getPromedioPresupuestoPorProyecto() {
-        
+
         // Poner esta logica en otro lugar
-        this.promedioPresupuestoPorProyecto =  obtenerTotalPresupuestosItems() / items.getRowCount();
-        
+        this.promedioPresupuestoPorProyecto = obtenerTotalPresupuestosItems() / items.getRowCount();
+
         return promedioPresupuestoPorProyecto;
     }
 
-    
-    
     public String prepareList() {
         recreateModel();
         return "List";
@@ -723,7 +739,8 @@ public class ProyectoController implements Serializable {
 
     }
 
-    public BigDecimal obtenerPresupuestoTotalProyecto(int idProyecto) {
+    //public BigDecimal obtenerPresupuestoTotalProyecto(int idProyecto) {
+    public float obtenerPresupuestoTotalProyecto(int idProyecto) {
 
         BigDecimal resultado = BigDecimal.ZERO;
 
@@ -733,8 +750,7 @@ public class ProyectoController implements Serializable {
         resultado = p.obtenerTotal(idProyecto);
 
 //        System.out.println("ProyectoController >> obtenerPresupuestoTotalProyecto: " + resultado.toString());
-
-        return resultado;
+        return resultado.floatValue();
     }
 
     public float obtenerTotalPresupuestosItems() {
@@ -753,20 +769,17 @@ public class ProyectoController implements Serializable {
             BigDecimal tmp = p.obtenerTotal(proyecto.getId());
             float tmpF = tmp.floatValue();
             resultado += tmpF;
-            
+
 //            System.out.println("obtenerTotalPresupuestosItems() >> tmp: " + tmp.toString());
 //            System.out.println(resultado);
-
             //resultado.add(tmp);
-
         }
 
 //        System.out.println("obtenerTotalPresupuestosItems() >> " + resultado);
-        
         return resultado;
     }
-    
-public float obtenerTotalPresupuestosFiltrados() {
+
+    public float obtenerTotalPresupuestosFiltrados() {
 
         //BigDecimal resultado = BigDecimal.ZERO;
         float resultado = 0;
@@ -783,68 +796,104 @@ public float obtenerTotalPresupuestosFiltrados() {
             BigDecimal tmp = p.obtenerTotal(proyecto.getId());
             float tmpF = tmp.floatValue();
             resultado += tmpF;
-            
+
 //            System.out.println("obtenerTotalPresupuestosItems() >> tmp: " + tmp.toString());
 //            System.out.println(resultado);
-
             //resultado.add(tmp);
-
         }
 
 //        System.out.println("obtenerTotalPresupuestosItems() >> " + resultado);
-        
         return resultado;
-    }    
+    }
 
     public void resetearFiltroEntreFechas() {
         filtroFechaInicio = null;
         filtroFechaFin = null;
 
     }
-    
+
     public void filterListener(FilterEvent filterEvent) {
         //List<Proyecto> lista = (List<Proyecto>)filterEvent.getData();
-        
+
         totalPresupuestosProyectos = obtenerTotalPresupuestosFiltrados();
     }
-    
-    public void armarGraficoLineas(){
+
+    public void armarGraficoLineas() {
         modeloGraficoLineas = new CartesianChartModel();
-       
+
         ChartSeries ideasProyecto = new ChartSeries();
         ideasProyecto.setLabel("Presupuestos Ideas Proyecto");
-        
+
         Iterator i = items.iterator();
-        
-        while(i.hasNext()){
-            
-            Proyecto proyecto = (Proyecto)i.next();
+
+        while (i.hasNext()) {
+
+            Proyecto proyecto = (Proyecto) i.next();
             DateFormat formateador = DateFormat.getDateInstance(DateFormat.SHORT);
             String fechaProyecto = formateador.format(proyecto.getFecha());
-            
-            ideasProyecto.set(proyecto.getId(),obtenerPresupuestoTotalProyecto(proyecto.getId()).floatValue());
+
+            ideasProyecto.set(proyecto.getId(), obtenerPresupuestoTotalProyecto(proyecto.getId()));
         }
-        
+
         modeloGraficoLineas.addSeries(ideasProyecto);
     }
-    
-    public void armarGraficoTortas(){
-        modeloGraficoTorta = new PieChartModel();
+
+    public void armarGraficoLineasAcumulado() {
         
-//        model.set("Brand 1", 540);
-//        model.set("Brand 2", 325);
-//        model.set("Brand 3", 702);
-//        model.set("Brand 4", 421);
-        
+        float acumulado = 0;
+        modeloGraficoLineasAcumulado = new CartesianChartModel();
+
+        ChartSeries ideasProyecto = new ChartSeries();
+        ideasProyecto.setLabel("Presupuestos Acumulados de Ideas-Proyecto");
+
         Iterator i = items.iterator();
-        
-        while(i.hasNext()){
-            
-            Proyecto proyecto = (Proyecto)i.next();
-            
-            modeloGraficoTorta.set(proyecto.getNombre(), obtenerPresupuestoTotalProyecto(proyecto.getId()).floatValue());
+
+        while (i.hasNext()) {
+
+            Proyecto proyecto = (Proyecto) i.next();
+            DateFormat formateador = DateFormat.getDateInstance(DateFormat.SHORT);
+            String fechaProyecto = formateador.format(proyecto.getFecha());
+
+            acumulado = acumulado + obtenerPresupuestoTotalProyecto(proyecto.getId());
+            System.out.println("ACUMULADO >> " + acumulado);
+            ideasProyecto.set(proyecto.getId(), acumulado);
         }
-        
+
+        modeloGraficoLineasAcumulado.addSeries(ideasProyecto);
+    }
+
+    public void armarGraficoTortas() {
+        modeloGraficoTorta = new PieChartModel();
+
+        Iterator i = items.iterator();
+
+        while (i.hasNext()) {
+
+            Proyecto proyecto = (Proyecto) i.next();
+
+            modeloGraficoTorta.set(proyecto.getNombre(), obtenerPresupuestoTotalProyecto(proyecto.getId()));
+        }
+
+    }
+
+    public void armarGraficoDonut() {
+
+        modeloGraficoDonut = new DonutChartModel();
+        Map<String, Number> circulo1 = new LinkedHashMap<String, Number>();
+
+        Iterator i = items.iterator();
+
+        while (i.hasNext()) {
+
+            Proyecto proyecto = (Proyecto) i.next();
+
+            //modeloGraficoDonut.set(proyecto.getNombre(), obtenerPresupuestoTotalProyecto(proyecto.getId()).floatValue());
+            circulo1.put(proyecto.getNombre(), obtenerPresupuestoTotalProyecto(proyecto.getId()));
+
+        }
+
+        modeloGraficoDonut.addCircle(circulo1);
+
     }
 
 }
