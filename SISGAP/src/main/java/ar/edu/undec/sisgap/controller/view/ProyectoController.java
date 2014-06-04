@@ -22,18 +22,17 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -784,7 +783,9 @@ public class ProyectoController implements Serializable {
         //BigDecimal resultado = BigDecimal.ZERO;
         float resultado = 0;
         //Iterator i = items.iterator();
-        Iterator i = proyectosFiltrados.iterator();
+        
+        //Iterator i = proyectosFiltrados.iterator();
+        ListIterator i = proyectosFiltrados.listIterator();
 
         FacesContext context = FacesContext.getCurrentInstance();
         PresupuestoController p = (PresupuestoController) context.getApplication().evaluateExpressionGet(context, "#{presupuestoController}", PresupuestoController.class);
@@ -855,7 +856,7 @@ public class ProyectoController implements Serializable {
             String fechaProyecto = formateador.format(proyecto.getFecha());
 
             acumulado = acumulado + obtenerPresupuestoTotalProyecto(proyecto.getId());
-            System.out.println("ACUMULADO >> " + acumulado);
+            System.out.println("ACUMULADO (" + proyecto.getId().toString() + ") >> " + acumulado);
             ideasProyecto.set(proyecto.getId(), acumulado);
         }
 
