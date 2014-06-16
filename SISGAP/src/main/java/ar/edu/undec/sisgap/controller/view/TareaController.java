@@ -8,6 +8,8 @@ import com.google.gson.Gson;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
@@ -34,6 +36,9 @@ public class TareaController implements Serializable {
     private List<Tarea> tareasdeproyecto = new ArrayList<Tarea>() ;
     private Tarea tareanueva=new Tarea();
     private String gsoncategoria="[]";
+    private String data ;
+    private long mindate;
+    private Tarea tarea1=new Tarea();
 
     public TareaController() {
     }
@@ -41,6 +46,11 @@ public class TareaController implements Serializable {
     public Tarea getSelected() {
         if (current == null) {
             current = new Tarea();
+            current.setTarea("");
+            current.setDescripcion("");
+            current.setFechainicio(new Date());
+            current.setFechafin(null);
+            current.setDias(0);
             selectedItemIndex = -1;
         }
         return current;
@@ -243,14 +253,66 @@ public class TareaController implements Serializable {
         this.tareasdeproyecto = tareasdeproyecto;
     }
     
-    public String amarTareasProyecto(){
+     public void rearmarTareasProyecto(){
+         current=null;
+     }
+    
+    public void armarTareasProyecto(){
         
-        current = new Tarea();
+        if(current.getId()==null){
+            
         
-       // System.out.println(this.tareasdeproyecto.size());
-        current.setId(this.tareasdeproyecto.size()+1);
-        this.tareasdeproyecto.add(current);
-        return null;
+            current.setId(tareasdeproyecto.size()+1);
+            //current.setEstado("0%");
+        
+            tareasdeproyecto.add(current);
+        }
+        
+        current=null;
+        
+       crearChart();
+       
+    }
+    
+       
+    public void calcularDiferenciaDias(){
+         // tomamos la instancia del tipo de calendario
+        Calendar calendarInicio = Calendar.getInstance();
+        Calendar calendarFinal = Calendar.getInstance();
+
+         // Configramos la fecha del calendatio, tomando los valores del date que 
+        // generamos en el parse
+        calendarInicio.setTime(current.getFechainicio());
+        calendarFinal.setTime(current.getFechafin());
+
+         // obtenemos el valor de las fechas en milisegundos
+        long milisegundos1 = calendarInicio.getTimeInMillis();
+        long milisegundos2 = calendarFinal.getTimeInMillis();
+
+         // tomamos la diferencia
+        long diferenciaMilisegundos = milisegundos2 - milisegundos1;
+
+         // Despues va a depender en que formato queremos  mostrar esa 
+        // diferencia, minutos, segundo horas, dias, etc, aca van algunos 
+        // ejemplos de conversion
+
+         // calcular la diferencia en segundos
+        long diffSegundos =  Math.abs (diferenciaMilisegundos / 1000);
+
+         // calcular la diferencia en minutos
+        long diffMinutos =  Math.abs (diferenciaMilisegundos / (60 * 1000));
+        long restominutos = diffMinutos%60;
+
+         // calcular la diferencia en horas
+        long diffHoras =   (diferenciaMilisegundos / (60 * 60 * 1000));
+
+         // calcular la diferencia en dias
+        long diffdias = Math.abs( diferenciaMilisegundos / (24 * 60 * 60 * 1000) );
+        int entero=(int) diffdias;
+        current.setDias(entero+1);
+        System.out.println("-------------"+diffdias);
+        
+
     }
 
     public Tarea getTareanueva() {
@@ -261,27 +323,39 @@ public class TareaController implements Serializable {
         this.tareanueva = tareanueva;
     }
     
-    public void prueba(){
+    public void crearChart(){
         Gson gson= new Gson();
         List<String> categoria=new ArrayList<String>();
-        
+        data="[";
+        mindate=Long.MAX_VALUE;
+       int cant=tareasdeproyecto.size();
+       int contador=0;
         for(Tarea t:this.tareasdeproyecto){
+            if(t.getFechainicio().getTime()<mindate){
+                mindate=t.getFechainicio().getTime();
+            }
+            contador++;
             categoria.add(t.getTarea());
-            
+            data+="["+t.getFechainicio().getTime()+","+t.getFechafin().getTime()+"]";
+            if(contador<cant){
+                data+=",";
+            }
         }
-        gsoncategoria=""+gson.toJson(categoria);
+        gsoncategoria=""+gson.toJson(categoria).replace('\"', '\'');
+        data+="]";
         System.out.println("--------------------"+gsoncategoria);
     }
     
     public void removerTareadeProyecto(){
         System.out.println("oooooooooooo"+current.getId());
+       
         this.tareasdeproyecto.remove(current);
+        crearChart();
+        
         
     }
     
-    public void setSelected(Tarea tarea){
-        current=tarea;
-    }
+   
 
     public String getGsoncategoria() {
         return gsoncategoria;
@@ -291,6 +365,52 @@ public class TareaController implements Serializable {
         this.gsoncategoria = gsoncategoria;
     }
     
+    public void sumarDias(){
+        Calendar cal=Calendar.getInstance();
+        System.out.println("nnnnnnnnnnnn"+current.getTarea());
+        System.out.println("nnnnnnnnnnnn"+current.getDias());
+        cal.setTime(current.getFechainicio());
+        cal.add(Calendar.DAY_OF_YEAR, current.getDias());
+        current.setFechafin(cal.getTime());
+//        System.out.println("--------"+current.getFechafin());
+                
+    }
+    
+    public void setSelected(Tarea tarea){
+        System.out.println("llllllllllllll");
+        current= tarea;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public long getMindate() {
+        return mindate;
+    }
+
+    public void setMindate(long mindate) {
+        this.mindate = mindate;
+    }
+
+    public Tarea getTarea1() {
+        return tarea1;
+    }
+
+    public void setTarea1(Tarea tarea1) {
+        this.tarea1 = tarea1;
+    }
+    
+    public void grabarTareas(){
+        for(Tarea t:tareasdeproyecto){
+            this.ejbFacade.createWithPersist(t);
+            
+        }
+    }
     
 
 }

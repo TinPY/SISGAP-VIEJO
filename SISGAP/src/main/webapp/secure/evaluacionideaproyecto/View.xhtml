@@ -29,11 +29,8 @@ function showStatus() {
                 <p:graphicImage value="/resources/img/ajaxloadingbar.gif" />
             </p:dialog>
             <h:form>
-                <div align="center">
-                    <p:commandButton value="IMPRIMIR"  image="ui-icon-imprimir" ajax="false"   >  
-                    <p:printer target="panel1" />  
-                </p:commandButton> 
-                </div>
+                 <p:growl for="growlprincipal" id="growlprincipal" showDetail="true" sticky="true" />
+                   
                 <p:panel id="panel1" header="Solicitud de Proyecto">
                 <h:panelGrid columns="2" cellspacing="5" columnClasses="right,left"  >
                      <p:outputLabel value="N° de Solicitud"/>
@@ -180,7 +177,7 @@ function showStatus() {
                         </p:selectOneMenu>
                     
                         <p:outputLabel style="font-weight:bold;" id="oobservaciones" value="Observaciones" />
-                        <p:inputTextarea id="observacionfinal" style="font-weight:bold;" cols="100" rows="10" value="#{evaluacionController.selected.observacion}"   />
+                        <p:inputTextarea autoResize="true" id="observacionfinal" style="font-weight:bold;" cols="120" rows="30" value="#{evaluacionController.selected.observacion}"   />
                         
                     </h:panelGrid>
                 </p:panel>
@@ -189,10 +186,15 @@ function showStatus() {
              
              <p:separator />
              <div align="center" >
-                 <p:commandButton ajax="false" value="Gravar" actionListener="#{proyectoController.evaluarIdea}" />
+                 <p:commandButton ajax="false" value="Gravar y enviar evaluacion" actionListener="#{proyectoController.evaluarIdea}" oncomplete="" />
              </div>
                       
                  </p:panel>
+                  <p:dialog id="dfinal" widgetVar="dfinal"  modal="true" closable="false"  header="Evaluacion de Idea Proyecto Creada" >
+                     La Evaluación fue creada Satisfactoriamente!!! en breve le llegara un email al Docente - Investigador
+                     <div align="center" ><p:commandButton value="OK" action="List" ></p:commandButton></div>
+                     
+                </p:dialog>
                 </h:form>
             
            

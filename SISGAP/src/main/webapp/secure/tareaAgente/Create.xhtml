@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateTareaAgenteTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateTareaAgenteLabel_tareaAgentePK_agenteid}" for="tareaAgentePK_agenteid" />
+                    <h:inputText id="tareaAgentePK_agenteid" value="#{tareaAgenteController.selected.tareaAgentePK.agenteid}" title="#{bundle.CreateTareaAgenteTitle_tareaAgentePK_agenteid}" required="true" requiredMessage="#{bundle.CreateTareaAgenteRequiredMessage_tareaAgentePK_agenteid}"/>
+                    <h:outputLabel value="#{bundle.CreateTareaAgenteLabel_tareaAgentePK_tareaid}" for="tareaAgentePK_tareaid" />
+                    <h:inputText id="tareaAgentePK_tareaid" value="#{tareaAgenteController.selected.tareaAgentePK.tareaid}" title="#{bundle.CreateTareaAgenteTitle_tareaAgentePK_tareaid}" required="true" requiredMessage="#{bundle.CreateTareaAgenteRequiredMessage_tareaAgentePK_tareaid}"/>
+                    <h:outputLabel value="#{bundle.CreateTareaAgenteLabel_funcion}" for="funcion" />
+                    <h:inputText id="funcion" value="#{tareaAgenteController.selected.funcion}" title="#{bundle.CreateTareaAgenteTitle_funcion}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{tareaAgenteController.create}" value="#{bundle.CreateTareaAgenteSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{tareaAgenteController.prepareList}" value="#{bundle.CreateTareaAgenteShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateTareaAgenteIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

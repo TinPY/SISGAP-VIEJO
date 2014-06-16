@@ -5,29 +5,24 @@ import ar.edu.undec.sisgap.model.Proyecto;
 import ar.edu.undec.sisgap.controller.view.util.JsfUtil;
 import ar.edu.undec.sisgap.controller.view.util.PaginationHelper;
 import ar.edu.undec.sisgap.controller.ProyectoFacade;
+import ar.edu.undec.sisgap.model.Agente;
 import ar.edu.undec.sisgap.model.Archivoproyecto;
-import ar.edu.undec.sisgap.model.Convocatoria;
 import ar.edu.undec.sisgap.model.Estadoproyecto;
 import ar.edu.undec.sisgap.model.Evaluacion;
 import ar.edu.undec.sisgap.model.EvaluacionPregunta;
 import ar.edu.undec.sisgap.model.EvaluacionPreguntaPK;
-import ar.edu.undec.sisgap.model.Fuentefinanciamiento;
 import ar.edu.undec.sisgap.model.Presupuesto;
 import ar.edu.undec.sisgap.model.PresupuestoRubro;
-import ar.edu.undec.sisgap.model.Tipoproyecto;
+import ar.edu.undec.sisgap.model.Tarea;
+import ar.edu.undec.sisgap.model.TareaAgente;
+import ar.edu.undec.sisgap.model.TareaAgentePK;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.text.DateFormat;
 import java.util.Date;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Map;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -42,14 +37,8 @@ import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
-import org.primefaces.event.SelectEvent;
-import org.primefaces.event.data.FilterEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
-import org.primefaces.model.chart.CartesianChartModel;
-import org.primefaces.model.chart.ChartSeries;
-import org.primefaces.model.chart.DonutChartModel;
-import org.primefaces.model.chart.PieChartModel;
 
 @ManagedBean(name = "proyectoController")
 @SessionScoped
@@ -67,57 +56,26 @@ public class ProyectoController implements Serializable {
     private ar.edu.undec.sisgap.controller.EvaluacionFacade ejbevaluacion;
     @EJB
     private ar.edu.undec.sisgap.controller.EvaluacionPreguntaFacade ejbevaluacionproyecto;
-
+    @EJB
+    private ar.edu.undec.sisgap.controller.TareaFacade ejbtarea;
+    @EJB
+    private ar.edu.undec.sisgap.controller.TareaAgenteFacade ejbtareaagente;
+    
     private PaginationHelper pagination;
     private int selectedItemIndex;
-    private byte[] imagen = null;
+    private byte[] imagen=null ;
     private StreamedContent file;
-    private boolean columnorganismo = false;
-    private boolean columncomitente = false;
-    private boolean columnuniversidad = false;
-    private boolean verarchivo = false;
-    private boolean iseditableSolicitud = false;
-    private String habilitarcomitente = "0";
+    private boolean columnorganismo=false;
+    private boolean columncomitente=false;
+    private boolean columnuniversidad=false;
+    private boolean verarchivo=false;
+    private boolean iseditableSolicitud=false;
+    private String habilitarcomitente="0";
     private String observacionfinal;
     private Proyecto proyectoViejo;
-
-    // Filtrado entre fechas
-    private Date filtroFechaInicio;
-    private Date filtroFechaFin;
-
-    // Promedio de Presupuestos de los proyectos
-    private float promedioPresupuestoPorProyecto = 0;
-
-    // Sumado del total de presupuestos de todos los proyectos
-    private float totalPresupuestosProyectos = 0;
-
-    // Usado para el filtrado del datatable
-    private List<Proyecto> proyectosFiltrados;
-
-    // Grafico de Lineas
-    private CartesianChartModel modeloGraficoLineas;
-    public CartesianChartModel getmodeloGraficoLineas() {
-        return modeloGraficoLineas;
-    }
-
-    // Grafico de Lineas Acumulado
-    private CartesianChartModel modeloGraficoLineasAcumulado;
-    public CartesianChartModel getmodeloGraficoLineasAcumulado() {
-        return modeloGraficoLineasAcumulado;
-    }
-
-    // Grafico de torta
-    private PieChartModel modeloGraficoTorta;
-    public PieChartModel getmodeloGraficoTorta() {
-        return modeloGraficoTorta;
-    }
-
-    // Grafico de Donuts
-    private DonutChartModel modeloGraficoDonut;
-    public DonutChartModel getmodeloGraficoDonut() {
-        return modeloGraficoDonut;
-    }
-
+    
+    
+    
     public ProyectoController() {
     }
 
@@ -128,14 +86,6 @@ public class ProyectoController implements Serializable {
             selectedItemIndex = -1;
         }
         return current;
-    }
-
-    public void setSelected(Proyecto selected) {
-        this.current = selected;
-    }
-
-    public void onRowSelect(SelectEvent event) {
-        //this.current = ((Proyecto) event.getObject()).getModel();
     }
 
     private ProyectoFacade getFacade() {
@@ -158,42 +108,6 @@ public class ProyectoController implements Serializable {
             };
         }
         return pagination;
-    }
-
-    public Date getFiltroFechaInicio() {
-        return filtroFechaInicio;
-    }
-
-    public void setFiltroFechaInicio(Date filtroFechaInicio) {
-        this.filtroFechaInicio = filtroFechaInicio;
-    }
-
-    public void setFiltroFechaFin(Date filtroFechaFin) {
-        this.filtroFechaFin = filtroFechaFin;
-    }
-
-    public Date getFiltroFechaFin() {
-        return filtroFechaFin;
-    }
-
-    public float getTotalPresupuestosProyectos() {
-        return totalPresupuestosProyectos;
-    }
-
-    public List<Proyecto> getProyectosFiltrados() {
-        return proyectosFiltrados;
-    }
-
-    public void setProyectosFiltrados(List<Proyecto> proyectosFiltrados) {
-        this.proyectosFiltrados = proyectosFiltrados;
-    }
-
-    public float getPromedioPresupuestoPorProyecto() {
-
-        // Poner esta logica en otro lugar
-        this.promedioPresupuestoPorProyecto = obtenerTotalPresupuestosItems() / items.getRowCount();
-
-        return promedioPresupuestoPorProyecto;
     }
 
     public String prepareList() {
@@ -223,93 +137,99 @@ public class ProyectoController implements Serializable {
             return null;
         }
     }
-
+    
     public String soloCrear() {
-        try {
+        try{
             //Capturo el managed bean en el contexto
             FacesContext contextc = FacesContext.getCurrentInstance();
-            ConvocatoriaController convocatoria = (ConvocatoriaController) contextc.getApplication().evaluateExpressionGet(contextc, "#{convocatoriaController}", ConvocatoriaController.class);
+            ConvocatoriaController convocatoria= (ConvocatoriaController) contextc.getApplication().evaluateExpressionGet(contextc, "#{convocatoriaController}", ConvocatoriaController.class);
+                    
+           if(convocatoria.getSelected()!=null){
+                    FacesContext context = FacesContext.getCurrentInstance();
+                    AgenteController agente= (AgenteController) context.getApplication().evaluateExpressionGet(context, "#{agenteController}", AgenteController.class);
+                    FacesContext context3 = FacesContext.getCurrentInstance();
+                    PresupuestoRubroController pr = (PresupuestoRubroController) context3.getApplication().evaluateExpressionGet(context3, "#{presupuestoRubroController}", PresupuestoRubroController.class);
+                    FacesContext context2 = FacesContext.getCurrentInstance();
+                    ArchivoproyectoController ap= (ArchivoproyectoController)context2.getApplication().evaluateExpressionGet(context2, "#{archivoproyectoController}", ArchivoproyectoController.class);
 
-            if (convocatoria.getSelected() != null) {
-                FacesContext context = FacesContext.getCurrentInstance();
-                AgenteController agente = (AgenteController) context.getApplication().evaluateExpressionGet(context, "#{agenteController}", AgenteController.class);
-                FacesContext context3 = FacesContext.getCurrentInstance();
-                PresupuestoRubroController pr = (PresupuestoRubroController) context3.getApplication().evaluateExpressionGet(context3, "#{presupuestoRubroController}", PresupuestoRubroController.class);
-                FacesContext context2 = FacesContext.getCurrentInstance();
-                ArchivoproyectoController ap = (ArchivoproyectoController) context2.getApplication().evaluateExpressionGet(context2, "#{archivoproyectoController}", ArchivoproyectoController.class);
-
-                current.setAgenteid(agente.getSelected());
-
-                Estadoproyecto ep = new Estadoproyecto();
-                ep.setId(1);
-                current.setEstadoproyectoid(ep);
-                current.setFecha(new Date());
-                current.setConvocatoriaid(convocatoria.getSelected());
-                getFacade().createWithPersist(current);
-                Presupuesto p = new Presupuesto();
-                p.setFecha(new Date());
-                p.setProyectoid(current);
-                p.setEstado('P');
-
-                ejbFacadep.createWithPersist(p);
-                //  System.out.println("--------------------------ttttt-------------------------"+p.getId() );
-                PresupuestoRubro prerub;
-                Iterator i = pr.getPresupuestosrubros().iterator();
-                while (i.hasNext()) {
-                    prerub = ((PresupuestoRubro) i.next());
-                    prerub.setPresupuesto(p);
-                    pr.soloCrear(prerub);
+                    current.setAgenteid(agente.getSelected());
+                    
+                    Estadoproyecto ep= new Estadoproyecto();
+                    ep.setId(1);
+                    current.setEstadoproyectoid(ep);
+                    current.setFecha(new Date());
+                    System.out.println("mmmmmmmmmmmmmmmmmmooooooooooooooo"+convocatoria.getSelected().getId());
+                    if(convocatoria.getSelected().getId()==null){
+                        current.setConvocatoriaid(null);
+                    } else {
+                        current.setConvocatoriaid(convocatoria.getSelected());
                 }
+                    getFacade().createWithPersist(current);
+                    Presupuesto p= new Presupuesto();
+                    p.setFecha(new Date());
+                    p.setProyectoid(current);
+                    p.setEstado('P');
+
+                     ejbFacadep.createWithPersist(p);
+                     //  System.out.println("--------------------------ttttt-------------------------"+p.getId() );
+                    PresupuestoRubro prerub;
+                    Iterator i= pr.getPresupuestosrubros().iterator();
+                    while(i.hasNext()){
+                        prerub=((PresupuestoRubro)i.next());
+                        prerub.setPresupuesto(p);
+                        pr.soloCrear(prerub);
+                    }
                     //p.getSelected().setPresupuestoRubroList(pr.getPresupuestosrubros());
 
-                // 
-                pr.setPresupuestosrubros();
-                System.out.println("--------------------final1-------------------------------" + ap.getCollectorArchivoProyecto().size());
+                   // 
+                   pr.setPresupuestosrubros();
+                    System.out.println("--------------------final1-------------------------------"+ap.getCollectorArchivoProyecto().size() );
 
-                i = ap.getCollectorArchivoProyecto().iterator();
-                System.out.println("--------------------final12-------------------------------");
+                   i=ap.getCollectorArchivoProyecto().iterator();
+                    System.out.println("--------------------final12-------------------------------" );
 
-                while (i.hasNext()) {
-                    Archivoproyecto archivoproyecto = new Archivoproyecto();
-                    archivoproyecto = ((Archivoproyecto) i.next());
-                    archivoproyecto.setId(null);
-                    archivoproyecto.setProyectoid(current);
-                    ap.soloCrear(archivoproyecto);
-                }
+                   while(i.hasNext()){
+                       Archivoproyecto archivoproyecto=new Archivoproyecto();
+                        archivoproyecto=((Archivoproyecto)i.next());
+                        archivoproyecto.setId(null);
+                        archivoproyecto.setProyectoid(current);
+                        ap.soloCrear(archivoproyecto);
+                    }
 
-                p = null;
-                pr = null;
-                //current=null;
-                ap = null;
-                System.out.println("--------------------final2-------------------------------");
+                    p=null;
+                    pr=null;
+                    //current=null;
+                    ap=null;
+                   System.out.println("--------------------final2-------------------------------" );
 
-                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alta idea proyecto Creada!", "Su Solicitud a Proyecto fue creado!!!");
-                EnviarMail enviarmail = new EnviarMail();
-                //   enviarmail.enviarMailIngresoIdeaProyecto(FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName(),current.getAgenteid().getEmail() , habilitarcomitente);
 
-                RequestContext.getCurrentInstance().execute("dfinal.show()");
-                //  FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath()+"/secure/solicitud/View.xhtml");
+                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alta idea proyecto Creada!", "Su Solicitud a Proyecto fue creado!!!");  
+                    EnviarMail enviarmail = new EnviarMail();
+                 //   enviarmail.enviarMailIngresoIdeaProyecto(FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName(),current.getAgenteid().getEmail() , habilitarcomitente);
+
+                     RequestContext.getCurrentInstance().execute("dfinal.show()"); 
+                   //  FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath()+"/secure/solicitud/View.xhtml");
                 // context4.addMessage("growlprincipal", new FacesMessage("Excelente! " + context4.getExternalContext().getUserPrincipal(),"Su Solicitud a Proyecto fue creado, en breve recibira un email"));
-
+                    
                 System.out.println("iiiiiiiiiiiiiiiiiiiii");
-                //current = new Proyecto();
-                return null;
-            } else {
-                RequestContext.getCurrentInstance().scrollTo("wconvocatoria");
-                FacesMessage message = new FacesMessage();
-                message.setSeverity(FacesMessage.SEVERITY_ERROR);
+                    //current = new Proyecto();
+                 return null;
+           }else{
+               RequestContext.getCurrentInstance().scrollTo("wconvocatoria");
+               FacesMessage message = new FacesMessage();
+               message.setSeverity(FacesMessage.SEVERITY_ERROR);
                 message.setSummary("ERROR");
                 message.setDetail("Por favor seleccione una fila en la tabla de Convocatoria");
-                FacesContext.getCurrentInstance().addMessage("growlprincipal", message);
+               FacesContext.getCurrentInstance().addMessage("growlprincipal", message);
                 return null;
-            }
-        } catch (Exception e) {
-            FacesMessage message = new FacesMessage();
-            message.setSeverity(FacesMessage.SEVERITY_ERROR);
-            message.setSummary("ERROR");
-            message.setDetail("No se pudo crear la Solicitud del Proyecto " + e);
+           }
+        }catch(Exception e){
+             FacesMessage message = new FacesMessage();
+               message.setSeverity(FacesMessage.SEVERITY_ERROR);
+                message.setSummary("ERROR");
+                message.setDetail("No se pudo crear la Solicitud del Proyecto "+e);
             FacesContext.getCurrentInstance().addMessage("growlprincipal", message);
-            System.out.println("llll" + e);
+         System.out.println("llll"+e);
             return null;
         }
     }
@@ -380,8 +300,6 @@ public class ProyectoController implements Serializable {
     public DataModel getItems() {
         if (items == null) {
             items = getPagination().createPageDataModel();
-            //
-
         }
         return items;
     }
@@ -413,25 +331,23 @@ public class ProyectoController implements Serializable {
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
-
-    public void handleFileUpload(FileUploadEvent event) {
+    
+    public void handleFileUpload(FileUploadEvent event) { 
         System.out.println("fdsfdsdfadf");
-        current.setDocumentacionnombre(event.getFile().getFileName());
+       current.setDocumentacionnombre(event.getFile().getFileName());
         current.setDocumentacion(event.getFile().getContents());
-        System.out.println("Succesful" + event.getFile().getFileName() + " is uploaded.");
-        // FacesContext.getCurrentInstance().addMessage(null, msg);  
-    }
-
-    public StreamedContent getFileConvocatoria() {
+         System.out.println("Succesful"+event.getFile().getFileName() + " is uploaded.");  
+       // FacesContext.getCurrentInstance().addMessage(null, msg);  
+    }  
+    public StreamedContent getFileConvocatoria() {          
         System.out.println("vvvvvvvvvvv");
         InputStream stream = new ByteArrayInputStream(current.getConvocatoriaid().getFormulario());
-        file = new DefaultStreamedContent(stream, "docx/doc/pdf/rar", current.getConvocatoriaid().getLink());
-        System.out.println("qqqqqqqqqqqqqqqq");
-        return file;
-
+        file = new DefaultStreamedContent(stream, "docx/doc/pdf/rar", current.getConvocatoriaid().getLink());  
+            System.out.println("qqqqqqqqqqqqqqqq");
+            return file;
+            
     }
-
-    public StreamedContent getFile() {
+     public StreamedContent getFile() {          
 //        System.out.println("vvvvvvvvvvv");
 //        InputStream stream = new ByteArrayInputStream(current.getDocumentacion());
 //        MagicMatch mm=null;
@@ -454,10 +370,11 @@ public class ProyectoController implements Serializable {
 //        System.out.println(extension+"---------------------");
 //       file = new DefaultStreamedContent(stream, "image/jpg/png/rar", "documentacion."+extension);  
 //   System.out.println("qqqqqqqqqqqqqqqq");
-        return file;
-
-    }
-
+   return file;
+        
+    }  
+  
+    
     @FacesConverter(forClass = Proyecto.class)
     public static class ProyectoControllerConverter implements Converter {
 
@@ -495,35 +412,16 @@ public class ProyectoController implements Serializable {
                 throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Proyecto.class.getName());
             }
         }
-    }
-
-    public void buscarTodos() {
-        recreateModel();
-        items = new ListDataModel(getFacade().findAll());
 
     }
-
-    public void buscarPorFecha() {
+    public void buscarProyectoAgente(int agenteid){
         recreateModel();
-        items = new ListDataModel(getFacade().buscarProyectoFecha(filtroFechaInicio));
+        items=new ListDataModel(getFacade().buscarProyectoAgente(agenteid));
     }
-
-    public void buscarEntreFechas() {
+    
+    public void buscarProyectoEstado(long estado){
         recreateModel();
-        items = new ListDataModel(getFacade().buscarProyectoEntreFechas(filtroFechaInicio, filtroFechaFin));
-
-        proyectosFiltrados = getFacade().buscarProyectoEntreFechas(filtroFechaInicio, filtroFechaFin);
-    }
-
-    public void buscarProyectoAgente(int agenteid) {
-        recreateModel();
-        items = new ListDataModel(getFacade().buscarProyectoAgente(agenteid));
-    }
-
-    // Estados [id > 1 Solicitud]
-    public void buscarProyectoEstado(int idEstado) {
-        recreateModel();
-        items = new ListDataModel(getFacade().buscarProyectoEstado(idEstado));
+        items=new ListDataModel(getFacade().buscarProyectoEstado((int)estado));
     }
 
     public boolean isColumnorganismo() {
@@ -551,73 +449,77 @@ public class ProyectoController implements Serializable {
     }
 
     public void isVerarchivox() {
-
-        System.out.println("---------------------------------------is-----" + current.getConvocatoriaid());
-        if (current.getConvocatoriaid().getId() > 0) {
+        
+        System.out.println("---------------------------------------is-----"+current.getConvocatoriaid());
+        if(current.getConvocatoriaid().getId()>0){
             this.verarchivo = true;
-        } else {
-            this.verarchivo = false;
+        }else{
+           this.verarchivo = false; 
         }
-        System.out.println("---------------------------------------is-----" + verarchivo + current.getConvocatoriaid().getId());
-
+        System.out.println("---------------------------------------is-----"+verarchivo+current.getConvocatoriaid().getId());
+        
     }
 
     public boolean getVerarchivo() {
         return verarchivo;
-        // System.out.println("---------------------------------------set-----"+verarchivo);
+       // System.out.println("---------------------------------------set-----"+verarchivo);
     }
-
-    public void cambioColPresupuesto() {
-        if (current.getTipofinanciamientoid().getId() < 3) {
-            columnorganismo = true;
-        } else {
-            columnorganismo = false;
+    
+    
+    
+    public void cambioColPresupuesto(){
+        if(current.getTipofinanciamientoid().getId()<3){
+            columnorganismo=true;
+        }else{
+            columnorganismo=false;
         }
     }
 
     public boolean isIseditableSolicitud() {
-        if (current.getEstadoproyectoid().getId() == 1) {
-            iseditableSolicitud = true;
-        } else {
-            iseditableSolicitud = false;
-        }
-
+            if(current.getEstadoproyectoid().getId()==1 ){
+                iseditableSolicitud=true;
+            }else{
+                iseditableSolicitud =false;
+            }
+            
         return iseditableSolicitud;
     }
 
     public void setIseditableSolicitud(boolean iseditableSolicitud) {
         this.iseditableSolicitud = iseditableSolicitud;
     }
-
-    public void actualizarTabla() {
+    
+    
+    public void actualizarTabla(){
         System.out.println("actalizando tabla000000000000000000000000000");
         RequestContext.getCurrentInstance().update("tpresupuesto");
     }
-
-    public String soloEditar() {
-        try {
+    
+     public String soloEditar() {
+        try{
             //Capturo el managed bean en el contexto
-
-            FacesContext context = FacesContext.getCurrentInstance();
-            PresupuestoController p = (PresupuestoController) context.getApplication().evaluateExpressionGet(context, "#{presupuestoController}", PresupuestoController.class);
-
+           
+           FacesContext context = FacesContext.getCurrentInstance();
+           PresupuestoController p= (PresupuestoController)context.getApplication().evaluateExpressionGet(context, "#{presupuestoController}", PresupuestoController.class);
+           
             current.setFecha(new Date());
             getFacade().edit(current);
-
-            PresupuestoRubro prerub;
-            Iterator i = p.getSelected().getPresupuestoRubroList().iterator();
-            while (i.hasNext()) {
-                prerub = ((PresupuestoRubro) i.next());
-                // p.soloEditar(prerub);
+            
+             PresupuestoRubro prerub;
+            Iterator i= p.getSelected().getPresupuestoRubroList().iterator();
+            while(i.hasNext()){
+                prerub=((PresupuestoRubro)i.next());
+               // p.soloEditar(prerub);
             }
-
-            FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/secure/solicitud/View.xhtml");
-            System.out.println("iiiiiiiiiiiiiiiiiiiii");
-
-            return "ViewSolicitud";
-        } catch (Exception e) {
-            FacesContext.getCurrentInstance().addMessage("growlprincipal", new FacesMessage("Error! ", "No se pudo crear la Solicitud del Proyecto "));
-
+         
+            
+             FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath()+"/secure/solicitud/View.xhtml");
+             System.out.println("iiiiiiiiiiiiiiiiiiiii");
+           
+         return "ViewSolicitud";
+        }catch(Exception e){
+            FacesContext.getCurrentInstance().addMessage("growlprincipal", new FacesMessage("Error! ","No se pudo crear la Solicitud del Proyecto "));
+        
             return null;
         }
     }
@@ -629,87 +531,92 @@ public class ProyectoController implements Serializable {
     public void setHabilitarcomitente(String habilitarcomitente) {
         this.habilitarcomitente = habilitarcomitente;
     }
-
-    public void evaluarIdea() {
-        try {
+    
+    public void evaluarIdea(){
             FacesContext context = FacesContext.getCurrentInstance();
-            EvaluacionPreguntaController evaluacionpregunta = (EvaluacionPreguntaController) context.getApplication().evaluateExpressionGet(context, "#{evaluacionPreguntaController}", EvaluacionPreguntaController.class);
+            EvaluacionPreguntaController evaluacionpregunta= (EvaluacionPreguntaController) context.getApplication().evaluateExpressionGet(context, "#{evaluacionPreguntaController}", EvaluacionPreguntaController.class);
             EvaluacionController evaluacion = (EvaluacionController) context.getApplication().evaluateExpressionGet(context, "#{evaluacionController}", EvaluacionController.class);;
             AgenteController agente = (AgenteController) context.getApplication().evaluateExpressionGet(context, "#{agenteController}", AgenteController.class);;
 
+        try{
+            
             evaluacion.getSelected().setFecha(new Date());
             evaluacion.getSelected().setProyectoid(current);
             evaluacion.getSelected().setUsuarioid(agente.getSelected().getUsuarioid());
             ejbevaluacion.createWithPersist(evaluacion.getSelected());
-            proyectoViejo = current;
-            for (EvaluacionPregunta eval : evaluacionpregunta.getEvaluaciones()) {
-                eval.setEvaluacionPreguntaPK(new EvaluacionPreguntaPK());
-                eval.getEvaluacionPreguntaPK().setEvaluacionid(evaluacion.getSelected().getId());
-                eval.getEvaluacionPreguntaPK().setPreguntaid(eval.getPregunta().getId());
+            proyectoViejo = current; 
+            for(EvaluacionPregunta eval:evaluacionpregunta.getEvaluaciones()){
+                 eval.setEvaluacionPreguntaPK(new EvaluacionPreguntaPK());
+               eval.getEvaluacionPreguntaPK().setEvaluacionid(evaluacion.getSelected().getId());
+              eval.getEvaluacionPreguntaPK().setPreguntaid(eval.getPregunta().getId());
 
-                ejbevaluacionproyecto.create(eval);
-            }
-
-            this.ejbFacade.edit(current);
-
-            new EnviarMail().enviarMailEvaluacionIdeaProyecto(current.getAgenteid(), current.getObservaciones());
-        } catch (Exception e) {
-            //ejbevaluacion.remove(evaluacion.getSelected());
+              ejbevaluacionproyecto.create(eval);
+             }
+                
+             this.ejbFacade.edit(current);
+             
+             if(new EnviarMail().enviarMailEvaluacionIdeaProyecto(current.getAgenteid(), current.getObservaciones())){
+                RequestContext.getCurrentInstance().execute("dfinal.show()"); 
+             }else{
+                 FacesContext.getCurrentInstance().addMessage("growlprincipal", new FacesMessage("Error! ","No se pudo evaluar del Proyecto.")); 
+                this.ejbFacade.edit(proyectoViejo);
+                ejbevaluacion.remove(evaluacion.getSelected());
+             }
+        }catch(Exception e){
+            ejbevaluacion.remove(evaluacion.getSelected());
             this.ejbFacade.edit(proyectoViejo);
-            FacesContext.getCurrentInstance().addMessage("growlprincipal", new FacesMessage("Error! ", "No se pudo evaluar del Proyecto "));
-
+             FacesContext.getCurrentInstance().addMessage("growlprincipal", new FacesMessage("Error! ","No se pudo evaluar del Proyecto "));
+        
         }
-
+        
+        
     }
-
-    public String armarObservaciones() {
-        observacionfinal = "";
-        FacesContext context = FacesContext.getCurrentInstance();
+     
+  public String armarObservaciones(){
+       observacionfinal="";
+      FacesContext context = FacesContext.getCurrentInstance();
         EvaluacionPreguntaController evaluacionpregunta = (EvaluacionPreguntaController) context.getApplication().evaluateExpressionGet(context, "#{evaluacionPreguntaController}", EvaluacionPreguntaController.class);
-        EvaluacionController evaluacion = (EvaluacionController) context.getApplication().evaluateExpressionGet(context, "#{evaluacionController}", EvaluacionController.class);
-
-        String obs = "";
-        String calificacionpregunta = "";
-
-        try {
-            observacionfinal = "Estimado docente-investigador:\n"
-                    + "Por medio del presente informamos a Ud. que la Idea-Proyecto Nº " + current.getId() + " de la cual Ud. Es responsable, ha sido " + current.getEstadoproyectoid().getEstado() + " según el siguiente detalle:\n"
-                    + "Observaciones:\n";
-            for (EvaluacionPregunta eval : evaluacionpregunta.getEvaluaciones()) {
-
-                if (eval.getRating() != null) {
-                    if (eval.getRating().intValue() < 3) {
-                        calificacionpregunta = "REGULAR";
-                    }
-                    if (eval.getRating().intValue() == 3) {
-                        calificacionpregunta = "CORRECTO";
-                    }
-                    if (eval.getRating() == 4) {
-                        calificacionpregunta = "MUY BUENO";
-                    }
-                    if (eval.getRating() == 5) {
-                        calificacionpregunta = "EXCELENTE";
-                    }
-                }
-                if (eval.getObservacion() != null) {
-                    observacionfinal += " - " + eval.getObservacion() + "\n";
-                }
-                obs += " - " + eval.getPregunta().getPregunta() + " - " + calificacionpregunta + "\n";
-            }
-            String isaceptada = "";
-            if (current.getEstadoproyectoid().getId() == 2) {
-                isaceptada = "A partir de la recepción del presente correo, el sistema quedará habilitado para la carga del proyecto definitivo.\n";
-            }
-            observacionfinal += "Resultados según criterios evaluados:\n" + obs
-                    + "Sin otro particular lo saludo a Ud. cordialmente.\n"
-                    + "Unidad de Vinculación Tecnológica";
-            evaluacion.getSelected().setObservacion(observacionfinal);
-        } catch (Exception e) {
-            System.out.println(e);
-
-        }
-        return null;
-    }
+        EvaluacionController evaluacion = (EvaluacionController) context.getApplication().evaluateExpressionGet(context, "#{evaluacionController}", EvaluacionController.class);;
+       String obs="";
+       String calificacionpregunta="";
+       try{
+        observacionfinal="Estimado docente-investigador:\n" +
+"Por medio del presente informamos a Ud. que la Idea-Proyecto Nº "+current.getId()+" de la cual Ud. Es responsable, ha sido "+current.getEstadoproyectoid().getEstado()+" según el siguiente detalle:\n" +
+"Observaciones:\n";
+      for(EvaluacionPregunta eval:evaluacionpregunta.getEvaluaciones()){
+          
+          if(eval.getRating()!=null ){
+                if(eval.getRating().intValue()<3 ){
+                        calificacionpregunta="REGULAR";
+                   } 
+                 if(eval.getRating().intValue()==3){ 
+                     calificacionpregunta="CORRECTO";
+                 }    
+                 if(eval.getRating()==4){ 
+                     calificacionpregunta="MUY BUENO";
+                 }    
+                 if(eval.getRating()==5){ 
+                     calificacionpregunta="EXCELENTE";
+                 }
+          }
+          if(eval.getObservacion()!=null)
+              observacionfinal+= " - "+eval.getObservacion()+"\n";
+          obs+=" - " + eval.getPregunta().getPregunta()+" - "+calificacionpregunta+"\n";
+         }
+      String isaceptada="";
+      if(current.getEstadoproyectoid().getId()==2)
+          isaceptada="A partir de la recepción del presente correo, el sistema quedará habilitado para la carga del proyecto definitivo.\n";
+      observacionfinal+="Resultados según criterios evaluados:\n" + obs +
+              "Sin otro particular lo saludo a Ud. cordialmente.\n" +
+                "Unidad de Vinculación Tecnológica"
+              ;
+      evaluacion.getSelected().setObservacion(observacionfinal);
+       }catch(Exception e){
+           System.out.println(e);
+           
+       }
+      return null;
+  }   
 
     public String getObservacionfinal() {
         return observacionfinal;
@@ -718,183 +625,40 @@ public class ProyectoController implements Serializable {
     public void setObservacionfinal(String observacionfinal) {
         this.observacionfinal = observacionfinal;
     }
-
-    public void onCellEdit() {
+    public void onCellEdit(){
         System.out.println("bienn");
     }
-
-    public BigDecimal obtenerPresupuestoTotalCurrent() {
-
-        BigDecimal resultado = BigDecimal.ZERO;
-
-        FacesContext context = FacesContext.getCurrentInstance();
-        PresupuestoController p = (PresupuestoController) context.getApplication().evaluateExpressionGet(context, "#{presupuestoController}", PresupuestoController.class);
-
-        resultado = p.obtenerTotal(current.getId());
-
-        System.out.println("ProyectoController >> obtenerPresupuestoTotalCurrent: " + resultado.toString());
-
-        return resultado;
-
+    
+    public void buscarProyectosAgenteTrue(int agenteid){
+        recreateModel();
+       
+        items=new ListDataModel(getFacade().buscarProyectosAgente(true,agenteid));
     }
-
-    //public BigDecimal obtenerPresupuestoTotalProyecto(int idProyecto) {
-    public float obtenerPresupuestoTotalProyecto(int idProyecto) {
-
-        BigDecimal resultado = BigDecimal.ZERO;
-
-        FacesContext context = FacesContext.getCurrentInstance();
-        PresupuestoController p = (PresupuestoController) context.getApplication().evaluateExpressionGet(context, "#{presupuestoController}", PresupuestoController.class);
-
-        resultado = p.obtenerTotal(idProyecto);
-
-//        System.out.println("ProyectoController >> obtenerPresupuestoTotalProyecto: " + resultado.toString());
-        return resultado.floatValue();
-    }
-
-    public float obtenerTotalPresupuestosItems() {
-
-        //BigDecimal resultado = BigDecimal.ZERO;
-        float resultado = 0;
-        Iterator i = items.iterator();
-
-        FacesContext context = FacesContext.getCurrentInstance();
-        PresupuestoController p = (PresupuestoController) context.getApplication().evaluateExpressionGet(context, "#{presupuestoController}", PresupuestoController.class);
-
-        while (i.hasNext()) {
-
-            Proyecto proyecto = (Proyecto) i.next();
-
-            BigDecimal tmp = p.obtenerTotal(proyecto.getId());
-            float tmpF = tmp.floatValue();
-            resultado += tmpF;
-
-//            System.out.println("obtenerTotalPresupuestosItems() >> tmp: " + tmp.toString());
-//            System.out.println(resultado);
-            //resultado.add(tmp);
-        }
-
-//        System.out.println("obtenerTotalPresupuestosItems() >> " + resultado);
-        return resultado;
-    }
-
-    public float obtenerTotalPresupuestosFiltrados() {
-
-        //BigDecimal resultado = BigDecimal.ZERO;
-        float resultado = 0;
-        //Iterator i = items.iterator();
+    
+    public String evaluarProyecto(){
         
-        //Iterator i = proyectosFiltrados.iterator();
-        ListIterator i = proyectosFiltrados.listIterator();
-
         FacesContext context = FacesContext.getCurrentInstance();
-        PresupuestoController p = (PresupuestoController) context.getApplication().evaluateExpressionGet(context, "#{presupuestoController}", PresupuestoController.class);
-
-        while (i.hasNext()) {
-
-            Proyecto proyecto = (Proyecto) i.next();
-
-            BigDecimal tmp = p.obtenerTotal(proyecto.getId());
-            float tmpF = tmp.floatValue();
-            resultado += tmpF;
-
-//            System.out.println("obtenerTotalPresupuestosItems() >> tmp: " + tmp.toString());
-//            System.out.println(resultado);
-            //resultado.add(tmp);
+        TareaController tareacontrol= (TareaController) context.getApplication().evaluateExpressionGet(context, "#{tareaController}", TareaController.class);
+        AgenteViewController agenteviewcontroller = (AgenteViewController) context.getApplication().evaluateExpressionGet(context, "#{agenteViewController}", AgenteViewController.class);
+        for (Tarea t : tareacontrol.getTareasdeproyecto()) {
+            ejbtarea.createWithPersist(t);
+            for (Agente a : agenteviewcontroller.getCollectoragentes() ){
+                TareaAgente ta = new TareaAgente();
+                 ta.setTareaAgentePK(new TareaAgentePK());
+               ta.getTareaAgentePK().setAgenteid(a.getId());
+              ta.getTareaAgentePK().setTareaid(t.getId());
+                ta.setAgente(a);
+                ta.setTarea(t);
+                ejbtareaagente.createWithPersist(ta);
+            }
         }
-
-//        System.out.println("obtenerTotalPresupuestosItems() >> " + resultado);
-        return resultado;
+        return null;
     }
-
-    public void resetearFiltroEntreFechas() {
-        filtroFechaInicio = null;
-        filtroFechaFin = null;
-
+    
+      public String prepareCreatePlanEquipo() {
+        current = (Proyecto) getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        return "CreatePlanEquipo";
     }
-
-    public void filterListener(FilterEvent filterEvent) {
-        //List<Proyecto> lista = (List<Proyecto>)filterEvent.getData();
-
-        totalPresupuestosProyectos = obtenerTotalPresupuestosFiltrados();
-    }
-
-    public void armarGraficoLineas() {
-        modeloGraficoLineas = new CartesianChartModel();
-
-        ChartSeries ideasProyecto = new ChartSeries();
-        ideasProyecto.setLabel("Presupuestos Ideas Proyecto");
-
-        Iterator i = items.iterator();
-
-        while (i.hasNext()) {
-
-            Proyecto proyecto = (Proyecto) i.next();
-            DateFormat formateador = DateFormat.getDateInstance(DateFormat.SHORT);
-            String fechaProyecto = formateador.format(proyecto.getFecha());
-
-            ideasProyecto.set(proyecto.getId(), obtenerPresupuestoTotalProyecto(proyecto.getId()));
-        }
-
-        modeloGraficoLineas.addSeries(ideasProyecto);
-    }
-
-    public void armarGraficoLineasAcumulado() {
-        
-        float acumulado = 0;
-        modeloGraficoLineasAcumulado = new CartesianChartModel();
-
-        ChartSeries ideasProyecto = new ChartSeries();
-        ideasProyecto.setLabel("Presupuestos Acumulados de Ideas-Proyecto");
-
-        Iterator i = items.iterator();
-
-        while (i.hasNext()) {
-
-            Proyecto proyecto = (Proyecto) i.next();
-            DateFormat formateador = DateFormat.getDateInstance(DateFormat.SHORT);
-            String fechaProyecto = formateador.format(proyecto.getFecha());
-
-            acumulado = acumulado + obtenerPresupuestoTotalProyecto(proyecto.getId());
-            System.out.println("ACUMULADO (" + proyecto.getId().toString() + ") >> " + acumulado);
-            ideasProyecto.set(proyecto.getId(), acumulado);
-        }
-
-        modeloGraficoLineasAcumulado.addSeries(ideasProyecto);
-    }
-
-    public void armarGraficoTortas() {
-        modeloGraficoTorta = new PieChartModel();
-
-        Iterator i = items.iterator();
-
-        while (i.hasNext()) {
-
-            Proyecto proyecto = (Proyecto) i.next();
-
-            modeloGraficoTorta.set(proyecto.getNombre(), obtenerPresupuestoTotalProyecto(proyecto.getId()));
-        }
-
-    }
-
-    public void armarGraficoDonut() {
-
-        modeloGraficoDonut = new DonutChartModel();
-        Map<String, Number> circulo1 = new LinkedHashMap<String, Number>();
-
-        Iterator i = items.iterator();
-
-        while (i.hasNext()) {
-
-            Proyecto proyecto = (Proyecto) i.next();
-
-            //modeloGraficoDonut.set(proyecto.getNombre(), obtenerPresupuestoTotalProyecto(proyecto.getId()).floatValue());
-            circulo1.put(proyecto.getNombre(), obtenerPresupuestoTotalProyecto(proyecto.getId()));
-
-        }
-
-        modeloGraficoDonut.addCircle(circulo1);
-
-    }
-
+    
 }

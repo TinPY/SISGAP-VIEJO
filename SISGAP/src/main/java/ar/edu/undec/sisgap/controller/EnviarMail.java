@@ -248,8 +248,8 @@ public class EnviarMail implements Serializable {
  email.setFromAddress("SISGAP UNDEC", "sisgap@undec.edu.ar");
  email.addRecipient(agente.getApellido(), agente.getEmail(), RecipientType.TO);
  email.addRecipient(agente.getApellido(), agente.getOtroemail(), RecipientType.BCC);
- email.setTextHTML(mail);
- email.setSubject("UNDEC - EEvaluacion Idea Proyecto SISGAP UNDEC");
+ email.setText(mail);
+ email.setSubject("UNDEC - Evaluacion Idea Proyecto SISGAP UNDEC");
  
  // or:
  new Mailer("localhost", 25, "sisgap@undec.edu.ar", "sgap*9812").sendMail(email);

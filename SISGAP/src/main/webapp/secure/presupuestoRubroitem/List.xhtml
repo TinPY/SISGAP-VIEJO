@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListPresupuestoRubroitemTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListPresupuestoRubroitemEmpty}" rendered="#{presupuestoRubroitemController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{presupuestoRubroitemController.items.rowCount > 0}">
+                    <h:outputText value="#{presupuestoRubroitemController.pagination.pageFirstItem + 1}..#{presupuestoRubroitemController.pagination.pageLastItem + 1}/#{presupuestoRubroitemController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{presupuestoRubroitemController.previous}" value="#{bundle.Previous} #{presupuestoRubroitemController.pagination.pageSize}" rendered="#{presupuestoRubroitemController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{presupuestoRubroitemController.next}" value="#{bundle.Next} #{presupuestoRubroitemController.pagination.pageSize}" rendered="#{presupuestoRubroitemController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{presupuestoRubroitemController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPresupuestoRubroitemTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPresupuestoRubroitemTitle_descripcion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.descripcion}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPresupuestoRubroitemTitle_costounitario}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.costounitario}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPresupuestoRubroitemTitle_cantidad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cantidad}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPresupuestoRubroitemTitle_total}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.total}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPresupuestoRubroitemTitle_aportecomitente}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.aportecomitente}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPresupuestoRubroitemTitle_aporteuniversidad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.aporteuniversidad}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPresupuestoRubroitemTitle_aporteorganismo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.aporteorganismo}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{presupuestoRubroitemController.prepareView}" value="#{bundle.ListPresupuestoRubroitemViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{presupuestoRubroitemController.prepareEdit}" value="#{bundle.ListPresupuestoRubroitemEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{presupuestoRubroitemController.destroy}" value="#{bundle.ListPresupuestoRubroitemDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{presupuestoRubroitemController.prepareCreate}" value="#{bundle.ListPresupuestoRubroitemCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListPresupuestoRubroitemIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

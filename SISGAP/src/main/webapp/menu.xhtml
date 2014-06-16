@@ -15,25 +15,45 @@
                             </p:submenu>  
 
                             <p:submenu label="Proyectos" icon="ui-icon-pencil">  
-                                <p:menuitem value="Listado de Proyectos" url="#" icon="ui-icon-arrowreturnthick-1-w" />  
-                            </p:submenu>  
-
-                            <p:submenu label="Ayuda" icon="ui-icon-help">  
+                                <p:menuitem value="Listado de Proyectos" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/proyectos/List.xhtml' icon="ui-icon-arrowreturnthick-1-w" />  
+                            <p:menuitem value="Tipo de proyecto" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/proyectos/List.xhtml' icon="ui-icon-arrowreturnthick-1-w" />  
+                            </p:submenu>
+                            
+                           
+                            <p:submenu label="Sistema" icon="ui-icon-pencil">  
+                                <p:menuitem value="Convocatoria" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/convocatoria/List.xhtml' icon="ui-icon-arrowreturnthick-1-w" />  
+                                <p:menuitem value="Agente" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/agente/List.xhtml' icon="ui-icon-arrowreturnthick-1-w" />  
+                                <p:menuitem value="Beneficiario" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/beneficiario/List.xhtml' icon="ui-icon-arrowreturnthick-1-w" />  
+                                <p:menuitem value="Dependencia" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/dependencia/List.xhtml' icon="ui-icon-arrowreturnthick-1-w" />  
+                                <p:menuitem value="Evaluacion" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/evaluacion/List.xhtml' icon="ui-icon-arrowreturnthick-1-w" />  
+                               <p:menuitem value="Fuente de Financiamiento" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/fuentefinanciamiento/gantt/List.xhtml' icon="ui-icon-arrowreturnthick-1-w" />  
+                               <p:menuitem value="Perfil" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/perfil/List.xhtml' icon="ui-icon-arrowreturnthick-1-w" />  
+                               <p:menuitem value="Rubro" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/rubro/List.xhtml' icon="ui-icon-arrowreturnthick-1-w" />  
+                               <p:menuitem value="Sector" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/sector/List.xhtml' icon="ui-icon-arrowreturnthick-1-w" />  
+                               <p:menuitem value="Tipo de Documento" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/tipodocumento/List.xhtml' icon="ui-icon-arrowreturnthick-1-w" />  
+                               <p:menuitem value="Tipo de Financiamiento" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/tipofinanciamiento/List.xhtml' icon="ui-icon-arrowreturnthick-1-w" />  
+                               <p:menuitem value="Usuarios" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/usuario/List.xhtml' icon="ui-icon-arrowreturnthick-1-w" />  
+                               <p:menuitem value="Tipo de Entidad" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/tipoentidad/List.xhtml' icon="ui-icon-arrowreturnthick-1-w" />  
+                               
+                            </p:submenu>
+                              <p:submenu label="Ayuda" icon="ui-icon-help">  
                                 <p:menuitem value="Acerca de ..." url="#" />  
                                 <p:submenu label="Manual" icon="ui-icon-search">  
                                    
                                 </p:submenu>  
-                            </p:submenu>  
+                            </p:submenu> 
+                                
+                              <p:submenu label="Mi Cuenta" icon="ui-icon-help">  
+                                 <p:menuitem value="Mi Cuenta" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/micuenta/Edit.xhtml' icon="ui-icon-close" />  
+                              </p:submenu> 
 
-                          
-
-                            <p:menuitem value="Mi Cuenta" url="http://www.primefaces.org" icon="ui-icon-close" />  
+                         
 
                             <f:facet name="options">  
                                  Bienvenido #{request.getUserPrincipal()}  
                                 <h:commandLink actionListener="#{usuarioController.logout()}" value="Logout"  />  
+                            
                             </f:facet>  
-                           
                         
     </c:if>
                              
@@ -46,23 +66,21 @@
                             </p:submenu>  
 
                             <p:submenu label="Proyectos" icon="ui-icon-pencil">  
-                                <p:menuitem value="Listado de Proyectos" url="#" icon="ui-icon-arrowreturnthick-1-w" />  
-                            </p:submenu>  
+                                <p:menuitem value="Plan y Equipo de trabajo" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/proyectos/List.xhtml' icon="ui-icon-arrowreturnthick-1-w" />  
+                           
+                            </p:submenu>
+                            
+                          
 
-                            <p:submenu label="Ayuda" icon="ui-icon-help">  
-                                <p:menuitem value="Acerca de ..." url="#" />  
-                                <p:submenu label="Manual" icon="ui-icon-search">  
-                                   
-                                </p:submenu>  
-                            </p:submenu>  
+                            
 
                           
 
-                            <p:menuitem value="Mi Cuenta" url="http://www.primefaces.org" icon="ui-icon-close" />  
-
+                           
                             <f:facet name="options">  
                                  Bienvenido #{request.getUserPrincipal()}  
                                 <h:commandLink actionListener="#{usuarioController.logout()}" value="Logout"  />  
+                             
                             </f:facet>  
                           
     </c:if>                    

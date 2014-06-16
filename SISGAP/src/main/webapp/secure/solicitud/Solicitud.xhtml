@@ -45,19 +45,26 @@ function showStatus() {
                     <p:panel id="pprincipal" header="Alta Idea Proyecto" style="margin-bottom:10px;">
                    
                 
-                   
+                        <h:panelGrid columns="3">
                     <p:panel style="margin-bottom:10px;" header="Título de la Idea Proyecto"  id="titulo" >
                         <br />
                         <p:inputText required="true" requiredMessage="Ingrese el titulo del proyecto" style="font-weight:bold;font-size:larger;width: 100%"  id="nombre" value="#{proyectoController.selected.nombre}" title="Nombre del Proyecto" />
                         <br />
                 </p:panel>
-                     <br />
-                        
+                    
                        <p:panel header="Tipo de Proyecto" style="margin-bottom:10px;"  >  
                            <p:selectOneMenu id="tipoproyectoid" value="#{proyectoController.selected.tipoproyectoid}" required="true" requiredMessage="Seleccione Tipo de Proyecto" >
                                        <f:selectItems value="#{tipoproyectoController.itemsAvailableSelectOne}"/>
                                    </p:selectOneMenu>    
                        </p:panel>
+                        <p:panel header="Estado de Avance de la Idea del Proyecto" style="margin-bottom:10px;">             
+                          <p:selectOneMenu widgetVar="wavanceproyectoid" id="avanceproyectoid"  value="#{proyectoController.selected.avanceproyectoid}" label="Avance Proyecto" required="true" requiredMessage="Seleccione el estado de avance"  >
+                                    <f:selectItems  value="#{avanceproyectoController.itemsAvailableSelectOne}"/>
+                                   
+                                </p:selectOneMenu>
+                       
+                      </p:panel>
+                     </h:panelGrid>
                         <br />
                    <p:panel header=" La Solicitud del Proyecto responde a una demanda o necesidad de un comitente especifico?" style="margin-bottom:10px;">    
                     <h:panelGrid id="pcomitente" columns="3"> 
@@ -76,20 +83,21 @@ function showStatus() {
                                     <f:selectItems  value="#{comitenteController.itemsAvailableSelectOne}"/>
                                     <p:ajax update="pgcomitente" event="change" />
                                 </p:selectOneMenu>
-                                <p:panelGrid id="pgcomitente" columns="6" >
-                                     <p:outputLabel style="font-weight:bold;font-size:larger" value="Tipo"/>
-                                      <p:outputLabel style="font-weight:bold;font-size:larger" value="Sector"/>
+                                <p:panelGrid id="pgcomitente" columns="5" >
+                                    
+                                    <p:outputLabel style="font-weight:bold;font-size:larger" value="Tipo"/>
+                                     
                                     <p:outputLabel style="font-weight:bold;font-size:larger" value="Contacto"/>
                                     <p:outputLabel style="font-weight:bold;font-size:larger" value="Cargo del Contacto"/>
                                     <p:outputLabel style="font-weight:bold;font-size:larger" value="Teléfono"/>
                                     <p:outputLabel style="font-weight:bold;font-size:larger" value="Email"/>
                                      
-                                    <p:outputLabel  value="#{proyectoController.selected.comitenteid.tipocomitenteid.tipoentidad}" title="Tipo" rendered="#{not empty proyectoController.selected.comitenteid.tipocomitenteid.tipoentidad}"/>
-                                    <p:outputLabel  value="#{proyectoController.selected.comitenteid.tipocomitenteid.tipoentidad}" title="Tipo" rendered="#{not empty proyectoController.selected.comitenteid.sectorid.sector}"/>
-                                    <p:outputLabel value="#{proyectoController.selected.comitenteid.contacto}" title="Contacto" rendered="#{not empty proyectoController.selected.comitenteid.contacto}"/>
-                                    <p:outputLabel value="#{proyectoController.selected.comitenteid.cargocontacto}" title="Cargo del Contacto de Documento" rendered="#{not empty proyectoController.selected.comitenteid.cargocontacto}"/>
-                                    <p:outputLabel value="#{proyectoController.selected.comitenteid.telefono}" title="Teléfono" rendered="#{not empty proyectoController.selected.comitenteid.telefono}"/>
-                                    <p:outputLabel value="#{proyectoController.selected.comitenteid.email}" title="email" rendered="#{not empty proyectoController.selected.comitenteid.email}"/>
+                                    <p:outputLabel  value="#{proyectoController.selected.comitenteid.tipocomitenteid.tipoentidad}" title="Tipo" rendered="#{not empty proyectoController.selected.comitenteid.razonsocial}"/>
+                                    
+                                    <p:outputLabel value="#{proyectoController.selected.comitenteid.contacto}" title="Contacto" rendered="#{not empty proyectoController.selected.comitenteid.razonsocial}"/>
+                                    <p:outputLabel value="#{proyectoController.selected.comitenteid.cargocontacto}" title="Cargo del Contacto de Documento" rendered="#{not empty proyectoController.selected.comitenteid.razonsocial}"/>
+                                    <p:outputLabel value="#{proyectoController.selected.comitenteid.telefono}" title="Teléfono" rendered="#{not empty proyectoController.selected.comitenteid.razonsocial}"/>
+                                    <p:outputLabel value="#{proyectoController.selected.comitenteid.email}" title="email" rendered="#{not empty proyectoController.selected.comitenteid.razonsocial}"/>
 
 
                                     
@@ -105,13 +113,7 @@ function showStatus() {
                    </p:panel>
                        <br />  
                        
-                      <p:panel header="Estado de Avance de la Idea del Proyecto" style="margin-bottom:10px;">             
-                          <p:selectOneMenu widgetVar="wavanceproyectoid" id="avanceproyectoid"  value="#{proyectoController.selected.avanceproyectoid}" label="Avance Proyecto" required="true" requiredMessage="Seleccione el estado de avance"  >
-                                    <f:selectItems  value="#{avanceproyectoController.itemsAvailableSelectOne}"/>
-                                   
-                                </p:selectOneMenu>
-                       
-                      </p:panel>
+                      
                        <br />
                        
                  <p:panel header="Responsable Técnico" style="margin-bottom:10px;">   
@@ -223,13 +225,14 @@ function showStatus() {
                  </p:panel>
                 <br />
                 <br />
-                <p:remoteCommand id="rc" name="sumarGastos" actionListener="#{presupuestoRubroController.sumarGastos}" update=":formprincipal:caportes,:formprincipal:paportes,:formprincipal:prubros,:formprincipal:crubros" />
+              
                 <p:dataTable id="tpresupuesto" value="#{presupuestoRubroController.presupuestosrubros}"  var="item" editable="true" editMode="cell" style="width:100%" >
-                   
-                        <f:facet name="header">  
+                   <!-- <p:ajax process="@this" partialSubmit="true" update="@this, :formprincipal:caportes" event="cellEdit"  listener="#{presupuestoRubroController.sumarGastos}" />                 
+                    -->
+                    <p:ajax event="cellEdit" listener="#{presupuestoRubroController.sumarGastos}" oncomplete="setfocus('tpresupuesto');" update=":formprincipal:caportes,:formprincipal:paportes,:formprincipal:prubros,:formprincipal:crubros"  />  
+                    <f:facet name="header">  
                             Presupuesto  
                         </f:facet>  
-                    <p:ajax event="cellEdit" oncomplete="sumarGastos()"  /> 
                              <p:column style="text-align:right;width:20%">
                                     <f:facet name="header">
                                        

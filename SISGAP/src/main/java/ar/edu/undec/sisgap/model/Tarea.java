@@ -10,8 +10,10 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -81,6 +83,8 @@ public class Tarea implements Serializable {
     private Date fechafin;
     @OneToMany(mappedBy = "tareaid")
     private List<Tareaprogreso> tareaprogresoList;
+    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL, mappedBy = "tarea")
+    private List<TareaAgente> tareaAgenteList;
 
     public Tarea() {
     }
@@ -168,6 +172,15 @@ public class Tarea implements Serializable {
     public void setFechafin(Date fechafin) {
         this.fechafin = fechafin;
     }
+
+    public List<TareaAgente> getTareaAgenteList() {
+        return tareaAgenteList;
+    }
+
+    public void setTareaAgenteList(List<TareaAgente> tareaAgenteList) {
+        this.tareaAgenteList = tareaAgenteList;
+    }
+    
     
     
 

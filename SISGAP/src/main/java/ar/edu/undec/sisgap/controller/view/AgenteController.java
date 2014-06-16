@@ -4,6 +4,8 @@ import ar.edu.undec.sisgap.model.Agente;
 import ar.edu.undec.sisgap.controller.view.util.JsfUtil;
 import ar.edu.undec.sisgap.controller.view.util.PaginationHelper;
 import ar.edu.undec.sisgap.controller.AgenteFacade;
+import ar.edu.undec.sisgap.controller.EncriptarSHA256;
+import ar.edu.undec.sisgap.controller.UsuarioFacade;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -26,6 +28,8 @@ public class AgenteController implements Serializable {
     private DataModel items = null;
     @EJB
     private ar.edu.undec.sisgap.controller.AgenteFacade ejbFacade;
+    @EJB
+    private ar.edu.undec.sisgap.controller.UsuarioFacade ejbFacadeu;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
@@ -42,6 +46,10 @@ public class AgenteController implements Serializable {
 
     private AgenteFacade getFacade() {
         return ejbFacade;
+    }
+    
+    private UsuarioFacade getFacadeu() {
+        return ejbFacadeu;
     }
 
     public PaginationHelper getPagination() {
@@ -250,5 +258,23 @@ public class AgenteController implements Serializable {
         }
 
     }
-
+    
+    public void editarMiCuenta(){
+        try {
+            current.getUsuarioid().setUsuarioclave(new EncriptarSHA256().hash256(current.getUsuarioid().getUsuarioclave().trim()) );
+            getFacade().edit(current);
+            if(current.getUsuarioid().getUsuarioclave().length()>5){
+                getFacadeu().edit(current.getUsuarioid());
+            }
+            
+            // FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "What we do in life", "Echoes in eternity.");  
+               
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, "No se pudo Modificar su cuenta!");
+            
+        }
+    }
+    public void setSelected(Agente agente){
+        current = agente;
+    }
 }

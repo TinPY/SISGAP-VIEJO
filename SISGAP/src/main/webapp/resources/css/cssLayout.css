@@ -32,7 +32,8 @@ body {
 -----------------------------------------------------------------------------*/
 .header {
 	height: 18%;
-	background: #FFE680;
+        background-color: saddlebrown; 
+	background-image: url('/resources/img/headerundec.JPG');
         position: relative;
 }
 
@@ -79,8 +80,12 @@ body {
 	position: relative;
 }
 
-.ui-icon-imprimir {   
+.ui-icon-imprimir{   
     width: 32px;   
     height: 32px;   
-    background-image: url("#{resource['img:print_printer.png']}");   
+    background-image: url("#{resource['img/print_printer.png']}");   
 } 
+
+.ui-icon-cancelar{
+    background-image: url("#{resource['img/cancel.jpg']}") !important;
+}

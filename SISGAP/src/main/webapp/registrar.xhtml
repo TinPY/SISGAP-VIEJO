@@ -66,13 +66,13 @@ and open the template in the editor.
                     <h:inputText id="celular" value="#{usuarioController.selecteda.celular}" title="Celular" required="true" />
                     <p:message for="celular" /> 
                     <h:outputLabel value="Email" for="email" />
-                    <h:inputText id="email" value="#{usuarioController.selecteda.email}" validatorMessage="El email tiene que ser del modo loquesea@undec.edu.ar" title="#{bundle.CreateAgenteTitle_email}" required="true" >
+                    <h:inputText id="email" value="#{usuarioController.selecteda.email}" validatorMessage="El email tiene que ser del modo loquesea@undec.edu.ar" required="true" >
                         <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@undec.edu.ar" />
                     </h:inputText>
                     <p:message for="email" /> 
                     <h:outputLabel value="Otro Email" for="otroemail" />
                      
-                    <h:inputText id="otroemail" value="#{usuarioController.selecteda.otroemail}" validatorMessage="Email Incorrecto" title="#{bundle.CreateAgenteTitle_otroemail}" required="true" >
+                    <h:inputText id="otroemail" value="#{usuarioController.selecteda.otroemail}" validatorMessage="Email Incorrecto" required="true" >
                         <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
                     </h:inputText>   
                     <p:message for="otroemail" /> 

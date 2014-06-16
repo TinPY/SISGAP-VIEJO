@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewPresupuestoRubroitemTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewPresupuestoRubroitemLabel_id}"/>
+                    <h:outputText value="#{presupuestoRubroitemController.selected.id}" title="#{bundle.ViewPresupuestoRubroitemTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewPresupuestoRubroitemLabel_descripcion}"/>
+                    <h:outputText value="#{presupuestoRubroitemController.selected.descripcion}" title="#{bundle.ViewPresupuestoRubroitemTitle_descripcion}"/>
+                    <h:outputText value="#{bundle.ViewPresupuestoRubroitemLabel_costounitario}"/>
+                    <h:outputText value="#{presupuestoRubroitemController.selected.costounitario}" title="#{bundle.ViewPresupuestoRubroitemTitle_costounitario}"/>
+                    <h:outputText value="#{bundle.ViewPresupuestoRubroitemLabel_cantidad}"/>
+                    <h:outputText value="#{presupuestoRubroitemController.selected.cantidad}" title="#{bundle.ViewPresupuestoRubroitemTitle_cantidad}"/>
+                    <h:outputText value="#{bundle.ViewPresupuestoRubroitemLabel_total}"/>
+                    <h:outputText value="#{presupuestoRubroitemController.selected.total}" title="#{bundle.ViewPresupuestoRubroitemTitle_total}"/>
+                    <h:outputText value="#{bundle.ViewPresupuestoRubroitemLabel_aportecomitente}"/>
+                    <h:outputText value="#{presupuestoRubroitemController.selected.aportecomitente}" title="#{bundle.ViewPresupuestoRubroitemTitle_aportecomitente}"/>
+                    <h:outputText value="#{bundle.ViewPresupuestoRubroitemLabel_aporteuniversidad}"/>
+                    <h:outputText value="#{presupuestoRubroitemController.selected.aporteuniversidad}" title="#{bundle.ViewPresupuestoRubroitemTitle_aporteuniversidad}"/>
+                    <h:outputText value="#{bundle.ViewPresupuestoRubroitemLabel_aporteorganismo}"/>
+                    <h:outputText value="#{presupuestoRubroitemController.selected.aporteorganismo}" title="#{bundle.ViewPresupuestoRubroitemTitle_aporteorganismo}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{presupuestoRubroitemController.destroyAndView}" value="#{bundle.ViewPresupuestoRubroitemDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewPresupuestoRubroitemEditLink}"/>
+                <br />
+                <h:commandLink action="#{presupuestoRubroitemController.prepareCreate}" value="#{bundle.ViewPresupuestoRubroitemCreateLink}" />
+                <br />
+                <h:commandLink action="#{presupuestoRubroitemController.prepareList}" value="#{bundle.ViewPresupuestoRubroitemShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewPresupuestoRubroitemIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

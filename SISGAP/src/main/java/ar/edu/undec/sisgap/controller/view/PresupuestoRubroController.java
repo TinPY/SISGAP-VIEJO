@@ -352,7 +352,9 @@ public void init() {
 
         
     }
-    
+    public void onCellEdit(CellEditEvent event){
+        //this.sumarGastos();
+    }
     
     
     public void soloCrear(PresupuestoRubro pr){
