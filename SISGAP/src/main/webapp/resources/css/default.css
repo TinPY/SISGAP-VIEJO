@@ -4,7 +4,10 @@
 }*/
 
 body {
-  font-size: 12px !important;
+    font-size: 12px !important;
+
+    background-image: url("#{resource['img:/tramaMediaClara.jpg']}");
+    background-repeat: repeat;
 }
 
 .fondoTextura{
@@ -13,23 +16,36 @@ body {
 }
 
 .sinBordes tr, .sinBordes td {
-    background: none !important;
+
     border: none !important;
 }
 
-/*.ui-widget {
+.sinFondo tr, .sinBordes td{
+    background: none !important;
+}
+
+.ui-widget {
     font-size: 12px !important;
-}*/
+}
+
+.rounded-corners {
+
+    -moz-border-radius: 11px;
+    -webkit-border-radius: 11px;
+    -khtml-border-radius: 11px;        
+    border-radius: 11px;
+    behavior: url(border-radius.htc);
+}
 
 @font-face {
-  font-family: 'Montserrat';
-  font-style: normal;
-  font-weight: 700;
-  src: local('Montserrat-Bold'), url(https://themes.googleusercontent.com/static/fonts/montserrat/v4/IQHow_FEYlDC4Gzy_m8fcgFhaRv2pGgT5Kf0An0s4MM.woff) format('woff');
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Montserrat-Bold'), url(https://themes.googleusercontent.com/static/fonts/montserrat/v4/IQHow_FEYlDC4Gzy_m8fcgFhaRv2pGgT5Kf0An0s4MM.woff) format('woff');
 }
 @font-face {
-  font-family: 'Varela Round';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Varela Round'), local('VarelaRound-Regular'), url(https://themes.googleusercontent.com/static/fonts/varelaround/v4/APH4jr0uSos5wiut5cpjrnhCUOGz7vYGh680lGh-uXM.woff) format('woff');
+    font-family: 'Varela Round';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Varela Round'), local('VarelaRound-Regular'), url(https://themes.googleusercontent.com/static/fonts/varelaround/v4/APH4jr0uSos5wiut5cpjrnhCUOGz7vYGh680lGh-uXM.woff) format('woff');
 }
