@@ -63,7 +63,7 @@
                             </p:column>
 
                             <p:column style="width:200px;">
-                                <p:panel header="Estado de Avance de la Idea-Proyecto" style="margin-bottom:10px;">             
+                                <p:panel header="Avance de la Idea-Proyecto" style="margin-bottom:10px;">             
                                     <p:selectOneMenu widgetVar="wavanceproyectoid" id="avanceproyectoid"  value="#{proyectoController.selected.avanceproyectoid}" label="Avance Proyecto" required="true" requiredMessage="Seleccione el estado de avance"  >
                                         <f:selectItems  value="#{avanceproyectoController.itemsAvailableSelectOne}"/>
                                     </p:selectOneMenu>
@@ -73,44 +73,52 @@
                     </p:panelGrid>
 
                     <p:panel header=" La Solicitud del Proyecto responde a una demanda o necesidad de un comitente especifico?" style="margin-bottom:10px;">    
-                        <h:panelGrid id="pcomitente" columns="3"> 
+                        <p:panelGrid id="pcomitente" styleClass="" style="width: 100%;"> 
+                            <p:row>
+                                <p:column style="width: 200px;">
+                                    <p:selectOneRadio id="options" value="#{proyectoController.habilitarcomitente}"   >  
+                                        <f:selectItem itemLabel="No" itemValue="0"  />  
+                                        <f:selectItem itemLabel="Si" itemValue="1" />  
+                                        <p:ajax update="pcomitente" event="valueChange" />
+                                    </p:selectOneRadio>                                    
+                                </p:column>
+                                <p:column style="witdh: 900px;">
+                                    <p:panel id="phabilitarcomitente" rendered="#{proyectoController.habilitarcomitente eq 1}" >
+                                        <p:panelGrid columns="3" styleClass="" >
+                                            <p:outputLabel style="font-weight:bold;"  value="Ingrese el N° de CUIT/CUIL"  />
+                                            <p:selectOneMenu widgetVar="comitentedid" id="comitenteid"  value="#{proyectoController.selected.comitenteid}" label="Comitente" filter="true" filterMatchMode="contains"  >
+                                                <f:selectItems  value="#{comitenteController.itemsAvailableSelectOne}"/>
+                                                <p:ajax update="pgcomitente" event="change" />
+                                            </p:selectOneMenu>
+
+                                            <p:panelGrid id="pgcomitente" columns="5" styleClass="sinBordes" style="width: 100%;">
+
+                                                <p:outputLabel style="font-weight:bold;" value="Tipo"/>
+                                                <p:outputLabel style="font-weight:bold;" value="Contacto"/>
+                                                <p:outputLabel style="font-weight:bold;" value="Cargo del Contacto"/>
+                                                <p:outputLabel style="font-weight:bold;" value="Teléfono"/>
+                                                <p:outputLabel style="font-weight:bold;" value="Email"/>
+
+                                                <p:outputLabel  value="#{proyectoController.selected.comitenteid.tipocomitenteid.tipoentidad}" title="Tipo" rendered="#{not empty proyectoController.selected.comitenteid.razonsocial}"/>
+                                                <p:outputLabel value="#{proyectoController.selected.comitenteid.contacto}" title="Contacto" rendered="#{not empty proyectoController.selected.comitenteid.razonsocial}"/>
+                                                <p:outputLabel value="#{proyectoController.selected.comitenteid.cargocontacto}" title="Cargo del Contacto de Documento" rendered="#{not empty proyectoController.selected.comitenteid.razonsocial}"/>
+                                                <p:outputLabel value="#{proyectoController.selected.comitenteid.telefono}" title="Teléfono" rendered="#{not empty proyectoController.selected.comitenteid.razonsocial}"/>
+                                                <p:outputLabel value="#{proyectoController.selected.comitenteid.email}" title="email" rendered="#{not empty proyectoController.selected.comitenteid.razonsocial}"/>
+
+                                            </p:panelGrid>
+                                        </p:panelGrid>
+
+                                        <p:separator />
+                                        <p:commandButton value="Crear Comitente" onclick="dcomitentecrear.show()" />
+
+                                    </p:panel>
+
+                                </p:column>
+                            </p:row>
 
 
-                            <p:selectOneRadio id="options" value="#{proyectoController.habilitarcomitente}"   >  
-                                <f:selectItem  itemLabel="No" itemValue="0"  />  
-                                <f:selectItem itemLabel="Si" itemValue="1" />  
-                                <p:ajax update="pcomitente" event="valueChange" />
 
-                            </p:selectOneRadio> 
-                            <p:panel id="phabilitarcomitente" rendered="#{proyectoController.habilitarcomitente eq 1}" >
-                                <h:panelGrid columns="3" >
-                                    <p:outputLabel style="font-weight:bold;"  value="Ingrese el N° de CUIT/CUIL"  />
-                                    <p:selectOneMenu widgetVar="comitentedid" id="comitenteid"  value="#{proyectoController.selected.comitenteid}" label="Comitente" filter="true" filterMatchMode="contains"  >
-                                        <f:selectItems  value="#{comitenteController.itemsAvailableSelectOne}"/>
-                                        <p:ajax update="pgcomitente" event="change" />
-                                    </p:selectOneMenu>
-                                    <p:panelGrid id="pgcomitente" columns="5" >
-
-                                        <p:outputLabel style="font-weight:bold;" value="Tipo"/>
-                                        <p:outputLabel style="font-weight:bold;" value="Contacto"/>
-                                        <p:outputLabel style="font-weight:bold;" value="Cargo del Contacto"/>
-                                        <p:outputLabel style="font-weight:bold;" value="Teléfono"/>
-                                        <p:outputLabel style="font-weight:bold;" value="Email"/>
-
-                                        <p:outputLabel  value="#{proyectoController.selected.comitenteid.tipocomitenteid.tipoentidad}" title="Tipo" rendered="#{not empty proyectoController.selected.comitenteid.razonsocial}"/>
-
-                                        <p:outputLabel value="#{proyectoController.selected.comitenteid.contacto}" title="Contacto" rendered="#{not empty proyectoController.selected.comitenteid.razonsocial}"/>
-                                        <p:outputLabel value="#{proyectoController.selected.comitenteid.cargocontacto}" title="Cargo del Contacto de Documento" rendered="#{not empty proyectoController.selected.comitenteid.razonsocial}"/>
-                                        <p:outputLabel value="#{proyectoController.selected.comitenteid.telefono}" title="Teléfono" rendered="#{not empty proyectoController.selected.comitenteid.razonsocial}"/>
-                                        <p:outputLabel value="#{proyectoController.selected.comitenteid.email}" title="email" rendered="#{not empty proyectoController.selected.comitenteid.razonsocial}"/>
-
-                                    </p:panelGrid>
-                                </h:panelGrid>
-                                <p:separator />
-                                <p:commandButton value="Crear Comitente" onclick="dcomitentecrear.show()" />
-
-                            </p:panel>
-                        </h:panelGrid>
+                        </p:panelGrid>
                     </p:panel>
                     <br />  
 
@@ -133,7 +141,7 @@
                             <p:outputLabel style="font-weight:bold;" value="Dependencia"/>
 
 
-                            <p:outputLabel  value="#{agenteController.selected.apellido}" title="Apellido" rendered="#{not empty agenteController.selected.apellido}"/>
+                            <p:outputLabel value="#{agenteController.selected.apellido}" title="Apellido" rendered="#{not empty agenteController.selected.apellido}"/>
                             <p:outputLabel value="#{agenteController.selected.nombres}" title="Nombres" rendered="#{not empty agenteController.selected.nombres}"/>
                             <p:outputLabel value="#{agenteController.selected.tipodocumentoid.tipodocumento}" title="Tipo de Documento" rendered="#{not empty agenteController.selected.tipodocumentoid.tipodocumento}"/>
                             <p:outputLabel value="#{agenteController.selected.numerodocumento}" title="Numero de Documento" rendered="#{not empty agenteController.selected.numerodocumento}"/>

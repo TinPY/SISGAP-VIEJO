@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="14f6227a-5f40-47ee-bf7d-55f474469004">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     proyecto."comitenteid" AS proyecto_comitenteid,
+     proyecto."convocatoriaid" AS proyecto_convocatoriaid,
+     proyecto."nombre" AS proyecto_nombre,
+     proyecto."resumen" AS proyecto_resumen,
+     proyecto."documentacion" AS proyecto_documentacion,
+     proyecto."observaciones" AS proyecto_observaciones,
+     proyecto."duracion" AS proyecto_duracion,
+     proyecto."agenteid" AS proyecto_agenteid,
+     proyecto."tipoproyectoid" AS proyecto_tipoproyectoid,
+     proyecto."cudap" AS proyecto_cudap,
+     proyecto."fecha" AS proyecto_fecha,
+     proyecto."id" AS proyecto_id,
+     proyecto."beneficiarioid" AS proyecto_beneficiarioid,
+     proyecto."tipofinanciamientoid" AS proyecto_tipofinanciamientoid,
+     proyecto."localizacion" AS proyecto_localizacion,
+     proyecto."fuentefinanciamientoid" AS proyecto_fuentefinanciamientoid,
+     proyecto."documentacionnombre" AS proyecto_documentacionnombre,
+     proyecto."avanceproyectoid" AS proyecto_avanceproyectoid,
+     proyecto."estadoproyectoid" AS proyecto_estadoproyectoid
+FROM
+     "ap"."proyecto" proyecto
+WHERE
+     proyecto."estadoproyectoid" = 1]]>
+	</queryString>
+	<field name="proyecto_id" class="java.lang.Integer"/>
+	<field name="proyecto_nombre" class="java.lang.String"/>
+	<field name="proyecto_agenteid" class="java.lang.Integer"/>
+	<field name="proyecto_tipoproyectoid" class="java.lang.Integer"/>
+	<field name="proyecto_fecha" class="java.sql.Timestamp"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#006699" uuid="2c92ca4b-ec56-43ac-8b7f-92edba7b0e3b"/>
+				<staticText>
+					<reportElement x="20" y="20" width="234" height="43" forecolor="#FFFFFF" uuid="bbacf023-79d5-4b8a-903e-0bca6ff141b6"/>
+					<textElement>
+						<font size="34" isBold="true"/>
+					</textElement>
+					<text><![CDATA[SISGAP]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="395" y="43" width="180" height="20" forecolor="#FFFFFF" uuid="174d4e43-1549-4ef1-824d-60e187e3a72c"/>
+					<textElement textAlignment="Right">
+						<font size="14" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Lista de Solicitudes]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<line>
+				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="bfe37d3f-92e1-44cf-90ac-a5d369768528"/>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="5165b2f9-0056-47d1-81c6-5def42e084c6"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[proyecto_id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="111" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="c888ae7a-5b6c-42b6-814a-279cefff8cf5"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[proyecto_nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="222" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="59e02a5e-2126-479c-93e6-b0c4af6da6a5"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[proyecto_agenteid]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="333" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="f6f0e8fb-d1bb-470d-9841-9b9fbb47e045"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[proyecto_tipoproyectoid]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="444" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="93c3d592-310a-4d7d-9f46-3d436f91e4d2"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[proyecto_fecha]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1" uuid="334ef4e4-f47a-4d70-8680-ad1b1239de51"/>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="111" height="20" uuid="eeae9b25-8bb5-4b43-83cd-0909df01576e"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{proyecto_id}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="111" y="0" width="111" height="20" uuid="358f6ba6-bbd8-4953-bf89-dc3631e3f3a2"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{proyecto_nombre}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="222" y="0" width="111" height="20" uuid="bd1cb85b-c344-4664-88ac-011dc7a71a66"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{proyecto_agenteid}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="333" y="0" width="111" height="20" uuid="05b1bea2-2dea-497d-9166-0e3cc1d659c2"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{proyecto_tipoproyectoid}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="444" y="0" width="111" height="20" uuid="ed7bcb1d-075d-48dd-962a-c1d8a5d16c2d"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{proyecto_fecha}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="d017e69e-b03e-4149-9a33-09fd01114ffc"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="69ccf687-5b49-4b3c-8607-9d180d111d42"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="100" height="13" uuid="89374950-5bb1-49ec-b0e9-f6d8e5bc20e6"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>
