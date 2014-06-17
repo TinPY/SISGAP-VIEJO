@@ -15,42 +15,37 @@
         <title>SISGAP</title>
 
     </h:head>
-   
+
     <h:body>
+        <div class="wrapper" >
 
-                 
-           <div class="wrapper" >
+            <header class="header rounded-corners" >
+                <ui:insert name="top">
+                        <h2 class="cabecera1">sisgap</h2>
+                        <h3 class="cabecera2">sistema de gestión de proyectos</h3>
+                </ui:insert>
+            </header><!-- .header-->
 
-	<header class="header"  >
-		 <ui:insert name="top">
-                     <div class="rounded-corners">
-                            <h2>Sistema de Gestión y Administración de Proyectos</h2>
-                            <h3>UNIVERSIDAD NACIONAL DE CHILECITO</h3>
-                        </div> 
-                     <ui:include src="./menu.xhtml"></ui:include>
-                          
-                 </ui:insert>
-	</header><!-- .header-->
+            <div class="middle">
 
-	<div class="middle">
+                <div class="container ">
+                    <ui:include src="./menu.xhtml"></ui:include>
+                    <main class="content ">
+                        <ui:insert name="body">body</ui:insert>
+                    </main><!-- .content -->
+                </div><!-- .container-->
 
-		<div class="container ">
-			<main class="content rounded-corners">
-				 <ui:insert name="body">body</ui:insert>
-			</main><!-- .content -->
-		</div><!-- .container-->
 
-		
-	</div><!-- .middle-->
+            </div><!-- .middle-->
 
-</div><!-- .wrapper -->
+        </div><!-- .wrapper -->
 
-<footer class="footer">
-	 <ui:insert name="bottom">  
-         <div align="center">
-            UNIVERSIDAD NACIONAL DE CHILECITO.
-        </div></ui:insert>
-</footer><!-- .footer -->
+        <footer class="footer rounded-corners">
+            <ui:insert name="bottom">  
+                <div align="center">
+                    <h3 class="pie1">Universidad Nacional de Chilecito</h3>
+                </div></ui:insert>
+        </footer><!-- .footer -->
 
     </h:body>
 
