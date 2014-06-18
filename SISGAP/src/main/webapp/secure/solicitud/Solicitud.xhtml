@@ -21,19 +21,14 @@
                     statusDialog.hide();
                 }
                 function setfocus(id) {
-
                     document.getElementById('formprincipal').focus();
                     document.getElementById('formprincipal:caportes').focus();
-
-
-
                 }
             </script>
 
             <p:dialog modal="true" widgetVar="statusDialog" header="Espere" draggable="false" closable="false" resizable="false">
                 <p:graphicImage value="/resources/img/ajaxloadingbar.gif" />
             </p:dialog>
-
 
             <h:form id="formprincipal" enctype="multipart/form-data" >
                 <p:growl globalOnly="true" for="growlprincipal" id="growlprincipal" showDetail="true" sticky="true" />
@@ -43,7 +38,6 @@
                 </div>
 
                 <p:panel id="pprincipal" header="Alta Idea Proyecto" style="margin-bottom:10px; padding: 0px;">
-
 
                     <p:panelGrid styleClass="sinBordes" style="width: 100%; ">
                         <p:row>
@@ -73,7 +67,7 @@
                     </p:panelGrid>
 
                     <p:panel header=" La Solicitud del Proyecto responde a una demanda o necesidad de un comitente especifico?" style="margin-bottom:10px;">    
-                        <p:panelGrid id="pcomitente" styleClass="" style="width: 100%;"> 
+                        <p:panelGrid id="pcomitente" styleClass="sinBordes sinFondo" style="width: 100%;"> 
                             <p:row>
                                 <p:column style="width: 200px;">
                                     <p:selectOneRadio id="options" value="#{proyectoController.habilitarcomitente}"   >  
@@ -175,16 +169,34 @@
                     </p:panel>
 
                     <p:panel header="Descripción de la Idea Proyecto" style="margin-bottom:10px;">   
-                        <h:panelGrid cellpadding="5" cellspacing="10" columnClasses="right,left" columns="2">
-                            <p:outputLabel style="font-weight:bold;font-size:larger"  value="Diagnostico y resumen descriptivo" for="resumen" />
-                            <p:inputTextarea rows="7" cols="100" id="resumen" value="#{proyectoController.selected.resumen}" label="resumen}" autoResize="true" required="true" requiredMessage="Ingrese Diagnostico y resumen descriptivo "  />
-                            <p:outputLabel style="font-weight:bold;font-size:larger" value="Objetivos y Resultados Esperados" for="observaciones" />
-                            <p:inputTextarea rows="5" cols="100" id="observaciones" value="#{proyectoController.selected.observaciones}" title="observaciones" required="true" requiredMessage="Objetivos y Resultados Esperados" />
-                            <p:outputLabel style="font-weight:bold;font-size:larger" value="Lugar donde se realizara el Proyecto(Localización)" for="localizacion" />
-                            <p:inputTextarea rows="1" cols="100" id="localizacion" value="#{proyectoController.selected.localizacion}" title="localizacion" placeholder="Por ejemplo = Martin Fierro 1054 - Chilecito - La Rioja" required="true" requiredMessage="Ingrese la localización" />
-                            <p:outputLabel style="font-weight:bold;font-size:larger" value="Duracion en meses" for="duracion" />
-                            <p:spinner maxlength="3" id="duracion" value="#{proyectoController.selected.duracion}" title="duracion" min="1"  />
-                        </h:panelGrid>
+                        <p:panelGrid columnClasses="right,left" styleClass="sinBordes sinFondo">
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel style="font-weight:bold;font-size:larger"  value="Diagnostico y resumen descriptivo" for="resumen" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputTextarea rows="7" cols="100" id="resumen" value="#{proyectoController.selected.resumen}" label="resumen}" autoResize="true" required="true" requiredMessage="Ingrese Diagnostico y resumen descriptivo "  />
+                                </p:column>                                
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel style="font-weight:bold;font-size:larger" value="Objetivos y Resultados Esperados" for="observaciones" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputTextarea rows="5" cols="100" id="observaciones" value="#{proyectoController.selected.observaciones}" title="observaciones" required="true" requiredMessage="Objetivos y Resultados Esperados" />
+                                </p:column>                                
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel style="font-weight:bold;font-size:larger" value="Lugar donde se realizara el Proyecto(Localización)" for="localizacion" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputTextarea rows="1" cols="100" id="localizacion" value="#{proyectoController.selected.localizacion}" title="localizacion" placeholder="Por ejemplo = Martin Fierro 1054 - Chilecito - La Rioja" required="true" requiredMessage="Ingrese la localización" />
+                                    <p:outputLabel style="font-weight:bold;font-size:larger" value="Duracion en meses" for="duracion" />
+                                    <p:spinner maxlength="3" id="duracion" value="#{proyectoController.selected.duracion}" title="duracion" min="1"  />
+                                </p:column>                                
+                            </p:row>
+                        </p:panelGrid>
 
                     </p:panel>
 
@@ -214,7 +226,7 @@
                     <p:panel header="Convocatoria" style="margin-bottom: 10px;">
 
                         <p:outputLabel value="Seleccione la convocatoria" style="font-weight: bold;"/>
-                        
+
                         <p:dataTable widgetVar="wconvocatoria" paginator="true" id="tconvocatoria" var="conv" value="#{convocatoriaController.items}" selection="#{convocatoriaController.selected}" selectionMode="single" rowKey="#{conv.id}" style="width: 100%;" >  
 
                             <p:column headerText="Convocatoria">  

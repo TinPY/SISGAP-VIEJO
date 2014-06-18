@@ -40,33 +40,32 @@ body {
 
 .cabecera1 {
     text-align: right;
-    font-size: 60px !important;
-    font-family: 'Montserrat';
+    font-size: 48px !important;
+    font-family: 'Varela Round';
     color: white;
-    margin: 0px;
-    padding-top: 75px;
+    margin: 0px 10px;
+    padding-top: 85px;
     line-height: 10px;
 }
 
 .cabecera2 {
     text-align: right;
-    font-size: 24px !important;
-    font-family: 'Varela Round';
+    font-size: 16px !important;
+    font-family: 'Montserrat';
     color: skyblue;
     line-height: 10px;
-    margin-top: 40px;
+    margin: 30px 10px;
     
 }
 
 .pie1 {
     text-align: center;
     font-size: 15px !important;
-    font-family: 'Varela Round';
+    font-family: 'Montserrat';
     color: white;
-    padding-top: 35px;
+    margin: 0;
+    padding: 0;
 }
-
-
 
 @font-face {
     font-family: 'Montserrat';

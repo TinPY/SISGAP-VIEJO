@@ -32,7 +32,7 @@ body {
 -----------------------------------------------------------------------------*/
 .header {
 	/*height: 18%;*/
-        width: 99%px;
+        width: 900px;
         height: 191px;
         margin: 0 auto;
         background-color: #003366; 
@@ -40,10 +40,10 @@ body {
         background-image: url("#{resource['img:/vinculacionTecnologica.png']}");        
         /*background-size: 900px 191px;*/
         background-size: 100%;
+        background-repeat: no-repeat ;
                           
         position: relative;
 }
-
 
 /* Middle
 -----------------------------------------------------------------------------*/
@@ -62,10 +62,15 @@ body {
 	float: left;
 	//overflow: hidden;
 }
-.content {
-	padding: 1% 0 0 1%;
-}
 
+.menu1{
+    width: 900px; 
+    margin: 6px auto 6px auto;
+    
+}
+.content {
+	
+}
 
 /* Left Sidebar
 -----------------------------------------------------------------------------*/
@@ -81,15 +86,14 @@ body {
 /* Footer
 -----------------------------------------------------------------------------*/
 .footer {
-	margin: 0 auto ;
-	min-width: 99%;
+        width: 900px;
+        /*min-width: 100%;*/        
+        background-color: #444444;    
+	margin: 0px auto 0px auto ;
 	height: 5%;
 	position: relative;
-        
-/*        background-color: #6685A3; */
-        background-color: #444444;
+        /*background-color: #6685A3; */
 
-        position: relative;
 }
 
 .ui-icon-imprimir{   

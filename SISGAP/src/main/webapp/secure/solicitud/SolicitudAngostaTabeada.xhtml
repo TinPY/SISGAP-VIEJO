@@ -38,11 +38,11 @@
             <h:form id="formprincipal" enctype="multipart/form-data" >
                 <p:growl globalOnly="true" for="growlprincipal" id="growlprincipal" showDetail="true" sticky="true" />
 
-                <div align="right" style="margin: 10px;">
-                    <p:clock pattern="dd.MM.yyyy HH:mm:ss " />  
-                </div>
-
                 <p:panel id="pprincipal" header="Alta Idea-Proyecto" style="padding: 0px; width: 900px; margin: 0 auto; overflow: hidden;">
+
+                    <div align="right" style="margin: 10px;">
+                        <p:clock pattern="dd.MM.yyyy HH:mm:ss " />  
+                    </div>
 
                     <p:panel header="Título de la Idea Proyecto" id="titulo" style="margin-bottom:10px;" >
                         <p:inputText required="true" requiredMessage="Ingrese el titulo del proyecto" style="font-weight:bold;font-size:larger;width: 100%"  id="nombre" value="#{proyectoController.selected.nombre}" title="Nombre del Proyecto" />
@@ -202,136 +202,136 @@
                         </p:tab>
 
                         <p:tab title="Convocatoria y Presupuesto">
-                                <p:outputLabel value="Seleccione la convocatoria" style="font-weight: bold;"/>
+                            <p:outputLabel value="Seleccione la convocatoria" style="font-weight: bold;"/>
 
-                                <p:dataTable widgetVar="wconvocatoria" paginator="true" id="tconvocatoria" var="conv" value="#{convocatoriaController.items}" selection="#{convocatoriaController.selected}" selectionMode="single" rowKey="#{conv.id}" style="width: 100%;" >  
+                            <p:dataTable widgetVar="wconvocatoria" paginator="true" id="tconvocatoria" var="conv" value="#{convocatoriaController.items}" selection="#{convocatoriaController.selected}" selectionMode="single" rowKey="#{conv.id}" style="width: 100%;" >  
 
-                                    <p:column headerText="Convocatoria">  
-                                        <h:outputText value="#{conv.convocatoria}" />  
-                                    </p:column> 
+                                <p:column headerText="Convocatoria">  
+                                    <h:outputText value="#{conv.convocatoria}" />  
+                                </p:column> 
 
-                                    <p:column headerText="Organismo">  
-                                        <h:outputText value="#{conv.organismo}" />  
-                                    </p:column> 
-                                    <p:column headerText="Tipo de Proyecto" sortBy="tipo"  >  
-                                        <h:outputText value="#{conv.tipoproyectoid.tipo}" />  
-                                    </p:column>
-                                    <p:column headerText="Monto Financiamiento">  
-                                        <h:outputText value="#{conv.montofinanciamiento}" />  
-                                    </p:column> 
-                                    <p:column headerText="Fecha de Cierre">  
-                                        <h:outputText value="#{conv.fechacierre}" />  
-                                    </p:column> 
-                                    <p:column headerText="Link"> 
-                                        <a target="_blank" href="#{conv.link}" >LINK</a>
+                                <p:column headerText="Organismo">  
+                                    <h:outputText value="#{conv.organismo}" />  
+                                </p:column> 
+                                <p:column headerText="Tipo de Proyecto" sortBy="tipo"  >  
+                                    <h:outputText value="#{conv.tipoproyectoid.tipo}" />  
+                                </p:column>
+                                <p:column headerText="Monto Financiamiento">  
+                                    <h:outputText value="#{conv.montofinanciamiento}" />  
+                                </p:column> 
+                                <p:column headerText="Fecha de Cierre">  
+                                    <h:outputText value="#{conv.fechacierre}" />  
+                                </p:column> 
+                                <p:column headerText="Link"> 
+                                    <a target="_blank" href="#{conv.link}" >LINK</a>
 
-                                    </p:column> 
-                                    <p:column headerText="Estado">  
-                                        <p:outputLabel value="#{conv.estado}"  />
-                                    </p:column>
+                                </p:column> 
+                                <p:column headerText="Estado">  
+                                    <p:outputLabel value="#{conv.estado}"  />
+                                </p:column>
 
 
-                                    <f:facet name="footer">  
-                                        <p:commandButton rendered="#{convocatoriaController.selected ne null}" id="viewButton" value="Ver Registro" icon="ui-icon-search"  
-                                                         update="@widgetVar(dconvocatoria)" oncomplete="PF('dconvocatoria').show()" />  
-                                    </f:facet>  
-                                </p:dataTable>                          
+                                <f:facet name="footer">  
+                                    <p:commandButton rendered="#{convocatoriaController.selected ne null}" id="viewButton" value="Ver Registro" icon="ui-icon-search"  
+                                                     update="@widgetVar(dconvocatoria)" oncomplete="PF('dconvocatoria').show()" />  
+                                </f:facet>  
+                            </p:dataTable>                          
 
-                                <p:separator />
-                                
-                                <p:dataTable id="tpresupuesto" value="#{presupuestoRubroController.presupuestosrubros}"  var="item" editable="true" editMode="cell" style="width:100%" >
-                                                       <!-- <p:ajax process="@this" partialSubmit="true" update="@this, :formprincipal:caportes" event="cellEdit"  listener="#{presupuestoRubroController.sumarGastos}" />                 
-                                    -->
-                                    <p:ajax event="cellEdit" listener="#{presupuestoRubroController.sumarGastos}" oncomplete="setfocus('tpresupuesto');" update=":formprincipal:tabviewTodo:caportes,:formprincipal:tabviewTodo:paportes,:formprincipal:tabviewTodo:prubros,:formprincipal:tabviewTodo:crubros"  />  
+                            <p:separator />
+
+                            <p:dataTable id="tpresupuesto" value="#{presupuestoRubroController.presupuestosrubros}"  var="item" editable="true" editMode="cell" style="width:100%" >
+                                                   <!-- <p:ajax process="@this" partialSubmit="true" update="@this, :formprincipal:caportes" event="cellEdit"  listener="#{presupuestoRubroController.sumarGastos}" />                 
+                                -->
+                                <p:ajax event="cellEdit" listener="#{presupuestoRubroController.sumarGastos}" oncomplete="setfocus('tpresupuesto');" update=":formprincipal:tabviewTodo:caportes,:formprincipal:tabviewTodo:paportes,:formprincipal:tabviewTodo:prubros,:formprincipal:tabviewTodo:crubros"  />  
+                                <f:facet name="header">  
+                                    Presupuesto  
+                                </f:facet>  
+                                <p:column style="text-align:right;width:20%">
+                                    <f:facet name="header">
+
+                                        <h:outputText value="Rubro"/>
+                                    </f:facet>
+                                    <h:outputText style="width:96%" value="#{item.rubro.rubro}"/>
+
+                                </p:column>
+                                <p:column style="width:20%;" headerText="Aporte Organismo">
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{item.gastoorganismo}" />
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText style="width:96%" id="gastoorganismo" value="#{item.gastoorganismo}" />
+                                        </f:facet>  
+                                    </p:cellEditor> 
+
+                                </p:column>
+                                <p:column style="width:20%;" headerText="Aporte Comitente">
+
+                                    <p:cellEditor >  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{item.gastocomitente}" />
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText style="width:96%" id="gastocomitente" value="#{item.gastocomitente}" >
+
+                                            </p:inputText>
+                                        </f:facet> 
+
+                                    </p:cellEditor>  
+
+                                </p:column>
+                                <p:column style="width:20%;" headerText="Aporte Universidad">
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{item.gastouniversidad}" />
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText style="width:96%" id="gastouniversidad" value="#{item.gastouniversidad}" />
+                                        </f:facet>  
+                                    </p:cellEditor> 
+
+                                </p:column>
+                            </p:dataTable>
+                            <br />
+                            <p:panelGrid columns="4" styleClass="sinBordes sinFondo">
+                                <p:panelGrid style="font-weight:bold;" id="paportes" columnClasses="right,right" columns="2">
                                     <f:facet name="header">  
-                                        Presupuesto  
-                                    </f:facet>  
-                                    <p:column style="text-align:right;width:20%">
-                                        <f:facet name="header">
-
-                                            <h:outputText value="Rubro"/>
-                                        </f:facet>
-                                        <h:outputText style="width:96%" value="#{item.rubro.rubro}"/>
-
-                                    </p:column>
-                                    <p:column style="width:20%;" headerText="Aporte Organismo">
-                                        <p:cellEditor>  
-                                            <f:facet name="output">
-                                                <h:outputText value="#{item.gastoorganismo}" />
-                                            </f:facet>  
-                                            <f:facet name="input">
-                                                <p:inputText style="width:96%" id="gastoorganismo" value="#{item.gastoorganismo}" />
-                                            </f:facet>  
-                                        </p:cellEditor> 
-
-                                    </p:column>
-                                    <p:column style="width:20%;" headerText="Aporte Comitente">
-
-                                        <p:cellEditor >  
-                                            <f:facet name="output">
-                                                <h:outputText value="#{item.gastocomitente}" />
-                                            </f:facet>  
-                                            <f:facet name="input">
-                                                <p:inputText style="width:96%" id="gastocomitente" value="#{item.gastocomitente}" >
-
-                                                </p:inputText>
-                                            </f:facet> 
-
-                                        </p:cellEditor>  
-
-                                    </p:column>
-                                    <p:column style="width:20%;" headerText="Aporte Universidad">
-                                        <p:cellEditor>  
-                                            <f:facet name="output">
-                                                <h:outputText value="#{item.gastouniversidad}" />
-                                            </f:facet>  
-                                            <f:facet name="input">
-                                                <p:inputText style="width:96%" id="gastouniversidad" value="#{item.gastouniversidad}" />
-                                            </f:facet>  
-                                        </p:cellEditor> 
-
-                                    </p:column>
-                                </p:dataTable>
-                                <br />
-                                <p:panelGrid columns="4" styleClass="sinBordes sinFondo">
-                                    <p:panelGrid style="font-weight:bold;" id="paportes" columnClasses="right,right" columns="2">
-                                        <f:facet name="header">  
-                                            Total de Aportes  
-                                        </f:facet>
-                                        <p:outputLabel value="Aportes Organismo"/>
-                                        <p:outputLabel value="$#{presupuestoRubroController.sumagastoorganismo}"/>
-                                        <p:outputLabel value="Aportes Comitente"/>
-                                        <p:outputLabel value="$#{presupuestoRubroController.sumagastocomitente}"/>
-                                        <p:outputLabel value="Aportes Universidad"/>
-                                        <p:outputLabel value="$#{presupuestoRubroController.sumagastouniversidad}"/>
-                                        <f:facet name="footer">  
-                                            Total = $#{presupuestoRubroController.sumatotal}  
-                                        </f:facet>
-                                    </p:panelGrid>
-
-
-                                    <p:pieChart id="caportes" value="#{presupuestoRubroController.pieModel}" legendPosition="e" showDataLabels="true"  
-                                                title="Aportes" style="width:15%;height:300px" sliceMargin="5" diameter="150" /> 
-
-                                    <p:panelGrid style="font-weight:bold;" id="prubros" columns="2" columnClasses="right,right">
-                                        <f:facet name="header">  
-                                            Total de Rubros  
-                                        </f:facet>
-                                        <c:forEach items="#{presupuestoRubroController.presupuestosrubros}" var="data">
-
-                                            <p:outputLabel style="font-weight:bold;" value="#{data.rubro.rubro}"/>
-
-                                            <h:outputText style="font-weight:bold;" value="$#{data.total}"/>
-
-                                        </c:forEach> 
-                                        <f:facet name="footer">  
-                                            Total = $#{presupuestoRubroController.sumatotal}  
-                                        </f:facet>
-                                    </p:panelGrid>
-                                    <p:pieChart id="crubros" value="#{presupuestoRubroController.pieModelRubro}" legendPosition="e" showDataLabels="true"  
-                                                title="Rubros" style="width:15%;height:300px" sliceMargin="5" diameter="150" /> 
-
+                                        Total de Aportes  
+                                    </f:facet>
+                                    <p:outputLabel value="Aportes Organismo"/>
+                                    <p:outputLabel value="$#{presupuestoRubroController.sumagastoorganismo}"/>
+                                    <p:outputLabel value="Aportes Comitente"/>
+                                    <p:outputLabel value="$#{presupuestoRubroController.sumagastocomitente}"/>
+                                    <p:outputLabel value="Aportes Universidad"/>
+                                    <p:outputLabel value="$#{presupuestoRubroController.sumagastouniversidad}"/>
+                                    <f:facet name="footer">  
+                                        Total = $#{presupuestoRubroController.sumatotal}  
+                                    </f:facet>
                                 </p:panelGrid>
+
+
+                                <p:pieChart id="caportes" value="#{presupuestoRubroController.pieModel}" legendPosition="e" showDataLabels="true"  
+                                            title="Aportes" style="width:15%;height:300px" sliceMargin="5" diameter="150" /> 
+
+                                <p:panelGrid style="font-weight:bold;" id="prubros" columns="2" columnClasses="right,right">
+                                    <f:facet name="header">  
+                                        Total de Rubros  
+                                    </f:facet>
+                                    <c:forEach items="#{presupuestoRubroController.presupuestosrubros}" var="data">
+
+                                        <p:outputLabel style="font-weight:bold;" value="#{data.rubro.rubro}"/>
+
+                                        <h:outputText style="font-weight:bold;" value="$#{data.total}"/>
+
+                                    </c:forEach> 
+                                    <f:facet name="footer">  
+                                        Total = $#{presupuestoRubroController.sumatotal}  
+                                    </f:facet>
+                                </p:panelGrid>
+                                <p:pieChart id="crubros" value="#{presupuestoRubroController.pieModelRubro}" legendPosition="e" showDataLabels="true"  
+                                            title="Rubros" style="width:15%;height:300px" sliceMargin="5" diameter="150" /> 
+
+                            </p:panelGrid>
                         </p:tab>
                         <p:tab title="Documentación">
                             <h:panelGrid cellpadding="2" cellspacing="10" columnClasses="right,left" columns="3">    
