@@ -1,0 +1,90 @@
+SELECT
+     proyecto."comitenteid" AS proyecto_comitenteid,
+     proyecto."convocatoriaid" AS proyecto_convocatoriaid,
+     proyecto."nombre" AS proyecto_nombre,
+     proyecto."resumen" AS proyecto_resumen,
+     proyecto."documentacion" AS proyecto_documentacion,
+     proyecto."observaciones" AS proyecto_observaciones,
+     proyecto."duracion" AS proyecto_duracion,
+     proyecto."agenteid" AS proyecto_agenteid,
+     proyecto."tipoproyectoid" AS proyecto_tipoproyectoid,
+     proyecto."cudap" AS proyecto_cudap,
+     proyecto."fecha" AS proyecto_fecha,
+     proyecto."id" AS proyecto_id,
+     proyecto."beneficiarioid" AS proyecto_beneficiarioid,
+     proyecto."tipofinanciamientoid" AS proyecto_tipofinanciamientoid,
+     proyecto."localizacion" AS proyecto_localizacion,
+     proyecto."fuentefinanciamientoid" AS proyecto_fuentefinanciamientoid,
+     proyecto."documentacionnombre" AS proyecto_documentacionnombre,
+     proyecto."avanceproyectoid" AS proyecto_avanceproyectoid,
+     proyecto."estadoproyectoid" AS proyecto_estadoproyectoid,
+     comitente."id" AS comitente_id,
+     comitente."razonsocial" AS comitente_razonsocial,
+     comitente."cuit" AS comitente_cuit,
+     comitente."telefono" AS comitente_telefono,
+     comitente."email" AS comitente_email,
+     comitente."tipocomitenteid" AS comitente_tipocomitenteid,
+     comitente."contacto" AS comitente_contacto,
+     comitente."cargocontacto" AS comitente_cargocontacto,
+     comitente."sectorid" AS comitente_sectorid,
+     convocatoria."id" AS convocatoria_id,
+     convocatoria."convocatoria" AS convocatoria_convocatoria,
+     convocatoria."descripcion" AS convocatoria_descripcion,
+     convocatoria."bases" AS convocatoria_bases,
+     convocatoria."link" AS convocatoria_link,
+     convocatoria."formulario" AS convocatoria_formulario,
+     convocatoria."tipoproyectoid" AS convocatoria_tipoproyectoid,
+     convocatoria."fechapublicacion" AS convocatoria_fechapublicacion,
+     convocatoria."fechainicio" AS convocatoria_fechainicio,
+     convocatoria."fechacierre" AS convocatoria_fechacierre,
+     convocatoria."tipofinanciamientoid" AS convocatoria_tipofinanciamientoid,
+     convocatoria."estado" AS convocatoria_estado,
+     convocatoria."organismo" AS convocatoria_organismo,
+     convocatoria."beneficiario" AS convocatoria_beneficiario,
+     convocatoria."montofinanciamiento" AS convocatoria_montofinanciamiento,
+     agente."apellido" AS agente_apellido,
+     agente."nombres" AS agente_nombres,
+     agente."tipodocumentoid" AS agente_tipodocumentoid,
+     agente."numerodocumento" AS agente_numerodocumento,
+     agente."telefono" AS agente_telefono,
+     agente."celular" AS agente_celular,
+     agente."email" AS agente_email,
+     agente."otroemail" AS agente_otroemail,
+     agente."profesion" AS agente_profesion,
+     agente."id" AS agente_id,
+     agente."domicilio" AS agente_domicilio,
+     agente."dependenciaid" AS agente_dependenciaid,
+     agente."usuarioid" AS agente_usuarioid,
+     agente."especialidad" AS agente_especialidad,
+     tipoproyecto."id" AS tipoproyecto_id,
+     tipoproyecto."tipo" AS tipoproyecto_tipo,
+     beneficiario."id" AS beneficiario_id,
+     beneficiario."beneficiario" AS beneficiario_beneficiario,
+     tipofinanciamiento."id" AS tipofinanciamiento_id,
+     tipofinanciamiento."tipofinanciamiento" AS tipofinanciamiento_tipofinanciamiento,
+     fuentefinanciamiento."id" AS fuentefinanciamiento_id,
+     fuentefinanciamiento."fuentefinanciamiento" AS fuentefinanciamiento_fuentefinanciamiento,
+     avanceproyecto."id" AS avanceproyecto_id,
+     avanceproyecto."avance" AS avanceproyecto_avance,
+     estadoproyecto."id" AS estadoproyecto_id,
+     estadoproyecto."estado" AS estadoproyecto_estado,
+     estadoproyecto."descripcion" AS estadoproyecto_descripcion,
+     estadoproyecto."estadoabreviado" AS estadoproyecto_estadoabreviado,
+     estadoproyecto."proyecto" AS estadoproyecto_proyecto,
+     tipocomitente."tipocomitente" AS tipocomitente_tipocomitente,
+     tipocomitente."id" AS tipocomitente_id
+FROM
+     "ap"."comitente" comitente INNER JOIN "ap"."proyecto" proyecto ON comitente."id" = proyecto."comitenteid"
+     INNER JOIN "ap"."convocatoria" convocatoria ON proyecto."convocatoriaid" = convocatoria."id"
+     INNER JOIN "ap"."agente" agente ON proyecto."agenteid" = agente."id"
+     INNER JOIN "ap"."tipoproyecto" tipoproyecto ON proyecto."tipoproyectoid" = tipoproyecto."id"
+     INNER JOIN "ap"."beneficiario" beneficiario ON proyecto."beneficiarioid" = beneficiario."id"
+     INNER JOIN "ap"."tipofinanciamiento" tipofinanciamiento ON proyecto."tipofinanciamientoid" = tipofinanciamiento."id"
+     INNER JOIN "ap"."fuentefinanciamiento" fuentefinanciamiento ON proyecto."fuentefinanciamientoid" = fuentefinanciamiento."id"
+     INNER JOIN "ap"."avanceproyecto" avanceproyecto ON proyecto."avanceproyectoid" = avanceproyecto."id"
+     INNER JOIN "ap"."estadoproyecto" estadoproyecto ON proyecto."estadoproyectoid" = estadoproyecto."id"
+     AND tipofinanciamiento."id" = convocatoria."tipofinanciamientoid"
+     AND tipoproyecto."id" = convocatoria."tipoproyectoid"
+     INNER JOIN "ap"."tipocomitente" tipocomitente ON comitente."tipocomitenteid" = tipocomitente."id"
+WHERE
+     proyecto.id = 66
