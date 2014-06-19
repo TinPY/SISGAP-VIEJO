@@ -45,18 +45,18 @@
                         <br />
                     </p:panel>
 
-                    <p:panelGrid styleClass="sinBordes sinFondo" style="width: 100%; margin: 0; padding: 0; ">                    
+                    <p:panelGrid styleClass="sinBordes sinFondo" columnClasses="left,right" style="width: 100%; margin: 0; padding: 0; ">                    
                         <p:row>
-                            <p:column style="width:50%;">
-                                <p:panel header="Tipo de Proyecto" style="margin-bottom:10px;"  >  
+                            <p:column style="width:50%; padding-left: 0px;">
+                                <p:panel header="Tipo de Proyecto" style="margin: 0px 0px 10px 0px; width: 100%;"  >  
                                     <p:selectOneMenu id="tipoproyectoid" value="#{proyectoController.selected.tipoproyectoid}" required="true" requiredMessage="Seleccione Tipo de Proyecto" style="width: 100%;">
                                         <f:selectItems value="#{tipoproyectoController.itemsAvailableSelectOne}"/>
                                     </p:selectOneMenu>    
                                 </p:panel>                            
                             </p:column>
 
-                            <p:column style="width:50%;">
-                                <p:panel header="Avance de la Idea-Proyecto" style="margin-bottom:10px;">             
+                            <p:column style="width:50%; padding-right: 6px;">
+                                <p:panel header="Avance de la Idea-Proyecto" style="margin: 0px 0px 10px 0px; width: 100%;">             
                                     <p:selectOneMenu widgetVar="wavanceproyectoid" id="avanceproyectoid"  value="#{proyectoController.selected.avanceproyectoid}" label="Avance Proyecto" required="true" requiredMessage="Seleccione el estado de avance" style="width: 100%;" >
                                         <f:selectItems  value="#{avanceproyectoController.itemsAvailableSelectOne}"/>
                                     </p:selectOneMenu>
@@ -65,7 +65,7 @@
                         </p:row>                        
                     </p:panelGrid>
 
-                    <p:panel header=" La Solicitud del Proyecto responde a una demanda o necesidad de un comitente especifico?" style="margin-bottom:10px;">    
+                    <p:panel header="La Solicitud del Proyecto responde a una demanda o necesidad de un comitente especifico?" style="margin-bottom:10px;">    
                         <p:panelGrid id="pcomitente" styleClass="sinBordes sinFondo" style="width: 100%;"> 
                             <p:row>
                                 <p:column style="width: 200px;">
@@ -134,32 +134,22 @@
                     </p:panel>
 
                     <p:panel header="Responsable Técnico" style="margin-bottom:10px;" >   
-                        <p:panelGrid id="pagente" columns="5"  styleClass="sinBordes sinFondo" >  
+                        <p:panelGrid id="pagente" columns="7"  styleClass="sinBordes sinFondo" style="width: 100%;" >  
 
                             <p:outputLabel style="font-weight:bold;" value="Apellido"/>
                             <p:outputLabel style="font-weight:bold;" value="Nombres"/>
-                            <p:outputLabel style="font-weight:bold;" value="Tipo de Documento"/>
-                            <p:outputLabel style="font-weight:bold;" value="Numero de Documento"/>
-                            <p:outputLabel style="font-weight:bold;" value="Telefono"/>
-                            <p:outputLabel style="font-weight:bold;" value="Celular"/>
-                            <p:outputLabel style="font-weight:bold;" value="Email"/>
-                            <p:outputLabel style="font-weight:bold;" value="Otro Email"/>
+                            <p:outputLabel style="font-weight:bold;" value="Documento"/>
                             <p:outputLabel style="font-weight:bold;" value="Profesion"/>
-                            <p:outputLabel style="font-weight:bold;" value="Especialidad"/>
+                            <p:outputLabel style="font-weight:bold;" value="Especialidad"/>                            
+                            <p:outputLabel style="font-weight:bold;" value="Email"/>
                             <p:outputLabel style="font-weight:bold;" value="Dependencia"/>
-
-
-                            <p:outputLabel value="#{agenteController.selected.apellido}" title="Apellido" rendered="#{not empty agenteController.selected.apellido}"/>
-                            <p:outputLabel value="#{agenteController.selected.nombres}" title="Nombres" rendered="#{not empty agenteController.selected.nombres}"/>
-                            <p:outputLabel value="#{agenteController.selected.tipodocumentoid.tipodocumento}" title="Tipo de Documento" rendered="#{not empty agenteController.selected.tipodocumentoid.tipodocumento}"/>
-                            <p:outputLabel value="#{agenteController.selected.numerodocumento}" title="Numero de Documento" rendered="#{not empty agenteController.selected.numerodocumento}"/>
-                            <p:outputLabel value="#{agenteController.selected.telefono}" title="Telefono" rendered="#{not empty agenteController.selected.telefono}"/>
-                            <p:outputLabel value="#{agenteController.selected.celular}" title="Celular" rendered="#{not empty agenteController.selected.celular}"/>
-                            <p:outputLabel value="#{agenteController.selected.email}" title="Email" rendered="#{not empty agenteController.selected.email}"/>
-                            <p:outputLabel value="#{agenteController.selected.otroemail}" title="Otro Email" rendered="#{not empty agenteController.selected.otroemail}"/>
-                            <p:outputLabel value="#{agenteController.selected.profesion}" title="Profesion" rendered="#{not empty agenteController.selected.profesion}"/>
-                            <p:outputLabel value="#{agenteController.selected.especialidad}" title="Especialidad" rendered="#{not empty agenteController.selected.especialidad}"/>
-                            <p:outputLabel value="#{agenteController.selected.dependenciaid.dependencia}" title="Dependencia" rendered="#{not empty agenteController.selected.dependenciaid.dependencia}"/>
+                            <p:outputLabel value="#{agenteController.selected.apellido}" title="Apellido" />
+                            <p:outputLabel value="#{agenteController.selected.nombres}" title="Nombres" />
+                            <p:outputLabel value="#{agenteController.selected.tipodocumentoid.tipodocumento} - #{agenteController.selected.numerodocumento}" title="Tipo de Documento" rendered="#{not empty agenteController.selected.tipodocumentoid.tipodocumento}"/>
+                            <p:outputLabel value="#{agenteController.selected.profesion}" title="Profesion" />
+                            <p:outputLabel value="#{agenteController.selected.especialidad}" title="Especialidad" />                            
+                            <p:outputLabel value="#{agenteController.selected.email}" title="Email" />
+                            <p:outputLabel value="#{agenteController.selected.dependenciaid.dependencia}" title="Dependencia" />
                         </p:panelGrid>
 
                         <p:separator />
@@ -179,10 +169,10 @@
                             </p:row>
                             <p:row>
                                 <p:column style="width: 50%;" >
-                                    <p:inputTextarea rows="10" cols="75" id="resumen" value="#{proyectoController.selected.resumen}" title="Resumen" autoResize="true" required="true" requiredMessage="Ingrese Diagnostico y resumen descriptivo "  />                                    
+                                    <p:inputTextarea rows="10" id="resumen" value="#{proyectoController.selected.resumen}" title="Resumen" autoResize="true" required="true" requiredMessage="Ingrese Diagnostico y resumen descriptivo " style="width: 100%;" />
                                 </p:column>
                                 <p:column style="width: 50%;" >
-                                    <p:inputTextarea rows="10" cols="75" id="observaciones" value="#{proyectoController.selected.observaciones}" title="Observaciones" autoResize="true" required="true" requiredMessage="Objetivos y Resultados Esperados" />
+                                    <p:inputTextarea rows="10" id="observaciones" value="#{proyectoController.selected.observaciones}" title="Observaciones" autoResize="true" required="true" requiredMessage="Objetivos y Resultados Esperados" style="width: 100%;"/>
                                 </p:column>                                
                             </p:row>
 
@@ -191,7 +181,7 @@
                                     <p:outputLabel style="font-weight:bold;font-size:larger" value="Lugar donde se realizara el Proyecto(Localización)" for="localizacion" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputTextarea rows="1" cols="75" id="localizacion" value="#{proyectoController.selected.localizacion}" title="localizacion" placeholder="Por ejemplo = Martin Fierro 1054 - Chilecito - La Rioja" required="true" requiredMessage="Ingrese la localización" />
+                                    <p:inputTextarea rows="1" id="localizacion" value="#{proyectoController.selected.localizacion}" title="localizacion" placeholder="Por ejemplo = Martin Fierro 1054 - Chilecito - La Rioja" required="true" requiredMessage="Ingrese la localización" style="width: 100%;" />
                                 </p:column>                                
                             </p:row>
                             <p:row>
@@ -212,16 +202,16 @@
                                 <p:column>
                                     <p:outputLabel style="font-weight:bold;font-size:larger"  value="Beneficiario" for="beneficiarioid" />
                                 </p:column>
-                                <p:column>
-                                    <p:selectOneMenu widgetVar="beneficiarioid" id="beneficiarioid" value="#{proyectoController.selected.beneficiarioid}" label="Beneficiario" required="true" requiredMessage="Seleccione Beneficiario" style="width: 100%;" >
+                                <p:column style="width: 50%;" >
+                                    <p:selectOneMenu widgetVar="beneficiarioid" id="beneficiarioid" value="#{proyectoController.selected.beneficiarioid}" label="Beneficiario" required="true" requiredMessage="Seleccione Beneficiario" style="width:100%;">
                                         <f:selectItems value="#{beneficiarioController.itemsAvailableSelectOne}"/>
                                     </p:selectOneMenu>
                                 </p:column>
                                 <p:column>
                                     <p:outputLabel style="font-weight:bold;font-size:larger"  value="Fuente de Financiamiento" for="fuentefinanciamientoid" />
                                 </p:column>
-                                <p:column>
-                                    <p:selectOneMenu widgetVar="fuentefinanciamientoid" id="fuentefinanciamientoid" value="#{proyectoController.selected.fuentefinanciamientoid}" label="Fuente de Financiamiento" required="true" requiredMessage="Seleccione Fuente de Financiamiento" style="width: 100%;" >
+                                <p:column style="width: 50%;">
+                                    <p:selectOneMenu widgetVar="fuentefinanciamientoid" id="fuentefinanciamientoid" value="#{proyectoController.selected.fuentefinanciamientoid}" label="Fuente de Financiamiento" required="true" requiredMessage="Seleccione Fuente de Financiamiento" style="width:100%;" >
                                         <f:selectItems value="#{fuentefinanciamientoController.itemsAvailableSelectOne}"/>
                                     </p:selectOneMenu>
                                 </p:column>                                
@@ -245,7 +235,7 @@
 
                         <p:outputLabel value="Seleccione la convocatoria" style="font-weight: bold;"/>
 
-                        <p:dataTable widgetVar="wconvocatoria" paginator="true" id="tconvocatoria" var="conv" value="#{convocatoriaController.items}" selection="#{convocatoriaController.selected}" selectionMode="single" rowKey="#{conv.id}" style="width: 100%;" >  
+                        <p:dataTable widgetVar="wconvocatoria" paginator="true" id="tconvocatoria" var="conv" value="#{convocatoriaController.items}" selection="#{convocatoriaController.selected}" selectionMode="single" rowKey="#{conv.id}" style="width: 100%;" paginatorPosition="bottom" paginatorAlwaysVisible="false" >  
 
                             <p:column headerText="Convocatoria">  
                                 <h:outputText value="#{conv.convocatoria}" />  
@@ -336,12 +326,11 @@
                             </p:cellEditor> 
 
                         </p:column>
-
-
-
                     </p:dataTable>
                     <br />
-                    <h:panelGrid columns="4">
+                    
+                    <!-- GRAFICOS -->
+                    <h:panelGrid columns="2">
                         <p:panelGrid style="font-weight:bold;" id="paportes" columnClasses="right,right" columns="2">
                             <f:facet name="header">  
                                 Total de Aportes  
@@ -357,9 +346,8 @@
                             </f:facet>
                         </p:panelGrid>
 
-
-                        <p:pieChart id="caportes" value="#{presupuestoRubroController.pieModel}" legendPosition="e" showDataLabels="true"  
-                                    title="Aportes" style="width:15%;height:300px" sliceMargin="5" diameter="150" /> 
+                        <p:pieChart id="caportes" value="#{presupuestoRubroController.pieModel}" legendPosition="e" legendRows="7" showDataLabels="true"  
+                                    title="Aportes" style="width:100%;height:300px" sliceMargin="5" diameter="150" /> 
 
                         <p:panelGrid style="font-weight:bold;" id="prubros" columns="2" columnClasses="right,right">
                             <f:facet name="header">  
@@ -376,8 +364,8 @@
                                 Total = $#{presupuestoRubroController.sumatotal}  
                             </f:facet>
                         </p:panelGrid>
-                        <p:pieChart id="crubros" value="#{presupuestoRubroController.pieModelRubro}" legendPosition="e" showDataLabels="true"  
-                                    title="Rubros" style="width:15%;height:300px" sliceMargin="5" diameter="150" /> 
+                        <p:pieChart id="crubros" value="#{presupuestoRubroController.pieModelRubro}" legendPosition="e" legendRows="7" showDataLabels="true"  
+                                    title="Rubros" style="width:100%;height:300px" sliceMargin="5" diameter="150" /> 
 
                     </h:panelGrid>
                     <br />
