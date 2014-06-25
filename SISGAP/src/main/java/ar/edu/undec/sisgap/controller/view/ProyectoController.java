@@ -88,11 +88,17 @@ public class ProyectoController implements Serializable {
 //            JasperPrint imprimir = JasperFillManager.fillReport(reporte, new HashMap(), new JREmptyDataSource());
 //            JasperExportManager.exportReportToPdfFile(imprimir, "zaraza.pdf");
 
+<<<<<<< HEAD
             
             
             //Connection conexion = Database.getConection();
             
             JasperPrint jasperPrint = JasperFillManager.fillReport("/secure/reportes/solicitud.jasper", new HashMap<String, Object>(),new JREmptyDataSource());
+=======
+            //Connection conexion = Database.getConection();
+            
+            JasperPrint jasperPrint = JasperFillManager.fillReport("../secure/reportes/prueba1.jasper", new HashMap<String, Object>(),new JREmptyDataSource());
+>>>>>>> 35f2d4d077efef3634d2abb57ccac57be02612fd
             System.out.println("ImprimirIdeaProyecto >>> ASDASDASDJHASDJHASHKJDhk jahskdj kajsdhkjkjj");
             JasperExportManager.exportReportToPdfFile(jasperPrint, "asdasd.pdf");
             System.out.println("ImprimirIdeaProyecto >>> EXITO");
@@ -211,10 +217,17 @@ public class ProyectoController implements Serializable {
                 // 
                 pr.setPresupuestosrubros();
                 System.out.println("--------------------final1-------------------------------" + ap.getCollectorArchivoProyecto().size());
+<<<<<<< HEAD
 
                 i = ap.getCollectorArchivoProyecto().iterator();
                 System.out.println("--------------------final12-------------------------------");
 
+=======
+
+                i = ap.getCollectorArchivoProyecto().iterator();
+                System.out.println("--------------------final12-------------------------------");
+
+>>>>>>> 35f2d4d077efef3634d2abb57ccac57be02612fd
                 while (i.hasNext()) {
                     Archivoproyecto archivoproyecto = new Archivoproyecto();
                     archivoproyecto = ((Archivoproyecto) i.next());

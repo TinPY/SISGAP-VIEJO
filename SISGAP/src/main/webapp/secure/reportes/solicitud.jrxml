@@ -4,7 +4,11 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+<<<<<<< HEAD
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Postgres localhost"/>
+=======
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+>>>>>>> 35f2d4d077efef3634d2abb57ccac57be02612fd
 	<style name="Table_TH" mode="Opaque" backcolor="#73B0E6">
 		<box>
 			<topPen lineWidth="0.5" lineColor="#000000"/>
@@ -251,7 +255,7 @@ WHERE
 		<band height="122">
 			<image>
 				<reportElement x="0" y="0" width="554" height="120" uuid="44368bef-e70c-4282-aa28-7904c5249d63"/>
-				<imageExpression><![CDATA["D:/Tincho/sis/Git/Imagenes/cabeceraSisgap.png"]]></imageExpression>
+				<imageExpression><![CDATA["E:/Mis Proyectos/SISGAP/Git/Imagenes/cabeceraSisgap.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="383" y="88" width="167" height="20" forecolor="#F8CC28" uuid="fd3be625-ec53-419d-a235-4b33db5deeee"/>
