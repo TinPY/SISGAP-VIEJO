@@ -17,6 +17,7 @@ import ar.edu.undec.sisgap.model.TareaAgente;
 import ar.edu.undec.sisgap.model.TareaAgentePK;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 
 import java.io.Serializable;
@@ -35,12 +36,13 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
-import net.sf.jasperreports.engine.JREmptyDataSource;
-import net.sf.jasperreports.engine.JasperCompileManager;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
@@ -80,33 +82,34 @@ public class ProyectoController implements Serializable {
     private String observacionfinal;
     private Proyecto proyectoViejo;
 
-    public void imprimirIdeaProyecto() {
-        System.out.println("ImprimirIdeaProyecto >> Inicio");
+    public String pdfIdeaProyecto() throws JRException, IOException {
+//        JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(listOfStudent);  
+//        String reportPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/reports/chartReports.jasper");  
+//        JasperPrint jasperPrint = JasperFillManager.fillReport(reportPath, new HashMap(), beanCollectionDataSource);  
+//        HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();  
+//        httpServletResponse.addHeader("Content-disposition", "attachment; filename=report.pdf");  
+//        ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();  
+//        JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);  
+//        FacesContext.getCurrentInstance().responseComplete();  
+//        return null;  
 
-        try {
-//            JasperReport reporte = JasperCompileManager.compileReport("/secure/reportes/solicitud.jrxml");
-//            JasperPrint imprimir = JasperFillManager.fillReport(reporte, new HashMap(), new JREmptyDataSource());
-//            JasperExportManager.exportReportToPdfFile(imprimir, "zaraza.pdf");
-
-<<<<<<< HEAD
-            
-            
-            //Connection conexion = Database.getConection();
-            
-            JasperPrint jasperPrint = JasperFillManager.fillReport("/secure/reportes/solicitud.jasper", new HashMap<String, Object>(),new JREmptyDataSource());
-=======
-            //Connection conexion = Database.getConection();
-            
-            JasperPrint jasperPrint = JasperFillManager.fillReport("../secure/reportes/prueba1.jasper", new HashMap<String, Object>(),new JREmptyDataSource());
->>>>>>> 35f2d4d077efef3634d2abb57ccac57be02612fd
-            System.out.println("ImprimirIdeaProyecto >>> ASDASDASDJHASDJHASHKJDhk jahskdj kajsdhkjkjj");
-            JasperExportManager.exportReportToPdfFile(jasperPrint, "asdasd.pdf");
-            System.out.println("ImprimirIdeaProyecto >>> EXITO");
-
-        } catch (Exception e) {
-            System.out.println("ImprimirIdeaProyecto >>> FAIL");
-        }
-
+        JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(this.getFacade().findAll());
+        //String pathReporte = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/reportes/prueba.jasper");
+        //JRXmlLoader.load(getClass().getResourceAsStream("/reports/teacherPay.jrxml"))
+        String pathReporte = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/secure/reportes/prueba.jasper");
+        System.out.println(pathReporte);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(pathReporte, new HashMap(), beanCollectionDataSource);
+        System.out.println("Reporte LLENO");
+        HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        System.out.println("1");
+        httpServletResponse.addHeader("Content-disposition", "attachment; filename=reporte.pdf");
+        System.out.println("2");
+        ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
+        System.out.println("3");
+        JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
+        System.out.println("4");
+        FacesContext.getCurrentInstance().responseComplete();
+        return null;
     }
 
     public ProyectoController() {
@@ -217,17 +220,10 @@ public class ProyectoController implements Serializable {
                 // 
                 pr.setPresupuestosrubros();
                 System.out.println("--------------------final1-------------------------------" + ap.getCollectorArchivoProyecto().size());
-<<<<<<< HEAD
 
                 i = ap.getCollectorArchivoProyecto().iterator();
                 System.out.println("--------------------final12-------------------------------");
 
-=======
-
-                i = ap.getCollectorArchivoProyecto().iterator();
-                System.out.println("--------------------final12-------------------------------");
-
->>>>>>> 35f2d4d077efef3634d2abb57ccac57be02612fd
                 while (i.hasNext()) {
                     Archivoproyecto archivoproyecto = new Archivoproyecto();
                     archivoproyecto = ((Archivoproyecto) i.next());
