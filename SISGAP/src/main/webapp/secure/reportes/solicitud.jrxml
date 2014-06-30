@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version last-->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="solicitud" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="57f0488e-ee25-4833-aeef-dac18217699f">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-<<<<<<< HEAD
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Postgres localhost"/>
-=======
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
->>>>>>> 35f2d4d077efef3634d2abb57ccac57be02612fd
 	<style name="Table_TH" mode="Opaque" backcolor="#73B0E6">
 		<box>
 			<topPen lineWidth="0.5" lineColor="#000000"/>
@@ -91,7 +86,8 @@
 		</box>
 	</style>
 	<subDataset name="detallePresupuesto" uuid="a7aa87b1-8418-414c-aa68-aa84ba18dcb1">
-		<property name="com.jaspersoft.studio.data.sql.tables" value="YXAucHJveWVjdG8gQVMgLDk5LDUyO2FwLnByZXN1cHVlc3RvIEFTICwyLC0zO2FwLnByZXN1cHVl&#xA;c3RvX3J1YnJvIEFTICwwLDEzNDs="/>
+		<property name="com.jaspersoft.studio.data.sql.tables" value="YXAucHJveWVjdG8gQVMgLDk5LDUyO2FwLnByZXN1cHVlc3RvIEFTICwyLC0zO2FwLnByZXN1cHVl
+c3RvX3J1YnJvIEFTICwwLDEzNDs="/>
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Postgres localhost"/>
 		<queryString>
 			<![CDATA[SELECT 
@@ -255,12 +251,12 @@ WHERE
 		<band height="122">
 			<image>
 				<reportElement x="0" y="0" width="554" height="120" uuid="44368bef-e70c-4282-aa28-7904c5249d63"/>
-				<imageExpression><![CDATA["E:/Mis Proyectos/SISGAP/Git/Imagenes/cabeceraSisgap.png"]]></imageExpression>
+				<imageExpression><![CDATA["D:/Tincho/sis/Git/Imagenes/cabeceraSisgap.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="383" y="88" width="167" height="20" forecolor="#F8CC28" uuid="fd3be625-ec53-419d-a235-4b33db5deeee"/>
 				<textElement textAlignment="Right">
-					<font fontName="Montserrat" size="14" isBold="false" isItalic="false" isUnderline="false"/>
+					<font fontName="Montserrat" isBold="false" isItalic="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[Idea - Proyecto]]></text>
 			</staticText>
@@ -360,7 +356,7 @@ WHERE
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Calibr" size="11" isBold="true"/>
+					<font fontName="Calibr" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Nº:]]></text>
 			</staticText>
@@ -369,7 +365,7 @@ WHERE
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
-					<font fontName="Calibri" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<font fontName="Calibri" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{proyecto_id}]]></textFieldExpression>
 			</textField>
@@ -378,7 +374,7 @@ WHERE
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Calibr" size="11" isBold="true"/>
+					<font fontName="Calibr" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Titulo:]]></text>
 			</staticText>
@@ -387,7 +383,7 @@ WHERE
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Calibri" size="11"/>
+					<font fontName="Calibri"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{proyecto_fecha}]]></textFieldExpression>
 			</textField>
@@ -396,7 +392,7 @@ WHERE
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Calibr" size="11" isBold="true"/>
+					<font fontName="Calibr" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Presentación]]></text>
 			</staticText>
@@ -407,7 +403,7 @@ WHERE
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Calibr" size="11" isBold="true"/>
+					<font fontName="Calibr" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Tipo de Proyecto:]]></text>
 			</staticText>
@@ -416,7 +412,7 @@ WHERE
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Calibri" size="11"/>
+					<font fontName="Calibri"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{tipoproyecto_tipo}]]></textFieldExpression>
 			</textField>
@@ -426,7 +422,7 @@ WHERE
 					<property name="local_mesure_unity" value="pixel"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Calibri" size="11"/>
+					<font fontName="Calibri"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{avanceproyecto_avance}]]></textFieldExpression>
 			</textField>
@@ -435,14 +431,14 @@ WHERE
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Calibr" size="11" isBold="true"/>
+					<font fontName="Calibr" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Avance:]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="109" y="96" width="131" height="20" uuid="358020d3-4870-444f-a949-7a95b9c31d07"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Calibri" size="11"/>
+					<font fontName="Calibri"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{comitente_razonsocial}]]></textFieldExpression>
 			</textField>
@@ -452,28 +448,28 @@ WHERE
 					<property name="local_mesure_unity" value="pixel"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Calibr" size="11" isBold="true"/>
+					<font fontName="Calibr" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Comitente]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="254" y="96" width="50" height="20" uuid="11011719-129b-44b6-b7a9-25a29344e8ba"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Calibri" size="11"/>
+					<font fontName="Calibri"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{comitente_cuit}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="323" y="96" width="100" height="20" uuid="7eba63d9-6a2e-4e08-875d-2ec5780c33d2"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Calibri" size="11"/>
+					<font fontName="Calibri"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{comitente_contacto}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="433" y="96" width="100" height="20" uuid="e3e09727-36c5-40c1-9820-7b2ce07af3c6"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Calibri" size="11"/>
+					<font fontName="Calibri"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{comitente_cargocontacto}]]></textFieldExpression>
 			</textField>
@@ -482,28 +478,28 @@ WHERE
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Calibr" size="11" isBold="true"/>
+					<font fontName="Calibr" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Responsable:]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="109" y="139" width="111" height="20" uuid="5b879c65-bc64-4ac7-aae6-323f65632bb4"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Calibri" size="11"/>
+					<font fontName="Calibri"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{agente_apellido}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="230" y="139" width="100" height="20" uuid="b8dd4521-659c-4451-89cc-b975f4670d0f"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Calibri" size="11"/>
+					<font fontName="Calibri"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{agente_nombres}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="346" y="139" width="70" height="20" uuid="ff0c555d-56df-47e4-9b7d-f2adc608f928"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Calibri" size="11"/>
+					<font fontName="Calibri"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{agente_numerodocumento}]]></textFieldExpression>
 			</textField>
@@ -524,14 +520,14 @@ WHERE
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Calibri" size="11"/>
+					<font fontName="Calibri"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{proyecto_resumen}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="300" y="184" width="243" height="100" uuid="940a8257-b375-4fc7-9fd4-bf949ff32caa"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Calibri" size="11"/>
+					<font fontName="Calibri"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{proyecto_observaciones}]]></textFieldExpression>
 			</textField>
@@ -540,28 +536,28 @@ WHERE
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Calibr" size="11" isBold="true"/>
+					<font fontName="Calibr" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Lugar:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="300" y="311" width="110" height="20" uuid="be849ce0-cc61-486a-acd6-821a1d900fba"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Montserrat" size="10"/>
+					<font fontName="Montserrat"/>
 				</textElement>
 				<text><![CDATA[Duración (Meses):]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="430" y="311" width="113" height="20" uuid="8d072429-ad78-424d-a645-c34220d1d374"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Calibri" size="11"/>
+					<font fontName="Calibri"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{proyecto_duracion}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="70" y="311" width="200" height="20" uuid="493a0f79-869f-49c9-96bb-5f5e5168c93b"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Calibri" size="11"/>
+					<font fontName="Calibri"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{proyecto_localizacion}]]></textFieldExpression>
 			</textField>
@@ -570,35 +566,35 @@ WHERE
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Calibr" size="11" isBold="true"/>
+					<font fontName="Calibr" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Beneficiario:]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="157" y="385" width="386" height="20" uuid="f17daec6-1423-48f2-8028-1a4d4f4b97a2"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Calibri" size="11"/>
+					<font fontName="Calibri"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{tipofinanciamiento_tipofinanciamiento}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="107" y="355" width="163" height="20" uuid="2f2438af-8606-441e-aed5-82211aeabd0b"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Calibri" size="11"/>
+					<font fontName="Calibri"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{beneficiario_beneficiario}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="360" y="355" width="183" height="20" uuid="468cb12c-b447-454b-aafa-599169860adb"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Calibri" size="11"/>
+					<font fontName="Calibri"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{fuentefinanciamiento_fuentefinanciamiento}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="281" y="355" width="62" height="20" uuid="56f1fdf6-3814-46bb-a567-98304d4e08b3"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Calibr" size="11" isBold="true"/>
+					<font fontName="Calibr" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Fuente:]]></text>
 			</staticText>
@@ -607,7 +603,7 @@ WHERE
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Calibr" size="11" isBold="true"/>
+					<font fontName="Calibr" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Tipo de Financiamiento:]]></text>
 			</staticText>
@@ -616,14 +612,14 @@ WHERE
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Calibr" size="11" isBold="true"/>
+					<font fontName="Calibr" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Convocatoria:]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="103" y="427" width="440" height="20" uuid="3b8ff168-9db7-42c7-839d-18b54bd4bea9"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Calibri" size="11"/>
+					<font fontName="Calibri"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{proyecto_localizacion}]]></textFieldExpression>
 			</textField>
@@ -632,7 +628,7 @@ WHERE
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
-					<font fontName="Calibri" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<font fontName="Calibri" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{proyecto_nombre}]]></textFieldExpression>
 			</textField>
@@ -670,7 +666,7 @@ WHERE
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Calibr" size="11" isBold="true"/>
+					<font fontName="Calibr" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Presupuesto:]]></text>
 			</staticText>

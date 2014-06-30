@@ -24,7 +24,15 @@
 		<band height="61" splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch"/>
+		<band height="125" splitType="Stretch">
+			<staticText>
+				<reportElement x="118" y="17" width="337" height="65" uuid="0354d329-fb84-494a-8866-9b26908a703c"/>
+				<textElement>
+					<font size="35"/>
+				</textElement>
+				<text><![CDATA[Prueba2]]></text>
+			</staticText>
+		</band>
 	</detail>
 	<columnFooter>
 		<band height="45" splitType="Stretch"/>
