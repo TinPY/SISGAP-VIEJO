@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version last-->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="solicitud" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="57f0488e-ee25-4833-aeef-dac18217699f">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
@@ -87,7 +86,8 @@
 		</box>
 	</style>
 	<subDataset name="detallePresupuesto" uuid="a7aa87b1-8418-414c-aa68-aa84ba18dcb1">
-		<property name="com.jaspersoft.studio.data.sql.tables" value="YXAucHJveWVjdG8gQVMgLDk5LDUyO2FwLnByZXN1cHVlc3RvIEFTICwyLC0zO2FwLnByZXN1cHVl&#xA;c3RvX3J1YnJvIEFTICwwLDEzNDs="/>
+		<property name="com.jaspersoft.studio.data.sql.tables" value="YXAucHJveWVjdG8gQVMgLDk5LDUyO2FwLnByZXN1cHVlc3RvIEFTICwyLC0zO2FwLnByZXN1cHVl
+c3RvX3J1YnJvIEFTICwwLDEzNDs="/>
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Postgres localhost"/>
 		<queryString>
 			<![CDATA[SELECT 
@@ -251,7 +251,7 @@ WHERE
 		<band height="122">
 			<image>
 				<reportElement x="0" y="0" width="554" height="120" uuid="44368bef-e70c-4282-aa28-7904c5249d63"/>
-				<imageExpression><![CDATA["D:/Tincho/sis/Git/Imagenes/cabeceraSisgap.png"]]></imageExpression>
+				<imageExpression><![CDATA["imagenes/cabeceraSisgap.png"]]></imageExpression>
 			</image>
 		</band>
 	</title>

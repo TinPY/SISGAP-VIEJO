@@ -86,8 +86,7 @@
 		</box>
 	</style>
 	<subDataset name="detallePresupuesto" uuid="a7aa87b1-8418-414c-aa68-aa84ba18dcb1">
-		<property name="com.jaspersoft.studio.data.sql.tables" value="YXAucHJveWVjdG8gQVMgLDk5LDUyO2FwLnByZXN1cHVlc3RvIEFTICwyLC0zO2FwLnByZXN1cHVl
-c3RvX3J1YnJvIEFTICwwLDEzNDs="/>
+		<property name="com.jaspersoft.studio.data.sql.tables" value="YXAucHJveWVjdG8gQVMgLDk5LDUyO2FwLnByZXN1cHVlc3RvIEFTICwyLC0zO2FwLnByZXN1cHVl c3RvX3J1YnJvIEFTICwwLDEzNDs="/>
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Postgres localhost"/>
 		<queryString>
 			<![CDATA[SELECT 
@@ -251,7 +250,7 @@ WHERE
 		<band height="122">
 			<image>
 				<reportElement x="0" y="0" width="554" height="120" uuid="44368bef-e70c-4282-aa28-7904c5249d63"/>
-				<imageExpression><![CDATA["D:/Tincho/sis/Git/Imagenes/cabeceraSisgap.png"]]></imageExpression>
+				<imageExpression><![CDATA["imagenes/cabeceraSisgap.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="383" y="88" width="167" height="20" forecolor="#F8CC28" uuid="fd3be625-ec53-419d-a235-4b33db5deeee"/>
