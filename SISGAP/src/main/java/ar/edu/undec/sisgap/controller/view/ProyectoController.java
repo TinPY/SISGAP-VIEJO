@@ -46,7 +46,9 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.export.OutputStreamExporterOutput;
 import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
@@ -115,7 +117,7 @@ public class ProyectoController implements Serializable {
         System.out.println("4");
         FacesContext.getCurrentInstance().responseComplete();
         return null;
-        
+
         //        String fileName = "/devel/examples/test.jasper";
 //        String outFileName = "/devel/examples/test.pdf";
 //        HashMap hm = new HashMap();
@@ -134,71 +136,96 @@ public class ProyectoController implements Serializable {
 //            System.exit(1);
 //
 //        }
-        
-        
-        /** EJEMPLO 5.6
-         * 
-         *         response.setContentType("application/octet-stream");
-			ServletOutputStream outputStream = response.getOutputStream();
-			
-			ObjectOutputStream oos = new ObjectOutputStream(outputStream);
-			oos.writeObject(jasperPrint);
-			oos.flush();
-			oos.close();
-
-        String fileName = "/devel/examples/test.jasper";
-        String outFileName = "/devel/examples/test.pdf";
-        HashMap hm = new HashMap();
-
-        JasperPrint jasperPrint = JasperFillManager.fillReport(fileName,hm,new JREmptyDataSource());
-        
-        JRPdfExporter exporter = new JRPdfExporter();
-
-        exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
-        exporter.setExporterOutput(outputStream);
-        SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
-        exporter.setConfiguration(configuration);
-
-        exporter.exportReport();       
+        /**
+         * EJEMPLO 5.6
+         *
+         * response.setContentType("application/octet-stream");
+         * ServletOutputStream outputStream = response.getOutputStream();
+         *
+         * ObjectOutputStream oos = new ObjectOutputStream(outputStream);
+         * oos.writeObject(jasperPrint); oos.flush(); oos.close();
+         *
+         * String fileName = "/devel/examples/test.jasper"; String outFileName =
+         * "/devel/examples/test.pdf"; HashMap hm = new HashMap();
+         *
+         * JasperPrint jasperPrint =
+         * JasperFillManager.fillReport(fileName,hm,new JREmptyDataSource());
+         *
+         * JRPdfExporter exporter = new JRPdfExporter();
+         *
+         * exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
+         * exporter.setExporterOutput(outputStream);
+         * SimplePdfExporterConfiguration configuration = new
+         * SimplePdfExporterConfiguration();
+         * exporter.setConfiguration(configuration);
+         *
+         * exporter.exportReport();
          */
     }
 
     public void reporteIdeaProyecto() throws JRException, IOException {
 
-        
-        String rutaJasper = FacesContext.getCurrentInstance().getExternalContext().getRealPath("secure/reportes/solicitud1.jasper");  
-        
+        String rutaJasper = FacesContext.getCurrentInstance().getExternalContext().getRealPath("secure/reportes/solicitud1.jasper");
+
         //JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(this.getFacade().findAll());
         //new JRBeanArrayDataSource(new YourBean[]{yourBean})
         JRBeanArrayDataSource beanArrayDataSource = new JRBeanArrayDataSource(new Proyecto[]{this.getSelected()});
 
         //JasperPrint jasperPrint = JasperFillManager.fillReport(pathReporte, new HashMap(), beanCollectionDataSource);
         //JasperPrint jasperPrint = JasperFillManager.fillReport(rutaJasper, null, new JREmptyDataSource());
-
         JasperPrint jasperPrint = JasperFillManager.fillReport(rutaJasper, null, beanArrayDataSource);
-        
-        HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();  
-        httpServletResponse.addHeader("Content-disposition", "attachment; filename=idea-proyecto.pdf");  
-        ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();  
-        JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);  
-        FacesContext.getCurrentInstance().responseComplete();  
-        
 
+        HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        httpServletResponse.addHeader("Content-disposition", "attachment; filename=idea-proyecto.pdf");
+        ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
+        JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
+        FacesContext.getCurrentInstance().responseComplete();
+
+        // Nueva implementacion
+//        JRPdfExporter exporter = new JRPdfExporter();
+//
+//        exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
+//        exporter.setExporterOutput(outputStream);
+//        SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
+//        exporter.setConfiguration(configuration);
+//
+//        exporter.exportReport();
     }
-    
+
     public void pdfListaIdeasProyecto() throws JRException, IOException {
-        
-        String rutaJasper = FacesContext.getCurrentInstance().getExternalContext().getRealPath("secure/reportes/prueba1.jasper");  
-        
+
+        String rutaJasper = FacesContext.getCurrentInstance().getExternalContext().getRealPath("secure/reportes/prueba1.jasper");
+
         JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(this.getFacade().findAll());
 
         JasperPrint jasperPrint = JasperFillManager.fillReport(rutaJasper, null, beanCollectionDataSource);
+
+        HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        httpServletResponse.addHeader("Content-disposition", "attachment; filename=lista-ideas-proyecto.pdf");
+        ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
+        JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
+        FacesContext.getCurrentInstance().responseComplete();
+    }
+
+    public void pdfPrueba() throws JRException, IOException {
         
-        HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();  
-        httpServletResponse.addHeader("Content-disposition", "attachment; filename=lista-ideas-proyecto.pdf");  
-        ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();  
-        JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);  
-        FacesContext.getCurrentInstance().responseComplete();  
+        String rutaJasper = FacesContext.getCurrentInstance().getExternalContext().getRealPath("secure/reportes/prueba2.jasper");
+
+        JasperPrint jasperPrint = JasperFillManager.fillReport(rutaJasper, null, new JREmptyDataSource());
+        
+        JRPdfExporter exporter = new JRPdfExporter();
+
+        exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
+        
+        SimpleOutputStreamExporterOutput salida = new SimpleOutputStreamExporterOutput("asdasd.pdf");
+        
+        exporter.setExporterOutput(salida);
+        
+        SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
+        
+        exporter.setConfiguration(configuration);
+
+        exporter.exportReport();
     }
 
     public ProyectoController() {
