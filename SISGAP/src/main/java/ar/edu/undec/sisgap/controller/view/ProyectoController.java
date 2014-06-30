@@ -38,11 +38,15 @@ import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
@@ -96,7 +100,7 @@ public class ProyectoController implements Serializable {
         JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(this.getFacade().findAll());
         //String pathReporte = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/reportes/prueba.jasper");
         //JRXmlLoader.load(getClass().getResourceAsStream("/reports/teacherPay.jrxml"))
-        String pathReporte = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/secure/reportes/prueba.jasper");
+        String pathReporte = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/secure/reportes/prueba2.jasper");
         System.out.println(pathReporte);
         JasperPrint jasperPrint = JasperFillManager.fillReport(pathReporte, new HashMap(), beanCollectionDataSource);
         System.out.println("Reporte LLENO");
@@ -110,6 +114,69 @@ public class ProyectoController implements Serializable {
         System.out.println("4");
         FacesContext.getCurrentInstance().responseComplete();
         return null;
+    }
+
+    public void reporteIdeaProyecto() throws JRException, IOException {
+//        String fileName = "/devel/examples/test.jasper";
+//        String outFileName = "/devel/examples/test.pdf";
+//        HashMap hm = new HashMap();
+//        try {
+//            JasperPrint print = JasperFillManager.fillReport(fileName,hm,new JREmptyDataSource());
+//            JRExporter exporter = new net.sf.jasperreports.engine.export.JRPdfExporter();
+//            exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME,outFileName);
+//            exporter.setParameter(JRExporterParameter.JASPER_PRINT, print);
+//            exporter.exportReport();
+//            System.out.println("Created file: " + outFileName);
+//        } catch (JRException e) {
+//            e.printStackTrace();
+//            System.exit(1);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            System.exit(1);
+//
+//        }
+        
+        
+        /** EJEMPLO 5.6
+         * 
+         *         response.setContentType("application/octet-stream");
+			ServletOutputStream outputStream = response.getOutputStream();
+			
+			ObjectOutputStream oos = new ObjectOutputStream(outputStream);
+			oos.writeObject(jasperPrint);
+			oos.flush();
+			oos.close();
+
+        String fileName = "/devel/examples/test.jasper";
+        String outFileName = "/devel/examples/test.pdf";
+        HashMap hm = new HashMap();
+
+        JasperPrint jasperPrint = JasperFillManager.fillReport(fileName,hm,new JREmptyDataSource());
+        
+        JRPdfExporter exporter = new JRPdfExporter();
+
+        exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
+        exporter.setExporterOutput(outputStream);
+        SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
+        exporter.setConfiguration(configuration);
+
+        exporter.exportReport();       
+         */
+        
+        String rutaJasper = FacesContext.getCurrentInstance().getExternalContext().getRealPath("secure/reportes/prueba2.jasper");  
+        
+        //JasperFillManager.fillReportToFile(rutaJasper, null, new JREmptyDataSource());
+        //JasperExportManager.exportReportToPdfFile(rutaJrPrint);
+        
+        JasperPrint jasperPrint = JasperFillManager.fillReport(rutaJasper, null, new JREmptyDataSource());
+        
+        HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();  
+        httpServletResponse.addHeader("Content-disposition", "attachment; filename=report.pdf");  
+        ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();  
+        JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);  
+        FacesContext.getCurrentInstance().responseComplete();  
+        
+
     }
 
     public ProyectoController() {
