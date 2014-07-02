@@ -110,139 +110,52 @@ WHERE proyectoid = 98]]>
 		<parameterDescription><![CDATA[Id del proyecto a mostrar]]></parameterDescription>
 		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
 	</parameter>
-	<queryString language="SQL">
-		<![CDATA[SELECT proyecto.comitenteid AS proyecto_comitenteid,
-	proyecto.convocatoriaid AS proyecto_convocatoriaid,
-	proyecto.nombre AS proyecto_nombre,
-	proyecto.duracion AS proyecto_duracion,
-	proyecto.agenteid AS proyecto_agenteid,
-	proyecto.tipoproyectoid AS proyecto_tipoproyectoid,
-	proyecto.localizacion AS proyecto_localizacion,
-	proyecto.fecha AS proyecto_fecha,
-	proyecto.id AS proyecto_id,
-	proyecto.beneficiarioid AS proyecto_beneficiarioid,
-	proyecto.tipofinanciamientoid AS proyecto_tipofinanciamientoid,
-	proyecto.fuentefinanciamientoid AS proyecto_fuentefinanciamientoid,
-	proyecto.avanceproyectoid AS proyecto_avanceproyectoid,
-	proyecto.estadoproyectoid AS proyecto_estadoproyectoid,
-	comitente.id AS comitente_id,
-	comitente.razonsocial AS comitente_razonsocial,
-	comitente.cuit AS comitente_cuit,
-	comitente.tipocomitenteid AS comitente_tipocomitenteid,
-	comitente.contacto AS comitente_contacto,
-	comitente.cargocontacto AS comitente_cargocontacto,
-	comitente.sectorid AS comitente_sectorid,
-	convocatoria.id AS convocatoria_id,
-	convocatoria.convocatoria AS convocatoria_convocatoria,
-	agente.apellido AS agente_apellido,
-	agente.nombres AS agente_nombres,
-	agente.tipodocumentoid AS agente_tipodocumentoid,
-	agente.numerodocumento AS agente_numerodocumento,
-	agente.telefono AS agente_telefono,
-	agente.celular AS agente_celular,
-	agente.email AS agente_email,
-	agente.otroemail AS agente_otroemail,
-	agente.profesion AS agente_profesion,
-	agente.id AS agente_id,
-	agente.domicilio AS agente_domicilio,
-	agente.dependenciaid AS agente_dependenciaid,
-	agente.usuarioid AS agente_usuarioid,
-	agente.especialidad AS agente_especialidad,
-	tipoproyecto.id AS tipoproyecto_id,
-	tipoproyecto.tipo AS tipoproyecto_tipo,
-	beneficiario.id AS beneficiario_id,
-	beneficiario.beneficiario AS beneficiario_beneficiario,
-	tipofinanciamiento.id AS tipofinanciamiento_id,
-	tipofinanciamiento.tipofinanciamiento AS tipofinanciamiento_tipofinanciamiento,
-	fuentefinanciamiento.id AS fuentefinanciamiento_id,
-	fuentefinanciamiento.fuentefinanciamiento AS fuentefinanciamiento_fuentefinanciamiento,
-	avanceproyecto.id AS avanceproyecto_id,
-	avanceproyecto.avance AS avanceproyecto_avance,
-	estadoproyecto.id AS estadoproyecto_id,
-	estadoproyecto.estado AS estadoproyecto_estado,
-	tipocomitente.tipocomitente AS tipocomitente_tipocomitente,
-	tipocomitente.id AS tipocomitente_id,
-	proyecto.resumen AS proyecto_resumen,
-	proyecto.observaciones AS proyecto_observaciones
-FROM ap.comitente
-	 INNER JOIN ap.proyecto proyecto ON 
-	 comitente.id = proyecto.comitenteid 
-	 INNER JOIN ap.convocatoria convocatoria ON 
-	 proyecto.convocatoriaid = convocatoria.id 
-	 INNER JOIN ap.agente agente ON 
-	 proyecto.agenteid = agente.id 
-	 INNER JOIN ap.tipoproyecto tipoproyecto ON 
-	 proyecto.tipoproyectoid = tipoproyecto.id 
-	 INNER JOIN ap.beneficiario beneficiario ON 
-	 proyecto.beneficiarioid = beneficiario.id 
-	 INNER JOIN ap.tipofinanciamiento tipofinanciamiento ON 
-	 proyecto.tipofinanciamientoid = tipofinanciamiento.id 
-	 INNER JOIN ap.fuentefinanciamiento fuentefinanciamiento ON 
-	 proyecto.fuentefinanciamientoid = fuentefinanciamiento.id 
-	 INNER JOIN ap.avanceproyecto avanceproyecto ON 
-	 proyecto.avanceproyectoid = avanceproyecto.id 
-	 INNER JOIN ap.estadoproyecto estadoproyecto ON 
-	 proyecto.estadoproyectoid = estadoproyecto.id 
-	 AND tipofinanciamiento.id = convocatoria.tipofinanciamientoid 
-	 AND tipoproyecto.id = convocatoria.tipoproyectoid 
-	 INNER JOIN ap.tipocomitente tipocomitente ON 
-	 comitente.tipocomitenteid = tipocomitente.id 
-WHERE 
-	 proyecto.id = $P{idProyecto}]]>
+	<queryString>
+		<![CDATA[]]>
 	</queryString>
-	<field name="proyecto_comitenteid" class="java.lang.Integer"/>
-	<field name="proyecto_convocatoriaid" class="java.lang.Integer"/>
-	<field name="proyecto_nombre" class="java.lang.String"/>
-	<field name="proyecto_duracion" class="java.lang.Integer"/>
-	<field name="proyecto_agenteid" class="java.lang.Integer"/>
-	<field name="proyecto_tipoproyectoid" class="java.lang.Integer"/>
-	<field name="proyecto_fecha" class="java.sql.Timestamp"/>
-	<field name="proyecto_id" class="java.lang.Integer"/>
-	<field name="proyecto_beneficiarioid" class="java.lang.Integer"/>
-	<field name="proyecto_tipofinanciamientoid" class="java.lang.Integer"/>
-	<field name="proyecto_fuentefinanciamientoid" class="java.lang.Integer"/>
-	<field name="proyecto_avanceproyectoid" class="java.lang.Integer"/>
-	<field name="proyecto_estadoproyectoid" class="java.lang.Integer"/>
-	<field name="comitente_id" class="java.lang.Integer"/>
-	<field name="comitente_razonsocial" class="java.lang.String"/>
-	<field name="comitente_cuit" class="java.lang.String"/>
-	<field name="comitente_tipocomitenteid" class="java.lang.Integer"/>
-	<field name="comitente_contacto" class="java.lang.String"/>
-	<field name="comitente_cargocontacto" class="java.lang.String"/>
-	<field name="comitente_sectorid" class="java.lang.Integer"/>
-	<field name="convocatoria_id" class="java.lang.Integer"/>
-	<field name="convocatoria_convocatoria" class="java.lang.String"/>
-	<field name="agente_apellido" class="java.lang.String"/>
-	<field name="agente_nombres" class="java.lang.String"/>
-	<field name="agente_tipodocumentoid" class="java.lang.Integer"/>
-	<field name="agente_numerodocumento" class="java.lang.String"/>
-	<field name="agente_telefono" class="java.lang.String"/>
-	<field name="agente_celular" class="java.lang.String"/>
-	<field name="agente_email" class="java.lang.String"/>
-	<field name="agente_otroemail" class="java.lang.String"/>
-	<field name="agente_profesion" class="java.lang.String"/>
-	<field name="agente_id" class="java.lang.Integer"/>
-	<field name="agente_domicilio" class="java.lang.String"/>
-	<field name="agente_dependenciaid" class="java.lang.Integer"/>
-	<field name="agente_usuarioid" class="java.lang.Integer"/>
-	<field name="agente_especialidad" class="java.lang.String"/>
-	<field name="tipoproyecto_id" class="java.lang.Integer"/>
-	<field name="tipoproyecto_tipo" class="java.lang.String"/>
-	<field name="beneficiario_id" class="java.lang.Integer"/>
-	<field name="beneficiario_beneficiario" class="java.lang.String"/>
-	<field name="tipofinanciamiento_id" class="java.lang.Integer"/>
-	<field name="tipofinanciamiento_tipofinanciamiento" class="java.lang.String"/>
-	<field name="fuentefinanciamiento_id" class="java.lang.Integer"/>
-	<field name="fuentefinanciamiento_fuentefinanciamiento" class="java.lang.String"/>
-	<field name="avanceproyecto_id" class="java.lang.Integer"/>
-	<field name="avanceproyecto_avance" class="java.lang.String"/>
-	<field name="estadoproyecto_id" class="java.lang.Integer"/>
-	<field name="estadoproyecto_estado" class="java.lang.String"/>
-	<field name="tipocomitente_tipocomitente" class="java.lang.String"/>
-	<field name="tipocomitente_id" class="java.lang.Integer"/>
-	<field name="proyecto_resumen" class="java.lang.String"/>
-	<field name="proyecto_observaciones" class="java.lang.String"/>
-	<field name="proyecto_localizacion" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="duracion" class="java.lang.Integer"/>
+	<field name="tipoproyectoid.tipo" class="java.lang.Integer"/>
+	<field name="fecha" class="java.sql.Timestamp"/>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="comitenteid.id" class="java.lang.Integer"/>
+	<field name="comitenteid.razonsocial" class="java.lang.String"/>
+	<field name="comitenteid.cuit" class="java.lang.String"/>
+	<field name="comitenteid.contacto" class="java.lang.String"/>
+	<field name="comitenteid.cargocontacto" class="java.lang.String"/>
+	<field name="comitenteid.sectorid" class="java.lang.Integer"/>
+	<field name="convocatoriaid.id" class="java.lang.Integer"/>
+	<field name="convocatoriaid.convocatoria" class="java.lang.String"/>
+	<field name="agenteid.apellido" class="java.lang.String"/>
+	<field name="agenteid.nombres" class="java.lang.String"/>
+	<field name="agenteid.tipodocumentoid.tipodocumento" class="java.lang.Integer"/>
+	<field name="agenteid.numerodocumento" class="java.lang.String"/>
+	<field name="agenteid.telefono" class="java.lang.String"/>
+	<field name="agenteid.celular" class="java.lang.String"/>
+	<field name="agenteid.email" class="java.lang.String"/>
+	<field name="agenteid.otroemail" class="java.lang.String"/>
+	<field name="agenteid.profesion" class="java.lang.String"/>
+	<field name="agenteid.id" class="java.lang.Integer"/>
+	<field name="agenteid.domicilio" class="java.lang.String"/>
+	<field name="agenteid.dependenciaid" class="java.lang.Integer"/>
+	<field name="agenteid.usuarioid.usuarionombre" class="java.lang.Integer"/>
+	<field name="agenteid.especialidad" class="java.lang.String"/>
+	<field name="tipoproyectoid.id" class="java.lang.Integer"/>
+	<field name="beneficiarioid.id" class="java.lang.Integer"/>
+	<field name="beneficiarioid.beneficiario" class="java.lang.String"/>
+	<field name="tipofinanciamientoid.id" class="java.lang.Integer"/>
+	<field name="tipofinanciamientoid.tipofinanciamiento" class="java.lang.String"/>
+	<field name="fuentefinanciamientoid.id" class="java.lang.Integer"/>
+	<field name="fuentefinanciamientoid.fuentefinanciamiento" class="java.lang.String"/>
+	<field name="avanceproyectoid.avance" class="java.lang.String"/>
+	<field name="estadoproyectoid.id" class="java.lang.Integer"/>
+	<field name="estadoproyectoid.estado" class="java.lang.String"/>
+	<field name="tipocomitenteid.tipoentidad" class="java.lang.String"/>
+	<field name="tipocomitenteid.id" class="java.lang.Integer"/>
+	<field name="proyectoid.resumen" class="java.lang.String"/>
+	<field name="proyectoid.observaciones" class="java.lang.String"/>
+	<field name="proyectoid.localizacion" class="java.lang.String"/>
+	<field name="comitenteid.tipocomitenteid.tipoentidad" class="java.lang.String"/>
 	<background>
 		<band/>
 	</background>
@@ -366,7 +279,7 @@ WHERE
 				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
 					<font fontName="Calibri" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{proyecto_id}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="92" y="12" width="63" height="20" forecolor="#000000" uuid="5a8fbabf-12cf-4bba-96ae-c7e71e0db15f">
@@ -384,7 +297,7 @@ WHERE
 				<textElement verticalAlignment="Middle">
 					<font fontName="Calibri"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{proyecto_fecha}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="390" y="12" width="77" height="20" uuid="beb80c83-34bb-4f05-9b78-9e710a81e80e">
@@ -413,7 +326,7 @@ WHERE
 				<textElement verticalAlignment="Middle">
 					<font fontName="Calibri"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{tipoproyecto_tipo}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{tipoproyectoid.tipo}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="370" y="51" width="173" height="20" uuid="35b0548e-bf12-460b-a395-84bcbe0889fb">
@@ -423,7 +336,7 @@ WHERE
 				<textElement verticalAlignment="Middle">
 					<font fontName="Calibri"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{avanceproyecto_avance}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{avanceproyectoid.avance}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="300" y="51" width="50" height="20" uuid="42d6d620-31d4-4dce-a07f-a3bed473ce38">
@@ -439,7 +352,7 @@ WHERE
 				<textElement verticalAlignment="Middle">
 					<font fontName="Calibri"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{comitente_razonsocial}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{comitenteid.razonsocial}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="13" y="96" width="87" height="20" uuid="a21bef29-a30f-4b17-96c5-e3084c34be5e">
@@ -456,21 +369,21 @@ WHERE
 				<textElement verticalAlignment="Middle">
 					<font fontName="Calibri"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{comitente_cuit}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{comitenteid.cuit}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="323" y="96" width="100" height="20" uuid="7eba63d9-6a2e-4e08-875d-2ec5780c33d2"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Calibri"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{comitente_contacto}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{comitenteid.contacto}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="433" y="96" width="100" height="20" uuid="e3e09727-36c5-40c1-9820-7b2ce07af3c6"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Calibri"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{comitente_cargocontacto}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{comitenteid.cargocontacto}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="13" y="139" width="89" height="20" uuid="f20dfaa2-51b7-4668-baf7-1f03858ee37d">
@@ -486,21 +399,21 @@ WHERE
 				<textElement verticalAlignment="Middle">
 					<font fontName="Calibri"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{agente_apellido}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{agenteid.apellido}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="230" y="139" width="100" height="20" uuid="b8dd4521-659c-4451-89cc-b975f4670d0f"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Calibri"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{agente_nombres}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{agenteid.nombres}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="346" y="139" width="70" height="20" uuid="ff0c555d-56df-47e4-9b7d-f2adc608f928"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Calibri"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{agente_numerodocumento}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{agenteid.numerodocumento}]]></textFieldExpression>
 			</textField>
 			<rectangle radius="5">
 				<reportElement mode="Opaque" x="-1" y="174" width="271" height="120" backcolor="#F0F6FF" uuid="9e412b60-fbeb-4056-b98f-c17864022724"/>
@@ -521,14 +434,14 @@ WHERE
 				<textElement verticalAlignment="Middle">
 					<font fontName="Calibri"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{proyecto_resumen}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{proyectoid.resumen}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="300" y="184" width="243" height="100" uuid="940a8257-b375-4fc7-9fd4-bf949ff32caa"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Calibri"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{proyecto_observaciones}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{proyectoid.observaciones}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="13" y="311" width="61" height="20" uuid="865c1022-9d0d-403b-9b6f-095dfd064649">
@@ -551,14 +464,14 @@ WHERE
 				<textElement verticalAlignment="Middle">
 					<font fontName="Calibri"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{proyecto_duracion}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{duracion}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="70" y="311" width="200" height="20" uuid="493a0f79-869f-49c9-96bb-5f5e5168c93b"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Calibri"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{proyecto_localizacion}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{proyectoid.localizacion}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="13" y="355" width="89" height="20" uuid="7fe4ab52-c552-4434-b513-a024ac891e15">
@@ -574,21 +487,21 @@ WHERE
 				<textElement verticalAlignment="Middle">
 					<font fontName="Calibri"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{tipofinanciamiento_tipofinanciamiento}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{tipofinanciamientoid.tipofinanciamiento}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="107" y="355" width="163" height="20" uuid="2f2438af-8606-441e-aed5-82211aeabd0b"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Calibri"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{beneficiario_beneficiario}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{beneficiarioid.beneficiario}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="360" y="355" width="183" height="20" uuid="468cb12c-b447-454b-aafa-599169860adb"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Calibri"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{fuentefinanciamiento_fuentefinanciamiento}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{fuentefinanciamientoid.fuentefinanciamiento}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="281" y="355" width="62" height="20" uuid="56f1fdf6-3814-46bb-a567-98304d4e08b3"/>
@@ -620,7 +533,7 @@ WHERE
 				<textElement verticalAlignment="Middle">
 					<font fontName="Calibri"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{proyecto_localizacion}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{proyectoid.localizacion}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement mode="Transparent" x="160" y="12" width="220" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="b6a2e81b-3ac9-4e7c-98d2-37bf8ac7a46f">
@@ -629,7 +542,7 @@ WHERE
 				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
 					<font fontName="Calibri" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{proyecto_nombre}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 			</textField>
 			<break>
 				<reportElement x="0" y="467" width="556" height="1" uuid="a3c8a2d6-e7c0-4e95-8cc5-3d9b5fdbb7a0"/>
