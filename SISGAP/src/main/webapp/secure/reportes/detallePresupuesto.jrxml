@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="detallePresupuesto" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4ef8ae83-499f-4c9e-8d0a-af17296bd175">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#73B0E6">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#CFDBE6">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<field name="gastocomitente" class="java.math.BigDecimal"/>
+	<field name="gastouniversidad" class="java.math.BigDecimal"/>
+	<field name="gastoorganismo" class="java.math.BigDecimal"/>
+	<field name="total" class="java.math.BigDecimal"/>
+	<field name="rubro.rubro" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="52" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="400" height="26" uuid="9bec5906-ab05-4328-bd7a-6cdc4d918aad"/>
+				<textElement>
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[Presupuesto (Gastos por Rubro)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="29" width="100" height="20" uuid="b4de9690-0da3-42b4-a283-b47abb93ac16"/>
+				<text><![CDATA[gastocomitente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="29" width="100" height="20" uuid="1175df15-0d49-4467-97ed-12555663f2cd"/>
+				<text><![CDATA[gastouniversidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="29" width="100" height="20" uuid="5a2a95f2-d3ee-4173-9832-5f56e083828a"/>
+				<text><![CDATA[gastoorganismo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="29" width="100" height="20" uuid="3f3a8c14-a9d3-4621-bde2-0c8da7bfb482"/>
+				<text><![CDATA[total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="29" width="100" height="20" uuid="f509aa2a-9b27-4db7-b6ed-be505b6e55ee"/>
+				<text><![CDATA[Rubro]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="32" splitType="Stretch">
+			<textField>
+				<reportElement x="100" y="0" width="100" height="20" uuid="12102c43-3e92-453a-ba09-8d4f86f43a4e"/>
+				<textFieldExpression><![CDATA[$F{gastocomitente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="0" width="100" height="20" uuid="2181973e-93b5-479c-95ac-74a5d42b8b59"/>
+				<textFieldExpression><![CDATA[$F{gastouniversidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="0" width="100" height="20" uuid="27e54b9e-623a-4521-ade4-86c53a123203"/>
+				<textFieldExpression><![CDATA[$F{gastoorganismo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="0" width="100" height="20" uuid="bf02c111-e98c-4e23-aa25-4d1a59e03724"/>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="f8d21c7e-8b98-4e88-8c6d-bfba1dbaab5f"/>
+				<textFieldExpression><![CDATA[$F{rubro.rubro}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

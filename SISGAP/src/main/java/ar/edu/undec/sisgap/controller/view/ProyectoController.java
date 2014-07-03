@@ -23,6 +23,7 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
@@ -38,6 +39,7 @@ import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -175,7 +177,17 @@ public class ProyectoController implements Serializable {
 
         //JasperPrint jasperPrint = JasperFillManager.fillReport(pathReporte, new HashMap(), beanCollectionDataSource);
         //JasperPrint jasperPrint = JasperFillManager.fillReport(rutaJasper, null, new JREmptyDataSource());
-        JasperPrint jasperPrint = JasperFillManager.fillReport(rutaJasper, null, beanArrayDataSource);
+        
+        // Subreporte de presupuesto
+        Presupuesto presupuesto = this.ejbFacadep.findporProyecto(this.getSelected().getId());
+        JRDataSource detallePresupuesto = new JRBeanCollectionDataSource(presupuesto.getPresupuestoRubroList());
+        
+        //Parametros
+        Hashtable<String,Object> parametros = new Hashtable<String,Object>();
+        parametros.put("idProyecto", this.getSelected().getId());
+        parametros.put("presupuesto",detallePresupuesto);
+        
+        JasperPrint jasperPrint = JasperFillManager.fillReport(rutaJasper, parametros, beanArrayDataSource);
 
         HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
         httpServletResponse.addHeader("Content-disposition", "attachment; filename=idea-proyecto.pdf");
