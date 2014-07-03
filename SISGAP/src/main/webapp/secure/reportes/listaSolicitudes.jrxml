@@ -1,147 +1,126 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="14f6227a-5f40-47ee-bf7d-55f474469004">
-	<property name="ireport.zoom" value="1.0"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="listaIdeasProyecto" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="14f6227a-5f40-47ee-bf7d-55f474469004">
+	<property name="ireport.zoom" value="1.0000000000000007"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT
-     proyecto."comitenteid" AS proyecto_comitenteid,
-     proyecto."convocatoriaid" AS proyecto_convocatoriaid,
-     proyecto."nombre" AS proyecto_nombre,
-     proyecto."resumen" AS proyecto_resumen,
-     proyecto."documentacion" AS proyecto_documentacion,
-     proyecto."observaciones" AS proyecto_observaciones,
-     proyecto."duracion" AS proyecto_duracion,
-     proyecto."agenteid" AS proyecto_agenteid,
-     proyecto."tipoproyectoid" AS proyecto_tipoproyectoid,
-     proyecto."cudap" AS proyecto_cudap,
-     proyecto."fecha" AS proyecto_fecha,
-     proyecto."id" AS proyecto_id,
-     proyecto."beneficiarioid" AS proyecto_beneficiarioid,
-     proyecto."tipofinanciamientoid" AS proyecto_tipofinanciamientoid,
-     proyecto."localizacion" AS proyecto_localizacion,
-     proyecto."fuentefinanciamientoid" AS proyecto_fuentefinanciamientoid,
-     proyecto."documentacionnombre" AS proyecto_documentacionnombre,
-     proyecto."avanceproyectoid" AS proyecto_avanceproyectoid,
-     proyecto."estadoproyectoid" AS proyecto_estadoproyectoid
-FROM
-     "ap"."proyecto" proyecto
-WHERE
-     proyecto."estadoproyectoid" = 1]]>
+		<![CDATA[]]>
 	</queryString>
-	<field name="proyecto_id" class="java.lang.Integer"/>
-	<field name="proyecto_nombre" class="java.lang.String"/>
-	<field name="proyecto_agenteid" class="java.lang.Integer"/>
-	<field name="proyecto_tipoproyectoid" class="java.lang.Integer"/>
-	<field name="proyecto_fecha" class="java.sql.Timestamp"/>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="tipoproyectoid.tipo" class="java.lang.String"/>
+	<field name="agenteid.nombres" class="java.lang.String"/>
+	<field name="agenteid.apellido" class="java.lang.String"/>
+	<field name="tipofinanciamientoid.tipofinanciamiento" class="java.lang.String"/>
+	<field name="convocatoriaid.convocatoria" class="java.lang.String"/>
 	<background>
 		<band/>
 	</background>
 	<title>
-		<band height="72">
-			<frame>
-				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#006699" uuid="2c92ca4b-ec56-43ac-8b7f-92edba7b0e3b"/>
-				<staticText>
-					<reportElement x="20" y="20" width="234" height="43" forecolor="#FFFFFF" uuid="bbacf023-79d5-4b8a-903e-0bca6ff141b6"/>
-					<textElement>
-						<font size="34" isBold="true"/>
-					</textElement>
-					<text><![CDATA[SISGAP]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="395" y="43" width="180" height="20" forecolor="#FFFFFF" uuid="174d4e43-1549-4ef1-824d-60e187e3a72c"/>
-					<textElement textAlignment="Right">
-						<font size="14" isBold="false"/>
-					</textElement>
-					<text><![CDATA[Lista de Solicitudes]]></text>
-				</staticText>
-			</frame>
+		<band height="136">
+			<image scaleImage="FillFrame">
+				<reportElement x="1" y="0" width="800" height="135" uuid="fc6b4ea7-ec08-4623-b92d-a8bbab51b53a"/>
+				<imageExpression><![CDATA["imagenes\\cabeceraSisgapApaisada.png"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="13"/>
+		<band height="34">
+			<staticText>
+				<reportElement x="1" y="5" width="252" height="28" forecolor="#6084A0" uuid="7abdc4bf-61c7-4301-921c-89af8582b751">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="16" isBold="true" isUnderline="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Lista de Ideas-Proyecto]]></text>
+			</staticText>
+		</band>
 	</pageHeader>
 	<columnHeader>
 		<band height="21">
 			<line>
-				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="bfe37d3f-92e1-44cf-90ac-a5d369768528"/>
+				<reportElement x="0" y="20" width="802" height="1" forecolor="#666666" uuid="bfe37d3f-92e1-44cf-90ac-a5d369768528"/>
 			</line>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="5165b2f9-0056-47d1-81c6-5def42e084c6"/>
+				<reportElement mode="Opaque" x="0" y="0" width="39" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="5165b2f9-0056-47d1-81c6-5def42e084c6"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[proyecto_id]]></text>
+				<text><![CDATA[Nro]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="111" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="c888ae7a-5b6c-42b6-814a-279cefff8cf5"/>
+				<reportElement mode="Opaque" x="39" y="0" width="292" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="c888ae7a-5b6c-42b6-814a-279cefff8cf5"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[proyecto_nombre]]></text>
+				<text><![CDATA[Nombre]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="222" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="59e02a5e-2126-479c-93e6-b0c4af6da6a5"/>
+				<reportElement mode="Opaque" x="331" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="59e02a5e-2126-479c-93e6-b0c4af6da6a5"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[proyecto_agenteid]]></text>
+				<text><![CDATA[Tipo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="333" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="f6f0e8fb-d1bb-470d-9841-9b9fbb47e045"/>
+				<reportElement mode="Opaque" x="442" y="0" width="136" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="f6f0e8fb-d1bb-470d-9841-9b9fbb47e045"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[proyecto_tipoproyectoid]]></text>
+				<text><![CDATA[Responsable]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="444" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="93c3d592-310a-4d7d-9f46-3d436f91e4d2"/>
+				<reportElement mode="Opaque" x="578" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="93c3d592-310a-4d7d-9f46-3d436f91e4d2"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[proyecto_fecha]]></text>
+				<text><![CDATA[Financiamiento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="689" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="3e838bdd-8508-434b-9add-fa63ff2a70e7"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Convocatoria]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="20">
+		<band height="22">
 			<line>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1" uuid="334ef4e4-f47a-4d70-8680-ad1b1239de51"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="802" height="1" uuid="334ef4e4-f47a-4d70-8680-ad1b1239de51"/>
 			</line>
-			<textField isStretchWithOverflow="true">
-				<reportElement x="0" y="0" width="111" height="20" uuid="eeae9b25-8bb5-4b43-83cd-0909df01576e"/>
-				<textElement>
-					<font size="14"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{proyecto_id}]]></textFieldExpression>
+			<textField>
+				<reportElement x="0" y="0" width="39" height="20" uuid="e5fcfe27-0a68-4295-9dcd-af21752a3faa"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement x="111" y="0" width="111" height="20" uuid="358f6ba6-bbd8-4953-bf89-dc3631e3f3a2"/>
-				<textElement>
-					<font size="14"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{proyecto_nombre}]]></textFieldExpression>
+			<textField>
+				<reportElement x="39" y="0" width="292" height="20" uuid="6f2bd89e-b5cd-466c-8eec-4230ef9825c8"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement x="222" y="0" width="111" height="20" uuid="bd1cb85b-c344-4664-88ac-011dc7a71a66"/>
-				<textElement>
-					<font size="14"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{proyecto_agenteid}]]></textFieldExpression>
+			<textField>
+				<reportElement x="331" y="0" width="111" height="20" uuid="e5529f92-13c8-413b-964a-9a61cffbcd57"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{tipoproyectoid.tipo}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement x="333" y="0" width="111" height="20" uuid="05b1bea2-2dea-497d-9166-0e3cc1d659c2"/>
-				<textElement>
-					<font size="14"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{proyecto_tipoproyectoid}]]></textFieldExpression>
+			<textField>
+				<reportElement x="442" y="1" width="136" height="19" uuid="38c74b74-ff14-4f98-934f-dd7713193fe4"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{agenteid.apellido} + ", " + $F{agenteid.nombres}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement x="444" y="0" width="111" height="20" uuid="ed7bcb1d-075d-48dd-962a-c1d8a5d16c2d"/>
-				<textElement>
-					<font size="14"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{proyecto_fecha}]]></textFieldExpression>
+			<textField>
+				<reportElement x="578" y="1" width="111" height="19" uuid="322a0d94-ef6b-4b2d-ba59-a33cf6477d3e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{tipofinanciamientoid.tipofinanciamiento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="689" y="1" width="111" height="18" uuid="aa51bbe8-a151-436d-9bdd-9b3da7accda3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{convocatoriaid.convocatoria}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -151,12 +130,13 @@ WHERE
 	<pageFooter>
 		<band height="17">
 			<textField>
-				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="d017e69e-b03e-4149-9a33-09fd01114ffc"/>
+				<reportElement mode="Opaque" x="0" y="4" width="676" height="13" backcolor="#E6E6E6" uuid="d017e69e-b03e-4149-9a33-09fd01114ffc"/>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="69ccf687-5b49-4b3c-8607-9d180d111d42"/>
+				<reportElement mode="Opaque" x="676" y="4" width="124" height="13" backcolor="#E6E6E6" uuid="69ccf687-5b49-4b3c-8607-9d180d111d42"/>
+				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField pattern="EEEEE dd MMMMM yyyy">
