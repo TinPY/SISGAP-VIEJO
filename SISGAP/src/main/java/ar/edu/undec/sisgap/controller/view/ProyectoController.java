@@ -167,53 +167,6 @@ public class ProyectoController implements Serializable {
 //         */
 //    }
 
-    public void pdfIdeaProyecto() throws JRException, IOException {
-
-        // Obtengo la ruta absoluta del archivo compilado del reporte
-        String rutaJasper = FacesContext.getCurrentInstance().getExternalContext().getRealPath("secure/reportes/solicitud.jasper");
-        
-        // Fuente de datos del reporte
-        JRBeanArrayDataSource beanArrayDataSource = new JRBeanArrayDataSource(new Proyecto[]{this.getSelected()});
-        
-        // Fuente de datos del subreporte (detalle del presupuesto)
-        Presupuesto presupuesto = this.ejbFacadep.findporProyecto(this.getSelected().getId());
-        JRDataSource detallePresupuesto = new JRBeanCollectionDataSource(presupuesto.getPresupuestoRubroList());
-        
-        //Agregando los parametros
-        Hashtable<String,Object> parametros = new Hashtable<String,Object>();
-        parametros.put("idProyecto", this.getSelected().getId());
-        parametros.put("presupuesto",detallePresupuesto);
-        
-        // Llenamos el reporte
-        JasperPrint jasperPrint = JasperFillManager.fillReport(rutaJasper, parametros, beanArrayDataSource);
-        
-        // Generamos el archivo a descargar
-        HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-        httpServletResponse.addHeader("Content-disposition", "attachment; filename=idea-proyecto.pdf");
-        ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
-        JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
-        FacesContext.getCurrentInstance().responseComplete();
-    }
-
-    public void pdfListaIdeasProyecto() throws JRException, IOException {
-
-        // Ruta absoluta del archivo compilado del reporte
-        String rutaJasper = FacesContext.getCurrentInstance().getExternalContext().getRealPath("secure/reportes/listaSolicitudes.jasper");
-
-        // Fuente de datos del reporte
-        JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(this.getFacade().findAll());
-
-        // Llenamos el reporte con la fuente de datos
-        JasperPrint jasperPrint = JasperFillManager.fillReport(rutaJasper, null, beanCollectionDataSource);
-
-        // Generamos el archivo a descargar
-        HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-        httpServletResponse.addHeader("Content-disposition", "attachment; filename=listaIdeasProyecto.pdf");
-        ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
-        JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
-        FacesContext.getCurrentInstance().responseComplete();
-    }
-    
     public ProyectoController() {
     }
 
@@ -795,6 +748,56 @@ public class ProyectoController implements Serializable {
         current = (Proyecto) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "CreatePlanEquipo";
+    }
+    
+    
+    // **************************  REPORTES  **********************************
+    
+    public void pdfIdeaProyecto() throws JRException, IOException {
+
+        // Obtengo la ruta absoluta del archivo compilado del reporte
+        String rutaJasper = FacesContext.getCurrentInstance().getExternalContext().getRealPath("secure/reportes/solicitud.jasper");
+        
+        // Fuente de datos del reporte
+        JRBeanArrayDataSource beanArrayDataSource = new JRBeanArrayDataSource(new Proyecto[]{this.getSelected()});
+        
+        // Fuente de datos del subreporte (detalle del presupuesto)
+        Presupuesto presupuesto = this.ejbFacadep.findporProyecto(this.getSelected().getId());
+        JRDataSource detallePresupuesto = new JRBeanCollectionDataSource(presupuesto.getPresupuestoRubroList());
+        
+        //Agregando los parametros
+        Hashtable<String,Object> parametros = new Hashtable<String,Object>();
+        parametros.put("idProyecto", this.getSelected().getId());
+        parametros.put("presupuesto",detallePresupuesto);
+        
+        // Llenamos el reporte
+        JasperPrint jasperPrint = JasperFillManager.fillReport(rutaJasper, parametros, beanArrayDataSource);
+        
+        // Generamos el archivo a descargar
+        HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        httpServletResponse.addHeader("Content-disposition", "attachment; filename=idea-proyecto.pdf");
+        ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
+        JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
+        FacesContext.getCurrentInstance().responseComplete();
+    }
+
+    public void pdfListaIdeasProyecto() throws JRException, IOException {
+
+        // Ruta absoluta del archivo compilado del reporte
+        String rutaJasper = FacesContext.getCurrentInstance().getExternalContext().getRealPath("secure/reportes/listaSolicitudes.jasper");
+
+        // Fuente de datos del reporte
+        JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(this.getFacade().findAll());
+
+        // Llenamos el reporte con la fuente de datos
+        JasperPrint jasperPrint = JasperFillManager.fillReport(rutaJasper, null, beanCollectionDataSource);
+
+        // Generamos el archivo a descargar
+        HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        httpServletResponse.addHeader("Content-disposition", "attachment; filename=listaIdeasProyecto.pdf");
+        ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
+        JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
+        FacesContext.getCurrentInstance().responseComplete();
     }
 
 }

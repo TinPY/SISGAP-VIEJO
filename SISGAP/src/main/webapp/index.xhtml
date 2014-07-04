@@ -5,16 +5,32 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://java.sun.com/jsf/html">
 
-    
+
     <ui:define name="body">
-        BIENVENIDO!
+
         <h:form>
-        <p:commandLink  value="mail" actionListener="#{enviarMail.enviarMailConfirmacion(null, null)}" />
+            <p:panel id="pprincipal" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
+
+
+                <p:fieldset legend="Bienvenidos!" style="margin-bottom:5px">
+                    <!--<img src="resources/img/Logo_UNDEC _normal.png" style="height: 170px; width: 164px; vertical-align: top; border-radius: 6px; display: inline-block; text-align: right;"/>-->
+                    <h2 style="font-family: 'Varela Round'; font-size: 36px; color: #6684A3; line-height: 0%;">[sisges] sistema de gestión de proyectos</h2>
+                    <h3 style="font-family: 'Montserrat'; font-size: 18px; color: #35B3D1; line-height: 25%;">Universidad Nacional de Chilecito - Vinculación Tecnológica</h3>
+                    <h3 style="font-family: 'Montserrat'; font-size: 14px; color: #F50258; ;font-size: 12px; line-height: 50%;"> </h3>
+
+                    <p:separator />
+
+                    <p>
+                        Vinculación Tecnológica les da la bienvenida al sistema que les permitirá inscribir ideas
+                        para proyectos como asi tambien gestionarlos (presupuesto, tiempos y equipo de trabajo) y estos puedan ser
+                        evaluados por la dirección.
+                    </p>
+
+                    <p:commandLink  value="mail" actionListener="#{enviarMail.enviarMailConfirmacion(null, null)}" />
+                    
+                </p:fieldset>
+            </p:panel>
         </h:form>
     </ui:define>
-
-    
-
-    
 
 </ui:composition>

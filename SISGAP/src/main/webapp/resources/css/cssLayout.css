@@ -32,7 +32,7 @@ body {
 -----------------------------------------------------------------------------*/
 .header {
 	/*height: 18%;*/
-        width: 900px;
+        width: 950px;
         height: 191px;
         margin: 0 auto;
         background-color: #003366; 
@@ -62,7 +62,7 @@ body {
 }
 
 .menu1{
-    width: 900px; 
+    width: 950px; 
     margin: 6px auto 6px auto;
     
 }
