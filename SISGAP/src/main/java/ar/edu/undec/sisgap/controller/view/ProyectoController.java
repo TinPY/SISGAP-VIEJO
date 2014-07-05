@@ -45,6 +45,7 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.JasperRunManager;
 import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
@@ -798,6 +799,41 @@ public class ProyectoController implements Serializable {
         ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
         JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
         FacesContext.getCurrentInstance().responseComplete();
+    }
+    
+    public void imprimirIdeaProyecto() throws JRException, IOException {
+
+        // Obtengo la ruta absoluta del archivo compilado del reporte
+        String rutaJasper = FacesContext.getCurrentInstance().getExternalContext().getRealPath("secure/reportes/solicitud.jasper");
+        
+        // Fuente de datos del reporte
+        JRBeanArrayDataSource beanArrayDataSource = new JRBeanArrayDataSource(new Proyecto[]{this.getSelected()});
+        
+        // Fuente de datos del subreporte (detalle del presupuesto)
+        Presupuesto presupuesto = this.ejbFacadep.findporProyecto(this.getSelected().getId());
+        JRDataSource detallePresupuesto = new JRBeanCollectionDataSource(presupuesto.getPresupuestoRubroList());
+        
+        //Agregando los parametros
+        Hashtable<String,Object> parametros = new Hashtable<String,Object>();
+        parametros.put("idProyecto", this.getSelected().getId());
+        parametros.put("presupuesto",detallePresupuesto);
+        
+        // Llenamos el reporte
+        //JasperPrint jasperPrint = JasperFillManager.fillReport(rutaJasper, parametros, beanArrayDataSource);
+        
+        String archivo = JasperFillManager.fillReportToFile(rutaJasper,parametros,beanArrayDataSource);
+        
+        if(archivo != null){
+           JasperPrintManager.printReport(
+               archivo, true);
+        }
+        
+        // Generamos el archivo a descargar
+//        HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+//        httpServletResponse.addHeader("Content-disposition", "attachment; filename=idea-proyecto.pdf");
+//        ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
+//        JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
+//        FacesContext.getCurrentInstance().responseComplete();
     }
 
 }
