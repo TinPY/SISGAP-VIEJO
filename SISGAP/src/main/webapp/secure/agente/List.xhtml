@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
@@ -11,99 +12,106 @@
         </ui:define>
         <ui:define name="body">
             <h:form styleClass="jsfcrud_list_form">
-                <h:panelGroup id="messagePanel" layout="block">
-                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-                </h:panelGroup>
-                <h:outputText escape="false" value="#{bundle.ListAgenteEmpty}" rendered="#{agenteController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{agenteController.items.rowCount > 0}">
-                    <h:outputText value="#{agenteController.pagination.pageFirstItem + 1}..#{agenteController.pagination.pageLastItem + 1}/#{agenteController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{agenteController.previous}" value="#{bundle.Previous} #{agenteController.pagination.pageSize}" rendered="#{agenteController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{agenteController.next}" value="#{bundle.Next} #{agenteController.pagination.pageSize}" rendered="#{agenteController.pagination.hasNextPage}"/>&nbsp;
-                    <h:dataTable value="#{agenteController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAgenteTitle_apellido}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.apellido}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAgenteTitle_nombres}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.nombres}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAgenteTitle_numerodocumento}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.numerodocumento}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAgenteTitle_telefono}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.telefono}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAgenteTitle_celular}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.celular}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAgenteTitle_email}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.email}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAgenteTitle_otroemail}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.otroemail}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAgenteTitle_profesion}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.profesion}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAgenteTitle_id}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.id}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAgenteTitle_domicilio}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.domicilio}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAgenteTitle_tipodocumentoid}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.tipodocumentoid}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAgenteTitle_dependenciaid}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.dependenciaid}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
-                            </f:facet>
-                            <h:commandLink action="#{agenteController.prepareView}" value="#{bundle.ListAgenteViewLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{agenteController.prepareEdit}" value="#{bundle.ListAgenteEditLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{agenteController.destroy}" value="#{bundle.ListAgenteDestroyLink}"/>
-                        </h:column>
-                    </h:dataTable>
-                </h:panelGroup>
+
+
+                <p:panel id="pprincipal" header="Lista de Agentes" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
+                    <h:panelGroup id="messagePanel" layout="block">
+                        <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                    </h:panelGroup>
+                    <h:outputText escape="false" value="#{bundle.ListAgenteEmpty}" rendered="#{agenteController.items.rowCount == 0}"/>
+                    <h:panelGroup rendered="#{agenteController.items.rowCount > 0}">
+                        <h:outputText value="#{agenteController.pagination.pageFirstItem + 1}..#{agenteController.pagination.pageLastItem + 1}/#{agenteController.pagination.itemsCount}"/>&nbsp;
+                        <h:commandLink action="#{agenteController.previous}" value="#{bundle.Previous} #{agenteController.pagination.pageSize}" rendered="#{agenteController.pagination.hasPreviousPage}"/>&nbsp;
+                        <h:commandLink action="#{agenteController.next}" value="#{bundle.Next} #{agenteController.pagination.pageSize}" rendered="#{agenteController.pagination.hasNextPage}"/>&nbsp;
+                        <h:dataTable value="#{agenteController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListAgenteTitle_apellido}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.apellido}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListAgenteTitle_nombres}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.nombres}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListAgenteTitle_numerodocumento}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.numerodocumento}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListAgenteTitle_telefono}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.telefono}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListAgenteTitle_celular}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.celular}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListAgenteTitle_email}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.email}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListAgenteTitle_otroemail}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.otroemail}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListAgenteTitle_profesion}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.profesion}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListAgenteTitle_id}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.id}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListAgenteTitle_domicilio}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.domicilio}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListAgenteTitle_tipodocumentoid}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.tipodocumentoid}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListAgenteTitle_dependenciaid}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.dependenciaid}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="&nbsp;"/>
+                                </f:facet>
+                                <h:commandLink action="#{agenteController.prepareView}" value="#{bundle.ListAgenteViewLink}"/>
+                                <h:outputText value=" "/>
+                                <h:commandLink action="#{agenteController.prepareEdit}" value="#{bundle.ListAgenteEditLink}"/>
+                                <h:outputText value=" "/>
+                                <h:commandLink action="#{agenteController.destroy}" value="#{bundle.ListAgenteDestroyLink}"/>
+                            </h:column>
+                        </h:dataTable>
+                    </h:panelGroup>
+                </p:panel>
+
+
+
                 <br />
                 <h:commandLink action="#{agenteController.prepareCreate}" value="#{bundle.ListAgenteCreateLink}"/>
                 <br />

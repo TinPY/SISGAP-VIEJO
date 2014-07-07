@@ -827,13 +827,7 @@ public class ProyectoController implements Serializable {
            JasperPrintManager.printReport(
                archivo, true);
         }
-        
-        // Generamos el archivo a descargar
-//        HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-//        httpServletResponse.addHeader("Content-disposition", "attachment; filename=idea-proyecto.pdf");
-//        ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
-//        JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
-//        FacesContext.getCurrentInstance().responseComplete();
+
     }
 
 }
