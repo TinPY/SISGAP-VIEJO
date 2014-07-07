@@ -339,6 +339,9 @@ public class AgenteViewController implements Serializable {
     }
 
     public Agente getAgente1() {
+        if(agente1 == null){
+         agente1 = new Agente();
+        }
         return agente1;
     }
 
@@ -348,9 +351,9 @@ public class AgenteViewController implements Serializable {
     
     public void registrar(){
         System.out.println("oooooooooo");
-        if(this.ejbFacade.agentedocumento(current.getNumerodocumento())==null){
+        if(this.ejbFacade.agentedocumento(agente1.getNumerodocumento())==null){
             System.out.println("---------------");
-            ejbFacade.createWithPersist(current);
+            ejbFacade.createWithPersist(agente1);
             System.out.println("lllllllllllllllllllllll");
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "OK", "La registracion fue Satisfactoria")); 
         }else{

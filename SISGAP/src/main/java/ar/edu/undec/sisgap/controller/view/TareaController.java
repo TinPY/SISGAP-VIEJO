@@ -4,6 +4,7 @@ import ar.edu.undec.sisgap.model.Tarea;
 import ar.edu.undec.sisgap.controller.view.util.JsfUtil;
 import ar.edu.undec.sisgap.controller.view.util.PaginationHelper;
 import ar.edu.undec.sisgap.controller.TareaFacade;
+import ar.edu.undec.sisgap.model.TareaAgente;
 import com.google.gson.Gson;
 
 import java.io.Serializable;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -35,10 +37,10 @@ public class TareaController implements Serializable {
     private int selectedItemIndex;
     private List<Tarea> tareasdeproyecto = new ArrayList<Tarea>() ;
     private Tarea tareanueva=new Tarea();
-    private String gsoncategoria="[]";
-    private String data ;
-    private long mindate;
+    
     private Tarea tarea1=new Tarea();
+    @ManagedProperty("#{tareaAgenteController}")
+    private TareaAgenteController tareaagentecontroller;
 
     public TareaController() {
     }
@@ -51,6 +53,8 @@ public class TareaController implements Serializable {
             current.setFechainicio(new Date());
             current.setFechafin(null);
             current.setDias(0);
+            current.setEstado(0);
+            current.setTareaAgenteList(null);
             selectedItemIndex = -1;
         }
         return current;
@@ -254,23 +258,36 @@ public class TareaController implements Serializable {
     }
     
      public void rearmarTareasProyecto(){
+         
+         tareaagentecontroller.setTareasagentes(new ArrayList<TareaAgente>() );
          current=null;
+         tarea1=null;
+        
+         tareanueva=null;
+         
      }
     
     public void armarTareasProyecto(){
+        
+        if(tareasdeproyecto==null){
+            tareasdeproyecto = new ArrayList();
+        }
         
         if(current.getId()==null){
             
         
             current.setId(tareasdeproyecto.size()+1);
-            //current.setEstado("0%");
-        
+            //current.setEstado("0");
+            for(TareaAgente ta:tareaagentecontroller.getTareasagentes()){
+               System.out.println("pppppppppppppppppppppppppppppppp"+ta.getAgente().getApellido()); 
+            }
+            current.setTareaAgenteList(tareaagentecontroller.getTareasagentes());
             tareasdeproyecto.add(current);
         }
         
         current=null;
         
-       crearChart();
+       //crearChart();
        
     }
     
@@ -323,48 +340,20 @@ public class TareaController implements Serializable {
         this.tareanueva = tareanueva;
     }
     
-    public void crearChart(){
-        Gson gson= new Gson();
-        List<String> categoria=new ArrayList<String>();
-        data="[";
-        mindate=Long.MAX_VALUE;
-       int cant=tareasdeproyecto.size();
-       int contador=0;
-        for(Tarea t:this.tareasdeproyecto){
-            if(t.getFechainicio().getTime()<mindate){
-                mindate=t.getFechainicio().getTime();
-            }
-            contador++;
-            categoria.add(t.getTarea());
-            data+="["+t.getFechainicio().getTime()+","+t.getFechafin().getTime()+"]";
-            if(contador<cant){
-                data+=",";
-            }
-        }
-        gsoncategoria=""+gson.toJson(categoria).replace('\"', '\'');
-        data+="]";
-        System.out.println("--------------------"+gsoncategoria);
-    }
+    
     
     public void removerTareadeProyecto(){
         System.out.println("oooooooooooo"+current.getId());
        
         this.tareasdeproyecto.remove(current);
-        crearChart();
+      //  crearChart();
         
         
     }
     
    
 
-    public String getGsoncategoria() {
-        return gsoncategoria;
-    }
-
-    public void setGsoncategoria(String gsoncategoria) {
-        this.gsoncategoria = gsoncategoria;
-    }
-    
+        
     public void sumarDias(){
         Calendar cal=Calendar.getInstance();
         System.out.println("nnnnnnnnnnnn"+current.getTarea());
@@ -381,22 +370,7 @@ public class TareaController implements Serializable {
         current= tarea;
     }
 
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
-    }
-
-    public long getMindate() {
-        return mindate;
-    }
-
-    public void setMindate(long mindate) {
-        this.mindate = mindate;
-    }
-
+    
     public Tarea getTarea1() {
         return tarea1;
     }
@@ -411,6 +385,21 @@ public class TareaController implements Serializable {
             
         }
     }
+    
+    public void editarTarea(Tarea t){
+        current = t;
+        tareaagentecontroller.setTareasagentes(current.getTareaAgenteList());
+        
+    }
+
+    public TareaAgenteController getTareaagentecontroller() {
+        return tareaagentecontroller;
+    }
+
+    public void setTareaagentecontroller(TareaAgenteController tareaagentecontroller) {
+        this.tareaagentecontroller = tareaagentecontroller;
+    }
+    
     
 
 }

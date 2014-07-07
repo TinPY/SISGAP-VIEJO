@@ -10,15 +10,13 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -28,25 +26,22 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "presupuesto_rubroitem", schema = "ap")
-@SequenceGenerator(name="presupuesto_rubroitem_id_seq", sequenceName="ap.presupuesto_rubroitem_id_seq", allocationSize=1)
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "PresupuestoRubroitem.findAll", query = "SELECT p FROM PresupuestoRubroitem p"),
-    @NamedQuery(name = "PresupuestoRubroitem.findById", query = "SELECT p FROM PresupuestoRubroitem p WHERE p.id = :id"),
     @NamedQuery(name = "PresupuestoRubroitem.findByDescripcion", query = "SELECT p FROM PresupuestoRubroitem p WHERE p.descripcion = :descripcion"),
     @NamedQuery(name = "PresupuestoRubroitem.findByCostounitario", query = "SELECT p FROM PresupuestoRubroitem p WHERE p.costounitario = :costounitario"),
     @NamedQuery(name = "PresupuestoRubroitem.findByCantidad", query = "SELECT p FROM PresupuestoRubroitem p WHERE p.cantidad = :cantidad"),
     @NamedQuery(name = "PresupuestoRubroitem.findByTotal", query = "SELECT p FROM PresupuestoRubroitem p WHERE p.total = :total"),
+    @NamedQuery(name = "PresupuestoRubroitem.findByRubroid", query = "SELECT p FROM PresupuestoRubroitem p WHERE p.presupuestoRubroitemPK.rubroid = :rubroid"),
+    @NamedQuery(name = "PresupuestoRubroitem.findByPresupuestoid", query = "SELECT p FROM PresupuestoRubroitem p WHERE p.presupuestoRubroitemPK.presupuestoid = :presupuestoid"),
     @NamedQuery(name = "PresupuestoRubroitem.findByAportecomitente", query = "SELECT p FROM PresupuestoRubroitem p WHERE p.aportecomitente = :aportecomitente"),
     @NamedQuery(name = "PresupuestoRubroitem.findByAporteuniversidad", query = "SELECT p FROM PresupuestoRubroitem p WHERE p.aporteuniversidad = :aporteuniversidad"),
     @NamedQuery(name = "PresupuestoRubroitem.findByAporteorganismo", query = "SELECT p FROM PresupuestoRubroitem p WHERE p.aporteorganismo = :aporteorganismo")})
 public class PresupuestoRubroitem implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="presupuesto_rubroitem_id_seq")
-    @Basic(optional = true)
-    @Column(name = "id")
-    private Integer id;
+    @EmbeddedId
+    protected PresupuestoRubroitemPK presupuestoRubroitemPK;
     @Size(max = 2147483647)
     @Column(name = "descripcion")
     private String descripcion;
@@ -63,20 +58,35 @@ public class PresupuestoRubroitem implements Serializable {
     private BigDecimal aporteuniversidad;
     @Column(name = "aporteorganismo")
     private BigDecimal aporteorganismo;
-
+     @JoinColumn(name = "rubroid", referencedColumnName = "id", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Rubro rubro;
+    @JoinColumn(name = "presupuestoid", referencedColumnName = "id", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Presupuesto presupuesto;
+    
     public PresupuestoRubroitem() {
     }
 
-    public PresupuestoRubroitem(Integer id) {
-        this.id = id;
+    public PresupuestoRubroitem(PresupuestoRubroitemPK presupuestoRubroitemPK) {
+        this.presupuestoRubroitemPK = presupuestoRubroitemPK;
     }
 
-    public Integer getId() {
-        return id;
+    public PresupuestoRubroitem(PresupuestoRubroitemPK presupuestoRubroitemPK, int id) {
+        this.presupuestoRubroitemPK = presupuestoRubroitemPK;
+        
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public PresupuestoRubroitem(int rubroid, int presupuestoid) {
+        this.presupuestoRubroitemPK = new PresupuestoRubroitemPK(rubroid, presupuestoid);
+    }
+
+    public PresupuestoRubroitemPK getPresupuestoRubroitemPK() {
+        return presupuestoRubroitemPK;
+    }
+
+    public void setPresupuestoRubroitemPK(PresupuestoRubroitemPK presupuestoRubroitemPK) {
+        this.presupuestoRubroitemPK = presupuestoRubroitemPK;
     }
 
     public String getDescripcion() {
@@ -135,10 +145,28 @@ public class PresupuestoRubroitem implements Serializable {
         this.aporteorganismo = aporteorganismo;
     }
 
+    public Rubro getRubro() {
+        return rubro;
+    }
+
+    public void setRubro(Rubro rubro) {
+        this.rubro = rubro;
+    }
+
+    public Presupuesto getPresupuesto() {
+        return presupuesto;
+    }
+
+    public void setPresupuesto(Presupuesto presupuesto) {
+        this.presupuesto = presupuesto;
+    }
+
+    
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (presupuestoRubroitemPK != null ? presupuestoRubroitemPK.hashCode() : 0);
         return hash;
     }
 
@@ -149,7 +177,7 @@ public class PresupuestoRubroitem implements Serializable {
             return false;
         }
         PresupuestoRubroitem other = (PresupuestoRubroitem) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.presupuestoRubroitemPK == null && other.presupuestoRubroitemPK != null) || (this.presupuestoRubroitemPK != null && !this.presupuestoRubroitemPK.equals(other.presupuestoRubroitemPK))) {
             return false;
         }
         return true;
@@ -157,7 +185,7 @@ public class PresupuestoRubroitem implements Serializable {
 
     @Override
     public String toString() {
-        return "ar.edu.undec.sisgap.model.PresupuestoRubroitem[ id=" + id + " ]";
+        return "ar.edu.undec.sisgap.model.PresupuestoRubroitem[ presupuestoRubroitemPK=" + presupuestoRubroitemPK + " ]";
     }
     
 }

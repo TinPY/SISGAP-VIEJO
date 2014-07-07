@@ -17,6 +17,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -27,7 +29,6 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -46,7 +47,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Tarea.findByFechacreacion", query = "SELECT t FROM Tarea t WHERE t.fechacreacion = :fechacreacion"),
     @NamedQuery(name = "Tarea.findByDias", query = "SELECT t FROM Tarea t WHERE t.dias = :dias"),
     @NamedQuery(name = "Tarea.findByDescripcion", query = "SELECT t FROM Tarea t WHERE t.descripcion = :descripcion"),
-    @NamedQuery(name = "Tarea.findByFechamodificacion", query = "SELECT t FROM Tarea t WHERE t.fechamodificacion = :fechamodificacion")})
+    @NamedQuery(name = "Tarea.findByFechamodificacion", query = "SELECT t FROM Tarea t WHERE t.fechamodificacion = :fechamodificacion"),
+    @NamedQuery(name = "Tarea.findByFechainicio", query = "SELECT t FROM Tarea t WHERE t.fechainicio = :fechainicio"),
+    @NamedQuery(name = "Tarea.findByFechafin", query = "SELECT t FROM Tarea t WHERE t.fechafin = :fechafin")})
 public class Tarea implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -61,9 +64,8 @@ public class Tarea implements Serializable {
     @Size(max = 15)
     @Column(name = "prioridad")
     private String prioridad;
-    @Size(max = 20)
     @Column(name = "estado")
-    private String estado;
+    private Integer estado;
     @Column(name = "fechacreacion")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechacreacion;
@@ -81,6 +83,9 @@ public class Tarea implements Serializable {
     @Column(name = "fechafin")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechafin;
+    @JoinColumn(name = "etapaid", referencedColumnName = "id")
+    @ManyToOne
+    private Etapa etapaid;
     @OneToMany(mappedBy = "tareaid")
     private List<Tareaprogreso> tareaprogresoList;
     @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL, mappedBy = "tarea")
@@ -117,11 +122,11 @@ public class Tarea implements Serializable {
         this.prioridad = prioridad;
     }
 
-    public String getEstado() {
+    public Integer getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(Integer estado) {
         this.estado = estado;
     }
 
@@ -173,6 +178,22 @@ public class Tarea implements Serializable {
         this.fechafin = fechafin;
     }
 
+    public Etapa getEtapaid() {
+        return etapaid;
+    }
+
+    public void setEtapaid(Etapa etapaid) {
+        this.etapaid = etapaid;
+    }
+
+    public List<Tareaprogreso> getTareaprogresoList() {
+        return tareaprogresoList;
+    }
+
+    public void setTareaprogresoList(List<Tareaprogreso> tareaprogresoList) {
+        this.tareaprogresoList = tareaprogresoList;
+    }
+
     public List<TareaAgente> getTareaAgenteList() {
         return tareaAgenteList;
     }
@@ -182,16 +203,6 @@ public class Tarea implements Serializable {
     }
     
     
-    
-
-    @XmlTransient
-    public List<Tareaprogreso> getTareaprogresoList() {
-        return tareaprogresoList;
-    }
-
-    public void setTareaprogresoList(List<Tareaprogreso> tareaprogresoList) {
-        this.tareaprogresoList = tareaprogresoList;
-    }
 
     @Override
     public int hashCode() {

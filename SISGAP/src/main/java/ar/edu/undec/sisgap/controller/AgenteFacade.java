@@ -48,4 +48,11 @@ public class AgenteFacade extends AbstractFacade<Agente> {
             return null;
         }
     }
+    public List<Agente> filtroTipoUsuario(int tipo){
+        try{
+            return em.createQuery("select a from Agente a where a.usuarioid.usuariorol.rolid = '"+tipo, Agente.class).getResultList(); 
+        }catch(Exception e){
+            return null;
+    }
+    }
 }
