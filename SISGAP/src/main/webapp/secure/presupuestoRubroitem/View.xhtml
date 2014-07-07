@@ -15,8 +15,10 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewPresupuestoRubroitemLabel_id}"/>
-                    <h:outputText value="#{presupuestoRubroitemController.selected.id}" title="#{bundle.ViewPresupuestoRubroitemTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewPresupuestoRubroitemLabel_presupuestoRubroitemPK_rubroid}"/>
+                    <h:outputText value="#{presupuestoRubroitemController.selected.presupuestoRubroitemPK.rubroid}" title="#{bundle.ViewPresupuestoRubroitemTitle_presupuestoRubroitemPK_rubroid}"/>
+                    <h:outputText value="#{bundle.ViewPresupuestoRubroitemLabel_presupuestoRubroitemPK_presupuestoid}"/>
+                    <h:outputText value="#{presupuestoRubroitemController.selected.presupuestoRubroitemPK.presupuestoid}" title="#{bundle.ViewPresupuestoRubroitemTitle_presupuestoRubroitemPK_presupuestoid}"/>
                     <h:outputText value="#{bundle.ViewPresupuestoRubroitemLabel_descripcion}"/>
                     <h:outputText value="#{presupuestoRubroitemController.selected.descripcion}" title="#{bundle.ViewPresupuestoRubroitemTitle_descripcion}"/>
                     <h:outputText value="#{bundle.ViewPresupuestoRubroitemLabel_costounitario}"/>

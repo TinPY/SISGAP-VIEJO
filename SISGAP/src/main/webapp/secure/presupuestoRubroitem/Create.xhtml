@@ -15,8 +15,10 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreatePresupuestoRubroitemLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{presupuestoRubroitemController.selected.id}" title="#{bundle.CreatePresupuestoRubroitemTitle_id}" />
+                    <h:outputLabel value="#{bundle.CreatePresupuestoRubroitemLabel_presupuestoRubroitemPK_rubroid}" for="presupuestoRubroitemPK_rubroid" />
+                    <h:inputText id="presupuestoRubroitemPK_rubroid" value="#{presupuestoRubroitemController.selected.presupuestoRubroitemPK.rubroid}" title="#{bundle.CreatePresupuestoRubroitemTitle_presupuestoRubroitemPK_rubroid}" required="true" requiredMessage="#{bundle.CreatePresupuestoRubroitemRequiredMessage_presupuestoRubroitemPK_rubroid}"/>
+                    <h:outputLabel value="#{bundle.CreatePresupuestoRubroitemLabel_presupuestoRubroitemPK_presupuestoid}" for="presupuestoRubroitemPK_presupuestoid" />
+                    <h:inputText id="presupuestoRubroitemPK_presupuestoid" value="#{presupuestoRubroitemController.selected.presupuestoRubroitemPK.presupuestoid}" title="#{bundle.CreatePresupuestoRubroitemTitle_presupuestoRubroitemPK_presupuestoid}" required="true" requiredMessage="#{bundle.CreatePresupuestoRubroitemRequiredMessage_presupuestoRubroitemPK_presupuestoid}"/>
                     <h:outputLabel value="#{bundle.CreatePresupuestoRubroitemLabel_descripcion}" for="descripcion" />
                     <h:inputText id="descripcion" value="#{presupuestoRubroitemController.selected.descripcion}" title="#{bundle.CreatePresupuestoRubroitemTitle_descripcion}" />
                     <h:outputLabel value="#{bundle.CreatePresupuestoRubroitemLabel_costounitario}" for="costounitario" />

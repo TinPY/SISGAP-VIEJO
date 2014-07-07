@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateEtapaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateEtapaLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{etapaController.selected.id}" title="#{bundle.CreateEtapaTitle_id}" required="true" requiredMessage="#{bundle.CreateEtapaRequiredMessage_id}"/>
+                    <h:outputLabel value="#{bundle.CreateEtapaLabel_etapa}" for="etapa" />
+                    <h:inputText id="etapa" value="#{etapaController.selected.etapa}" title="#{bundle.CreateEtapaTitle_etapa}" />
+                    <h:outputLabel value="#{bundle.CreateEtapaLabel_fechainicio}" for="fechainicio" />
+                    <h:inputText id="fechainicio" value="#{etapaController.selected.fechainicio}" title="#{bundle.CreateEtapaTitle_fechainicio}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateEtapaLabel_fechafin}" for="fechafin" />
+                    <h:inputText id="fechafin" value="#{etapaController.selected.fechafin}" title="#{bundle.CreateEtapaTitle_fechafin}" >
+                        <f:convertDateTime pattern="HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateEtapaLabel_duracion}" for="duracion" />
+                    <h:inputText id="duracion" value="#{etapaController.selected.duracion}" title="#{bundle.CreateEtapaTitle_duracion}" />
+                    <h:outputLabel value="#{bundle.CreateEtapaLabel_estado}" for="estado" />
+                    <h:inputText id="estado" value="#{etapaController.selected.estado}" title="#{bundle.CreateEtapaTitle_estado}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{etapaController.create}" value="#{bundle.CreateEtapaSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{etapaController.prepareList}" value="#{bundle.CreateEtapaShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateEtapaIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

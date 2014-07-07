@@ -7,120 +7,114 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
-
+        
         <ui:define name="body">
             <f:event type="preRenderView" listener="#{agenteController.findAgente(request.getUserPrincipal().toString())}" ></f:event>
             <f:event type="preRenderView" listener='#{proyectoController.buscarProyectoEstado(1)}' ></f:event>
-
+            
             <h:form >
                 <h:panelGroup id="messagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
-
-                <p:panel id="pprincipal" header="Lista de Ideas-Proyecto" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
-                    <h:outputText escape="false" value="#{bundle.ListProyectoEmpty}" rendered="#{proyectoController.items.rowCount == 0}"/>
-                    <h:panelGroup rendered="#{proyectoController.items.rowCount > 0}">
-                        <h:outputText value="#{proyectoController.pagination.pageFirstItem + 1}..#{proyectoController.pagination.pageLastItem + 1}/#{proyectoController.pagination.itemsCount}"/>&nbsp;
-                        <h:commandLink action="#{proyectoController.previous}" value="#{bundle.Previous} #{proyectoController.pagination.pageSize}" rendered="#{proyectoController.pagination.hasPreviousPage}"/>&nbsp;
-                        <h:commandLink action="#{proyectoController.next}" value="#{bundle.Next} #{proyectoController.pagination.pageSize}" rendered="#{proyectoController.pagination.hasNextPage}"/>&nbsp;
-                        <p:dataTable id="tbl" value="#{proyectoController.items}" var="item" >
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Fecha"/>
-                                </f:facet>
-                                <h:outputText value="#{item.fecha}">
-                                    <f:convertDateTime pattern="HH:mm:ss" />
-                                </h:outputText>
+                <h:outputText escape="false" value="#{bundle.ListProyectoEmpty}" rendered="#{proyectoController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{proyectoController.items.rowCount > 0}">
+                    <h:outputText value="#{proyectoController.pagination.pageFirstItem + 1}..#{proyectoController.pagination.pageLastItem + 1}/#{proyectoController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{proyectoController.previous}" value="#{bundle.Previous} #{proyectoController.pagination.pageSize}" rendered="#{proyectoController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{proyectoController.next}" value="#{bundle.Next} #{proyectoController.pagination.pageSize}" rendered="#{proyectoController.pagination.hasNextPage}"/>&nbsp;
+                    <p:dataTable id="tbl" value="#{proyectoController.items}" var="item" >
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Fecha"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fecha}">
+                                <f:convertDateTime pattern="HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Titulo del proyecto"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Resumen y Diagnostico"/>
+                            </f:facet>
+                            <h:outputText value="#{item.resumen}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Documentacion"/>
+                            </f:facet>
+                            <h:outputText value="#{item.documentacion}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Observaciones"/>
+                            </f:facet>
+                            <h:outputText value="#{item.observaciones}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Duracion en meses"/>
+                            </f:facet>
+                            <h:outputText value="#{item.duracion}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Estado del Proyecto"/>
+                            </f:facet>
+                            <h:outputText value="#{item.estadoproyectoid.estado}"/>
+                        </p:column>
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="CUDAP"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cudap}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Tipo de Proyecto"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tipoproyectoid.tipo}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Convocatoria"/>
+                            </f:facet>
+                            <h:outputText value="#{item.convocatoriaid.convocatoria}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <p:commandLink action="#{proyectoController.prepareView}" value="Evaluar" ajax="false" />
                             </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Titulo del proyecto"/>
-                                </f:facet>
-                                <h:outputText value="#{item.nombre}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Resumen y Diagnostico"/>
-                                </f:facet>
-                                <h:outputText value="#{item.resumen}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Documentacion"/>
-                                </f:facet>
-                                <h:outputText value="#{item.documentacion}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Observaciones"/>
-                                </f:facet>
-                                <h:outputText value="#{item.observaciones}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Duracion en meses"/>
-                                </f:facet>
-                                <h:outputText value="#{item.duracion}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Estado del Proyecto"/>
-                                </f:facet>
-                                <h:outputText value="#{item.estadoproyectoid.estado}"/>
-                            </p:column>
-
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="CUDAP"/>
-                                </f:facet>
-                                <h:outputText value="#{item.cudap}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Tipo de Proyecto"/>
-                                </f:facet>
-                                <h:outputText value="#{item.tipoproyectoid.tipo}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Convocatoria"/>
-                                </f:facet>
-                                <h:outputText value="#{item.convocatoriaid.convocatoria}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="&nbsp;"/>
-                                </f:facet>
-                                <p:commandLink action="#{proyectoController.prepareView}" value="Evaluar" ajax="false" />
-                            </p:column>
-                        </p:dataTable>
-                    </h:panelGroup>
-                </p:panel>
-
-
-
+                    </p:dataTable>
+                </h:panelGroup>
                 <br />
                 <p:panel header="Exportar">  
-                    <h:commandLink>  
-                        <p:graphicImage value="/resources/img/excel.png" />  
-                        <p:dataExporter type="xls" target="tbl" fileName="datos" pageOnly="true"/>  
-                    </h:commandLink>  
-
-                    <h:commandLink>  
-                        <p:graphicImage value="/resources/img/pdf.png" />  
-                        <p:dataExporter type="pdf" target="tbl" fileName="datos" pageOnly="true"/>  
-                    </h:commandLink>  
-
-                    <h:commandLink>  
-                        <p:graphicImage value="/resources/img/csv.png" />  
-                        <p:dataExporter type="csv" target="tbl" fileName="datos" pageOnly="true"/>  
-                    </h:commandLink>  
-
-                    <h:commandLink>  
-                        <p:graphicImage value="/resources/img/xml.png" />  
-                        <p:dataExporter type="xml" target="tbl" fileName="datos" pageOnly="true"/>  
-                    </h:commandLink>  
-                </p:panel>  
+        <h:commandLink>  
+            <p:graphicImage value="/resources/img/excel.png" />  
+            <p:dataExporter type="xls" target="tbl" fileName="datos" pageOnly="true"/>  
+        </h:commandLink>  
+  
+        <h:commandLink>  
+            <p:graphicImage value="/resources/img/pdf.png" />  
+            <p:dataExporter type="pdf" target="tbl" fileName="datos" pageOnly="true"/>  
+        </h:commandLink>  
+          
+        <h:commandLink>  
+            <p:graphicImage value="/resources/img/csv.png" />  
+            <p:dataExporter type="csv" target="tbl" fileName="datos" pageOnly="true"/>  
+        </h:commandLink>  
+          
+        <h:commandLink>  
+            <p:graphicImage value="/resources/img/xml.png" />  
+            <p:dataExporter type="xml" target="tbl" fileName="datos" pageOnly="true"/>  
+        </h:commandLink>  
+    </p:panel>  
                 <br />
                 <h:link outcome="/index" value="Inicio"/>
             </h:form>
