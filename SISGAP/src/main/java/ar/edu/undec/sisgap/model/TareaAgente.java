@@ -87,9 +87,6 @@ public class TareaAgente implements Serializable {
         this.agente = agente;
     }
 
-    
-    
-    
 
     @Override
     public int hashCode() {

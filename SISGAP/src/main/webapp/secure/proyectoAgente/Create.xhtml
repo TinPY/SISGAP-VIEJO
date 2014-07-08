@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateProyectoAgenteTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateProyectoAgenteLabel_funcionproyecto}" for="funcionproyecto" />
+                    <h:inputText id="funcionproyecto" value="#{proyectoAgenteController.selected.funcionproyecto}" title="#{bundle.CreateProyectoAgenteTitle_funcionproyecto}" />
+                    <h:outputLabel value="#{bundle.CreateProyectoAgenteLabel_proyecto}" for="proyecto" />
+                    <h:selectOneMenu id="proyecto" value="#{proyectoAgenteController.selected.proyecto}" title="#{bundle.CreateProyectoAgenteTitle_proyecto}" required="true" requiredMessage="#{bundle.CreateProyectoAgenteRequiredMessage_proyecto}">
+                        <f:selectItems value="#{proyectoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateProyectoAgenteLabel_agente}" for="agente" />
+                    <h:selectOneMenu id="agente" value="#{proyectoAgenteController.selected.agente}" title="#{bundle.CreateProyectoAgenteTitle_agente}" required="true" requiredMessage="#{bundle.CreateProyectoAgenteRequiredMessage_agente}">
+                        <f:selectItems value="#{agenteController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{proyectoAgenteController.create}" value="#{bundle.CreateProyectoAgenteSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{proyectoAgenteController.prepareList}" value="#{bundle.CreateProyectoAgenteShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateProyectoAgenteIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

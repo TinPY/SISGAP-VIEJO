@@ -8,9 +8,12 @@ package ar.edu.undec.sisgap.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,6 +22,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -106,6 +110,9 @@ public class Proyecto implements Serializable {
     @JoinColumn(name = "estadoproyectoid", referencedColumnName = "id")
     @ManyToOne
     private Estadoproyecto estadoproyectoid;
+    //@OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL, mappedBy = "proyecto")
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "proyecto")
+//    private List<ProyectoAgente> proyectoAgenteList;
 
     public Proyecto() {
     }
@@ -159,8 +166,6 @@ public class Proyecto implements Serializable {
     public void setDocumentacionnombre(String documentacionnombre) {
         this.documentacionnombre = documentacionnombre;
     }
-
-    
     
     public String getObservaciones() {
         return observaciones;
@@ -177,8 +182,6 @@ public class Proyecto implements Serializable {
     public void setLocalizacion(String localizacion) {
         this.localizacion = localizacion;
     }
-    
-    
     
     public Short getDuracion() {
         return duracion;
@@ -278,7 +281,13 @@ public class Proyecto implements Serializable {
         this.estadoproyectoid = estadoproyectoid;
     }
     
-    
+//    public List<ProyectoAgente> getProyectoAgenteList() {
+//        return proyectoAgenteList;
+//    }
+//
+//    public void setProyectoAgenteList(List<ProyectoAgente> proyectoAgenteList) {
+//        this.proyectoAgenteList = proyectoAgenteList;
+//    }
     
     
 

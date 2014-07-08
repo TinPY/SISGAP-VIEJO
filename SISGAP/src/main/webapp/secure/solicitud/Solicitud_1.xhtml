@@ -437,7 +437,7 @@
                                             <p:outputLabel value="#{agenteViewController.selected.email}"/>
                                             <p:outputLabel value="#{agenteViewController.selected.profesion}"/>
                                             <f:facet name="footer">
-                                                <p:commandButton immediate="true" update="tagentes" value="Agregar al equipo de trabajo" action="#{agenteViewController.agregarEquipo}" >
+                                                <p:commandButton immediate="true" update="tagentes" value="Agregar al equipo de trabajo" action="#{tareaAgenteController.agregarEquipo}" >
                                                
                                                 </p:commandButton>
                                              </f:facet>
@@ -445,37 +445,45 @@
                                 
                                 </h:panelGrid>
                                 <div align="center">
-                                    <p:dataTable id="tagentes" value="#{agenteViewController.collectoragentes}" var="agente" editable="true" editMode="cell" >
+                                    <p:dataTable id="tagentes" value="#{tareaAgenteController.tareasagentes}" var="tareaagente" editable="true" editMode="cell" >
                                     <p:column>
                                         <f:facet name="header">
                                             <h:outputText value="N° Documento"/>
                                         </f:facet>
-                                        <h:outputText value="#{agente.numerodocumento}"/>
+                                        <h:outputText value="#{tareaagente.agente.numerodocumento}"/>
                                     </p:column>
                                     <p:column>
                                         <f:facet name="header">
                                             <h:outputText value="Apellido"/>
                                         </f:facet>
-                                        <h:outputText value="#{agente.apellido}"/>
+                                        <h:outputText value="#{tareaagente.agente.apellido}"/>
                                     </p:column>
                                     <p:column>
                                         <f:facet name="header">
                                             <h:outputText value="Nombres"/>
                                         </f:facet>
-                                        <h:outputText value="#{agente.nombres}"/>
+                                        <h:outputText value="#{tareaagente.agente.nombres}"/>
                                     </p:column>
                                     <p:column>
                                         <f:facet name="header">
                                             <h:outputText value="Email"/>
                                         </f:facet>
-                                        <h:outputText value="#{agente.email}"/>
+                                        <h:outputText value="#{tareaagente.agente.email}"/>
                                     </p:column>
                                     
                                     <p:column>
                                         <f:facet name="header">
                                             <h:outputText value="Profesion"/>
                                         </f:facet>
-                                        <h:outputText value="#{agente.profesion}"/>
+                                        <h:outputText value="#{tareaagente.agente.profesion}"/>
+                                    </p:column>
+                                    
+                                        <p:column headerText="Función">
+                                        
+                                        <p:cellEditor>
+                                            <f:facet name="output"><h:outputLabel value="#{tareaagente.funcion}" /></f:facet>
+                                            <f:facet name="input"><p:inputText id="ifuncion" value="#{tareaagente.funcion}"  /></f:facet>
+                                        </p:cellEditor>
                                     </p:column>
                                     
                                     <p:column>
@@ -483,7 +491,7 @@
                                             <h:outputText value="&nbsp;"/>
                                         </f:facet>
                                         <p:commandButton immediate="true" id="cborrara" value="Eliminar" update="tagentes"  >
-                                            <p:collector value="#{agente}" removeFrom="#{agenteViewController.collectoragentes}" unique="true"/>
+                                            <p:collector value="#{tareaagente}" removeFrom="#{tareaAgenteController.tareasagentes}" unique="true"/>
                                         </p:commandButton>
                                     </p:column>
                                 </p:dataTable>

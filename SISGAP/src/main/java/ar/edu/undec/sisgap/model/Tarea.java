@@ -88,6 +88,7 @@ public class Tarea implements Serializable {
     private Etapa etapaid;
     @OneToMany(mappedBy = "tareaid")
     private List<Tareaprogreso> tareaprogresoList;
+    
     @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL, mappedBy = "tarea")
     private List<TareaAgente> tareaAgenteList;
 

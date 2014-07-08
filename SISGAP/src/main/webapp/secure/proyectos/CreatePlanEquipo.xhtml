@@ -7,232 +7,231 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
-       
+
         <ui:define name="body">
             <script src="#{request.contextPath}/resources/js/highcharts.js"></script>
-<script src="#{request.contextPath}/resources/js/highcharts-more.js"></script>
-<script src="#{request.contextPath}/resources/js/exporting.js"></script>
+            <script src="#{request.contextPath}/resources/js/highcharts-more.js"></script>
+            <script src="#{request.contextPath}/resources/js/exporting.js"></script>
             <f:event type="preRenderView" listener="#{presupuestoController.findProyecto(proyectoController.selected.id)}" />
             <f:event type="preRenderView" listener="#{presupuestoController.sumarGastosView}" />
-            
+
             <h:form id="form" >
                 <h:panelGroup id="messagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
                 <p:panel header="Proyecto N° #{proyectoController.selected.id} - #{proyectoController.selected.nombre}" toggleable="true" collapsed="true" toggleTitle="Descripcion del Proyecto" >
-                                    <p:growl  for="growlprincipal" id="growlprincipal" showDetail="true" sticky="true" />
-                       
-
-                        <h:panelGrid columns="2" cellspacing="5" columnClasses="right,left"  >
-                             <p:outputLabel value="N° de Solicitud"/>
-                            <p:outputLabel value="#{proyectoController.selected.id}" title="#{bundle.ViewProyectoTitle_id}"/>
-
-                            <p:outputLabel value="Fecha"/>
-                            <p:outputLabel value="#{proyectoController.selected.fecha}" title="#{bundle.ViewProyectoTitle_fecha}">
-                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
-                            </p:outputLabel>
-                            <p:outputLabel value="Tituto del Proyecto"/>
-                            <p:outputLabel value="#{proyectoController.selected.nombre}" title="#{bundle.ViewProyectoTitle_nombre}"/>
-                            <p:outputLabel value="Comitente"/>
-                            <p:outputLabel value="#{proyectoController.selected.comitenteid.cuit}/#{proyectoController.selected.comitenteid.razonsocial}" title="#{bundle.ViewProyectoTitle_nombre}"/>
-
-                            <p:outputLabel value="Resumen y Diagnostico"/>
-                            <p:outputLabel value="#{proyectoController.selected.resumen}" title="#{bundle.ViewProyectoTitle_resumen}"/>
-                            <p:outputLabel value="Documentacion "/>
-                            <p:commandLink id="downloadLink" value="#{proyectoController.selected.documentacionnombre}" ajax="false" process="@this" onclick="PrimeFaces.monitorDownload(showStatus, hideStatus)" >
-                                                <p:fileDownload id="f1" value="#{proyectoController.selected.documentacion}" contentDisposition="inline" />
-
-                                            </p:commandLink>
-                            <p:outputLabel value="Observaciones"/>
-                            <p:outputLabel value="#{proyectoController.selected.observaciones}" title="#{bundle.ViewProyectoTitle_observaciones}"/>
-                            <p:outputLabel value="Duracion"/>
-                            <p:outputLabel value="#{proyectoController.selected.duracion}" title="#{bundle.ViewProyectoTitle_duracion}"/>
-                            <p:outputLabel value="Estado"/>
-                            <p:outputLabel value="#{proyectoController.selected.estadoproyectoid.estado}" title="#{bundle.ViewProyectoTitle_estado}"/>
-                           <p:outputLabel value="CUDAP"/>
-                            <p:outputLabel value="#{proyectoController.selected.cudap}" title="#{bundle.ViewProyectoTitle_cudap}"/>
-                            <p:outputLabel value="Tipo de Proyecto"/>
-                            <p:outputLabel value="#{proyectoController.selected.tipoproyectoid.tipo}" title="#{bundle.ViewProyectoTitle_tipoproyectoid}"/>
-                            <p:outputLabel value="Convocatoria"/>
-                            <p:outputLabel value="#{proyectoController.selected.convocatoriaid.convocatoria}" title="#{bundle.ViewProyectoTitle_convocatoriaid}"/>
-                           <p:outputLabel value="Localizacion"/>
-                            <p:outputLabel value="#{proyectoController.selected.localizacion}" title="#{bundle.ViewProyectoTitle_convocatoriaid}"/>
-                           <p:outputLabel value="Beneficiario"/>
-                           <p:outputLabel value="#{proyectoController.selected.beneficiarioid.beneficiario}" title="#{bundle.ViewProyectoTitle_convocatoriaid}"/>
-                           <p:outputLabel value="Tipo de Financiamiento"/>
-                           <p:outputLabel value="#{proyectoController.selected.tipofinanciamientoid.tipofinanciamiento}" title="#{bundle.ViewProyectoTitle_convocatoriaid}"/>
-                          </h:panelGrid>
+                    <p:growl  for="growlprincipal" id="growlprincipal" showDetail="true" sticky="true" />
 
 
-                                    
-                        <br />
-                                 <h:panelGrid columns="4">
-                                        <p:panelGrid style="font-weight:bold;" id="paportes" columnClasses="right,right" columns="2">
-                                                  <f:facet name="header">  
-                                                        Total de Aportes  
-                                                  </f:facet>
-                                                 <p:outputLabel value="Aportes Organismo"/>
-                                                 <p:outputLabel value="$#{presupuestoController.sumagastoorganismo}"/>
-                                                 <p:outputLabel value="Aportes Comitente"/>
-                                                 <p:outputLabel value="$#{presupuestoController.sumagastocomitente}"/>
-                                                 <p:outputLabel value="Aportes Universidad"/>
-                                                 <p:outputLabel value="$#{presupuestoController.sumagastouniversidad}"/>
-                                                 <f:facet name="footer">  
-                                                     Total = $#{presupuestoController.sumatotal}  
-                                                  </f:facet>
-                                             </p:panelGrid>
+                    <h:panelGrid columns="2" cellspacing="5" columnClasses="right,left"  >
+                        <p:outputLabel value="N° de Solicitud"/>
+                        <p:outputLabel value="#{proyectoController.selected.id}" title="#{bundle.ViewProyectoTitle_id}"/>
+
+                        <p:outputLabel value="Fecha"/>
+                        <p:outputLabel value="#{proyectoController.selected.fecha}" title="#{bundle.ViewProyectoTitle_fecha}">
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                        </p:outputLabel>
+                        <p:outputLabel value="Tituto del Proyecto"/>
+                        <p:outputLabel value="#{proyectoController.selected.nombre}" title="#{bundle.ViewProyectoTitle_nombre}"/>
+                        <p:outputLabel value="Comitente"/>
+                        <p:outputLabel value="#{proyectoController.selected.comitenteid.cuit}/#{proyectoController.selected.comitenteid.razonsocial}" title="#{bundle.ViewProyectoTitle_nombre}"/>
+
+                        <p:outputLabel value="Resumen y Diagnostico"/>
+                        <p:outputLabel value="#{proyectoController.selected.resumen}" title="#{bundle.ViewProyectoTitle_resumen}"/>
+                        <p:outputLabel value="Documentacion "/>
+                        <p:commandLink id="downloadLink" value="#{proyectoController.selected.documentacionnombre}" ajax="false" process="@this" onclick="PrimeFaces.monitorDownload(showStatus, hideStatus)" >
+                            <p:fileDownload id="f1" value="#{proyectoController.selected.documentacion}" contentDisposition="inline" />
+
+                        </p:commandLink>
+                        <p:outputLabel value="Observaciones"/>
+                        <p:outputLabel value="#{proyectoController.selected.observaciones}" title="#{bundle.ViewProyectoTitle_observaciones}"/>
+                        <p:outputLabel value="Duracion"/>
+                        <p:outputLabel value="#{proyectoController.selected.duracion}" title="#{bundle.ViewProyectoTitle_duracion}"/>
+                        <p:outputLabel value="Estado"/>
+                        <p:outputLabel value="#{proyectoController.selected.estadoproyectoid.estado}" title="#{bundle.ViewProyectoTitle_estado}"/>
+                        <p:outputLabel value="CUDAP"/>
+                        <p:outputLabel value="#{proyectoController.selected.cudap}" title="#{bundle.ViewProyectoTitle_cudap}"/>
+                        <p:outputLabel value="Tipo de Proyecto"/>
+                        <p:outputLabel value="#{proyectoController.selected.tipoproyectoid.tipo}" title="#{bundle.ViewProyectoTitle_tipoproyectoid}"/>
+                        <p:outputLabel value="Convocatoria"/>
+                        <p:outputLabel value="#{proyectoController.selected.convocatoriaid.convocatoria}" title="#{bundle.ViewProyectoTitle_convocatoriaid}"/>
+                        <p:outputLabel value="Localizacion"/>
+                        <p:outputLabel value="#{proyectoController.selected.localizacion}" title="#{bundle.ViewProyectoTitle_convocatoriaid}"/>
+                        <p:outputLabel value="Beneficiario"/>
+                        <p:outputLabel value="#{proyectoController.selected.beneficiarioid.beneficiario}" title="#{bundle.ViewProyectoTitle_convocatoriaid}"/>
+                        <p:outputLabel value="Tipo de Financiamiento"/>
+                        <p:outputLabel value="#{proyectoController.selected.tipofinanciamientoid.tipofinanciamiento}" title="#{bundle.ViewProyectoTitle_convocatoriaid}"/>
+                    </h:panelGrid>
 
 
-                                     <p:pieChart id="caportes" value="#{presupuestoController.pieModelAportes}" legendPosition="e" showDataLabels="true"  
+
+                    <br />
+                    <h:panelGrid columns="4">
+                        <p:panelGrid style="font-weight:bold;" id="paportes" columnClasses="right,right" columns="2">
+                            <f:facet name="header">  
+                                Total de Aportes  
+                            </f:facet>
+                            <p:outputLabel value="Aportes Organismo"/>
+                            <p:outputLabel value="$#{presupuestoController.sumagastoorganismo}"/>
+                            <p:outputLabel value="Aportes Comitente"/>
+                            <p:outputLabel value="$#{presupuestoController.sumagastocomitente}"/>
+                            <p:outputLabel value="Aportes Universidad"/>
+                            <p:outputLabel value="$#{presupuestoController.sumagastouniversidad}"/>
+                            <f:facet name="footer">  
+                                Total = $#{presupuestoController.sumatotal}  
+                            </f:facet>
+                        </p:panelGrid>
+
+                        <p:pieChart id="caportes" value="#{presupuestoController.pieModelAportes}" legendPosition="e" showDataLabels="true"  
                                     title="Aportes" style="width:15%;height:300px" sliceMargin="5" diameter="150" /> 
 
 
-                                        <p:dataTable value="#{presupuestoController.selected.presupuestoRubroList}" var="data" >
+                        <p:dataTable value="#{presupuestoController.selected.presupuestoRubroList}" var="data" >
 
-                                                  <f:facet name="header">  
-                                                        Total de Rubros  
-                                                  </f:facet>
-                                         <p:column >
-                                            <p:outputLabel style="font-weight:bold;" value="#{data.rubro.rubro}"/>
-                                         </p:column>
-                                         <p:column>
-                                            <p:outputLabel style="font-weight:bold;" value="$#{data.total}"/>
-                                         </p:column>    
-                                                    <f:facet name="footer">  
-                                                     Total = $#{presupuestoController.sumatotal}  
-                                                  </f:facet>
-                                            </p:dataTable>
-                                        <p:pieChart id="crubros" value="#{presupuestoController.pieModelRubro}" legendPosition="e" showDataLabels="true"  
+                            <f:facet name="header">  
+                                Total de Rubros  
+                            </f:facet>
+                            <p:column >
+                                <p:outputLabel style="font-weight:bold;" value="#{data.rubro.rubro}"/>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel style="font-weight:bold;" value="$#{data.total}"/>
+                            </p:column>    
+                            <f:facet name="footer">  
+                                Total = $#{presupuestoController.sumatotal}  
+                            </f:facet>
+                        </p:dataTable>
+                        <p:pieChart id="crubros" value="#{presupuestoController.pieModelRubro}" legendPosition="e" showDataLabels="true"  
                                     title="Rubros" style="width:15%;height:300px" sliceMargin="5" diameter="150" /> 
 
-                           </h:panelGrid>
+                    </h:panelGrid>
 
-                      
-                
+
+
                 </p:panel>
-                
+
                 <p:separator />
                 <p:panel header="Crear Plan y Equipo de Trabajo">
-                        <p:commandButton id="btn_add" actionListener="#{tareaController.rearmarTareasProyecto}" value="Agregar Tarea" update=":formd:dtarea" oncomplete="PF('dtarea').show()" >  
+                    <p:commandButton id="btn_add" actionListener="#{tareaController.rearmarTareasProyecto}" value="Agregar Tarea" update=":formd:dtarea" oncomplete="PF('dtarea').show()" >  
 
-                        </p:commandButton> 
-                        <br />
-                        <br />
-                        
-                        
-                        <p:dataTable style="width: 100%; " id="tareasdeproyecto" value="#{tareaController.tareasdeproyecto}" var="item" 
-                                         widgetVar="wtareasdeproyecto" >
+                    </p:commandButton> 
+                    <br />
+                    <br />
 
-                                <p:column style="width: 45%" >
-                                     <f:facet name="header">
-                                        <h:outputText value="Tarea"/>
-                                    </f:facet>
-                                    <p:outputLabel style="width: 100%" value="#{item.tarea}" />
-                            </p:column>
-                                 <p:column >
-                                      <f:facet name="header">
-                                        <h:outputText value="Fecha Inicio"/>
-                                    </f:facet>
-                                    <p:outputLabel value="#{item.fechainicio}" >
-                                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                                    </p:outputLabel>
 
-                                </p:column>
-                            <p:column >
-                                 <f:facet name="header">
-                                    <h:outputText value="Fecha Fin"/>
-                                </f:facet>
-                                   <p:outputLabel value="#{item.fechafin}" >
-                                       <f:convertDateTime pattern="dd/MM/yyyy" />
-                                    </p:outputLabel>
+                    <p:dataTable style="width: 100%; " id="tareasdeproyecto" value="#{tareaController.tareasdeproyecto}" var="item" 
+                                 widgetVar="wtareasdeproyecto" >
 
-                              </p:column>
-                             <p:column >
-                                  <f:facet name="header">
-                                    <h:outputText value="Días"/>
-                                </f:facet>
-                                    <p:outputLabel value="#{item.dias}" />
+                        <p:column style="width: 45%" >
+                            <f:facet name="header">
+                                <h:outputText value="Tarea"/>
+                            </f:facet>
+                            <p:outputLabel style="width: 100%" value="#{item.tarea}" />
+                        </p:column>
+                        <p:column >
+                            <f:facet name="header">
+                                <h:outputText value="Fecha Inicio"/>
+                            </f:facet>
+                            <p:outputLabel value="#{item.fechainicio}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </p:outputLabel>
 
-                            </p:column>
-                            <p:column >
-                                 <f:facet name="header">
-                                    <h:outputText value="Prioridad"/>
-                                </f:facet>
-                                    <p:outputLabel value="#{item.prioridad}"/>
-                            </p:column>
-                            <p:column >
-                                 <f:facet name="header">
-                                    <h:outputText value="Estado"/>
-                                </f:facet>
-                                   <p:outputLabel value="#{item.estado}%" />
-                            </p:column>
-                            
-                                <p:column exportable="false">  
+                        </p:column>
+                        <p:column >
+                            <f:facet name="header">
+                                <h:outputText value="Fecha Fin"/>
+                            </f:facet>
+                            <p:outputLabel value="#{item.fechafin}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </p:outputLabel>
 
-                                    <p:commandButton id="cborrar" immediate="true" value="Eliminar" actionListener="#{tareaController.removerTareadeProyecto}" onclick="crearGrafico();" update=":form :form:beanvalue"  >
-                                        <f:setPropertyActionListener value="#{item}" target="#{tareaController.selected}" />
-                                </p:commandButton>
-                                    <br />
-                                <p:commandButton id="ceditar" immediate="true" value="Editar" onclick="PF('dtarea').show()" update=":formd:tabView" >
-                                        <f:setPropertyActionListener value="#{item}" target="#{tareaController.selected}" />  
-                                </p:commandButton>
-                                </p:column>  
+                        </p:column>
+                        <p:column >
+                            <f:facet name="header">
+                                <h:outputText value="Días"/>
+                            </f:facet>
+                            <p:outputLabel value="#{item.dias}" />
 
-                            </p:dataTable>
-                               
-                                    <h:commandLink>  
-                                        <p:graphicImage value="/resources/img/excel.png" />  
-                                        <p:dataExporter type="xls" target="tareasdeproyecto" fileName="tareas" />  
-                                    </h:commandLink>  
+                        </p:column>
+                        <p:column >
+                            <f:facet name="header">
+                                <h:outputText value="Prioridad"/>
+                            </f:facet>
+                            <p:outputLabel value="#{item.prioridad}"/>
+                        </p:column>
+                        <p:column >
+                            <f:facet name="header">
+                                <h:outputText value="Estado"/>
+                            </f:facet>
+                            <p:outputLabel value="#{item.estado}%" />
+                        </p:column>
 
-                                    <h:commandLink>  
-                                        <p:graphicImage value="/resources/img/pdf.png" />  
-                                        <p:dataExporter type="pdf" target="tareasdeproyecto" fileName="tareas" />  
-                                    </h:commandLink>  
+                        <p:column exportable="false">  
 
-                                    <h:commandLink>  
-                                        <p:graphicImage value="/resources/img/csv.png" />  
-                                        <p:dataExporter type="csv" target="tareasdeproyecto" fileName="tareas" />  
-                                    </h:commandLink>  
-
-                                    <h:commandLink>  
-                                        <p:graphicImage value="/resources/img/xml.png" />  
-                                        <p:dataExporter type="xml" target="tareasdeproyecto" fileName="tareas" />  
-                                    </h:commandLink>  
-                                 
+                            <p:commandButton id="cborrar" immediate="true" value="Eliminar" actionListener="#{tareaController.removerTareadeProyecto}" onclick="crearGrafico();" update=":form :form:beanvalue"  >
+                                <f:setPropertyActionListener value="#{item}" target="#{tareaController.selected}" />
+                            </p:commandButton>
                             <br />
-                            <br />
-                            <div id="containergrafico"  style="width: 100%;" >
+                            <p:commandButton id="ceditar" immediate="true" value="Editar" onclick="PF('dtarea').show()" update=":formd:tabView" >
+                                <f:setPropertyActionListener value="#{item}" target="#{tareaController.selected}" />  
+                            </p:commandButton>
+                        </p:column>  
 
+                    </p:dataTable>
 
-                           </div>
+                    <h:commandLink>  
+                        <p:graphicImage value="/resources/img/excel.png" />  
+                        <p:dataExporter type="xls" target="tareasdeproyecto" fileName="tareas" />  
+                    </h:commandLink>  
 
-                        
-                        <br />
-                        <h:inputHidden value="#{tareaController.gsoncategoria}" id="beanvalue"  />
-                        <br />
-                        <div align="center" >
-                            <p:commandButton value="Enviar para evaluacion" actionListener="#{proyectoController.evaluarProyecto}" />
-                        </div>      
+                    <h:commandLink>  
+                        <p:graphicImage value="/resources/img/pdf.png" />  
+                        <p:dataExporter type="pdf" target="tareasdeproyecto" fileName="tareas" />  
+                    </h:commandLink>  
+
+                    <h:commandLink>  
+                        <p:graphicImage value="/resources/img/csv.png" />  
+                        <p:dataExporter type="csv" target="tareasdeproyecto" fileName="tareas" />  
+                    </h:commandLink>  
+
+                    <h:commandLink>  
+                        <p:graphicImage value="/resources/img/xml.png" />  
+                        <p:dataExporter type="xml" target="tareasdeproyecto" fileName="tareas" />  
+                    </h:commandLink>  
+
+                    <br />
+                    <br />
+                    <div id="containergrafico"  style="width: 100%;" >
+
+                    </div>
+
+                    <br />
+                    <h:inputHidden value="#{tareaController.gsoncategoria}" id="beanvalue"  />
+                    <br />
+                    <div align="center" >
+                        <p:commandButton value="Enviar para evaluacion" actionListener="#{proyectoController.evaluarProyecto}" />
+                    </div>      
                 </p:panel>
-               
-                        <br />
+
+                <br />
                 <h:link outcome="/index" value="INICIO"/>
-                </h:form>
-                <h:form id="formd">
+            </h:form>
+            
+            
+            <h:form id="formd">
                 <p:dialog id="dtarea" header="Tarea" widgetVar="dtarea" resizable="false"  
                           showEffect="clip" hideEffect="fold" modal="true">  
                     <p:tabView id="tabView">
- 
-                            <p:tab id="tab1" title="Tarea">
-                          <h:panelGrid columns="2" cellpadding="4" >
+
+                        <p:tab id="tab1" title="Tarea">
+                            <h:panelGrid columns="2" cellpadding="4" >
                                 <p:outputLabel value="Tarea:" for="tarea" />
                                 <p:inputText size="100" required="true" id="tarea" value="#{tareaController.selected.tarea}" title="Tarea" >
                                     <p:ajax event="keyup" update=":form" />
                                 </p:inputText>
                                 <p:outputLabel value="Descripcion:" for="descripcion" />
                                 <p:inputTextarea cols="100" rows="5" required="true" id="descripcion" value="#{tareaController.selected.descripcion}" title="Descripcion" >
-                                     <p:ajax event="keyup" update=":form" />
+                                    <p:ajax event="keyup" update=":form" />
                                 </p:inputTextarea>
                                 <p:outputLabel value="Fechainicio:" for="fechainicio" />
                                 <p:calendar required="true" id="fechainicio" showOn="button" value="#{tareaController.selected.fechainicio}" title="Fechainicio" >
@@ -242,7 +241,7 @@
                                 <p:spinner min="1" required="true" id="dias" value="#{tareaController.selected.dias}" title="Dias" >
                                     <p:ajax immediate="true" event="change" listener="#{tareaController.sumarDias}" update=":form :formd:tabView:dfechafin" />
                                 </p:spinner>
-                                
+
                                 <p:outputLabel value="Fechafin:" for="dfechafin" />
                                 <p:calendar id="dfechafin" showOn="button" value="#{tareaController.selected.fechafin}"  title="Fechafin" >
                                     <p:ajax event="dateSelect" listener="#{tareaController.calcularDiferenciaDias}" update=":form :formd:tabView:dias" /> 
@@ -252,7 +251,7 @@
                                     <f:selectItem itemLabel="Alta" itemValue="Alta" />
                                     <f:selectItem itemLabel="Media" itemValue="Media" />
                                     <f:selectItem itemLabel="Baja" itemValue="Baja" />
-                                    
+
                                 </p:selectOneMenu>
                                 <p:outputLabel value="Estado:"   />
                                 <p:slider style=" width: 150px" minValue="0" maxValue="100" for="iestado"  />
@@ -262,43 +261,44 @@
                                     <h:outputLabel value="%" />
                                 </h:panelGrid>
                             </h:panelGrid>
-                            </p:tab>
-                            <p:tab id="tab2" title="Equipo de trabajo">
-                                <div align="right" >
-                                    <p:commandButton value="Agregar Persona" onclick="PF('dregistrar').show();" ></p:commandButton>
-                                </div>
-                                <h:panelGrid columns="4">
-                                    <p:outputLabel value="Ingrese N° de Documento / Apellido" ></p:outputLabel>
-                                    <p:selectOneMenu id="advancedfiltro" value="#{agenteViewController.selected}" filter="true" filterMatchMode="contains"   >
-                                        <p:ajax update="tagenteseleccion" />
-                                        <f:selectItems value="#{agenteViewController.itemsAvailableSelectMany}"  />
- 
-                                           </p:selectOneMenu> 
-                                    
-                                    <h:panelGrid columns="6" id="tagenteseleccion" >
-                                        
-                                        <p:outputLabel style="font-weight:bold;" value="N° Documento"/>
-                                            <p:outputLabel style="font-weight:bold;" value="Apellido"/>
-                                            <p:outputLabel style="font-weight:bold;" value="Nombres"/>
-                                            <p:outputLabel style="font-weight:bold;" value="Telefono"/>
-                                            <p:outputLabel style="font-weight:bold;" value="Email"/>
-                                            <p:outputLabel style="font-weight:bold;" value="Profesion"/>
-                                            <p:outputLabel value="#{agenteViewController.selected.numerodocumento}"/>
-                                            <p:outputLabel value="#{agenteViewController.selected.apellido}"/>
-                                            <p:outputLabel value="#{agenteViewController.selected.nombres}"/>
-                                            <p:outputLabel value="#{agenteViewController.selected.telefono}"/>
-                                            <p:outputLabel value="#{agenteViewController.selected.email}"/>
-                                            <p:outputLabel value="#{agenteViewController.selected.profesion}"/>
-                                            <f:facet name="footer">
-                                                <p:commandButton immediate="true" update="tagentes" value="Agregar al equipo de trabajo" action="#{tareaAgenteController.agregarEquipo}" >
-                                               
-                                                </p:commandButton>
-                                             </f:facet>
-                                    </h:panelGrid>
-                                
+                        </p:tab>
+                        
+                        <p:tab id="tab2" title="Equipo de trabajo">
+                            <div align="right" >
+                                <p:commandButton value="Agregar Persona" onclick="PF('dregistrar').show();" ></p:commandButton>
+                            </div>
+                            <h:panelGrid columns="4">
+                                <p:outputLabel value="Ingrese N° de Documento / Apellido" ></p:outputLabel>
+                                <p:selectOneMenu id="advancedfiltro" value="#{agenteViewController.selected}" filter="true" filterMatchMode="contains"   >
+                                    <p:ajax update="tagenteseleccion" />
+                                    <f:selectItems value="#{agenteViewController.itemsAvailableSelectMany}"  />
+
+                                </p:selectOneMenu> 
+
+                                <h:panelGrid columns="6" id="tagenteseleccion" >
+
+                                    <p:outputLabel style="font-weight:bold;" value="N° Documento"/>
+                                    <p:outputLabel style="font-weight:bold;" value="Apellido"/>
+                                    <p:outputLabel style="font-weight:bold;" value="Nombres"/>
+                                    <p:outputLabel style="font-weight:bold;" value="Telefono"/>
+                                    <p:outputLabel style="font-weight:bold;" value="Email"/>
+                                    <p:outputLabel style="font-weight:bold;" value="Profesion"/>
+                                    <p:outputLabel value="#{agenteViewController.selected.numerodocumento}"/>
+                                    <p:outputLabel value="#{agenteViewController.selected.apellido}"/>
+                                    <p:outputLabel value="#{agenteViewController.selected.nombres}"/>
+                                    <p:outputLabel value="#{agenteViewController.selected.telefono}"/>
+                                    <p:outputLabel value="#{agenteViewController.selected.email}"/>
+                                    <p:outputLabel value="#{agenteViewController.selected.profesion}"/>
+                                    <f:facet name="footer">
+                                        <p:commandButton immediate="true" update="tagentes" value="Agregar al equipo de trabajo" action="#{tareaAgenteController.agregarEquipo}" >
+
+                                        </p:commandButton>
+                                    </f:facet>
                                 </h:panelGrid>
-                                <div align="center">
-                                    <p:dataTable id="tagentes" value="#{tareaAgenteController.tareasagentes}" var="tareaagente" editable="true" editMode="cell" >
+
+                            </h:panelGrid>
+                            <div align="center">
+                                <p:dataTable id="tagentes" value="#{tareaAgenteController.tareasagentes}" var="tareaagente" editable="true" editMode="cell" >
                                     <p:column>
                                         <f:facet name="header">
                                             <h:outputText value="N° Documento"/>
@@ -323,22 +323,22 @@
                                         </f:facet>
                                         <h:outputText value="#{tareaagente.agente.email}"/>
                                     </p:column>
-                                    
+
                                     <p:column>
                                         <f:facet name="header">
                                             <h:outputText value="Profesion"/>
                                         </f:facet>
                                         <h:outputText value="#{tareaagente.agente.profesion}"/>
                                     </p:column>
-                                    
-                                        <p:column headerText="Función en la Tarea">
-                                        
+
+                                    <p:column headerText="Función en la Tarea">
+
                                         <p:cellEditor>
                                             <f:facet name="output"><h:outputLabel value="#{tareaagente.funcion}" /></f:facet>
                                             <f:facet name="input"><p:inputText id="ifuncion" value="#{tareaagente.funcion}"  /></f:facet>
                                         </p:cellEditor>
                                     </p:column>
-                                    
+
                                     <p:column>
                                         <f:facet name="header">
                                             <h:outputText value="&nbsp;"/>
@@ -348,178 +348,169 @@
                                         </p:commandButton>
                                     </p:column>
                                 </p:dataTable>
-                                
-                                </div>
-                            </p:tab>
+
+                            </div>
+                        </p:tab>
                     </p:tabView>
-                                <div align="right" >
-                                    
-                                    <p:commandButton value="OK" oncomplete="PF('dtarea').hide()" actionListener="#{tareaController.armarTareasProyecto}" update=":form :form:beanvalue" onclick="crearGrafico();" ></p:commandButton>
-                                
-                                </div>
-                                
-                    
-                       
-                
+                    <div align="right" >
+
+                        <p:commandButton value="OK" oncomplete="PF('dtarea').hide()" actionListener="#{tareaController.armarTareasProyecto}" update=":form :form:beanvalue" onclick="crearGrafico();" ></p:commandButton>
+
+                    </div>
                 </p:dialog>
-                
-                
-               
+
             </h:form>
-            
+
             <h:form id="formresgistrar">
-            <p:dialog id="dialogoregistrar" maximizable="false" 
-                  minimizable="false"  header="Registrar Persona" closable="true"
-                  resizable="false" widgetVar="dregistrar" >
-            
-                
-               <p:remoteCommand name="rc" update="msgs" actionListener="#{agenteViewController.registrar}" />
- 
-                <p:growl id="msgs" showDetail="true" />
-                <h:panelGrid id="panel" columns="3">
-                    <h:outputLabel value="Apellido" for="apellido" />
-                    <h:inputText maxlength="30" id="apellido" value="#{agenteViewController.selected.apellido}" title="Apellido" required="true" />
-                    <p:message for="apellido" /> 
-                    <h:outputLabel value="Nombres" for="nombres" />
-                    <h:inputText maxlength="45" id="nombres" value="#{agenteViewController.selected.nombres}" title="Nombres" required="true" />
-                    <p:message for="nombres" /> 
-                    <p:outputLabel value="Tipo de Documento" for="tipodocumentoid" />
-                    <h:selectOneMenu id="tipodocumentoid" value="#{agenteViewController.selected.tipodocumentoid}" title="Tipo de Documento" required="true" >
-                        <f:selectItems value="#{tipodocumentoController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <p:message for="tipodocumentoid" /> 
-                    <h:outputLabel value="N° de Documento" for="numerodocumento" />
-                    <h:inputText id="numerodocumento" value="#{agenteViewController.selected.numerodocumento}" title="Numero de Documento" required="true" />
-                    <p:message for="numerodocumento" /> 
-                    <h:outputLabel value="Teléfono" for="telefono" />
-                    <h:inputText id="telefono" value="#{agenteViewController.selected.telefono}" title="Telefono" required="true" />
-                    <p:message for="telefono" /> 
-                    <h:outputLabel value="Celular" for="celular" />
-                    <h:inputText id="celular" value="#{agenteViewController.selected.celular}" title="Celular" required="false" />
-                    <p:message for="celular" /> 
-                    <h:outputLabel value="Email" for="email" />
-                    <h:inputText id="email" value="#{agenteViewController.selected.email}" validatorMessage="Email Incorrecto" required="true" >
-                        <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
-                    </h:inputText>
-                    <p:message for="email" /> 
-                    <h:outputLabel value="Otro Email" for="otroemail" />
-                     
-                    <h:inputText id="otroemail" value="#{agenteViewController.selected.otroemail}" validatorMessage="Email Incorrecto" required="false" >
-                        <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
-                    </h:inputText>   
-                    <p:message for="otroemail" /> 
-                    
-                    <h:outputLabel value="Domicilio" for="domicilio" />
-                    <h:inputText maxlength="200"  id="domicilio" value="#{agenteViewController.selected.domicilio}" title="Domicilio" required="true" />
-                    <p:message for="domicilio" />
-                    <h:outputLabel value="Profesion" for="profesion" />
-                    <h:inputText maxlength="70" id="profesion" value="#{agenteViewController.selected.profesion}" title="Profesion" required="true" />
-                    <p:message for="profesion" /> 
-                    <h:outputLabel value="Especialidad" for="especialidad" />
-                    <h:inputText maxlength="70" id="especialidad" value="#{agenteViewController.selected.especialidad}" title="Especialidad" required="true" />
-                    <p:message for="especialidad" /> 
-                    
-                    <p:commandButton onclick="rc()" oncomplete="PF('dregistrar').hide()" update=":formd:tabView:tagenteseleccion" value="Crear" />
-                    <br />
-             
-              
-                       
-                   
-                    
-                </h:panelGrid>
-                    
-             
-         
-           
-             </p:dialog>
-            
-             </h:form>
-            
- <script type="text/javascript" >
-   $(function crearGrafico() {
-    var chart;
-     
-    chart = new Highcharts.Chart({
-        chart: {
-            renderTo: "containergrafico",
-            type: 'columnrange',
-                inverted: true
-        },
-            exporting: {
-            enabled: true
-        },
-            title: {
-            text: 'Proyecto N° #{proyectoController.selected.id} - #{proyectoController.selected.nombre}'
-        },
-            xAxis: {
-            categories: []
-        },
-            yAxis: {
-                tickInterval:  7 * 24 * 3600 * 1000,
-            title: 'Date',
-                type: 'datetime',
-                dateTimeLabelFormats: {
-                 week: '%e. %b'
-            },
-                min: #{tareaController.mindate},
-                 stackLabels: {
-            style: {
-                color: 'white'
-            },
-            enabled: true,
-            verticalAlign: 'middle',
-            align: 'left'
-        }
-        },
-            tooltip: {
-            formatter: function () {
-                console.log(this);
-                return '<b>' + this.series.name + ':</b> ' + Highcharts.dateFormat('%e %b, %Y', this.point.low) + ' - ' + Highcharts.dateFormat('%e %b, %Y', this.point.high) + '<br/>';
-            }
-        },
-            legend: {
-            enabled: false
-        },
-        
-        
-            series: [{
-            name: 'Inicio - Fin',
-                data: []
-        },  {
-            name: 'Actual',
-                data: [
-                [1398654000, 1.3686588e+12],
-                
-                [1359072000000, 1365412320000]
-            ],
-                color: 'yellow'
-        }]
-    });
-     Highcharts.setOptions({  
-    lang: {  
-    loading: 'Cargando...',  
-    months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],  
-                weekdays: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sábado'],  
-                shortMonths: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],  
-                exportButtonTitle: 'Exportar',  
-                printButtonTitle: 'Importar',  
-                rangeSelectorFrom: 'De',  
-                rangeSelectorTo: 'A',  
-                rangeSelectorZoom: 'Periodo',  
-                downloadPNG: 'Descargar gráfico PNG',  
-                downloadJPEG: 'Descargar gráfico JPEG',  
-                downloadPDF: 'Descargar gráfico PDF',  
-                downloadSVG: 'Descargar gráfico SVG',  
-                printChart: 'Imprimir Gráfico',  
-                thousandsSep: ',',  
-                decimalPoint: '.'  
-            }   
-        });  
-    //chart.series[1].setData(eval(oneArray), false, true);
-      chart.series[0].setData(#{tareaController.data}, false, true);
-        chart.xAxis[0].setCategories(#{tareaController.gsoncategoria}, true, true);
-});
-</script>
+                <p:dialog id="dialogoregistrar" maximizable="false" 
+                          minimizable="false"  header="Registrar Persona" closable="true"
+                          resizable="false" widgetVar="dregistrar" >
+
+
+                    <p:remoteCommand name="rc" update="msgs" actionListener="#{agenteViewController.registrar}" />
+
+                    <p:growl id="msgs" showDetail="true" />
+                    <h:panelGrid id="panel" columns="3">
+                        <h:outputLabel value="Apellido" for="apellido" />
+                        <h:inputText maxlength="30" id="apellido" value="#{agenteViewController.selected.apellido}" title="Apellido" required="true" />
+                        <p:message for="apellido" /> 
+                        <h:outputLabel value="Nombres" for="nombres" />
+                        <h:inputText maxlength="45" id="nombres" value="#{agenteViewController.selected.nombres}" title="Nombres" required="true" />
+                        <p:message for="nombres" /> 
+                        <p:outputLabel value="Tipo de Documento" for="tipodocumentoid" />
+                        <h:selectOneMenu id="tipodocumentoid" value="#{agenteViewController.selected.tipodocumentoid}" title="Tipo de Documento" required="true" >
+                            <f:selectItems value="#{tipodocumentoController.itemsAvailableSelectOne}"/>
+                        </h:selectOneMenu>
+                        <p:message for="tipodocumentoid" /> 
+                        <h:outputLabel value="N° de Documento" for="numerodocumento" />
+                        <h:inputText id="numerodocumento" value="#{agenteViewController.selected.numerodocumento}" title="Numero de Documento" required="true" />
+                        <p:message for="numerodocumento" /> 
+                        <h:outputLabel value="Teléfono" for="telefono" />
+                        <h:inputText id="telefono" value="#{agenteViewController.selected.telefono}" title="Telefono" required="true" />
+                        <p:message for="telefono" /> 
+                        <h:outputLabel value="Celular" for="celular" />
+                        <h:inputText id="celular" value="#{agenteViewController.selected.celular}" title="Celular" required="false" />
+                        <p:message for="celular" /> 
+                        <h:outputLabel value="Email" for="email" />
+                        <h:inputText id="email" value="#{agenteViewController.selected.email}" validatorMessage="Email Incorrecto" required="true" >
+                            <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                        </h:inputText>
+                        <p:message for="email" /> 
+                        <h:outputLabel value="Otro Email" for="otroemail" />
+
+                        <h:inputText id="otroemail" value="#{agenteViewController.selected.otroemail}" validatorMessage="Email Incorrecto" required="false" >
+                            <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                        </h:inputText>   
+                        <p:message for="otroemail" /> 
+
+                        <h:outputLabel value="Domicilio" for="domicilio" />
+                        <h:inputText maxlength="200"  id="domicilio" value="#{agenteViewController.selected.domicilio}" title="Domicilio" required="true" />
+                        <p:message for="domicilio" />
+                        <h:outputLabel value="Profesion" for="profesion" />
+                        <h:inputText maxlength="70" id="profesion" value="#{agenteViewController.selected.profesion}" title="Profesion" required="true" />
+                        <p:message for="profesion" /> 
+                        <h:outputLabel value="Especialidad" for="especialidad" />
+                        <h:inputText maxlength="70" id="especialidad" value="#{agenteViewController.selected.especialidad}" title="Especialidad" required="true" />
+                        <p:message for="especialidad" /> 
+
+                        <p:commandButton onclick="rc()" oncomplete="PF('dregistrar').hide()" update=":formd:tabView:tagenteseleccion" value="Crear" />
+                        <br />
+
+
+
+
+
+                    </h:panelGrid>
+
+
+
+
+                </p:dialog>
+
+            </h:form>
+
+            <script type="text/javascript" >
+                $(function crearGrafico() {
+                    var chart;
+
+                    chart = new Highcharts.Chart({
+                        chart: {
+                            renderTo: "containergrafico",
+                            type: 'columnrange',
+                            inverted: true
+                        },
+                        exporting: {
+                            enabled: true
+                        },
+                        title: {
+                            text: 'Proyecto N° #{proyectoController.selected.id} - #{proyectoController.selected.nombre}'
+                        },
+                        xAxis: {
+                            categories: []
+                        },
+                        yAxis: {
+                            tickInterval: 7 * 24 * 3600 * 1000,
+                            title: 'Date',
+                            type: 'datetime',
+                            dateTimeLabelFormats: {
+                                week: '%e. %b'
+                            },
+                            min: #{tareaController.mindate},
+                            stackLabels: {
+                                style: {
+                                    color: 'white'
+                                },
+                                enabled: true,
+                                verticalAlign: 'middle',
+                                align: 'left'
+                            }
+                        },
+                        tooltip: {
+                            formatter: function() {
+                                console.log(this);
+                                return '<b>' + this.series.name + ':</b> ' + Highcharts.dateFormat('%e %b, %Y', this.point.low) + ' - ' + Highcharts.dateFormat('%e %b, %Y', this.point.high) + '<br/>';
+                            }
+                        },
+                        legend: {
+                            enabled: false
+                        },
+                        series: [{
+                                name: 'Inicio - Fin',
+                                data: []
+                            }, {
+                                name: 'Actual',
+                                data: [
+                                    [1398654000, 1.3686588e+12],
+                                    [1359072000000, 1365412320000]
+                                ],
+                                color: 'yellow'
+                            }]
+                    });
+                    Highcharts.setOptions({
+                        lang: {
+                            loading: 'Cargando...',
+                            months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                            weekdays: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sábado'],
+                            shortMonths: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                            exportButtonTitle: 'Exportar',
+                            printButtonTitle: 'Importar',
+                            rangeSelectorFrom: 'De',
+                            rangeSelectorTo: 'A',
+                            rangeSelectorZoom: 'Periodo',
+                            downloadPNG: 'Descargar gráfico PNG',
+                            downloadJPEG: 'Descargar gráfico JPEG',
+                            downloadPDF: 'Descargar gráfico PDF',
+                            downloadSVG: 'Descargar gráfico SVG',
+                            printChart: 'Imprimir Gráfico',
+                            thousandsSep: ',',
+                            decimalPoint: '.'
+                        }
+                    });
+                    //chart.series[1].setData(eval(oneArray), false, true);
+                    chart.series[0].setData(#{tareaController.data}, false, true);
+                    chart.xAxis[0].setCategories(#{tareaController.gsoncategoria}, true, true);
+                });
+            </script>
         </ui:define>
     </ui:composition>
 

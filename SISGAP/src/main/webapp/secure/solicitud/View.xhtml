@@ -74,17 +74,25 @@
                         </p:fieldset>
 
                         <p:fieldset legend="Descripción" style="margin-bottom:5px">
-                            <p:outputLabel value="Resumen y Diagnostico"/>
-                            
-                            <!--<p:outputLabel value="#{proyectoController.selected.resumen}" title="#{bundle.ViewProyectoTitle_resumen}"/>-->
+                            <p:panelGrid>
+                                <p:row>
+                                    <p:column style="width: 150px; vertical-align: top;">
+                                        <p:outputLabel value="Resumen y Diagnostico"/>
+                                    </p:column>
+                                    <p:column style="width: 100%;">
+                                        <p:inputTextarea rows="20" value="#{proyectoController.selected.resumen}" style="width: 100%;" />
+                                    </p:column>                                    
+                                </p:row>
 
-                            <p:inputTextarea value="#{proyectoController.selected.resumen}" ></p:inputTextarea>
-
-                            <br />
-
-                            <p:outputLabel value="Diagnóstico"/>
-                            <p:inputTextarea value="#{proyectoController.selected.observaciones}" ></p:inputTextarea>
-
+                                <p:row>
+                                    <p:column style="width: 150px; vertical-align: top;">
+                                        <p:outputLabel value="Diagnóstico"/>
+                                    </p:column>
+                                    <p:column style="width: 100%;">
+                                        <p:inputTextarea rows="20" value="#{proyectoController.selected.observaciones}" style="width: 100%;" />
+                                    </p:column>                                    
+                                </p:row>
+                            </p:panelGrid>
                         </p:fieldset>
 
                         <p:fieldset legend="Documentación" style="margin-bottom: 5px;">
@@ -120,7 +128,7 @@
                         </p:fieldset>
 
                         <p:fieldset legend="Presupuesto" style="margin-bottom: 5px;">
-                            
+
                             <p:dataTable value="#{presupuestoController.selected.presupuestoRubroList}" var="item">
                                 <f:attribute name="”collectionType”" value="”java.util.ArrayList”/">
                                 </f:attribute>
@@ -166,13 +174,10 @@
                                     </f:facet>
                                 </p:panelGrid>
 
-
                                 <p:pieChart id="caportes" value="#{presupuestoController.pieModelAportes}" legendPosition="e" showDataLabels="true"  
-                                            title="Aportes" style="width:15%;height:300px" sliceMargin="5" diameter="150" /> 
-
+                                            title="Aportes" style="width:100%;height:300px" sliceMargin="5" diameter="150" /> 
 
                                 <p:dataTable value="#{presupuestoController.selected.presupuestoRubroList}" var="data" >
-
                                     <f:facet name="header">  
                                         Total de Rubros  
                                     </f:facet>
@@ -187,7 +192,7 @@
                                     </f:facet>
                                 </p:dataTable>
                                 <p:pieChart id="crubros" value="#{presupuestoController.pieModelRubro}" legendPosition="e" showDataLabels="true"  
-                                            title="Rubros" style="width:15%;height:300px" sliceMargin="5" diameter="150" /> 
+                                            title="Rubros" style="width:100%;height:300px" sliceMargin="5" diameter="150" /> 
 
                             </h:panelGrid>
 
@@ -198,9 +203,11 @@
                     <br />
 
                     <p:panel header="Exportar">  
+                        <p:commandLink action="#{proyectoController.imprimirIdeaProyecto()}" ajax="false">  
+                            <p:graphicImage value="/resources/img/print_printer.png" />  
+                        </p:commandLink>                          
                         <p:commandLink action="#{proyectoController.pdfIdeaProyecto()}" ajax="false">  
                             <p:graphicImage value="/resources/img/pdf.png" />  
-                            <!--<p:dataExporter type="pdf" target="tbl" fileName="datos" pageOnly="true"/>-->  
                         </p:commandLink>                          
                         <p:commandLink>  
                             <p:graphicImage value="/resources/img/excel.png" />  

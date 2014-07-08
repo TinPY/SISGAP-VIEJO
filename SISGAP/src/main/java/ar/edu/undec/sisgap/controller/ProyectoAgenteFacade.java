@@ -6,18 +6,17 @@
 
 package ar.edu.undec.sisgap.controller;
 
-import ar.edu.undec.sisgap.model.Etapa;
-import java.util.List;
+import ar.edu.undec.sisgap.model.ProyectoAgente;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Hugo
+ * @author mPY
  */
 @Stateless
-public class EtapaFacade extends AbstractFacade<Etapa> {
+public class ProyectoAgenteFacade extends AbstractFacade<ProyectoAgente> {
     @PersistenceContext(unitName = "ar.edu.undec_SYSGAP_war_1.0-SNAPSHOTPU")
     private EntityManager em;
 
@@ -26,9 +25,8 @@ public class EtapaFacade extends AbstractFacade<Etapa> {
         return em;
     }
 
-    public EtapaFacade() {
-        super(Etapa.class);
+    public ProyectoAgenteFacade() {
+        super(ProyectoAgente.class);
     }
-    
     
 }
