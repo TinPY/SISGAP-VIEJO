@@ -26,10 +26,15 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.text.DateFormat;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.ListIterator;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -54,8 +59,13 @@ import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.event.data.FilterEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
+import org.primefaces.model.chart.CartesianChartModel;
+import org.primefaces.model.chart.ChartSeries;
+import org.primefaces.model.chart.DonutChartModel;
+import org.primefaces.model.chart.PieChartModel;
 
 @ManagedBean(name = "proyectoController")
 @SessionScoped
@@ -86,7 +96,6 @@ public class ProyectoController implements Serializable {
     @EJB
     private ar.edu.undec.sisgap.controller.ProyectoAgenteFacade ejbproyectoagente;
 
-
     private PaginationHelper pagination;
     private int selectedItemIndex;
     private byte[] imagen = null;
@@ -100,6 +109,264 @@ public class ProyectoController implements Serializable {
     private String observacionfinal;
     private Proyecto proyectoViejo;
 
+    // PANELES DE CONTROL Y GRAFICOS  **************************/
+    // Filtrado entre fechas
+    private Date filtroFechaInicio;
+    private Date filtroFechaFin;
+
+    // Promedio de Presupuestos de los proyectos
+    private float promedioPresupuestoPorProyecto = 0;
+
+    // Sumado del total de presupuestos de todos los proyectos
+    private float totalPresupuestosProyectos = 0;
+
+    // Usado para el filtrado del datatable
+    private List<Proyecto> proyectosFiltrados;
+
+    // Grafico de Lineas
+    private CartesianChartModel modeloGraficoLineas;
+
+    public CartesianChartModel getmodeloGraficoLineas() {
+        return modeloGraficoLineas;
+    }
+
+    // Grafico de Lineas Acumulado
+    private CartesianChartModel modeloGraficoLineasAcumulado;
+
+    public CartesianChartModel getmodeloGraficoLineasAcumulado() {
+        return modeloGraficoLineasAcumulado;
+    }
+
+    // Grafico de torta
+    private PieChartModel modeloGraficoTorta;
+
+    public PieChartModel getmodeloGraficoTorta() {
+        return modeloGraficoTorta;
+    }
+
+    // Grafico de Donuts
+    private DonutChartModel modeloGraficoDonut;
+
+    public DonutChartModel getmodeloGraficoDonut() {
+        return modeloGraficoDonut;
+    }
+
+    // Filtro Fecha Inicio
+    public Date getFiltroFechaInicio() {
+        return filtroFechaInicio;
+    }
+
+    public void setFiltroFechaInicio(Date filtroFechaInicio) {
+        this.filtroFechaInicio = filtroFechaInicio;
+    }
+
+    // Filtro Fecha Fin
+    public void setFiltroFechaFin(Date filtroFechaFin) {
+        this.filtroFechaFin = filtroFechaFin;
+    }
+
+    public Date getFiltroFechaFin() {
+        return filtroFechaFin;
+    }
+
+    // Total de la suma de presupuestos de proyectos
+    public float getTotalPresupuestosProyectos() {
+        return totalPresupuestosProyectos;
+    }
+
+    // Lista de Proyectos Filtrados
+    public List<Proyecto> getProyectosFiltrados() {
+        return proyectosFiltrados;
+    }
+
+    public void setProyectosFiltrados(List<Proyecto> proyectosFiltrados) {
+        this.proyectosFiltrados = proyectosFiltrados;
+    }
+
+    public float getPromedioPresupuestoPorProyecto() {
+
+        // Poner esta logica en otro lugar
+        this.promedioPresupuestoPorProyecto = obtenerTotalPresupuestosItems() / items.getRowCount();
+
+        return promedioPresupuestoPorProyecto;
+    }
+
+    public float obtenerPresupuestoTotalProyecto(int idProyecto) {
+
+        BigDecimal resultado = BigDecimal.ZERO;
+
+        FacesContext context = FacesContext.getCurrentInstance();
+        PresupuestoController p = (PresupuestoController) context.getApplication().evaluateExpressionGet(context, "#{presupuestoController}", PresupuestoController.class);
+
+        resultado = p.obtenerTotal(idProyecto);
+
+//        System.out.println("ProyectoController >> obtenerPresupuestoTotalProyecto: " + resultado.toString());
+        return resultado.floatValue();
+    }
+
+    public BigDecimal obtenerPresupuestoTotalCurrent() {
+
+        BigDecimal resultado = BigDecimal.ZERO;
+
+        FacesContext context = FacesContext.getCurrentInstance();
+        PresupuestoController p = (PresupuestoController) context.getApplication().evaluateExpressionGet(context, "#{presupuestoController}", PresupuestoController.class);
+
+        resultado = p.obtenerTotal(current.getId());
+
+        System.out.println("ProyectoController >> obtenerPresupuestoTotalCurrent: " + resultado.toString());
+
+        return resultado;
+
+    }
+
+    public float obtenerTotalPresupuestosItems() {
+
+        //BigDecimal resultado = BigDecimal.ZERO;
+        float resultado = 0;
+        Iterator i = items.iterator();
+
+        FacesContext context = FacesContext.getCurrentInstance();
+        PresupuestoController p = (PresupuestoController) context.getApplication().evaluateExpressionGet(context, "#{presupuestoController}", PresupuestoController.class);
+
+        while (i.hasNext()) {
+
+            Proyecto proyecto = (Proyecto) i.next();
+
+            BigDecimal tmp = p.obtenerTotal(proyecto.getId());
+            float tmpF = tmp.floatValue();
+            resultado += tmpF;
+
+//            System.out.println("obtenerTotalPresupuestosItems() >> tmp: " + tmp.toString());
+//            System.out.println(resultado);
+            //resultado.add(tmp);
+        }
+
+//        System.out.println("obtenerTotalPresupuestosItems() >> " + resultado);
+        return resultado;
+    }
+
+    public float obtenerTotalPresupuestosFiltrados() {
+
+        //BigDecimal resultado = BigDecimal.ZERO;
+        float resultado = 0;
+        //Iterator i = items.iterator();
+
+        //Iterator i = proyectosFiltrados.iterator();
+        ListIterator i = proyectosFiltrados.listIterator();
+
+        FacesContext context = FacesContext.getCurrentInstance();
+        PresupuestoController p = (PresupuestoController) context.getApplication().evaluateExpressionGet(context, "#{presupuestoController}", PresupuestoController.class);
+
+        while (i.hasNext()) {
+
+            Proyecto proyecto = (Proyecto) i.next();
+
+            BigDecimal tmp = p.obtenerTotal(proyecto.getId());
+            float tmpF = tmp.floatValue();
+            resultado += tmpF;
+
+//            System.out.println("obtenerTotalPresupuestosItems() >> tmp: " + tmp.toString());
+//            System.out.println(resultado);
+            //resultado.add(tmp);
+        }
+
+//        System.out.println("obtenerTotalPresupuestosItems() >> " + resultado);
+        return resultado;
+    }
+
+    public void resetearFiltroEntreFechas() {
+        filtroFechaInicio = null;
+        filtroFechaFin = null;
+
+    }
+
+    public void filterListener(FilterEvent filterEvent) {
+        //List<Proyecto> lista = (List<Proyecto>)filterEvent.getData();
+
+        totalPresupuestosProyectos = obtenerTotalPresupuestosFiltrados();
+    }
+
+    public void armarGraficoLineas() {
+        modeloGraficoLineas = new CartesianChartModel();
+
+        ChartSeries ideasProyecto = new ChartSeries();
+        ideasProyecto.setLabel("Presupuestos Ideas Proyecto");
+
+        Iterator i = items.iterator();
+
+        while (i.hasNext()) {
+
+            Proyecto proyecto = (Proyecto) i.next();
+            DateFormat formateador = DateFormat.getDateInstance(DateFormat.SHORT);
+            String fechaProyecto = formateador.format(proyecto.getFecha());
+
+            ideasProyecto.set(proyecto.getId(), obtenerPresupuestoTotalProyecto(proyecto.getId()));
+        }
+
+        modeloGraficoLineas.addSeries(ideasProyecto);
+    }
+
+    public void armarGraficoLineasAcumulado() {
+
+        float acumulado = 0;
+        modeloGraficoLineasAcumulado = new CartesianChartModel();
+
+        ChartSeries ideasProyecto = new ChartSeries();
+        ideasProyecto.setLabel("Presupuestos Acumulados de Ideas-Proyecto");
+
+        Iterator i = items.iterator();
+
+        while (i.hasNext()) {
+
+            Proyecto proyecto = (Proyecto) i.next();
+            DateFormat formateador = DateFormat.getDateInstance(DateFormat.SHORT);
+            String fechaProyecto = formateador.format(proyecto.getFecha());
+
+            acumulado = acumulado + obtenerPresupuestoTotalProyecto(proyecto.getId());
+            System.out.println("ACUMULADO (" + proyecto.getId().toString() + ") >> " + acumulado);
+            ideasProyecto.set(proyecto.getId(), acumulado);
+        }
+
+        modeloGraficoLineasAcumulado.addSeries(ideasProyecto);
+    }
+
+    public void armarGraficoTortas() {
+        modeloGraficoTorta = new PieChartModel();
+
+        Iterator i = items.iterator();
+
+        while (i.hasNext()) {
+
+            Proyecto proyecto = (Proyecto) i.next();
+
+            modeloGraficoTorta.set(proyecto.getNombre(), obtenerPresupuestoTotalProyecto(proyecto.getId()));
+        }
+
+    }
+
+    public void armarGraficoDonut() {
+
+        modeloGraficoDonut = new DonutChartModel();
+        Map<String, Number> circulo1 = new LinkedHashMap<String, Number>();
+
+        Iterator i = items.iterator();
+
+        while (i.hasNext()) {
+
+            Proyecto proyecto = (Proyecto) i.next();
+
+            //modeloGraficoDonut.set(proyecto.getNombre(), obtenerPresupuestoTotalProyecto(proyecto.getId()).floatValue());
+            circulo1.put(proyecto.getNombre(), obtenerPresupuestoTotalProyecto(proyecto.getId()));
+
+        }
+
+        modeloGraficoDonut.addCircle(circulo1);
+
+    }
+
+    /**
+     * *********************************************************
+     */
     public ProyectoController() {
     }
 
@@ -219,36 +486,35 @@ public class ProyectoController implements Serializable {
                     archivoproyecto.setProyectoid(current);
                     ap.soloCrear(archivoproyecto);
                 }
-                
+
                 System.out.println("--------------------final3-------------------------------");
-                
+
                 // EQUIPO DE TRABAJO ***********************
                 FacesContext contextAV = FacesContext.getCurrentInstance();
                 AgenteViewController agenteViewController = (AgenteViewController) contextAV.getApplication().evaluateExpressionGet(contextAV, "#{agenteViewController}", AgenteViewController.class);
-                
+
                 System.out.println(agenteViewController.toString());
 
                 List<Agente> listaAgentes = agenteViewController.getCollectoragentes();
                 System.out.println("listaAgentes - Tamaño: " + String.valueOf(listaAgentes.size()));
-                
-                for (Agente a : listaAgentes){
+
+                for (Agente a : listaAgentes) {
                     ProyectoAgente proyectoAgente = new ProyectoAgente();
-                    
+
                     ProyectoAgentePK paPK = new ProyectoAgentePK();
                     paPK.setProyectoid(current.getId());
                     paPK.setAgenteid(a.getId());
-                    
+
                     proyectoAgente.setProyectoAgentePK(paPK);
                     proyectoAgente.setAgente(a);
                     proyectoAgente.setProyecto(current);
                     proyectoAgente.setFuncionproyecto("solicitud");
-                    
-                    ejbproyectoagente.createWithPersist(proyectoAgente);
-                    System.out.println("[ProyectoAgente] Proyecto: " + String.valueOf(proyectoAgente.getProyectoAgentePK().getProyectoid())  + " - Agente: " + String.valueOf(proyectoAgente.getProyectoAgentePK().getProyectoid()));
-                }
-                
-                // FIN - EQUIPO DE TRABAJO ******************
 
+                    ejbproyectoagente.createWithPersist(proyectoAgente);
+                    System.out.println("[ProyectoAgente] Proyecto: " + String.valueOf(proyectoAgente.getProyectoAgentePK().getProyectoid()) + " - Agente: " + String.valueOf(proyectoAgente.getProyectoAgentePK().getProyectoid()));
+                }
+
+                // FIN - EQUIPO DE TRABAJO ******************
                 p = null;
                 pr = null;
                 //current=null;
@@ -265,7 +531,7 @@ public class ProyectoController implements Serializable {
 
                 System.out.println("iiiiiiiiiiiiiiiiiiiii");
                 //current = new Proyecto();
-                
+
                 return null;
 
                 // EQUIPO DE TABAJO
@@ -317,7 +583,6 @@ public class ProyectoController implements Serializable {
 //                    // Persistimos TareaAgente
 //                    ejbtareaagente.createWithPersist(tareaAgente);
 //                }
-
             } else {
                 RequestContext.getCurrentInstance().scrollTo("wconvocatoria");
                 FacesMessage message = new FacesMessage();
@@ -520,9 +785,33 @@ public class ProyectoController implements Serializable {
 
     }
 
+    public void buscarTodos() {
+        recreateModel();
+        items = new ListDataModel(getFacade().findAll());
+
+    }
+
+    public void buscarPorFecha() {
+        recreateModel();
+        items = new ListDataModel(getFacade().buscarProyectoFecha(filtroFechaInicio));
+    }
+
+    public void buscarEntreFechas() {
+        recreateModel();
+        items = new ListDataModel(getFacade().buscarProyectoEntreFechas(filtroFechaInicio, filtroFechaFin));
+
+        proyectosFiltrados = getFacade().buscarProyectoEntreFechas(filtroFechaInicio, filtroFechaFin);
+    }
+
     public void buscarProyectoAgente(int agenteid) {
         recreateModel();
         items = new ListDataModel(getFacade().buscarProyectoAgente(agenteid));
+    }
+
+    // Estados [id = 1 Solicitud]
+    public void buscarProyectoEstado(int idEstado) {
+        recreateModel();
+        items = new ListDataModel(getFacade().buscarProyectoEstado(idEstado));
     }
 
     public void buscarProyectoEstado(long estado) {
