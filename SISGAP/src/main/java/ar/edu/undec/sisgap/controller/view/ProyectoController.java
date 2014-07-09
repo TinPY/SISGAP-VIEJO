@@ -1165,7 +1165,25 @@ public class ProyectoController implements Serializable {
             JasperPrintManager.printReport(
                     archivo, true);
         }
+    }
 
+    public void imprimirListaIdeasProyecto() throws JRException, IOException {
+        
+        // Ruta absoluta del archivo compilado del reporte
+        String rutaJasper = FacesContext.getCurrentInstance().getExternalContext().getRealPath("secure/reportes/listaSolicitudes.jasper");
+
+        // Fuente de datos del reporte
+        JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(this.getFacade().findAll());
+
+        // Llenamos el reporte con la fuente de datos
+        String archivo = JasperFillManager.fillReportToFile(rutaJasper, null, beanCollectionDataSource);
+
+        if (archivo != null) {
+            JasperPrintManager.printReport(
+                    archivo, true);
+        }
+
+        
     }
 
 }
