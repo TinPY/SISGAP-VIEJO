@@ -18,105 +18,102 @@
                     <h:panelGroup id="messagePanel" layout="block">
                         <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                     </h:panelGroup>
+
                     <h:outputText escape="false" value="#{bundle.ListAgenteEmpty}" rendered="#{agenteController.items.rowCount == 0}"/>
+
+
                     <h:panelGroup rendered="#{agenteController.items.rowCount > 0}">
-                        <h:outputText value="#{agenteController.pagination.pageFirstItem + 1}..#{agenteController.pagination.pageLastItem + 1}/#{agenteController.pagination.itemsCount}"/>&nbsp;
-                        <h:commandLink action="#{agenteController.previous}" value="#{bundle.Previous} #{agenteController.pagination.pageSize}" rendered="#{agenteController.pagination.hasPreviousPage}"/>&nbsp;
-                        <h:commandLink action="#{agenteController.next}" value="#{bundle.Next} #{agenteController.pagination.pageSize}" rendered="#{agenteController.pagination.hasNextPage}"/>&nbsp;
-                        <h:dataTable value="#{agenteController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                            <h:column>
+                        
+                        <!-- filteredValue="#{proyectoController.proyectosFiltrados}" -->
+
+
+                        <p:dataTable
+                            id="tbl" 
+                            value="#{agenteController.items}" 
+                            var="item" 
+                            widgetVar="tblW"
+                            rowKey="#{item.id}" 
+                            emptyMessage="No se encontraron resultados para el criterio de busqueda"
+                            paginator="true" rows="10" paginatorPosition="bottom"
+                            draggableColumns="true"
+                            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                            rowsPerPageTemplate="10,15,30">
+
+                            <p:column id="columnaId" sortBy="id" width="10px" style="width: 10px;">
                                 <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListAgenteTitle_apellido}"/>
+                                    <h:outputText value="Nº" />
                                 </f:facet>
-                                <h:outputText value="#{item.apellido}"/>
-                            </h:column>
-                            <h:column>
+                                <h:outputText value="#{item.id}" />
+                            </p:column>
+                            <p:column id="columnaApellido" filterBy="apellido" filterMatchMode="contains" sortBy="apellido">
                                 <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListAgenteTitle_nombres}"/>
+                                    <h:outputText value="Nombre"/>
                                 </f:facet>
-                                <h:outputText value="#{item.nombres}"/>
-                            </h:column>
-                            <h:column>
+                                <h:outputText value="#{item.apellido}, #{item.nombres}"/>
+                            </p:column>
+                            <!--                            <p:column id="columnaNombres" filterBy="nombres" filterMatchMode="contains" sortBy="nombres">
+                                                            <f:facet name="header">
+                                                                <h:outputText value="Nombres"/>
+                                                            </f:facet>
+                                                            <h:outputText value="#{item.nombres}"/>
+                                                        </p:column>-->
+                            <p:column id="columnaNroDocumento" filterBy="numerodocumento" filterMatchMode="contains" sortBy="numerodocumento">
                                 <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListAgenteTitle_numerodocumento}"/>
+                                    <h:outputText value="Documento"/>
                                 </f:facet>
-                                <h:outputText value="#{item.numerodocumento}"/>
-                            </h:column>
-                            <h:column>
+                                <h:outputText value="#{item.tipodocumentoid.tipodocumento} #{item.numerodocumento}"/>
+                            </p:column>
+                            <!--                            <p:column id="columnaTelefono" filterBy="telefono" filterMatchMode="contains" sortBy="telefono">
+                                                            <f:facet name="header">
+                                                                <h:outputText value="Télefono"/>
+                                                            </f:facet>
+                                                            <h:outputText value="#{item.telefono}"/>
+                                                        </p:column>
+                                                        <p:column id="columnaCelular" filterBy="celular" filterMatchMode="contains" sortBy="celular">
+                                                            <f:facet name="header">
+                                                                <h:outputText value="Celular"/>
+                                                            </f:facet>
+                                                            <h:outputText value="#{item.celular}"/>
+                                                        </p:column>
+                                                        <p:column id="columnaEmail" filterBy="email" filterMatchMode="contains" sortBy="email">
+                                                            <f:facet name="header">
+                                                                <h:outputText value="E-mail"/>
+                                                            </f:facet>
+                                                            <h:outputText value="#{item.email}"/>
+                                                        </p:column>-->
+                            <p:column id="columnaProfesion" filterBy="profesion" filterMatchMode="contains" sortBy="profesion">
                                 <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListAgenteTitle_telefono}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.telefono}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListAgenteTitle_celular}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.celular}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListAgenteTitle_email}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.email}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListAgenteTitle_otroemail}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.otroemail}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListAgenteTitle_profesion}"/>
+                                    <h:outputText value="Profesión"/>
                                 </f:facet>
                                 <h:outputText value="#{item.profesion}"/>
-                            </h:column>
-                            <h:column>
+                            </p:column>
+                            <p:column id="columnaDependencia" filterBy="#{item.dependenciaid}" filterMatchMode="exact" filterOptions="#{dependenciaController.itemsAvailableSelectOne}" sortBy="#{item.dependenciaid.dependencia}">
                                 <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListAgenteTitle_id}"/>
+                                    <h:outputText value="Dependencia"/>
                                 </f:facet>
-                                <h:outputText value="#{item.id}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListAgenteTitle_domicilio}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.domicilio}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListAgenteTitle_tipodocumentoid}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.tipodocumentoid}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListAgenteTitle_dependenciaid}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.dependenciaid}"/>
-                            </h:column>
-                            <h:column>
+                                <h:outputText value="#{item.dependenciaid.dependencia}"/>
+                            </p:column>
+                            <p:column >
                                 <f:facet name="header">
                                     <h:outputText value="&nbsp;"/>
                                 </f:facet>
-                                <h:commandLink action="#{agenteController.prepareView}" value="#{bundle.ListAgenteViewLink}"/>
+                                <p:commandButton action="#{agenteController.prepareView}" title="Ver" icon="ui-icon-search"/>
                                 <h:outputText value=" "/>
-                                <h:commandLink action="#{agenteController.prepareEdit}" value="#{bundle.ListAgenteEditLink}"/>
+                                <p:commandButton action="#{agenteController.prepareEdit}" title="Editar" icon="ui-icon-pencil"/>
                                 <h:outputText value=" "/>
-                                <h:commandLink action="#{agenteController.destroy}" value="#{bundle.ListAgenteDestroyLink}"/>
-                            </h:column>
-                        </h:dataTable>
+                                <p:commandButton action="#{agenteController.destroy}" title="Eliminar" icon="ui-icon-trash"/>
+                            </p:column>
+                        </p:dataTable>
+
+                        <br />
+                        <p:commandButton action="#{agenteController.prepareCreate}" value="Nuevo Agente"/>
+                        <br />
+                        <br />
+                        <h:link outcome="/index" value="Inicio"/>
                     </h:panelGroup>
                 </p:panel>
 
 
-
-                <br />
-                <h:commandLink action="#{agenteController.prepareCreate}" value="#{bundle.ListAgenteCreateLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ListAgenteIndexLink}"/>
             </h:form>
         </ui:define>
     </ui:composition>

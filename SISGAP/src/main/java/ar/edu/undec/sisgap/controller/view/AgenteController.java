@@ -6,8 +6,12 @@ import ar.edu.undec.sisgap.controller.view.util.PaginationHelper;
 import ar.edu.undec.sisgap.controller.AgenteFacade;
 import ar.edu.undec.sisgap.controller.EncriptarSHA256;
 import ar.edu.undec.sisgap.controller.UsuarioFacade;
+import ar.edu.undec.sisgap.model.Presupuesto;
+import ar.edu.undec.sisgap.model.Proyecto;
+import java.io.IOException;
 
 import java.io.Serializable;
+import java.util.Hashtable;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -19,6 +23,16 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
+import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @ManagedBean(name = "agenteController")
 @SessionScoped
@@ -277,4 +291,90 @@ public class AgenteController implements Serializable {
     public void setSelected(Agente agente){
         current = agente;
     }
+    
+    // **************************  REPORTES  **********************************
+    public void pdfAgente() throws JRException, IOException {
+
+        // Obtengo la ruta absoluta del archivo compilado del reporte
+        String rutaJasper = FacesContext.getCurrentInstance().getExternalContext().getRealPath("secure/reportes/agente.jasper");
+
+        // Fuente de datos del reporte
+        JRBeanArrayDataSource beanArrayDataSource = new JRBeanArrayDataSource(new Agente[]{this.getSelected()});
+
+        //Agregando los parametros
+        Hashtable<String, Object> parametros = new Hashtable<String, Object>();
+        parametros.put("idAgente", this.getSelected().getId());
+
+        // Llenamos el reporte
+        JasperPrint jasperPrint = JasperFillManager.fillReport(rutaJasper, parametros, beanArrayDataSource);
+
+        // Generamos el archivo a descargar
+        HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        httpServletResponse.addHeader("Content-disposition", "attachment; filename=idea-proyecto.pdf");
+        ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
+        JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
+        FacesContext.getCurrentInstance().responseComplete();
+    }
+
+    public void pdfListaAgentes() throws JRException, IOException {
+
+        // Ruta absoluta del archivo compilado del reporte
+        String rutaJasper = FacesContext.getCurrentInstance().getExternalContext().getRealPath("secure/reportes/listaAgentes.jasper");
+
+        // Fuente de datos del reporte
+        JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(this.getFacade().findAll());
+
+        // Llenamos el reporte con la fuente de datos
+        JasperPrint jasperPrint = JasperFillManager.fillReport(rutaJasper, null, beanCollectionDataSource);
+
+        // Generamos el archivo a descargar
+        HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        httpServletResponse.addHeader("Content-disposition", "attachment; filename=listaIdeasProyecto.pdf");
+        ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
+        JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
+        FacesContext.getCurrentInstance().responseComplete();
+    }
+
+    public void imprimirAgente() throws JRException, IOException {
+
+        // Obtengo la ruta absoluta del archivo compilado del reporte
+        String rutaJasper = FacesContext.getCurrentInstance().getExternalContext().getRealPath("secure/reportes/agente.jasper");
+
+        // Fuente de datos del reporte
+        JRBeanArrayDataSource beanArrayDataSource = new JRBeanArrayDataSource(new Agente[]{this.getSelected()});
+
+
+        //Agregando los parametros
+        Hashtable<String, Object> parametros = new Hashtable<String, Object>();
+        parametros.put("idAgente", this.getSelected().getId());
+
+        // Llenamos el reporte
+        //JasperPrint jasperPrint = JasperFillManager.fillReport(rutaJasper, parametros, beanArrayDataSource);
+        String archivo = JasperFillManager.fillReportToFile(rutaJasper, parametros, beanArrayDataSource);
+
+        if (archivo != null) {
+            JasperPrintManager.printReport(
+                    archivo, true);
+        }
+    }
+
+    public void imprimirListaAgentes() throws JRException, IOException {
+        
+        // Ruta absoluta del archivo compilado del reporte
+        String rutaJasper = FacesContext.getCurrentInstance().getExternalContext().getRealPath("secure/reportes/listaAgentes.jasper");
+
+        // Fuente de datos del reporte
+        JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(this.getFacade().findAll());
+
+        // Llenamos el reporte con la fuente de datos
+        String archivo = JasperFillManager.fillReportToFile(rutaJasper, null, beanCollectionDataSource);
+
+        if (archivo != null) {
+            JasperPrintManager.printReport(
+                    archivo, true);
+        }
+
+        
+    }
+
 }

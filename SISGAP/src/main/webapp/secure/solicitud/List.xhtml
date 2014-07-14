@@ -93,12 +93,8 @@
                             </p:column>
 
                             <p:column style="width:4%" exportable="false">
-                                <p:commandButton icon="ui-icon-search" action="#{proyectoController.prepareView}" ajax="false">
-                                    <f:setPropertyActionListener value="#{item}" target="#{proyectoController.selected}" />
-                                </p:commandButton>
-                                <p:commandButton icon="ui-icon-pencil" action="#{proyectoController.prepareEdit}" ajax="false">
-                                    <f:setPropertyActionListener value="#{item}" target="#{proyectoController.selected}" />
-                                </p:commandButton>                                                                
+                                <p:commandButton icon="ui-icon-search" action="#{proyectoController.prepareView}" ajax="false"/>
+                                <p:commandButton icon="ui-icon-pencil" action="#{proyectoController.prepareEdit}" ajax="false" />
 <!--                                <p:commandButton id="selectButton" update=":formDialogoProyecto:verProy" oncomplete="PF('verProyecto').show()" icon="ui-icon-search" title="Ver">
                                     <f:setPropertyActionListener value="#{item}" target="#{proyectoController.selected}" />
                                 </p:commandButton>

@@ -3,57 +3,140 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.ViewAgenteTitle}"></h:outputText>
+            <h:outputText value="Editar Agente"></h:outputText>
         </ui:define>
         <ui:define name="body">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewAgenteLabel_id}"/>
-                    <h:outputText value="#{agenteController.selected.id}" title="#{bundle.ViewAgenteTitle_id}"/>
-                   
-                    <h:outputText value="#{bundle.ViewAgenteLabel_apellido}"/>
-                    <h:outputText value="#{agenteController.selected.apellido}" title="#{bundle.ViewAgenteTitle_apellido}"/>
-                    <h:outputText value="#{bundle.ViewAgenteLabel_nombres}"/>
-                    <h:outputText value="#{agenteController.selected.nombres}" title="#{bundle.ViewAgenteTitle_nombres}"/>
-                     <h:outputText value="#{bundle.ViewAgenteLabel_tipodocumentoid}"/>
-                    <h:outputText value="#{agenteController.selected.tipodocumentoid}" title="#{bundle.ViewAgenteTitle_tipodocumentoid}"/>
-                   
-                    <h:outputText value="#{bundle.ViewAgenteLabel_numerodocumento}"/>
-                    <h:outputText value="#{agenteController.selected.numerodocumento}" title="#{bundle.ViewAgenteTitle_numerodocumento}"/>
-                    <h:outputText value="#{bundle.ViewAgenteLabel_telefono}"/>
-                    <h:outputText value="#{agenteController.selected.telefono}" title="#{bundle.ViewAgenteTitle_telefono}"/>
-                    <h:outputText value="#{bundle.ViewAgenteLabel_celular}"/>
-                    <h:outputText value="#{agenteController.selected.celular}" title="#{bundle.ViewAgenteTitle_celular}"/>
-                    <h:outputText value="#{bundle.ViewAgenteLabel_email}"/>
-                    <h:outputText value="#{agenteController.selected.email}" title="#{bundle.ViewAgenteTitle_email}"/>
-                    <h:outputText value="#{bundle.ViewAgenteLabel_otroemail}"/>
-                    <h:outputText value="#{agenteController.selected.otroemail}" title="#{bundle.ViewAgenteTitle_otroemail}"/>
-                    <h:outputText value="#{bundle.ViewAgenteLabel_profesion}"/>
-                    <h:outputText value="#{agenteController.selected.profesion}" title="#{bundle.ViewAgenteTitle_profesion}"/>
-                                        <h:outputText value="#{bundle.ViewAgenteLabel_domicilio}"/>
-                    <h:outputText value="#{agenteController.selected.domicilio}" title="#{bundle.ViewAgenteTitle_domicilio}"/>
-                    <h:outputText value="#{bundle.ViewAgenteLabel_dependenciaid}"/>
-                    <h:outputText value="#{agenteController.selected.dependenciaid}" title="#{bundle.ViewAgenteTitle_dependenciaid}"/>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{agenteController.destroyAndView}" value="#{bundle.ViewAgenteDestroyLink}"/>
-                <br />
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewAgenteEditLink}"/>
-                <br />
-                <h:commandLink action="#{agenteController.prepareCreate}" value="#{bundle.ViewAgenteCreateLink}" />
-                <br />
-                <h:commandLink action="#{agenteController.prepareList}" value="#{bundle.ViewAgenteShowAllLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ViewAgenteIndexLink}"/>
+                <p:panel id="pprincipal" header="Editar Agente" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
+
+<!--                    <h:outputLabel value="#{bundle.CreateAgenteLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{agenteController.selected.id}" title="#{bundle.CreateAgenteTitle_id}" required="true" requiredMessage="#{bundle.CreateAgenteRequiredMessage_id}"/>-->
+
+                    <p:fieldset legend="Información Personal" style="display: inline-block; width: 46%; float: left;">
+                        <p:panelGrid styleClass="sinBordes sinFondo">
+                            <p:row>
+                                <p:column style="width: 40%;">
+                                    <h:outputLabel value="Apellido" for="apellido" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <h:outputText id="apellido" value="#{agenteController.selected.apellido}" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column style="width: 40%;">
+                                    <h:outputLabel value="Nombres" for="nombres" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <h:outputText id="nombres" value="#{agenteController.selected.nombres}" title="#{bundle.CreateAgenteTitle_nombres}" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column style="width: 40%;">
+                                    <h:outputLabel value="Tipo de Documento" for="tipodocumentoid" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <h:outputText value="#{agenteController.selected.tipodocumentoid.tipodocumento}" />
+                                </p:column>
+                            </p:row>
+                            <p:row >
+                                <p:column style="width: 40%;">
+                                    <h:outputLabel value="Número de Documento" for="numerodocumento" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <h:outputText id="numerodocumento" value="#{agenteController.selected.numerodocumento}" title="#{bundle.CreateAgenteTitle_numerodocumento}" />
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </p:fieldset>
+
+                    <p:fieldset legend="Información de Contacto" style="display: inline-block; width: 46%; float: right;" >
+                        <p:panelGrid styleClass="sinBordes sinFondo">
+                            <p:row>
+                                <p:column style="width: 40%;">
+                                    <h:outputLabel value="Domicilio" for="domicilio" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <h:outputText id="domicilio" value="#{agenteController.selected.domicilio}" title="#{bundle.CreateAgenteTitle_domicilio}" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column style="width: 40%;">
+                                    <h:outputLabel value="Teléfono" for="telefono" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <h:outputText id="telefono" value="#{agenteController.selected.telefono}" title="#{bundle.CreateAgenteTitle_telefono}" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column style="width: 40%;">
+                                    <h:outputLabel value="Celular" for="celular" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <h:outputText id="celular" value="#{agenteController.selected.celular}" title="#{bundle.CreateAgenteTitle_celular}" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column style="width: 40%;">
+                                    <h:outputLabel value="Email" for="email" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <h:outputText id="email" value="#{agenteController.selected.email}" title="#{bundle.CreateAgenteTitle_email}" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column style="width: 40%;">
+                                    <h:outputLabel value="Email Secundario" for="otroemail" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <h:outputText id="otroemail" value="#{agenteController.selected.otroemail}" title="#{bundle.CreateAgenteTitle_otroemail}" />
+                                </p:column>
+                            </p:row>                            
+                        </p:panelGrid>
+                    </p:fieldset>
+
+                    <p:fieldset legend="Información Profesional" style="clear: both;">
+                        <p:panelGrid styleClass="sinBordes sinFondo" >
+                            <p:row>
+                                <p:column style="width: 20%;">
+                                    <h:outputLabel value="Profesión" for="profesion" />
+                                </p:column>
+                                <p:column style="width: 80%;">
+                                    <h:outputText id="profesion" value="#{agenteController.selected.profesion}" title="#{bundle.CreateAgenteTitle_profesion}" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column style="width: 20%;">
+                                    <h:outputLabel value="Dependencia" for="dependenciaid" />
+                                </p:column>
+                                <p:column style="width: 80%;">
+                                    <h:outputText value="#{agenteController.selected.dependenciaid.dependencia}" />
+                                </p:column>
+                            </p:row>                            
+                        </p:panelGrid>
+                    </p:fieldset>
+
+                    <br />
+                                      
+                    <p:commandButton action="#{agenteController.imprimirAgente()}" ajax="false">  
+                            <p:graphicImage value="/resources/img/print_printer.png" />  
+                    </p:commandButton>                          
+                    
+                    <p:separator/>
+                    
+                    <br />
+                    <p:commandButton action="#{agenteController.prepareList}" value="Lista de Agentes" immediate="true"/>
+                    <br />
+                    
+                    <h:link outcome="/index" value="Inicio"/>
+                </p:panel>
 
             </h:form>
         </ui:define>

@@ -33,3 +33,40 @@ body {
 .columnaGrid{
     width: 200px;
 }
+
+
+.columnaIzquierda{
+    text-align: left;
+    width: 200px !important;
+}
+
+.columnaDerecha{
+    text-align: right;
+/*    width: 200px !important;*/
+}
+
+.fieldSetIzquierdo {
+    display: inline-block; 
+    width: 46%; 
+    float: left;
+}
+
+/*.fieldSetIzquierdo .ui-panelgrid td{
+    width: 200px; 
+}*/
+
+.fieldSetDerecho {
+    display: inline-block; 
+    width: 46%; 
+    float: right;
+}
+
+/*.fieldSetDerecho .ui-panelgrid td{
+    width: 200px; 
+}*/
+
+.fieldSetUnico {
+    clear:both;
+}
+
+.ui-panelgrid td{}
