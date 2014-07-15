@@ -18,13 +18,13 @@
                 <p:panel id="pprincipal" header="Editar Tipo de Financiamiento" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
 
                     <p:fieldset legend="Información del Tipo de Financiamiento">
-                        <p:panelGrid styleClass="sinBordes sinFondo">
+                        <p:panelGrid styleClass="sinBordes sinFondo" style="width: 100%;">
                             <p:row>
                                 <p:column style="width: 40%;">
-                                    <h:outputLabel value="Tipo de Financiamiento" for="tipofinanciamiento" />
+                                    <h:outputLabel value="Tipo de Financiamiento" for="tipofinanciamiento" style="font-weight: bold;"  />
                                 </p:column>
                                 <p:column style="width: 60%;">
-                                    <p:inputText id="tipofinanciamiento" value="#{tipofinanciamientoController.selected.tipofinanciamiento}" title="Tipo de Financiamiento" />
+                                    <p:inputText id="tipofinanciamiento" value="#{tipofinanciamientoController.selected.tipofinanciamiento}" title="Tipo de Financiamiento" style="width: 100%;"/>
                                 </p:column>
                             </p:row>
                         </p:panelGrid>
@@ -33,8 +33,9 @@
                     <p:separator/>
                     <p:commandButton action="#{tipofinanciamientoController.update}" value="Guardar Tipo de Financiamiento" style="display: inline-block;" icon="ui-icon-disk" />
                     <p:commandButton action="#{tipofinanciamientoController.prepareList}" value="Lista de Tipos de Financiamiento" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document"/>
+                    <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
                     <p:separator/>
-                    <h:link outcome="/index" value="Inicio"/>
+
                 </p:panel>
 
             </h:form>

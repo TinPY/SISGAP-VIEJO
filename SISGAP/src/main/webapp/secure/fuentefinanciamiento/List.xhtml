@@ -62,11 +62,10 @@
                             </p:column>
                         </p:dataTable>
 
-                        <br />
+                        <p:separator />
                         <p:commandButton action="#{fuentefinanciamientoController.prepareCreate}" value="Nuevo Beneficiario"/>
-                        <br />
-                        <br />
-                        <h:link outcome="/index" value="Inicio"/>
+                        <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
+                        <p:separator />
                     </h:panelGroup>
                 </p:panel>
                 

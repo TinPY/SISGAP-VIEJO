@@ -24,7 +24,7 @@
                         <p:panelGrid styleClass="sinBordes sinFondo">
                             <p:row>
                                 <p:column style="width: 40%;">
-                                    <p:outputLabel value="Apellido" for="apellido" />
+                                    <p:outputLabel value="Apellido" for="apellido" style="font-weight: bold;" />
                                 </p:column>
                                 <p:column style="width: 60%;">
                                     <p:inputText id="apellido" value="#{agenteController.selected.apellido}" title="#{bundle.CreateAgenteTitle_apellido}" />
@@ -32,7 +32,7 @@
                             </p:row>
                             <p:row>
                                 <p:column style="width: 40%;">
-                                    <p:outputLabel value="Nombres" for="nombres" />
+                                    <p:outputLabel value="Nombres" for="nombres" style="font-weight: bold;" />
                                 </p:column>
                                 <p:column style="width: 60%;">
                                     <p:inputText id="nombres" value="#{agenteController.selected.nombres}" title="#{bundle.CreateAgenteTitle_nombres}" />
@@ -40,7 +40,7 @@
                             </p:row>
                             <p:row>
                                 <p:column style="width: 40%;">
-                                    <p:outputLabel value="Tipo de Documento" for="tipodocumentoid" />
+                                    <p:outputLabel value="Tipo de Documento" for="tipodocumentoid" style="font-weight: bold;" />
                                 </p:column>
                                 <p:column style="width: 60%;">
                                     <p:selectOneMenu id="tipodocumentoid" value="#{agenteController.selected.tipodocumentoid}" >
@@ -50,7 +50,7 @@
                             </p:row>
                             <p:row >
                                 <p:column style="width: 40%;">
-                                    <p:outputLabel value="Número de Documento" for="numerodocumento" />
+                                    <p:outputLabel value="Número de Documento" for="numerodocumento" style="font-weight: bold;" />
                                 </p:column>
                                 <p:column style="width: 60%;">
                                     <p:inputText id="numerodocumento" value="#{agenteController.selected.numerodocumento}" title="#{bundle.CreateAgenteTitle_numerodocumento}" />
@@ -63,7 +63,7 @@
                         <p:panelGrid styleClass="sinBordes sinFondo">
                             <p:row>
                                 <p:column style="width: 40%;">
-                                    <p:outputLabel value="Domicilio" for="domicilio" />
+                                    <p:outputLabel value="Domicilio" for="domicilio" style="font-weight: bold;" />
                                 </p:column>
                                 <p:column style="width: 60%;">
                                     <p:inputText id="domicilio" value="#{agenteController.selected.domicilio}" title="#{bundle.CreateAgenteTitle_domicilio}" />
@@ -71,7 +71,7 @@
                             </p:row>
                             <p:row>
                                 <p:column style="width: 40%;">
-                                    <p:outputLabel value="Teléfono" for="telefono" />
+                                    <p:outputLabel value="Teléfono" for="telefono" style="font-weight: bold;" />
                                 </p:column>
                                 <p:column style="width: 60%;">
                                     <p:inputText id="telefono" value="#{agenteController.selected.telefono}" title="#{bundle.CreateAgenteTitle_telefono}" />
@@ -79,7 +79,7 @@
                             </p:row>
                             <p:row>
                                 <p:column style="width: 40%;">
-                                    <p:outputLabel value="Celular" for="celular" />
+                                    <p:outputLabel value="Celular" for="celular" style="font-weight: bold;" />
                                 </p:column>
                                 <p:column style="width: 60%;">
                                     <p:inputText id="celular" value="#{agenteController.selected.celular}" title="#{bundle.CreateAgenteTitle_celular}" />
@@ -87,7 +87,7 @@
                             </p:row>
                             <p:row>
                                 <p:column style="width: 40%;">
-                                    <p:outputLabel value="Email" for="email" />
+                                    <p:outputLabel value="Email" for="email" style="font-weight: bold;" />
                                 </p:column>
                                 <p:column style="width: 60%;">
                                     <p:inputText id="email" value="#{agenteController.selected.email}" title="#{bundle.CreateAgenteTitle_email}" />
@@ -95,7 +95,7 @@
                             </p:row>
                             <p:row>
                                 <p:column style="width: 40%;">
-                                    <p:outputLabel value="Email Secundario" for="otroemail" />
+                                    <p:outputLabel value="Email Secundario" for="otroemail"  style="font-weight: bold;"/>
                                 </p:column>
                                 <p:column style="width: 60%;">
                                     <p:inputText id="otroemail" value="#{agenteController.selected.otroemail}" title="#{bundle.CreateAgenteTitle_otroemail}" />
@@ -108,7 +108,7 @@
                         <p:panelGrid styleClass="sinBordes sinFondo" >
                             <p:row>
                                 <p:column style="width: 20%;">
-                                    <p:outputLabel value="Profesión" for="profesion" />
+                                    <p:outputLabel value="Profesión" for="profesion" style="font-weight: bold;" />
                                 </p:column>
                                 <p:column style="width: 80%;">
                                     <p:inputText id="profesion" value="#{agenteController.selected.profesion}" title="#{bundle.CreateAgenteTitle_profesion}" />
@@ -116,7 +116,15 @@
                             </p:row>
                             <p:row>
                                 <p:column style="width: 20%;">
-                                    <p:outputLabel value="Dependencia" for="dependenciaid" />
+                                    <p:outputLabel value="Especialidad" for="especialidad" style="font-weight: bold;" />
+                                </p:column>
+                                <p:column style="width: 80%;">
+                                    <p:inputText id="especialidad" value="#{agenteController.selected.especialidad}" title="Especialidad" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column style="width: 20%;">
+                                    <p:outputLabel value="Dependencia" for="dependenciaid" style="font-weight: bold;" />
                                 </p:column>
                                 <p:column style="width: 80%;">
                                     <p:selectOneMenu id="dependenciaid" value="#{agenteController.selected.dependenciaid}" >
@@ -130,8 +138,9 @@
                     <p:separator/>
                     <p:commandButton action="#{agenteController.create}" value="Crear Agente" style="display: inline-block;" icon="ui-icon-disk" />
                     <p:commandButton action="#{agenteController.prepareList}" value="Lista de Agentes" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document"/>
+                    <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" />
                     <p:separator/>
-                    <h:link outcome="/index" value="Inicio"/>
+                    <!--<h:link outcome="/index" value="Inicio"/>-->
                     
                 </p:panel>
 

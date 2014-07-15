@@ -21,10 +21,10 @@
                         <p:panelGrid styleClass="sinBordes sinFondo">
                             <p:row>
                                 <p:column style="width: 40%;">
-                                    <h:outputLabel value="Beneficiario" for="beneficiario" />
+                                    <h:outputLabel value="Beneficiario" for="beneficiario" style="font-weight: bold;" />
                                 </p:column>
                                 <p:column style="width: 60%;">
-                                    <h:inputText id="beneficiario" value="#{beneficiarioController.selected.beneficiario}" title="Beneficiario" />
+                                    <p:inputText id="beneficiario" value="#{beneficiarioController.selected.beneficiario}" title="Beneficiario" />
                                 </p:column>
                             </p:row>
                         </p:panelGrid>
@@ -33,8 +33,8 @@
                     <p:separator/>
                     <p:commandButton action="#{beneficiarioController.update}" value="Guardar Beneficiario" style="display: inline-block;" icon="ui-icon-disk" />
                     <p:commandButton action="#{beneficiarioController.prepareList}" value="Lista de Beneficiarios" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document"/>
+                    <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" />
                     <p:separator/>
-                    <h:link outcome="/index" value="Inicio" />
                 </p:panel>
 
 

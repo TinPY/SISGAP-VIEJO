@@ -94,19 +94,20 @@
                                 <f:facet name="header">
                                     <h:outputText value="&nbsp;"/>
                                 </f:facet>
-                                <p:commandButton action="#{convocatoriaController.prepareView}" title="Ver" icon="ui-icon-search"/>
+                                <p:commandButton action="#{convocatoriaController.prepareView}" title="Ver" icon="ui-icon-search" ajax="false" />
                                 <h:outputText value=" "/>
-                                <p:commandButton action="#{convocatoriaController.prepareEdit}" title="Editar" icon="ui-icon-pencil"/>
+                                <p:commandButton action="#{convocatoriaController.prepareEdit}" title="Editar" icon="ui-icon-pencil" ajax="false"/>
                                 <h:outputText value=" "/>
-                                <p:commandButton action="#{convocatoriaController.destroy}" title="Eliminar" icon="ui-icon-trash"/>
+                                <p:commandButton action="#{convocatoriaController.destroy}" title="Eliminar" icon="ui-icon-trash" ajax="false"/>
                             </p:column>
                         </p:dataTable>
 
-                        <br />
-                        <p:commandButton action="#{convocatoriaController.prepareCreate}" value="Nueva Convocatoria"/>
-                        <br />
-                        <br />
-                        <h:link outcome="/index" value="Inicio"/>
+                        <p:separator/>
+                        
+                        <p:commandButton action="#{convocatoriaController.prepareCreate}" value="Nueva Convocatoria" ajax="false" />
+                        <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
+
+                        <p:separator/>
                     </h:panelGroup>
                 </p:panel>
 

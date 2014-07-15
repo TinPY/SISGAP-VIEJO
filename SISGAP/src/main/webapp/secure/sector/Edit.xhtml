@@ -21,7 +21,7 @@
                         <p:panelGrid styleClass="sinBordes sinFondo">
                             <p:row>
                                 <p:column style="width: 40%;">
-                                    <h:outputLabel value="Sector" for="sector" />
+                                    <h:outputLabel value="Sector" for="sector"  style="font-weight: bold;" />
                                 </p:column>
                                 <p:column style="width: 60%;">
                                     <p:inputText id="sector" value="#{sectorController.selected.sector}" title="Sector" />
@@ -33,8 +33,9 @@
                     <p:separator/>
                     <p:commandButton action="#{sectorController.update}" value="Guardar Sector" style="display: inline-block;" icon="ui-icon-disk" />
                     <p:commandButton action="#{sectorController.prepareList}" value="Lista de Sectores" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document"/>
+                    <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
                     <p:separator/>
-                    <h:link outcome="/index" value="Inicio"/>
+
                 </p:panel>
 
             </h:form>

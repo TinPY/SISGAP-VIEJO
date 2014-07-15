@@ -84,11 +84,13 @@ body {
 /* Footer
 -----------------------------------------------------------------------------*/
 .footer {
-        width: 900px;
+        width: 950px;
         /*min-width: 100%;*/        
         background-color: #444444;    
-	margin: 0px auto 0px auto ;
+	margin: auto ;
 	height: 5%;
+        vertical-align: middle;
+        text-align: center;
 	position: relative;
         /*background-color: #6685A3; */
 

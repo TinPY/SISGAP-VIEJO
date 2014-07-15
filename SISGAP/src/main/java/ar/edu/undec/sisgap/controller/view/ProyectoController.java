@@ -1096,7 +1096,7 @@ public class ProyectoController implements Serializable {
     public void pdfIdeaProyecto() throws JRException, IOException {
 
         // Obtengo la ruta absoluta del archivo compilado del reporte
-        String rutaJasper = FacesContext.getCurrentInstance().getExternalContext().getRealPath("secure/reportes/solicitud.jasper");
+        String rutaJasper = FacesContext.getCurrentInstance().getExternalContext().getRealPath("secure/reportes/solicitud3.jasper");
 
         // Fuente de datos del reporte
         JRBeanArrayDataSource beanArrayDataSource = new JRBeanArrayDataSource(new Proyecto[]{this.getSelected()});

@@ -21,7 +21,7 @@
                         <p:panelGrid styleClass="sinBordes sinFondo">
                             <p:row>
                                 <p:column style="width: 40%;">
-                                    <h:outputLabel value="Fuente de Financiamiento" for="fuentefinanciamiento" />
+                                    <h:outputLabel value="Fuente de Financiamiento" for="fuentefinanciamiento"  style="font-weight: bold;" />
                                 </p:column>
                                 <p:column style="width: 60%;">
                                     <p:inputText id="fuentefinanciamiento" value="#{fuentefinanciamientoController.selected.fuentefinanciamiento}" title="Nombre de la fuente de financiamiento" />
@@ -33,8 +33,8 @@
                     <p:separator/>
                     <p:commandButton action="#{fuentefinanciamientoController.update}" value="Guardar Fuente de Financiamiento" style="display: inline-block;" icon="ui-icon-disk" />
                     <p:commandButton action="#{fuentefinanciamientoController.prepareList}" value="Lista de Fuentes de Financiamiento" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document"/>
+                    <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
                     <p:separator/>
-                    <h:link outcome="/index" value="Inicio"/>
                 </p:panel>
 
             </h:form>

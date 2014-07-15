@@ -67,8 +67,8 @@
                                     <h:outputText value="Alta" />
                                 </f:facet>
                                 <h:outputText value="#{item.usuariofechaalta}">
-                                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
-                                    </h:outputText>
+                                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                                </h:outputText>
                             </p:column>
                             <p:column id="columnaUsuarioPerfil" filterBy="#{item.usuariorol}" filterMatchMode="exact" filterOptions="#{perfilController.itemsAvailableSelectOne}" sortBy="#{item.usuariorol.rol}">
                                 <f:facet name="header">
@@ -88,11 +88,11 @@
                             </p:column>
                         </p:dataTable>
 
-                        <br />
+                        <p:separator/>
                         <p:commandButton action="#{usuarioController.prepareCreate}" value="Nuevo Usuario"/>
-                        <br />
-                        <br />
-                        <h:link outcome="/index" value="Inicio"/>
+                        <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />                        
+                        <p:separator/>
+
                     </h:panelGroup>
                 </p:panel>
 

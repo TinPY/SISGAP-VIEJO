@@ -21,7 +21,7 @@
                         <p:panelGrid styleClass="sinBordes sinFondo">
                             <p:row>
                                 <p:column style="width: 40%;">
-                                    <h:outputLabel value="Rubro" for="rubro" />
+                                    <h:outputLabel value="Rubro" for="rubro"  style="font-weight: bold;" />
                                 </p:column>
                                 <p:column style="width: 60%;">
                                     <p:inputText id="beneficiario" value="#{rubroController.selected.rubro}" title="Rubro" />
@@ -33,8 +33,9 @@
                     <p:separator/>
                     <p:commandButton action="#{rubroController.update}" value="Guardar Rubro" style="display: inline-block;" icon="ui-icon-disk" />
                     <p:commandButton action="#{rubroController.prepareList}" value="Lista de Rubros" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document"/>
+                    <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
                     <p:separator/>
-                    <h:link outcome="/index" value="Inicio"/>
+
                 </p:panel>
 
             </h:form>

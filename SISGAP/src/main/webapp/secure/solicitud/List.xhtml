@@ -19,8 +19,6 @@
                     </h:panelGroup>
                     
                     <h:outputText escape="false" value="La lista de solicitudes está vacía" rendered="#{proyectoController.items.rowCount == 0}"/>
-<!--                    <p:separator rendered="#{proyectoController.items.rowCount == 0}" />
-                    <p:commandButton action="#{proyectoController.prepareCreate}" value="Nuevo Proyecto/Solicitud" rendered="#{proyectoController.items.rowCount == 0}"/>                                                            -->
                     
                     <h:panelGroup rendered="#{proyectoController.items.rowCount > 0}">
                         <h:outputText value="#{proyectoController.pagination.pageFirstItem + 1}..#{proyectoController.pagination.pageLastItem + 1}/#{proyectoController.pagination.itemsCount}"/>&nbsp;

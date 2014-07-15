@@ -21,7 +21,7 @@
                         <p:panelGrid styleClass="sinBordes sinFondo">
                             <p:row>
                                 <p:column style="width: 40%;">
-                                    <h:outputLabel value="Rol" for="rol" />
+                                    <h:outputLabel value="Rol" for="rol"  style="font-weight: bold;" />
                                 </p:column>
                                 <p:column style="width: 60%;">
                                     <p:inputText id="rol" value="#{perfilController.selected.rol}" title="Rol" />
@@ -33,8 +33,9 @@
                     <p:separator/>
                     <p:commandButton action="#{perfilController.update}" value="Guardar Perfil" style="display: inline-block;" icon="ui-icon-disk" />
                     <p:commandButton action="#{perfilController.prepareList}" value="Lista de Perfiles" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document"/>
+                    <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
                     <p:separator/>
-                    <h:link outcome="/index" value="Inicio"/>
+                    
                 </p:panel>
 
             </h:form>

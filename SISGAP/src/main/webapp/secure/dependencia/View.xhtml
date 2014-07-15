@@ -18,13 +18,13 @@
                 <p:panel id="pprincipal" header="Ver Dependencia" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
 
                     <p:fieldset legend="Información de la Dependencia">
-                        <p:panelGrid styleClass="sinBordes sinFondo">
+                        <p:panelGrid styleClass="sinBordes sinFondo" style="width: 100%;">
                             <p:row>
                                 <p:column style="width: 40%;">
                                     <h:outputLabel value="Nro" for="dependenciaid" />
                                 </p:column>
                                 <p:column style="width: 60%;">
-                                    <h:outputText id="dependenciaid" value="#{dependenciaController.selected.id}" title="Nro" />
+                                    <h:outputText id="dependenciaid" value="#{dependenciaController.selected.id}" title="Nro" style="font-weight: bold;"  />
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -43,9 +43,10 @@
                     <p:commandButton action="#{dependenciaController.prepareCreate}" value="Nueva Dependencia" style="display: inline-block;" icon="ui-icon-plus" />
                     <p:commandButton action="#{dependenciaController.destroyAndView}" value="Borrar Dependencia" style="display: inline-block;" icon="ui-icon-trash" />
                     <p:commandButton action="#{dependenciaController.prepareList}" value="Lista de Dependencias" style="display: inline-block;float:right;" icon="ui-icon-document"/>
-                    <br />
+                    <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />                    
+
                     <p:separator />
-                    <h:link outcome="/index" value="Inicio" />
+
                 </p:panel>
             </h:form>
         </ui:define>

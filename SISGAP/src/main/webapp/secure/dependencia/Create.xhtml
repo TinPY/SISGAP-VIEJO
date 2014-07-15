@@ -21,7 +21,7 @@
                         <p:panelGrid styleClass="sinBordes sinFondo">
                             <p:row>
                                 <p:column style="width: 40%;">
-                                    <h:outputLabel value="Dependencia" for="dependencia" />
+                                    <h:outputLabel value="Dependencia" for="dependencia" style="font-weight: bold;" />
                                 </p:column>
                                 <p:column style="width: 60%;">
                                     <p:inputText id="dependencia" value="#{dependenciaController.selected.dependencia}" title="Dependencia"/>
@@ -31,10 +31,12 @@
                     </p:fieldset>
 
                     <p:separator/>
+                    
                     <p:commandButton action="#{dependenciaController.create}" value="Crear Dependencia" style="display: inline-block;" icon="ui-icon-disk" />
                     <p:commandButton action="#{dependenciaController.prepareList}" value="Lista de Dependencias" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document"/>
+                    <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
+                    
                     <p:separator/>
-                    <h:link outcome="/index" value="Inicio"/>
                 </p:panel>
                 
             </h:form>

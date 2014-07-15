@@ -3,35 +3,52 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.ViewTipoentidadTitle}"></h:outputText>
+            <h:outputText value="Ver"></h:outputText>
         </ui:define>
         <ui:define name="body">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewTipoentidadLabel_tipoentidad}"/>
-                    <h:outputText value="#{tipoentidadController.selected.tipoentidad}" title="#{bundle.ViewTipoentidadTitle_tipoentidad}"/>
-                    <h:outputText value="#{bundle.ViewTipoentidadLabel_id}"/>
-                    <h:outputText value="#{tipoentidadController.selected.id}" title="#{bundle.ViewTipoentidadTitle_id}"/>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{tipoentidadController.destroyAndView}" value="#{bundle.ViewTipoentidadDestroyLink}"/>
-                <br />
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewTipoentidadEditLink}"/>
-                <br />
-                <h:commandLink action="#{tipoentidadController.prepareCreate}" value="#{bundle.ViewTipoentidadCreateLink}" />
-                <br />
-                <h:commandLink action="#{tipoentidadController.prepareList}" value="#{bundle.ViewTipoentidadShowAllLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ViewTipoentidadIndexLink}"/>
+                <p:panel id="pprincipal" header="Ver Tipo de Entidad" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
+
+                    <p:fieldset legend="Información del Tipo de Entidad">
+                        <p:panelGrid styleClass="sinBordes sinFondo">
+                            <p:row>
+                                <p:column style="width: 40%;">
+                                    <h:outputLabel value="Nro" for="tipoentidadid"  style="font-weight: bold;" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <h:outputText id="tipoentidadid" value="#{tipocomitenteController.selected.id}" title="Nro" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column style="width: 40%;">
+                                    <h:outputLabel value="Tipo de Entidad" for="tipoentidad"  style="font-weight: bold;" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <h:outputText id="tipoentidad" value="#{tipocomitenteController.selected.tipoentidad}" title="Tipo de Entidad" />
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </p:fieldset>
+
+                    <p:separator />
+
+                    <p:commandButton action="#{tipocomitenteController.prepareCreate}" value="Nuevo Tipo de Entidad" style="display: inline-block;" icon="ui-icon-plus" />
+                    <p:commandButton action="#{tipocomitenteController.destroyAndView}" value="Borrar Tipo de Entidad" style="display: inline-block;" icon="ui-icon-trash" />
+                    <p:commandButton action="#{tipocomitenteController.prepareList}" value="Lista de Tipos de Entidad" style="display: inline-block;float:right;" icon="ui-icon-document"/>
+                    <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
+
+                    <p:separator />
+
+                </p:panel>
+
 
             </h:form>
         </ui:define>

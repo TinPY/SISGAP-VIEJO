@@ -20,70 +20,70 @@
                     <p:fieldset legend="Información del Usuario">
                         <p:panelGrid styleClass="sinBordes sinFondo">
                             <p:row>
-                                <p:column style="width: 40%;">
-                                    <h:outputLabel value="Nro" for="usuarioid" />
+                                <p:column style="width: 20%;">
+                                    <h:outputLabel value="Nro" for="usuarioid" style="font-weight: bold;"  />
                                 </p:column>
-                                <p:column style="width: 60%;">
+                                <p:column style="width: 80%;">
                                     <h:outputText id="usuarioid" value="#{usuarioController.selected.usuarioid}" title="Nro" />
                                 </p:column>
                             </p:row>
                             <p:row>
-                                <p:column style="width: 40%;">
-                                    <h:outputLabel value="Usuario" for="usuarionombre" />
+                                <p:column style="width: 20%;">
+                                    <h:outputLabel value="Usuario" for="usuarionombre"  style="font-weight: bold;" />
                                 </p:column>
-                                <p:column style="width: 60%;">
+                                <p:column style="width: 80%;">
                                     <h:outputText id="usuarionombre" value="#{usuarioController.selected.usuarionombre}" title="Usuario" />
                                 </p:column>
                             </p:row>
                             <p:row>
-                                <p:column style="width: 40%;">
-                                    <h:outputLabel value="Password" for="usuarioclave" />
+                                <p:column style="width: 20%;">
+                                    <h:outputLabel value="Password" for="usuarioclave" style="font-weight: bold;"  />
                                 </p:column>
-                                <p:column style="width: 60%;">
+                                <p:column style="width: 80%;">
                                     <h:outputText id="usuarioclave" value="#{usuarioController.selected.usuarioclave}" title="Password" />
                                 </p:column>
                             </p:row>
                             <p:row>
-                                <p:column style="width: 40%;">
-                                    <h:outputLabel value="Estado" for="usuarioestado" />
+                                <p:column style="width: 20%;">
+                                    <h:outputLabel value="Estado" for="usuarioestado"  style="font-weight: bold;" />
                                 </p:column>
-                                <p:column style="width: 60%;">
+                                <p:column style="width: 80%;">
                                     <h:outputText id="usuarioestado" value="#{usuarioController.selected.usuarioestado}" title="Estado" />
                                 </p:column>
                             </p:row>
                             <p:row>
-                                <p:column style="width: 40%;">
-                                    <h:outputLabel value="Fecha de Alta" for="usuariofechaalta" />
+                                <p:column style="width: 20%;">
+                                    <h:outputLabel value="Fecha de Alta" for="usuariofechaalta"  style="font-weight: bold;" />
                                 </p:column>
-                                <p:column style="width: 60%;">
+                                <p:column style="width: 80%;">
                                     <h:outputText id="usuariofechaalta" value="#{usuarioController.selected.usuariofechaalta}" title="Fecha de Alta">
                                         <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
                                     </h:outputText>
                                 </p:column>
                             </p:row>
                             <p:row>
-                                <p:column style="width: 40%;">
-                                    <h:outputLabel value="Fecha de Baja" for="usuariofechabaja" />
+                                <p:column style="width: 20%;">
+                                    <h:outputLabel value="Fecha de Baja" for="usuariofechabaja"  style="font-weight: bold;" />
                                 </p:column>
-                                <p:column style="width: 60%;">
+                                <p:column style="width: 80%;">
                                     <h:outputText id="usuariofechabaja" value="#{usuarioController.selected.usuariofechabaja}" title="Fecha de Baja">
                                         <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
                                     </h:outputText>
                                 </p:column>
                             </p:row>
                             <p:row>
-                                <p:column style="width: 40%;">
-                                    <h:outputLabel value="Habilitacion" for="habilitacion" />
+                                <p:column style="width: 20%;">
+                                    <h:outputLabel value="Habilitacion" for="habilitacion" style="font-weight: bold;"  />
                                 </p:column>
-                                <p:column style="width: 60%;">
+                                <p:column style="width: 80%;">
                                     <h:outputText id="habilitacion" value="#{usuarioController.selected.habilitacion}" title="Habilitacion" />
                                 </p:column>
                             </p:row>
                             <p:row>
-                                <p:column style="width: 40%;">
-                                    <h:outputLabel value="Perfil" for="usuariorol" />
+                                <p:column style="width: 20%;">
+                                    <h:outputLabel value="Perfil" for="usuariorol" style="font-weight: bold;"  />
                                 </p:column>
-                                <p:column style="width: 60%;">
+                                <p:column style="width: 80%;">
                                     <h:outputText id="usuariorol" value="#{usuarioController.selected.usuariorol.rol}" title="Perfil" />
                                 </p:column>
                             </p:row>                            
@@ -95,9 +95,10 @@
                     <p:commandButton action="#{usuarioController.prepareCreate}" value="Nuevo Usuario" style="display: inline-block;" icon="ui-icon-plus" />
                     <p:commandButton action="#{usuarioController.destroyAndView}" value="Borrar Usuario" style="display: inline-block;" icon="ui-icon-trash" />
                     <p:commandButton action="#{usuarioController.prepareList}" value="Lista de Usuarios" style="display: inline-block;float:right;" icon="ui-icon-document"/>
-                    <br />
+                    <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
+
                     <p:separator />
-                    <h:link outcome="/index" value="Inicio" />
+
                 </p:panel>
 
 

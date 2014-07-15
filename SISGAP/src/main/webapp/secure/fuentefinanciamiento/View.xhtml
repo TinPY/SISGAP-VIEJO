@@ -21,7 +21,7 @@
                         <p:panelGrid styleClass="sinBordes sinFondo">
                             <p:row>
                                 <p:column style="width: 40%;">
-                                    <h:outputLabel value="Nro" for="fuentefinanciamientoid" />
+                                    <h:outputLabel value="Nro" for="fuentefinanciamientoid"  style="font-weight: bold;"  />
                                 </p:column>
                                 <p:column style="width: 60%;">
                                     <h:outputText id="fuentefinanciamientoid" value="#{fuentefinanciamientoController.selected.id}" title="Nro" />
@@ -29,7 +29,7 @@
                             </p:row>
                             <p:row>
                                 <p:column style="width: 40%;">
-                                    <h:outputLabel value="Fuente de Financiamiento" for="fuentefinanciamiento" />
+                                    <h:outputLabel value="Fuente de Financiamiento" for="fuentefinanciamiento"  style="font-weight: bold;" />
                                 </p:column>
                                 <p:column style="width: 60%;">
                                     <h:outputText id="fuentefinanciamiento" value="#{fuentefinanciamientoController.selected.fuentefinanciamiento}" title="Fuente de Financiamiento" />
@@ -39,13 +39,12 @@
                     </p:fieldset>
 
                     <p:separator />
-
                     <p:commandButton action="#{fuentefinanciamientoController.prepareCreate}" value="Nueva Fuente de Financiamiento" style="display: inline-block;" icon="ui-icon-plus" />
                     <p:commandButton action="#{fuentefinanciamientoController.destroyAndView}" value="Borrar Fuente de Financiamiento" style="display: inline-block;" icon="ui-icon-trash" />
                     <p:commandButton action="#{fuentefinanciamientoController.prepareList}" value="Lista de Fuentes de Financiamiento" style="display: inline-block;float:right;" icon="ui-icon-document"/>
-                    <br />
+                    <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
                     <p:separator />
-                    <h:link outcome="/index" value="Inicio" />
+
                 </p:panel>
 
 

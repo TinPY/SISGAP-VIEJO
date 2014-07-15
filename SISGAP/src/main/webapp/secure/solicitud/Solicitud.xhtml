@@ -414,50 +414,52 @@
                             <p:panel>
                                 <p:panelGrid styleClass="sinBordes" style="width: 100%;">
                                     <p:row>
-                                        <p:column>
+                                        <p:column style="width: 30%;">
                                             <p:outputLabel style="font-weight:bold;"  value="Ingrese el Documento/Apellido"  />                 
                                         </p:column>
-                                        <p:column>
-                                            <p:selectOneMenu widgetVar="comitentedid" id="advancedfiltro"  value="#{agenteViewController.selected}" label="Agente" filter="true" filterMatchMode="contains"  >
+                                        <p:column style="width: 70%;">
+                                            <p:selectOneMenu widgetVar="comitentedid" id="advancedfiltro"  value="#{agenteViewController.selected}" label="Agente" filter="true" filterMatchMode="contains" style="width: 100%;" >
                                                 <p:ajax update="tagenteseleccion" />
                                                 <f:selectItems value="#{agenteViewController.itemsAvailableSelectMany}" />
                                             </p:selectOneMenu>                                                    
-                                        </p:column>
-                                        <p:column>
-                                            <p:commandButton value="Nueva Persona" onclick="PF('dregistrar').show();" />
                                         </p:column>
                                     </p:row>
                                 </p:panelGrid>
                             </p:panel>
 
-                            <p:separator />
+                            <p:panel>
+                                <p:panelGrid id="tagenteseleccion" styleClass="sinBordes sinFondo" style="width: 100%;" >
+                                    <p:row >
+                                        <p:column><p:outputLabel style="font-weight:bold;" value="Documento"/></p:column>
+                                        <p:column><p:outputLabel style="font-weight:bold;" value="Nombre"/></p:column>
+                                        <p:column><p:outputLabel style="font-weight:bold;" value="Email"/></p:column>
+                                        <p:column><p:outputLabel style="font-weight:bold;" value="Profesión" /></p:column>
+                                        <p:column><p:outputLabel style="font-weight:bold;" value="Dependencia" /></p:column>
+                                    </p:row>
+                                    <p:row >
+                                        <p:column>
+                                            <p:outputLabel value="#{agenteViewController.selected.tipodocumentoid.tipodocumento} - #{agenteViewController.selected.numerodocumento}" title="Documento" />                                                                                                                        
+                                        </p:column> 
+                                        <p:column>
+                                            <p:outputLabel value="#{agenteViewController.selected.apellido}, #{agenteViewController.selected.nombres}" title="Nombre" />
+                                        </p:column> 
+                                        <p:column>
+                                            <p:outputLabel value="#{agenteViewController.selected.email}" title="Email" />
+                                        </p:column> 
+                                        <p:column>
+                                            <p:outputLabel value="#{agenteViewController.selected.profesion}" title="Profesión" />
+                                        </p:column> 
+                                        <p:column>
+                                            <p:outputLabel value="#{agenteViewController.selected.dependenciaid.dependencia}" title="Dependencia" />
+                                        </p:column>                                         
+                                    </p:row>
+                                </p:panelGrid>                                                    
+                            </p:panel>
 
-                            <p:panelGrid id="tagenteseleccion" styleClass="sinBordes sinFondo" style="width: 100%;" >
-                                <p:row >
-                                    <p:column><p:outputLabel style="font-weight:bold;" value="Documento"/></p:column>
-                                    <p:column><p:outputLabel style="font-weight:bold;" value="Nombre"/></p:column>
-                                    <p:column><p:outputLabel style="font-weight:bold;" value="Email"/></p:column>
-                                    <p:column><p:outputLabel style="font-weight:bold;" value="Profesión" /></p:column>
-                                    <p:column></p:column>
-                                </p:row>
-                                <p:row >
-                                    <p:column>
-                                        <p:outputLabel value="#{agenteViewController.selected.tipodocumentoid.tipodocumento} - #{agenteViewController.selected.numerodocumento}" title="Documento" />                                                                                                                        
-                                    </p:column> 
-                                    <p:column>
-                                        <p:outputLabel value="#{agenteViewController.selected.apellido}, #{agenteViewController.selected.nombres}" title="Nombre" />
-                                    </p:column> 
-                                    <p:column>
-                                        <p:outputLabel value="#{agenteViewController.selected.email}" title="Email" />
-                                    </p:column> 
-                                    <p:column>
-                                        <p:outputLabel value="#{agenteViewController.selected.profesion}" title="Profesión" />
-                                    </p:column> 
-                                    <p:column>
-                                        <p:commandButton immediate="true" update="tagentes" value="Agregar al equipo" action="#{agenteViewController.agregarEquipo}" />
-                                    </p:column> 
-                                </p:row>
-                            </p:panelGrid>                                                    
+                            <p:separator />
+                            
+                            <p:commandButton value="Nueva Persona" onclick="PF('dregistrar').show();" icon="ui-icon-contact" style="display: inline-block;" />
+                            <p:commandButton immediate="true" update="tagentes" value="Agregar al equipo" action="#{agenteViewController.agregarEquipo}" icon="ui-icon-plus" style="display: inline-block; float: right;"/>
 
                             <p:separator />
 

@@ -33,27 +33,28 @@
 
                 <p:panel id="pprincipal" header="Lista de Ideas-Proyecto" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
                     <p:panel id="panel1" header="Idea-Proyecto" styleClass="sinBordes sinFondo">
-                        <p:fieldset legend="Información General" style="margin-bottom:5px">
-                            <p:panelGrid columns="2" columnClasses="right,left"  >
-                                <p:outputLabel value="N° de Solicitud"/>
-                                <p:outputLabel value="#{proyectoController.selected.id}" title="#{bundle.ViewProyectoTitle_id}"/>
 
-                                <p:outputLabel value="Tituto del Proyecto"/>
-                                <p:outputLabel value="#{proyectoController.selected.nombre}" title="#{bundle.ViewProyectoTitle_nombre}"/>
+                        <p:fieldset legend="Información General" style="display: inline-block; width: 46%; float: left; margin-bottom: 5px;">
+                            <p:panelGrid columns="2" columnClasses="right,left"  style="width: 100%;" >
+                                <p:outputLabel value="Nro" style="font-weight: bold;" />
+                                <p:outputLabel value="#{proyectoController.selected.id}" />
 
-                                <p:outputLabel value="Tipo de Proyecto"/>
-                                <p:outputLabel value="#{proyectoController.selected.tipoproyectoid.tipo}" title="#{bundle.ViewProyectoTitle_tipoproyectoid}"/>
+                                <p:outputLabel value="Título" style="font-weight: bold;" />
+                                <p:outputLabel value="#{proyectoController.selected.nombre}" />
 
-                                <p:outputLabel value="Estado"/>
-                                <p:outputLabel value="#{proyectoController.selected.estadoproyectoid.estado}" title="#{bundle.ViewProyectoTitle_estado}"/>
+                                <p:outputLabel value="Tipo" style="font-weight: bold;" />
+                                <p:outputLabel value="#{proyectoController.selected.tipoproyectoid.tipo}" />
 
-                                <p:outputLabel value="Localizacion"/>
-                                <p:outputLabel value="#{proyectoController.selected.localizacion}" title="#{bundle.ViewProyectoTitle_convocatoriaid}"/>
+                                <p:outputLabel value="Estado" style="font-weight: bold;" />
+                                <p:outputLabel value="#{proyectoController.selected.estadoproyectoid.estado}" />
 
-                                <p:outputLabel value="Duracion"/>
-                                <p:outputLabel value="#{proyectoController.selected.duracion}" title="#{bundle.ViewProyectoTitle_duracion}"/>
+                                <p:outputLabel value="Localización" style="font-weight: bold;" />
+                                <p:outputLabel value="#{proyectoController.selected.localizacion}" />
 
-                                <p:outputLabel value="Fecha de Alta"/>
+                                <p:outputLabel value="Duración" style="font-weight: bold;" />
+                                <p:outputLabel value="#{proyectoController.selected.duracion} Meses" />
+
+                                <p:outputLabel value="Alta" style="font-weight: bold;" />
                                 <p:outputLabel value="#{proyectoController.selected.fecha}" title="#{bundle.ViewProyectoTitle_fecha}">
                                     <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
                                 </p:outputLabel>
@@ -62,66 +63,110 @@
                             </p:panelGrid>
                         </p:fieldset>
 
-                        <p:fieldset legend="Comitente" style="margin-bottom:5px">
-                            <p:outputLabel value="Comitente"/>
-                            <p:outputLabel value="#{proyectoController.selected.id} - #{proyectoController.selected.comitenteid.cuit}/#{proyectoController.selected.comitenteid.razonsocial}" title="#{bundle.ViewProyectoTitle_nombre}"/>
+                        <p:fieldset legend="Comitente" style="display: inline-block; width: 46%; float: right; margin-bottom: 5px;">
+
+                            <p:panelGrid columnClasses="right,left" style="width: 100%;" columns="2" >
+                                <p:outputLabel value="Razón Social" style="font-weight: bold;"/>
+                                <p:outputLabel value="#{proyectoController.selected.comitenteid.razonsocial}" />
+
+                                <p:outputLabel value="CUIT" style="font-weight: bold;" />
+                                <p:outputLabel value="#{proyectoController.selected.comitenteid.cuit}" />
+
+                                <p:outputLabel value="Tipo de Comitente" style="font-weight: bold;" />
+                                <p:outputLabel value="#{proyectoController.selected.comitenteid.tipocomitenteid.tipoentidad}" />
+
+                                <p:outputLabel value="Sector" style="font-weight: bold;" />
+                                <p:outputLabel value="#{proyectoController.selected.comitenteid.sectorid.sector}" />
+
+                                <p:outputLabel value="Contacto" style="font-weight: bold;" />
+                                <p:outputLabel value="#{proyectoController.selected.comitenteid.contacto}" />
+
+                                <p:outputLabel value="Cargo del Contacto" style="font-weight: bold;" />
+                                <p:outputLabel value="#{proyectoController.selected.comitenteid.cargocontacto}" />
+
+                                <p:outputLabel value="Teléfono" style="font-weight: bold;" />
+                                <p:outputLabel value="#{proyectoController.selected.comitenteid.telefono}" />
+
+                                <p:outputLabel value="Email" style="font-weight: bold;" />
+                                <p:outputLabel value="#{proyectoController.selected.comitenteid.email}" />
+                            </p:panelGrid>
+
                         </p:fieldset>
 
-                        <p:fieldset legend="Descripción" style="margin-bottom:5px">
-                            <p:panelGrid>
+                        <p:fieldset legend="Descripción" style="margin-bottom:5px; clear: both; ">
+                            <p:panelGrid >
                                 <p:row>
                                     <p:column style="width: 150px; vertical-align: top;">
-                                        <p:outputLabel value="Resumen y Diagnostico"/>
+                                        <p:outputLabel value="Resumen y Diagnostico" style="font-weight: bold;" />
                                     </p:column>
                                     <p:column style="width: 100%;">
-                                        <p:inputTextarea rows="20" value="#{proyectoController.selected.resumen}" style="width: 100%;" />
+                                        <p:inputTextarea rows="20" value="#{proyectoController.selected.resumen}" readonly="true" style="width: 100%;" />
                                     </p:column>                                    
                                 </p:row>
 
                                 <p:row>
                                     <p:column style="width: 150px; vertical-align: top;">
-                                        <p:outputLabel value="Diagnóstico"/>
+                                        <p:outputLabel value="Diagnóstico" style="font-weight: bold;" />
                                     </p:column>
                                     <p:column style="width: 100%;">
-                                        <p:inputTextarea rows="20" value="#{proyectoController.selected.observaciones}" style="width: 100%;" />
+                                        <p:inputTextarea rows="20" value="#{proyectoController.selected.observaciones}" readonly="true" style="width: 100%;" />
                                     </p:column>                                    
                                 </p:row>
                             </p:panelGrid>
                         </p:fieldset>
 
-                        <p:fieldset legend="Documentación" style="margin-bottom: 5px;">
-                            <p:outputLabel value="Documentacion "/>
-                            <p:commandLink id="downloadLink" value="#{proyectoController.selected.documentacionnombre}" ajax="false" process="@this" onclick="PrimeFaces.monitorDownload(showStatus, hideStatus)" >
-                                <p:fileDownload id="f1" value="#{proyectoController.selected.documentacion}" contentDisposition="inline" />
+                        <p:fieldset legend="Convocatoria" style="display: inline-block; width: 46%; float: left; margin-bottom: 5px;">
 
-                            </p:commandLink>
+                            <p:panelGrid style="width: 100%;" columnClasses="right,left" columns="2">
+                                <p:outputLabel value="Convocatoria" style="font-weight: bold;" />
+                                <p:outputLabel value="#{proyectoController.selected.convocatoriaid.convocatoria}"/>
+
+                                <p:outputLabel value="Organismo" style="font-weight: bold;" />
+                                <p:outputLabel value="#{proyectoController.selected.convocatoriaid.organismo}"/>
+
+                                <p:outputLabel value="Monto de Financiamiento" style="font-weight: bold;" />
+                                <p:outputLabel value="#{proyectoController.selected.convocatoriaid.montofinanciamiento.floatValue()}"/>
+
+                                <p:outputLabel value="Estado" style="font-weight: bold;" />
+                                <p:outputLabel value="#{proyectoController.selected.convocatoriaid.estado}"/>
+                            </p:panelGrid>
+
                         </p:fieldset>
 
-                        <p:fieldset legend="Convocatoria" style="margin-bottom: 5px;">
-                            <p:outputLabel value="Convocatoria"/>
-                            <p:outputLabel value="#{proyectoController.selected.convocatoriaid.convocatoria}" title="#{bundle.ViewProyectoTitle_convocatoriaid}"/>                            
+                        <p:fieldset legend="Documentación" style="display: inline-block; width: 46%; float: right; margin-bottom: 5px;">
+
+                            <p:panelGrid style="width: 100%;">
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="Documentación" style="font-weight: bold;" />
+                                    </p:column>
+                                    <p:column>
+                                        <p:commandLink id="downloadLink" value="#{proyectoController.selected.documentacionnombre}" ajax="false" process="@this" onclick="PrimeFaces.monitorDownload(showStatus, hideStatus)" >
+                                            <p:fileDownload id="f1" value="#{proyectoController.selected.documentacion}" contentDisposition="inline" />
+                                        </p:commandLink>
+                                    </p:column>
+                                </p:row>
+                            </p:panelGrid>
+
                         </p:fieldset>
 
-                        <p:fieldset legend="Financiamiento" style="margin-bottom: 5px;">
+                        <p:fieldset legend="Financiamiento" style="margin-bottom: 5px; clear: both; width: 100%;">
 
-                            <p:panelGrid columns="2">
-                                <p:outputLabel value="Beneficiario"/>
+                            <p:panelGrid columns="2" columnClasses="right,left">
+                                <p:outputLabel value="Beneficiario" style="font-weight: bold;" />
                                 <p:outputLabel value="#{proyectoController.selected.beneficiarioid.beneficiario}" title="#{bundle.ViewProyectoTitle_convocatoriaid}"/>
 
-                                <p:outputLabel value="Tipo de Financiamiento"/>
+                                <p:outputLabel value="Tipo de Financiamiento" style="font-weight: bold;" />
                                 <p:outputLabel value="#{proyectoController.selected.tipofinanciamientoid.tipofinanciamiento}" title="#{bundle.ViewProyectoTitle_convocatoriaid}"/>
 
-                                <p:outputLabel value="Tipo de Financiamiento"/>
-                                <p:outputLabel value="#{proyectoController.selected.tipofinanciamientoid.tipofinanciamiento}" title="#{bundle.ViewProyectoTitle_convocatoriaid}"/>
-
-                                <p:outputLabel value="Fuente de Financiamiento"/>
+                                <p:outputLabel value="Fuente de Financiamiento" style="font-weight: bold;" />
                                 <p:outputLabel value="#{proyectoController.selected.fuentefinanciamientoid.fuentefinanciamiento}" title="#{bundle.ViewProyectoTitle_convocatoriaid}"/>
                             </p:panelGrid>
 
 
                         </p:fieldset>
 
-                        <p:fieldset legend="Presupuesto" style="margin-bottom: 5px;">
+                        <p:fieldset legend="Presupuesto" style="margin-bottom: 5px; clear: both; width: 100%;">
 
                             <p:dataTable value="#{presupuestoController.selected.presupuestoRubroList}" var="item">
                                 <f:attribute name="”collectionType”" value="”java.util.ArrayList”/">
@@ -152,8 +197,8 @@
                                 </p:column>
                             </p:dataTable>
 
-                            <h:panelGrid columns="2">
-                                <p:panelGrid style="font-weight:bold;" id="paportes" columnClasses="right,right" columns="2">
+                            <p:panelGrid columns="2">
+                                <p:panelGrid style="font-weight:bold;" id="paportes" columns="2">
                                     <f:facet name="header">  
                                         Total de Aportes  
                                     </f:facet>
@@ -188,7 +233,7 @@
                                 <p:pieChart id="crubros" value="#{presupuestoController.pieModelRubro}" legendPosition="e" showDataLabels="true"  
                                             title="Rubros" style="width:100%;height:300px" sliceMargin="5" diameter="150" /> 
 
-                            </h:panelGrid>
+                            </p:panelGrid>
 
                         </p:fieldset>
 
@@ -218,13 +263,11 @@
                         </p:commandLink>  
                     </p:panel>  
 
+                    <p:separator/>
+                    <p:commandButton action="#{proyectoController.prepareList}" value="Lista de Ideas-Proyecto" immediate="true" icon="ui-icon-document"/>
+                    <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" />
+                    <p:separator/>
 
-                    <br />
-                    <br />
-                    <h:commandLink action="#{proyectoController.prepareList}" value="Listado"/>
-                    <br />
-                    <br />
-                    <h:link outcome="/index" value="Home"/>
                 </p:panel>
 
 

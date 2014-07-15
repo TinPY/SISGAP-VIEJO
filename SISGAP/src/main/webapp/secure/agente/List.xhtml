@@ -99,19 +99,20 @@
                                 <f:facet name="header">
                                     <h:outputText value="&nbsp;"/>
                                 </f:facet>
-                                <p:commandButton action="#{agenteController.prepareView}" title="Ver" icon="ui-icon-search"/>
+                                <p:commandButton action="#{agenteController.prepareView}" title="Ver" icon="ui-icon-search" ajax="false" />
                                 <h:outputText value=" "/>
-                                <p:commandButton action="#{agenteController.prepareEdit}" title="Editar" icon="ui-icon-pencil"/>
+                                <p:commandButton action="#{agenteController.prepareEdit}" title="Editar" icon="ui-icon-pencil" ajax="false"/>
                                 <h:outputText value=" "/>
-                                <p:commandButton action="#{agenteController.destroy}" title="Eliminar" icon="ui-icon-trash"/>
+                                <p:commandButton action="#{agenteController.destroy}" title="Eliminar" icon="ui-icon-trash" ajax="false"/>
                             </p:column>
                         </p:dataTable>
 
-                        <br />
-                        <p:commandButton action="#{agenteController.prepareCreate}" value="Nuevo Agente"/>
-                        <br />
-                        <br />
-                        <h:link outcome="/index" value="Inicio"/>
+                        <p:separator/>
+                        
+                        <p:commandButton action="#{agenteController.prepareCreate}" value="Nuevo Agente" ajax="false"/>
+                        <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false"/>
+                        
+                        <p:separator/>
                     </h:panelGroup>
                 </p:panel>
 

@@ -21,7 +21,7 @@
                         <p:panelGrid styleClass="sinBordes sinFondo">
                             <p:row>
                                 <p:column style="width: 40%;">
-                                    <h:outputLabel value="Tipo de Documento" for="tipodocumento" />
+                                    <h:outputLabel value="Tipo de Documento" for="tipodocumento"  style="font-weight: bold;" />
                                 </p:column>
                                 <p:column style="width: 60%;">
                                     <p:inputText id="tipodocumento" value="#{tipodocumentoController.selected.tipodocumento}" title="Tipo de Documento" />
@@ -33,8 +33,9 @@
                     <p:separator/>
                     <p:commandButton action="#{tipodocumentoController.create}" value="Crear Tipo de Documento" style="display: inline-block;" icon="ui-icon-disk" />
                     <p:commandButton action="#{tipodocumentoController.prepareList}" value="Lista de Tipos de Documento" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document"/>
+                    <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
                     <p:separator/>
-                    <h:link outcome="/index" value="Inicio"/>
+
                 </p:panel>
 
             </h:form>

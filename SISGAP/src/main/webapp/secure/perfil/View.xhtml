@@ -21,7 +21,7 @@
                         <p:panelGrid styleClass="sinBordes sinFondo">
                             <p:row>
                                 <p:column style="width: 40%;">
-                                    <h:outputLabel value="Nro" for="rolid" />
+                                    <h:outputLabel value="Nro" for="rolid" style="font-weight: bold;"  />
                                 </p:column>
                                 <p:column style="width: 60%;">
                                     <h:outputText id="rolid" value="#{perfilController.selected.rolid}" title="Nro" />
@@ -29,7 +29,7 @@
                             </p:row>
                             <p:row>
                                 <p:column style="width: 40%;">
-                                    <h:outputLabel value="Rol" for="rol" />
+                                    <h:outputLabel value="Rol" for="rol" style="font-weight: bold;" />
                                 </p:column>
                                 <p:column style="width: 60%;">
                                     <h:outputText id="rol" value="#{perfilController.selected.rol}" title="Rol" />
@@ -39,13 +39,12 @@
                     </p:fieldset>
 
                     <p:separator />
-
                     <p:commandButton action="#{beneficiarioController.prepareCreate}" value="Nuevo Beneficiario" style="display: inline-block;" icon="ui-icon-plus" />
                     <p:commandButton action="#{beneficiarioController.destroyAndView}" value="Borrar Beneficiario" style="display: inline-block;" icon="ui-icon-trash" />
                     <p:commandButton action="#{beneficiarioController.prepareList}" value="Lista de Beneficiarios" style="display: inline-block;float:right;" icon="ui-icon-document"/>
-                    <br />
+                    <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
                     <p:separator />
-                    <h:link outcome="/index" value="Inicio" />
+
                 </p:panel>
 
 
