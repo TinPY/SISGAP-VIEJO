@@ -30,11 +30,10 @@
                         </p:panelGrid>
                     </p:fieldset>
 
-                    <h:commandButton action="#{beneficiarioController.update}" value="Guardar Beneficiario"/>
-                    <br />
-                    <h:commandButton action="#{beneficiarioController.prepareList}" value="Lista de Beneficiario" immediate="true"/>
-                    <br />
-                    <br />
+                    <p:separator/>
+                    <p:commandButton action="#{beneficiarioController.update}" value="Guardar Beneficiario" style="display: inline-block;" icon="ui-icon-disk" />
+                    <p:commandButton action="#{beneficiarioController.prepareList}" value="Lista de Beneficiarios" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document"/>
+                    <p:separator/>
                     <h:link outcome="/index" value="Inicio" />
                 </p:panel>
 

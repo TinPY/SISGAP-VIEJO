@@ -16,67 +16,147 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <p:tabView effect="explode" effectDuration="normal">  
-  
-                    <p:tab title="Datos Personales">
-                        <h:panelGrid columns="2"> 
-                            <p:outputLabel value="Apellido" for="apellido" />
-                            <p:inputText id="apellido" value="#{agenteController.selected.apellido}" />
-                            <p:outputLabel value="Nombres" for="nombres" />
-                            <p:inputText id="nombres" value="#{agenteController.selected.nombres}" />
-                            <p:outputLabel value="Tipo de Documento" for="tipodocumentoid" />
-                            <p:selectOneMenu id="tipodocumentoid" value="#{agenteController.selected.tipodocumentoid}" >
-                                <f:selectItems value="#{tipodocumentoController.itemsAvailableSelectOne}"/>
-                            </p:selectOneMenu>
-                            <p:outputLabel value="N° Documento" for="numerodocumento" />
-                             <p:inputText id="numerodocumento" value="#{agenteController.selected.numerodocumento}" />
-                            <p:outputLabel value="Telefono" for="telefono" />
-                            <p:inputText id="telefono" value="#{agenteController.selected.telefono}" />
-                            <p:outputLabel value="Celular" for="celular" />
-                            <p:inputText id="celular" value="#{agenteController.selected.celular}" />
-                            <p:outputLabel value="Email" for="email" />
-                            <p:inputText id="email" value="#{agenteController.selected.email}" >
-                                <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@undec.edu.ar" />
-                            </p:inputText>
-                            <p:outputLabel value="Otro Email" for="otroemail" />
-                            <p:inputText id="otroemail" value="#{agenteController.selected.otroemail}" >
-                                <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
-                            </p:inputText>
-                            <p:outputLabel value="Profesion" for="profesion" />
-                            <p:inputText id="profesion" value="#{agenteController.selected.profesion}" />
-                            <p:outputLabel value="Domicilio" for="domicilio" />
-                            <p:inputText id="domicilio" value="#{agenteController.selected.domicilio}" />
+                <p:panel id="pprincipal" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
 
-                            <p:outputLabel value="Dependencia" for="dependenciaid" />
-                            <p:selectOneMenu id="dependenciaid" value="#{agenteController.selected.dependenciaid}" >
-                                <f:selectItems value="#{dependenciaController.itemsAvailableSelectOne}"/>
-                            </p:selectOneMenu>
-                        </h:panelGrid>
-                    </p:tab>
-                    <p:tab title="Mi Cuenta">
-                        <h:panelGrid  columns="3" >
+                    <p:tabView effect="explode" effectDuration="normal">  
+                        <p:tab title="Datos Personales">
+                            <p:fieldset legend="Información Personal" style="display: inline-block; width: 46%; float: left;">
+                                <p:panelGrid styleClass="sinBordes sinFondo">
+                                    <p:row>
+                                        <p:column style="width: 40%;">
+                                            <p:outputLabel value="Apellido" for="apellido" />
+                                        </p:column>
+                                        <p:column style="width: 60%;">
+                                            <p:inputText id="apellido" value="#{agenteController.selected.apellido}" title="#{bundle.CreateAgenteTitle_apellido}" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column style="width: 40%;">
+                                            <p:outputLabel value="Nombres" for="nombres" />
+                                        </p:column>
+                                        <p:column style="width: 60%;">
+                                            <p:inputText id="nombres" value="#{agenteController.selected.nombres}" title="#{bundle.CreateAgenteTitle_nombres}" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column style="width: 40%;">
+                                            <p:outputLabel value="Tipo de Documento" for="tipodocumentoid" />
+                                        </p:column>
+                                        <p:column style="width: 60%;">
+                                            <p:selectOneMenu id="tipodocumentoid" value="#{agenteController.selected.tipodocumentoid}" >
+                                                <f:selectItems value="#{tipodocumentoController.itemsAvailableSelectOne}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row >
+                                        <p:column style="width: 40%;">
+                                            <p:outputLabel value="Número de Documento" for="numerodocumento" />
+                                        </p:column>
+                                        <p:column style="width: 60%;">
+                                            <p:inputText id="numerodocumento" value="#{agenteController.selected.numerodocumento}" title="#{bundle.CreateAgenteTitle_numerodocumento}" />
+                                        </p:column>
+                                    </p:row>
+                                </p:panelGrid>
+                            </p:fieldset>
+
+                            <p:fieldset legend="Información de Contacto" style="display: inline-block; width: 46%; float: right;" >
+                                <p:panelGrid styleClass="sinBordes sinFondo">
+                                    <p:row>
+                                        <p:column style="width: 40%;">
+                                            <p:outputLabel value="Domicilio" for="domicilio" />
+                                        </p:column>
+                                        <p:column style="width: 60%;">
+                                            <p:inputText id="domicilio" value="#{agenteController.selected.domicilio}" title="#{bundle.CreateAgenteTitle_domicilio}" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column style="width: 40%;">
+                                            <p:outputLabel value="Teléfono" for="telefono" />
+                                        </p:column>
+                                        <p:column style="width: 60%;">
+                                            <p:inputText id="telefono" value="#{agenteController.selected.telefono}" title="#{bundle.CreateAgenteTitle_telefono}" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column style="width: 40%;">
+                                            <p:outputLabel value="Celular" for="celular" />
+                                        </p:column>
+                                        <p:column style="width: 60%;">
+                                            <p:inputText id="celular" value="#{agenteController.selected.celular}" title="#{bundle.CreateAgenteTitle_celular}" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column style="width: 40%;">
+                                            <p:outputLabel value="Email" for="email" />
+                                        </p:column>
+                                        <p:column style="width: 60%;">
+                                            <p:inputText id="email" value="#{agenteController.selected.email}" title="#{bundle.CreateAgenteTitle_email}" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column style="width: 40%;">
+                                            <p:outputLabel value="Email Secundario" for="otroemail" />
+                                        </p:column>
+                                        <p:column style="width: 60%;">
+                                            <p:inputText id="otroemail" value="#{agenteController.selected.otroemail}" title="#{bundle.CreateAgenteTitle_otroemail}" />
+                                        </p:column>
+                                    </p:row>                            
+                                </p:panelGrid>
+                            </p:fieldset>
+
+                            <p:fieldset legend="Información Profesional" style="clear: both;">
+                                <p:panelGrid styleClass="sinBordes sinFondo" >
+                                    <p:row>
+                                        <p:column style="width: 20%;">
+                                            <p:outputLabel value="Profesión" for="profesion" />
+                                        </p:column>
+                                        <p:column style="width: 80%;">
+                                            <p:inputText id="profesion" value="#{agenteController.selected.profesion}" title="#{bundle.CreateAgenteTitle_profesion}" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column style="width: 20%;">
+                                            <p:outputLabel value="Dependencia" for="dependenciaid" />
+                                        </p:column>
+                                        <p:column style="width: 80%;">
+                                            <p:selectOneMenu id="dependenciaid" value="#{agenteController.selected.dependenciaid}" >
+                                                <f:selectItems value="#{dependenciaController.itemsAvailableSelectOne}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                    </p:row>                            
+                                </p:panelGrid>
+                            </p:fieldset>
+                        </p:tab>
+
+                        <p:tab title="Mi Cuenta">
+                            <h:panelGrid  columns="3" >
                                 <p:outputLabel value="Nombre de Usuario"/>
                                 <p:outputLabel id="nombreusuario" value="#{agenteController.selected.usuarioid.usuarionombre}" title="Name" />
                                 <p:message for="nombreusuario" /> 
                                 <p:outputLabel value="Password" for="usuarioclave" />
                                 <p:password  id="usuarioclave" value="#{agenteController.selected.usuarioid.usuarioclave}" title="Password" feedback="true" required="true"  
-                                    promptLabel="Nivel de seguridad de la Contraseña" weakLabel="Debil"  
-                                    goodLabel="Buena" strongLabel="Muy Buena" match="usuarioclave2" />
+                                             promptLabel="Nivel de seguridad de la Contraseña" weakLabel="Debil"  
+                                             goodLabel="Buena" strongLabel="Muy Buena" match="usuarioclave2" />
                                 <p:message for="usuarioclave" /> 
                                 <p:outputLabel value="Repita el password" for="usuarioclave2" />
                                 <p:password id="usuarioclave2" feedback="true" required="true"   
-                                    promptLabel="Nivel de seguridad de la Contraseña" weakLabel="Debil"  
-                                    goodLabel="Buena" strongLabel="Muy Buena" />
+                                            promptLabel="Nivel de seguridad de la Contraseña" weakLabel="Debil"  
+                                            goodLabel="Buena" strongLabel="Muy Buena" />
                                 <p:message for="usuarioclave2" /> 
-                           </h:panelGrid>
-                    </p:tab>
-                    
-                </p:tabView>
-                <p:commandButton actionListener="#{agenteController.editarMiCuenta}" value="Grabar" oncomplete="drespuesta.show()"  />
+                            </h:panelGrid>
+                        </p:tab>
+
+                    </p:tabView>
+
+                    <p:separator />
+
+                    <p:commandButton actionListener="#{agenteController.editarMiCuenta}" value="Guardar Cambios" oncomplete="drespuesta.show()"  />
+                </p:panel>
+
                 <p:dialog id="drespuesta" widgetVar="drespuesta" header="Agente Modificado" modal="true" closable="false">
                     El Agente fue modificado! Muchas Gracias!
                     <div align="center" >
-                        <p:commandButton value="OK" actionListener="#{usuarioController.logout()}" />
+                        <p:commandButton value="Ok" actionListener="#{usuarioController.logout()}" />
                     </div>
                 </p:dialog>
             </h:form>

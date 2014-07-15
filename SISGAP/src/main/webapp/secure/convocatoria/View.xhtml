@@ -30,10 +30,18 @@
                             </p:row>                            
                             <p:row>
                                 <p:column style="width: 40%;">
-                                    <h:outputLabel value="Convocatoria" for="convocatoria" />
+                                    <p:outputLabel value="Convocatoria" for="convocatoria" />
                                 </p:column>
                                 <p:column style="width: 60%;">
                                     <h:outputText id="convocatoria" value="#{convocatoriaController.selected.convocatoria}" title="Convocatoria" />
+                                </p:column>
+                            </p:row>
+                            <p:row >
+                                <p:column style="width: 40%;">
+                                    <h:outputLabel value="Tipo de Proyecto" for="tipoproyectoid" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <h:outputText id="tipoproyectoid" value="#{convocatoriaController.selected.tipoproyectoid.tipo}" title="#{bundle.ViewConvocatoriaTitle_tipoproyectoid}"/>
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -44,11 +52,26 @@
                                     <p:inputTextarea id="descripcion" value="#{convocatoriaController.selected.descripcion}" title="Descripción" disabled="true" />
                                 </p:column>
                             </p:row>
+                            <p:row >
+                                <p:column style="width: 40%;">
+                                    <h:outputLabel value="Monto Financiamiento" for="montofinanciamiento" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <h:outputText id="montofinanciamiento" value="#{convocatoriaController.selected.montofinanciamiento}" title="Link" />
+                                </p:column>
+                            </p:row>                                       
+                        </p:panelGrid>
+                    </p:fieldset>
+
+                    <p:fieldset legend="Documentación">
+                        <p:panelGrid styleClass="sinBordes sinFondo">
                             <p:row>
                                 <p:column style="width: 40%;">
                                     <h:outputLabel value="Bases" for="bases" />
                                 </p:column>
-                                <h:outputText id="bases" value="BASES [CAMBIAR POR UPLOADFILE]"/>
+                                <p:column style="width: 60%">
+                                    <h:outputText id="bases" value="BASES"/>
+                                </p:column>
                             </p:row>
                             <p:row >
                                 <p:column style="width: 40%;">
@@ -62,14 +85,23 @@
                                 <p:column style="width: 40%;">
                                     <h:outputLabel value="Formulario" for="formulario" />
                                 </p:column>
-                                <h:outputText id="formulario" value="FORMULARIO [CAMBIAR POR UPLOADFILE]"/>
+                                <p:column style="width: 60%;">
+                                    <h:outputText id="formulario" value="FORMULARIO"/>
+                                </p:column>                                
                             </p:row>
+                        </p:panelGrid>                            
+                    </p:fieldset>
+
+                    <p:fieldset legend="Fechas"> 
+                        <p:panelGrid styleClass="sinBordes sinFondo">
                             <p:row >
                                 <p:column style="width: 40%;">
                                     <h:outputLabel value="Fecha Publicacion" for="fechapublicacion" />
                                 </p:column>
                                 <p:column style="width: 60%;">
-                                    <p:calendar id="fechapublicacion" styleClass="calendarFilter" value="#{convocatoriaController.selected.fechapublicacion}" disabled="true" />
+                                    <h:outputText id="fechapublicacion" value="#{convocatoriaController.selected.fechapublicacion}" title="Fecha de Publicacion">
+                                        <f:convertDateTime dateStyle="short" type="date"/>
+                                    </h:outputText>
                                 </p:column>
                             </p:row>
                             <p:row >
@@ -77,25 +109,26 @@
                                     <h:outputLabel value="Fecha Inicio" for="fechainicio" />
                                 </p:column>
                                 <p:column style="width: 60%;">
-                                    <p:calendar id="fechainicio" styleClass="calendarFilter" value="#{convocatoriaController.selected.fechainicio}" disabled="true" />
+                                    <h:outputText id="fechainicio" value="#{convocatoriaController.selected.fechainicio}" title="Fecha de Inicio">
+                                        <f:convertDateTime dateStyle="short" type="date"/>
+                                    </h:outputText>
                                 </p:column>
                             </p:row>              
                             <p:row >
                                 <p:column style="width: 40%;">
-                                    <h:outputLabel value="Fecha Inicio" for="fechacierre" />
+                                    <h:outputLabel value="Fecha Cierre" for="fechacierre" />
                                 </p:column>
                                 <p:column style="width: 60%;">
-                                    <p:calendar id="fechacierre" styleClass="calendarFilter" value="#{convocatoriaController.selected.fechacierre}" disabled="true"/>
+                                    <h:outputText id="fechacierre" value="#{convocatoriaController.selected.fechacierre}" title="Fecha de Cierre">
+                                        <f:convertDateTime dateStyle="short" type="date"/>
+                                    </h:outputText>                                    
                                 </p:column>
                             </p:row>
-                            <p:row >
-                                <p:column style="width: 40%;">
-                                    <h:outputLabel value="Tipo de Proyecto" for="tipoproyectoid" />
-                                </p:column>
-                                <p:column style="width: 60%;">
-                                    <h:outputText value="#{convocatoriaController.selected.tipoproyectoid.tipo}" title="#{bundle.ViewConvocatoriaTitle_tipoproyectoid}"/>
-                                </p:column>
-                            </p:row>
+                        </p:panelGrid>
+                    </p:fieldset>
+
+                    <p:fieldset legend="Entidades">
+                        <p:panelGrid styleClass="sinBordes sinFondo">
                             <p:row >
                                 <p:column style="width: 40%;">
                                     <h:outputLabel value="Organismo" for="organismo" />
@@ -112,40 +145,15 @@
                                     <h:outputText id="beneficiario" value="#{convocatoriaController.selected.beneficiario}" title="Link" />
                                 </p:column>
                             </p:row>
-                            <p:row >
-                                <p:column style="width: 40%;">
-                                    <h:outputLabel value="Monto Financiamiento" for="montofinanciamiento" />
-                                </p:column>
-                                <p:column style="width: 60%;">
-                                    <h:outputText id="montofinanciamiento" value="#{convocatoriaController.selected.montofinanciamiento}" title="Link" />
-                                </p:column>
-                            </p:row>                            
                         </p:panelGrid>
                     </p:fieldset>
 
-                    <h:commandButton action="#{convocatoriaController.update}" value="Guardar Convocatoria"/>
                     <br />
-                    <br />
-                    <h:link outcome="View" value="Ver"/>
-                    <br />
-                    <h:commandButton action="#{convocatoriaController.prepareList}" value="Lista de Convocatorias" immediate="true"/>
+                    <p:commandButton action="#{convocatoriaController.prepareList}" value="Lista de Convocatorias" immediate="true"/>
                     <br />
                     <br />
                     <h:link outcome="/index" value="Inicio"/>
                 </p:panel>
-
-                <br />
-                <h:commandButton action="#{convocatoriaController.destroyAndView}" value="#{bundle.ViewConvocatoriaDestroyLink}"/>
-                <br />
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewConvocatoriaEditLink}"/>
-                <br />
-                <h:commandButton action="#{convocatoriaController.prepareCreate}" value="#{bundle.ViewConvocatoriaCreateLink}" />
-                <br />
-                <h:commandButton action="#{convocatoriaController.prepareList}" value="#{bundle.ViewConvocatoriaShowAllLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ViewConvocatoriaIndexLink}"/>
 
             </h:form>
         </ui:define>

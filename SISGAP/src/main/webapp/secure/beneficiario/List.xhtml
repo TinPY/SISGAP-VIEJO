@@ -19,6 +19,8 @@
                     </h:panelGroup>
 
                     <h:outputText escape="false" value="La lista de beneficiarios está vacía" rendered="#{beneficiarioController.items.rowCount == 0}"/>
+                    <p:separator rendered="#{beneficiarioController.items.rowCount == 0}" />
+                    <p:commandButton action="#{beneficiarioController.prepareCreate}" value="Nuevo Beneficiario" rendered="#{beneficiarioController.items.rowCount == 0}"/>
 
                     <h:panelGroup rendered="#{beneficiarioController.items.rowCount > 0}">
                         

@@ -3,52 +3,73 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.ListFuentefinanciamientoTitle}"></h:outputText>
+            <h:outputText value="Lista de Fuentes de Financiamiento"></h:outputText>
         </ui:define>
         <ui:define name="body">
             <h:form styleClass="jsfcrud_list_form">
-                <h:panelGroup id="messagePanel" layout="block">
-                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-                </h:panelGroup>
-                <h:outputText escape="false" value="#{bundle.ListFuentefinanciamientoEmpty}" rendered="#{fuentefinanciamientoController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{fuentefinanciamientoController.items.rowCount > 0}">
-                    <h:outputText value="#{fuentefinanciamientoController.pagination.pageFirstItem + 1}..#{fuentefinanciamientoController.pagination.pageLastItem + 1}/#{fuentefinanciamientoController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{fuentefinanciamientoController.previous}" value="#{bundle.Previous} #{fuentefinanciamientoController.pagination.pageSize}" rendered="#{fuentefinanciamientoController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{fuentefinanciamientoController.next}" value="#{bundle.Next} #{fuentefinanciamientoController.pagination.pageSize}" rendered="#{fuentefinanciamientoController.pagination.hasNextPage}"/>&nbsp;
-                    <h:dataTable value="#{fuentefinanciamientoController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListFuentefinanciamientoTitle_id}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.id}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListFuentefinanciamientoTitle_fuentefinanciamiento}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.fuentefinanciamiento}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
-                            </f:facet>
-                            <h:commandLink action="#{fuentefinanciamientoController.prepareView}" value="#{bundle.ListFuentefinanciamientoViewLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{fuentefinanciamientoController.prepareEdit}" value="#{bundle.ListFuentefinanciamientoEditLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{fuentefinanciamientoController.destroy}" value="#{bundle.ListFuentefinanciamientoDestroyLink}"/>
-                        </h:column>
-                    </h:dataTable>
-                </h:panelGroup>
-                <br />
-                <h:commandLink action="#{fuentefinanciamientoController.prepareCreate}" value="#{bundle.ListFuentefinanciamientoCreateLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ListFuentefinanciamientoIndexLink}"/>
+                
+                <p:panel id="pprincipal" header="Lista de Fuentes de Financiamiento" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
+                    <h:panelGroup id="messagePanel" layout="block">
+                        <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                    </h:panelGroup>
+
+                    <h:outputText escape="false" value="La lista de fuentes de financiamiento está vacía" rendered="#{fuentefinanciamientoController.items.rowCount == 0}"/>
+                    <p:separator rendered="#{fuentefinanciamientoController.items.rowCount == 0}" />
+                    <p:commandButton action="#{fuentefinanciamientoController.prepareCreate}" value="Nueva Fuente de Financiamiento" rendered="#{fuentefinanciamientoController.items.rowCount == 0}"/>                                        
+
+                    <h:panelGroup rendered="#{fuentefinanciamientoController.items.rowCount > 0}">
+                        
+                        <!-- filteredValue="#{proyectoController.proyectosFiltrados}" -->
+
+                        <p:dataTable
+                            id="tbl" 
+                            value="#{fuentefinanciamientoController.items}" 
+                            var="item" 
+                            widgetVar="tblW"
+                            rowKey="#{item.id}" 
+                            emptyMessage="No se encontraron resultados para el criterio de busqueda"
+                            paginator="true" rows="10" paginatorPosition="bottom"
+                            draggableColumns="true"
+                            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                            rowsPerPageTemplate="10,15,30">
+
+                            <p:column id="columnaId" sortBy="id" width="10px" style="width: 10px;">
+                                <f:facet name="header">
+                                    <h:outputText value="Nº" />
+                                </f:facet>
+                                <h:outputText value="#{item.id}" />
+                            </p:column>
+                            <p:column id="columnaApellido" filterBy="fuentefinanciamiento" filterMatchMode="contains" sortBy="fuentefinanciamiento">
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre"/>
+                                </f:facet>
+                                <h:outputText value="#{item.fuentefinanciamiento}"/>
+                            </p:column>
+                            <p:column >
+                                <f:facet name="header">
+                                    <h:outputText value="&nbsp;"/>
+                                </f:facet>
+                                <p:commandButton action="#{fuentefinanciamientoController.prepareView}" title="Ver" icon="ui-icon-search"/>
+                                <h:outputText value=" "/>
+                                <p:commandButton action="#{fuentefinanciamientoController.prepareEdit}" title="Editar" icon="ui-icon-pencil"/>
+                                <h:outputText value=" "/>
+                                <p:commandButton action="#{fuentefinanciamientoController.destroy}" title="Eliminar" icon="ui-icon-trash"/>
+                            </p:column>
+                        </p:dataTable>
+
+                        <br />
+                        <p:commandButton action="#{fuentefinanciamientoController.prepareCreate}" value="Nuevo Beneficiario"/>
+                        <br />
+                        <br />
+                        <h:link outcome="/index" value="Inicio"/>
+                    </h:panelGroup>
+                </p:panel>
+                
             </h:form>
         </ui:define>
     </ui:composition>

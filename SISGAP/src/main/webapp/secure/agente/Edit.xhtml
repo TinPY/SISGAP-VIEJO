@@ -127,17 +127,12 @@
                         </p:panelGrid>
                     </p:fieldset>
 
-                    <br />
-                    
-                    <p:commandButton action="#{agenteController.update}" value="Guardar Agente" />
-                    
                     <p:separator/>
-                    
-                    <br />
-                    <p:commandButton action="#{agenteController.prepareList}" value="Lista de Agentes" immediate="true"/>
-                    <br />
-                    
-                    <h:link outcome="/index" value="Inicio"/>
+                    <p:commandButton action="#{agenteController.update}" value="Guardar Agente" style="display: inline-block;" icon="ui-icon-disk" />
+                    <p:commandButton action="#{agenteController.prepareList}" value="Lista de Agentes" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document"/>
+                    <p:separator/>
+                    <h:link outcome="/index" value="Inicio" />
+
                 </p:panel>
 
             </h:form>

@@ -3,49 +3,103 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="Vista de Usuario"></h:outputText>
+            <h:outputText value="Ver Usuario"></h:outputText>
         </ui:define>
         <ui:define name="body">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="ID"/>
-                    <h:outputText value="#{usuarioController.selected.usuarioid}" title="ID"/>
-                    <h:outputText value="Name"/>
-                    <h:outputText value="#{usuarioController.selected.usuarionombre}" title="Name"/>
-                    <h:outputText value="Password"/>
-                    <h:outputText value="#{usuarioController.selected.usuarioclave}" title="Password"/>
-                    <h:outputText value="Fecha de Alta"/>
-                    <h:outputText value="#{usuarioController.selected.usuariofechaalta}" title="Fecha de Alta">
-                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
-                    </h:outputText>
-                    <h:outputText value="Fecha de Baja"/>
-                    <h:outputText value="#{usuarioController.selected.usuariofechabaja}" title="Fecha de Baja">
-                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
-                    </h:outputText>
-                    <h:outputText value="Estado"/>
-                    <h:outputText value="#{usuarioController.selected.usuarioestado}" title="Estado"/>
-                    <h:outputText value="Rol"/>
-                    <h:outputText value="#{usuarioController.selected.usuariorol}" title="Rol"/>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{usuarioController.destroyAndView}" value="Eliminar"/>
-                <br />
-                <br />
-                <h:link outcome="Edit" value="Editar"/>
-                <br />
-                <h:commandLink action="#{usuarioController.prepareCreate}" value="Crear" />
-                <br />
-                <h:commandLink action="#{usuarioController.prepareList}" value="Listado"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="Index"/>
+                <p:panel id="pprincipal" header="Ver Usuario" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
+
+                    <p:fieldset legend="Información del Usuario">
+                        <p:panelGrid styleClass="sinBordes sinFondo">
+                            <p:row>
+                                <p:column style="width: 40%;">
+                                    <h:outputLabel value="Nro" for="usuarioid" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <h:outputText id="usuarioid" value="#{usuarioController.selected.usuarioid}" title="Nro" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column style="width: 40%;">
+                                    <h:outputLabel value="Usuario" for="usuarionombre" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <h:outputText id="usuarionombre" value="#{usuarioController.selected.usuarionombre}" title="Usuario" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column style="width: 40%;">
+                                    <h:outputLabel value="Password" for="usuarioclave" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <h:outputText id="usuarioclave" value="#{usuarioController.selected.usuarioclave}" title="Password" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column style="width: 40%;">
+                                    <h:outputLabel value="Estado" for="usuarioestado" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <h:outputText id="usuarioestado" value="#{usuarioController.selected.usuarioestado}" title="Estado" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column style="width: 40%;">
+                                    <h:outputLabel value="Fecha de Alta" for="usuariofechaalta" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <h:outputText id="usuariofechaalta" value="#{usuarioController.selected.usuariofechaalta}" title="Fecha de Alta">
+                                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                                    </h:outputText>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column style="width: 40%;">
+                                    <h:outputLabel value="Fecha de Baja" for="usuariofechabaja" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <h:outputText id="usuariofechabaja" value="#{usuarioController.selected.usuariofechabaja}" title="Fecha de Baja">
+                                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                                    </h:outputText>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column style="width: 40%;">
+                                    <h:outputLabel value="Habilitacion" for="habilitacion" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <h:outputText id="habilitacion" value="#{usuarioController.selected.habilitacion}" title="Habilitacion" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column style="width: 40%;">
+                                    <h:outputLabel value="Perfil" for="usuariorol" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <h:outputText id="usuariorol" value="#{usuarioController.selected.usuariorol.rol}" title="Perfil" />
+                                </p:column>
+                            </p:row>                            
+                        </p:panelGrid>
+                    </p:fieldset>
+
+                    <p:separator />
+
+                    <p:commandButton action="#{usuarioController.prepareCreate}" value="Nuevo Usuario" style="display: inline-block;" icon="ui-icon-plus" />
+                    <p:commandButton action="#{usuarioController.destroyAndView}" value="Borrar Usuario" style="display: inline-block;" icon="ui-icon-trash" />
+                    <p:commandButton action="#{usuarioController.prepareList}" value="Lista de Usuarios" style="display: inline-block;float:right;" icon="ui-icon-document"/>
+                    <br />
+                    <p:separator />
+                    <h:link outcome="/index" value="Inicio" />
+                </p:panel>
+
 
             </h:form>
         </ui:define>

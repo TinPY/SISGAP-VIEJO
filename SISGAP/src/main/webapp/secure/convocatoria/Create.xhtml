@@ -17,114 +17,134 @@
             <h:form>
                 <p:panel id="pprincipal" header="Nueva Convocatoria" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
 
-                    <p:fieldset legend="Información General">
+                    <p:fieldset legend="Información General" style="display: inline-block; width: 46%; float: left;">
                         <p:panelGrid styleClass="sinBordes sinFondo">
                             <p:row>
                                 <p:column style="width: 40%;">
-                                    <h:outputLabel value="Convocatoria" for="convocatoria" />
+                                    <p:outputLabel value="Convocatoria" for="convocatoria" />
                                 </p:column>
                                 <p:column style="width: 60%;">
-                                    <h:inputText id="convocatoria" value="#{convocatoriaController.selected.convocatoria}" title="Convocatoria" />
+                                    <p:inputText id="convocatoria" value="#{convocatoriaController.selected.convocatoria}" title="Convocatoria" style="width: 100%;" />
                                 </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column style="width: 40%;">
-                                    <h:outputLabel value="Descripcion" for="descripcion" />
-                                </p:column>
-                                <p:column style="width: 60%;">
-                                    <p:inputTextarea id="descripcion" value="#{convocatoriaController.selected.descripcion}" title="Descripción" />
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column style="width: 40%;">
-                                    <h:outputLabel value="Bases" for="bases" />
-                                </p:column>
-                                <h:outputText id="bases" value="BASES [CAMBIAR POR UPLOADFILE]"/>
                             </p:row>
                             <p:row >
                                 <p:column style="width: 40%;">
-                                    <h:outputLabel value="Link" for="link" />
+                                    <p:outputLabel value="Tipo de Proyecto" for="tipoproyectoid" />
                                 </p:column>
                                 <p:column style="width: 60%;">
-                                    <h:inputText id="link" value="#{convocatoriaController.selected.link}" title="Link" />
+                                    <p:selectOneMenu id="tipoproyectoid" value="#{convocatoriaController.selected.tipoproyectoid}" style="width: 100%;" >
+                                        <f:selectItems value="#{tipoproyectoController.itemsAvailableSelectOne}"/>
+                                    </p:selectOneMenu>
                                 </p:column>
                             </p:row>
-                            <p:row>
+                            <p:row >
                                 <p:column style="width: 40%;">
-                                    <h:outputLabel value="Formulario" for="formulario" />
+                                    <p:outputLabel value="Organismo" for="organismo" />
                                 </p:column>
-                                <h:outputText id="formulario" value="FORMULARIO [CAMBIAR POR UPLOADFILE]"/>
+                                <p:column style="width: 60%;">
+                                    <p:inputText id="organismo" value="#{convocatoriaController.selected.organismo}" title="Organismo" style="width: 100%;"/>
+                                </p:column>
                             </p:row>
+
+                            <p:row >
+                                <p:column style="width: 40%;">
+                                    <p:outputLabel value="Beneficiario" for="beneficiario" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <p:inputText id="beneficiario" value="#{convocatoriaController.selected.beneficiario}" title="Beneficiario" style="width: 100%;"/>
+                                </p:column>
+                            </p:row>
+                            <p:row >
+                                <p:column style="width: 40%;">
+                                    <p:outputLabel value="Monto Financiamiento" for="montofinanciamiento" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <p:inputText id="montofinanciamiento" value="#{convocatoriaController.selected.montofinanciamiento}" title="Monto de Financiamiento" style="width: 100%;" />
+                                </p:column>
+                            </p:row>                            
+                        </p:panelGrid>
+                    </p:fieldset>
+                    
+                    <p:fieldset legend="Fechas" style="display: inline-block; width: 46%; float: right;">
+                        <p:panelGrid styleClass="sinBordes sinFondo">
                             <p:row >
                                 <p:column style="width: 40%;">
                                     <h:outputLabel value="Fecha Publicacion" for="fechapublicacion" />
                                 </p:column>
                                 <p:column style="width: 60%;">
-                                    <p:calendar id="fechapublicacion" styleClass="calendarFilter" value="#{convocatoriaController.selected.fechapublicacion}" />
+                                    <p:calendar id="fechapublicacion" styleClass="calendarFilter" value="#{convocatoriaController.selected.fechapublicacion}" style="width: 100%;" />
                                 </p:column>
                             </p:row>
                             <p:row >
                                 <p:column style="width: 40%;">
-                                    <h:outputLabel value="Fecha Inicio" for="fechainicio" />
+                                    <p:outputLabel value="Fecha Inicio" for="fechainicio" />
                                 </p:column>
                                 <p:column style="width: 60%;">
-                                    <p:calendar id="fechainicio" styleClass="calendarFilter" value="#{convocatoriaController.selected.fechainicio}" />
+                                    <p:calendar id="fechainicio" styleClass="calendarFilter" value="#{convocatoriaController.selected.fechainicio}" style="width: 100%;" />
                                 </p:column>
                             </p:row>              
                             <p:row >
                                 <p:column style="width: 40%;">
-                                    <h:outputLabel value="Fecha Inicio" for="fechacierre" />
+                                    <p:outputLabel value="Fecha Inicio" for="fechacierre" />
                                 </p:column>
                                 <p:column style="width: 60%;">
-                                    <p:calendar id="fechacierre" styleClass="calendarFilter" value="#{convocatoriaController.selected.fechacierre}" />
+                                    <p:calendar id="fechacierre" styleClass="calendarFilter" value="#{convocatoriaController.selected.fechacierre}" style="width: 100%;"/>
                                 </p:column>
                             </p:row>
-                            <p:row >
-                                <p:column style="width: 40%;">
-                                    <h:outputLabel value="Tipo de Proyecto" for="tipoproyectoid" />
-                                </p:column>
-                                <p:column style="width: 60%;">
-                                    <h:selectOneMenu id="tipoproyectoid" value="#{convocatoriaController.selected.tipoproyectoid}" title="Tipo de Proyecto" >
-                                        <f:selectItems value="#{tipoproyectoController.itemsAvailableSelectOne}"/>
-                                    </h:selectOneMenu>
-                                </p:column>
-                            </p:row>
-                            <p:row >
-                                <p:column style="width: 40%;">
-                                    <h:outputLabel value="Organismo" for="organismo" />
-                                </p:column>
-                                <p:column style="width: 60%;">
-                                    <h:inputText id="organismo" value="#{convocatoriaController.selected.organismo}" title="Link" />
-                                </p:column>
-                            </p:row>
-
-                            <p:row >
-                                <p:column style="width: 40%;">
-                                    <h:outputLabel value="Beneficiario" for="beneficiario" />
-                                </p:column>
-                                <p:column style="width: 60%;">
-                                    <h:inputText id="beneficiario" value="#{convocatoriaController.selected.beneficiario}" title="Link" />
-                                </p:column>
-                            </p:row>
-                            <p:row >
-                                <p:column style="width: 40%;">
-                                    <h:outputLabel value="Monto Financiamiento" for="montofinanciamiento" />
-                                </p:column>
-                                <p:column style="width: 60%;">
-                                    <h:inputText id="montofinanciamiento" value="#{convocatoriaController.selected.montofinanciamiento}" title="Link" />
-                                </p:column>
-                            </p:row>                            
                         </p:panelGrid>
                     </p:fieldset>
 
-                    <br />
-                    <h:commandButton action="#{convocatoriaController.create}" value="Nueva Convocatoria" />
-                    <br />
-                    <br />
-                    <h:commandButton action="#{convocatoriaController.prepareList}" value="Lista de Convocatorias" immediate="true"/>
-                    <br />
-                    <br />
+                    <p:separator/>
+                    
+                    <p:fieldset legend="Documentación" style="display: inline-block; width: 46%; float: right;">
+                        <p:panelGrid styleClass="sinBordes sinFondo">
+                            <p:row>
+                                <p:column style="width: 40%;">
+                                    <p:outputLabel value="Bases" for="bases" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <h:outputText id="bases" value="BASES [UPLOADFILE]"/>
+                                </p:column>
+                            </p:row>
+                            <p:row >
+                                <p:column style="width: 40%;">
+                                    <p:outputLabel value="Link" for="link" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <p:inputText id="link" value="#{convocatoriaController.selected.link}" title="Link" style="width: 100%;"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column style="width: 40%;">
+                                    <p:outputLabel value="Formulario" for="formulario" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <h:outputText id="formulario" value="FORMULARIO [UPLOADFILE]"/>
+                                </p:column>                                
+                            </p:row>
+                        </p:panelGrid>                            
+                    </p:fieldset>
+
+                    <p:fieldset legend="Descripción" style="clear: both;width: 100%;">
+                        <p:panelGrid styleClass="sinBordes sinFondo" style="vertical-align: top; width: 100%; min-width: 100%;">
+                            <p:row>
+                                <p:column style="width: 150px; vertical-align: top;">
+                                    <p:outputLabel value="Descripcion" for="descripcion" style="vertical-align: top;" />
+                                </p:column>
+                                <p:column style="width: 98%;">
+                                    <p:inputTextarea id="descripcion" value="#{convocatoriaController.selected.descripcion}" rows="20"  autoResize="true" title="Descripción" style="width: 100%; min-width: 100%;" />
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+
+                    </p:fieldset>
+
+                    <p:separator/>
+                    <p:commandButton action="#{convocatoriaController.create}" value="Crear Convocatoria" style="display: inline-block;" icon="ui-icon-disk" />
+                    <p:commandButton action="#{convocatoriaController.prepareList}" value="Lista de Convocatorias" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document"/>
+                    <p:separator/>
                     <h:link outcome="/index" value="Inicio"/>
+
                 </p:panel>
 
 

@@ -3,31 +3,40 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.CreateRubroTitle}"></h:outputText>
+            <h:outputText value="Nuevo Rubro"></h:outputText>
         </ui:define>
         <ui:define name="body">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateRubroLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{rubroController.selected.id}" title="#{bundle.CreateRubroTitle_id}" required="true" requiredMessage="#{bundle.CreateRubroRequiredMessage_id}"/>
-                    <h:outputLabel value="#{bundle.CreateRubroLabel_rubro}" for="rubro" />
-                    <h:inputText id="rubro" value="#{rubroController.selected.rubro}" title="#{bundle.CreateRubroTitle_rubro}" />
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{rubroController.create}" value="#{bundle.CreateRubroSaveLink}" />
-                <br />
-                <br />
-                <h:commandLink action="#{rubroController.prepareList}" value="#{bundle.CreateRubroShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.CreateRubroIndexLink}"/>
+                <p:panel id="pprincipal" header="Nuevo Rubro" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
+
+                    <p:fieldset legend="Información del Rubro">
+                        <p:panelGrid styleClass="sinBordes sinFondo">
+                            <p:row>
+                                <p:column style="width: 40%;">
+                                    <h:outputLabel value="Rubro" for="rubro" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <p:inputText id="beneficiario" value="#{rubroController.selected.rubro}" title="Rubro" />
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </p:fieldset>
+
+                    <p:separator/>
+                    <p:commandButton action="#{rubroController.create}" value="Crear Rubro" style="display: inline-block;" icon="ui-icon-disk" />
+                    <p:commandButton action="#{rubroController.prepareList}" value="Lista de Rubros" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document"/>
+                    <p:separator/>
+                    <h:link outcome="/index" value="Inicio"/>
+                </p:panel>
+
             </h:form>
         </ui:define>
     </ui:composition>

@@ -123,19 +123,22 @@
                         </p:panelGrid>
                     </p:fieldset>
 
+                    <p:separator />
+
+                    <p:commandButton action="#{agenteController.prepareCreate}" value="Nuevo Agente" style="display: inline-block;" icon="ui-icon-plus" />
+                    <p:commandButton action="#{agenteController.destroyAndView}" value="Borrar Agente" style="display: inline-block;" icon="ui-icon-trash" />
+                    <p:commandButton action="#{agenteController.prepareList}" value="Lista de Agentes" style="display: inline-block;float:right;" icon="ui-icon-document"/>
                     <br />
-                                      
-                    <p:commandButton action="#{agenteController.imprimirAgente()}" ajax="false">  
-                            <p:graphicImage value="/resources/img/print_printer.png" />  
-                    </p:commandButton>                          
-                    
+                    <p:separator />
+
+                    <p:commandLink action="#{agenteController.imprimirAgente}" ajax="false">  
+                        <p:graphicImage value="/resources/img/print_printer.png" />  
+                    </p:commandLink>         
+
                     <p:separator/>
-                    
-                    <br />
-                    <p:commandButton action="#{agenteController.prepareList}" value="Lista de Agentes" immediate="true"/>
-                    <br />
-                    
-                    <h:link outcome="/index" value="Inicio"/>
+
+                    <h:link outcome="/index" value="Inicio" />
+
                 </p:panel>
 
             </h:form>

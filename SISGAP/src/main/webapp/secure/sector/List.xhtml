@@ -3,52 +3,73 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.ListSectorTitle}"></h:outputText>
+            <h:outputText value="Lista de Sectores"></h:outputText>
         </ui:define>
         <ui:define name="body">
             <h:form styleClass="jsfcrud_list_form">
-                <h:panelGroup id="messagePanel" layout="block">
-                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-                </h:panelGroup>
-                <h:outputText escape="false" value="#{bundle.ListSectorEmpty}" rendered="#{sectorController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{sectorController.items.rowCount > 0}">
-                    <h:outputText value="#{sectorController.pagination.pageFirstItem + 1}..#{sectorController.pagination.pageLastItem + 1}/#{sectorController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{sectorController.previous}" value="#{bundle.Previous} #{sectorController.pagination.pageSize}" rendered="#{sectorController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{sectorController.next}" value="#{bundle.Next} #{sectorController.pagination.pageSize}" rendered="#{sectorController.pagination.hasNextPage}"/>&nbsp;
-                    <h:dataTable value="#{sectorController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListSectorTitle_id}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.id}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListSectorTitle_sector}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.sector}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
-                            </f:facet>
-                            <h:commandLink action="#{sectorController.prepareView}" value="#{bundle.ListSectorViewLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{sectorController.prepareEdit}" value="#{bundle.ListSectorEditLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{sectorController.destroy}" value="#{bundle.ListSectorDestroyLink}"/>
-                        </h:column>
-                    </h:dataTable>
-                </h:panelGroup>
-                <br />
-                <h:commandLink action="#{sectorController.prepareCreate}" value="#{bundle.ListSectorCreateLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ListSectorIndexLink}"/>
+                
+                <p:panel id="pprincipal" header="Lista de Sectores" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
+                    <h:panelGroup id="messagePanel" layout="block">
+                        <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                    </h:panelGroup>
+
+                    <h:outputText escape="false" value="La lista de sectores está vacía" rendered="#{sectorController.items.rowCount == 0}"/>
+                    <p:separator rendered="#{sectorController.items.rowCount == 0}" />
+                    <p:commandButton action="#{sectorController.prepareCreate}" value="Nuevo Sector" rendered="#{sectorController.items.rowCount == 0}"/>                                                            
+
+                    <h:panelGroup rendered="#{sectorController.items.rowCount > 0}">
+                        
+                        <!-- filteredValue="#{proyectoController.proyectosFiltrados}" -->
+
+                        <p:dataTable
+                            id="tbl" 
+                            value="#{sectorController.items}" 
+                            var="item" 
+                            widgetVar="tblW"
+                            rowKey="#{item.id}" 
+                            emptyMessage="No se encontraron resultados para el criterio de busqueda"
+                            paginator="true" rows="10" paginatorPosition="bottom"
+                            draggableColumns="true"
+                            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                            rowsPerPageTemplate="10,15,30">
+
+                            <p:column id="columnaId" sortBy="id" width="10px" style="width: 10px;">
+                                <f:facet name="header">
+                                    <h:outputText value="Nº" />
+                                </f:facet>
+                                <h:outputText value="#{item.id}" />
+                            </p:column>
+                            <p:column id="columnaSector" filterBy="sector" filterMatchMode="contains" sortBy="sector">
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre del Sector"/>
+                                </f:facet>
+                                <h:outputText value="#{item.sector}"/>
+                            </p:column>
+                            <p:column >
+                                <f:facet name="header">
+                                    <h:outputText value="&nbsp;"/>
+                                </f:facet>
+                                <p:commandButton action="#{sectorController.prepareView}" title="Ver" icon="ui-icon-search"/>
+                                <h:outputText value=" "/>
+                                <p:commandButton action="#{sectorController.prepareEdit}" title="Editar" icon="ui-icon-pencil"/>
+                                <h:outputText value=" "/>
+                                <p:commandButton action="#{sectorController.destroy}" title="Eliminar" icon="ui-icon-trash"/>
+                            </p:column>
+                        </p:dataTable>
+
+                        <br />
+                        <p:commandButton action="#{sectorController.prepareCreate}" value="Nuevo Sector"/>
+                        <br />
+                        <br />
+                        <h:link outcome="/index" value="Inicio"/>
+                    </h:panelGroup>
+                </p:panel>
+                
             </h:form>
         </ui:define>
     </ui:composition>

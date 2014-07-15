@@ -3,32 +3,40 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.EditFuentefinanciamientoTitle}"></h:outputText>
+            <h:outputText value="Editar Fuente de Financiamiento"></h:outputText>
         </ui:define>
         <ui:define name="body">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditFuentefinanciamientoLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{fuentefinanciamientoController.selected.id}" title="#{bundle.EditFuentefinanciamientoTitle_id}" required="true" requiredMessage="#{bundle.EditFuentefinanciamientoRequiredMessage_id}"/>
-                    <h:outputLabel value="#{bundle.EditFuentefinanciamientoLabel_fuentefinanciamiento}" for="fuentefinanciamiento" />
-                    <h:inputText id="fuentefinanciamiento" value="#{fuentefinanciamientoController.selected.fuentefinanciamiento}" title="#{bundle.EditFuentefinanciamientoTitle_fuentefinanciamiento}" />
-                </h:panelGrid>
-                <h:commandLink action="#{fuentefinanciamientoController.update}" value="#{bundle.EditFuentefinanciamientoSaveLink}"/>
-                <br />
-                <br />
-                <h:link outcome="View" value="#{bundle.EditFuentefinanciamientoViewLink}"/>
-                <br />
-                <h:commandLink action="#{fuentefinanciamientoController.prepareList}" value="#{bundle.EditFuentefinanciamientoShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.EditFuentefinanciamientoIndexLink}" />
+                <p:panel id="pprincipal" header="Editar Fuente de Financiamiento" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
+
+                    <p:fieldset legend="Información de la Fuente de Financiamiento">
+                        <p:panelGrid styleClass="sinBordes sinFondo">
+                            <p:row>
+                                <p:column style="width: 40%;">
+                                    <h:outputLabel value="Fuente de Financiamiento" for="fuentefinanciamiento" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <p:inputText id="fuentefinanciamiento" value="#{fuentefinanciamientoController.selected.fuentefinanciamiento}" title="Nombre de la fuente de financiamiento" />
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </p:fieldset>
+
+                    <p:separator/>
+                    <p:commandButton action="#{fuentefinanciamientoController.update}" value="Guardar Fuente de Financiamiento" style="display: inline-block;" icon="ui-icon-disk" />
+                    <p:commandButton action="#{fuentefinanciamientoController.prepareList}" value="Lista de Fuentes de Financiamiento" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document"/>
+                    <p:separator/>
+                    <h:link outcome="/index" value="Inicio"/>
+                </p:panel>
+
             </h:form>
         </ui:define>
     </ui:composition>

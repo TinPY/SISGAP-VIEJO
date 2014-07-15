@@ -12,20 +12,21 @@
         </ui:define>
         <ui:define name="body">
             <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="Lista de Convocatorias Vacia" rendered="#{convocatoriaController.items.rowCount == 0}"/>
 
-                <p:panel id="pprincipal" header="Lista de Convocatorias" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
+                <p:panel id="pprincipal" header="Lista de de Convocatorias" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
                     <h:panelGroup id="messagePanel" layout="block">
                         <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                     </h:panelGroup>
 
                     <h:outputText escape="false" value="La lista de convocatorias está vacía" rendered="#{convocatoriaController.items.rowCount == 0}"/>
-                    <p:separator rendered="#{convocatoriaController.items.rowCount == 0}" />
-                    <p:commandButton action="#{convocatoriaController.prepareCreate}" value="Nueva Convocatoria" rendered="#{convocatoriaController.items.rowCount == 0}"/>
 
                     <h:panelGroup rendered="#{convocatoriaController.items.rowCount > 0}">
 
-<!-- filteredValue="#{proyectoController.proyectosFiltrados}" -->
-
+                        <!-- filteredValue="#{proyectoController.proyectosFiltrados}" -->
                         <p:dataTable
                             id="tbl" 
                             value="#{convocatoriaController.items}" 
@@ -46,50 +47,52 @@
                             </p:column>
                             <p:column id="columnaConvocatoria" filterBy="convocatoria" filterMatchMode="contains" sortBy="convocatoria">
                                 <f:facet name="header">
-                                    <h:outputText value="Nombre"/>
+                                    <h:outputText value="Convocatoria"/>
                                 </f:facet>
                                 <h:outputText value="#{item.convocatoria}"/>
                             </p:column>
-<!--                            <p:column id="columnaEstado" filterBy="estado" filterMatchMode="contains" sortBy="estado">
+                            <p:column id="columnaFechaPublicacion" filterBy="fechapublicacion" filterMatchMode="contains" sortBy="fechapublicacion">
                                 <f:facet name="header">
-                                    <h:outputText value="Estado"/>
+                                    <h:outputText value="Publicación"/>
                                 </f:facet>
-                                <h:outputText value="#{item.estado}"/>
-                            </p:column>-->
+                                <h:outputText value="#{item.fechapublicacion}"/>
+                            </p:column>
                             <p:column id="columnaFechaInicio" filterBy="fechainicio" filterMatchMode="contains" sortBy="fechainicio">
                                 <f:facet name="header">
                                     <h:outputText value="Inicio"/>
                                 </f:facet>
-                                <h:outputText value="#{item.fechainicio}">
-                                    <f:convertDateTime dateStyle="short" type="date"/>
-                                </h:outputText>
+                                <h:outputText value="#{item.fechainicio}"/>
                             </p:column>
                             <p:column id="columnaFechaCierre" filterBy="fechacierre" filterMatchMode="contains" sortBy="fechacierre">
                                 <f:facet name="header">
                                     <h:outputText value="Cierre"/>
                                 </f:facet>
-                                <h:outputText value="#{item.fechacierre}">
-                                    <f:convertDateTime dateStyle="short" type="date"/>
-                                </h:outputText>
+                                <h:outputText value="#{item.fechacierre}"/>
+                            </p:column>                            
+                            <p:column id="columnaDependencia" filterBy="#{item.tipoproyectoid}" filterMatchMode="exact" filterOptions="#{tipoproyectoController.itemsAvailableSelectOne}" sortBy="#{item.tipoproyectoid.tipo}">
+                                <f:facet name="header">
+                                    <h:outputText value="Dependencia"/>
+                                </f:facet>
+                                <h:outputText value="#{item.tipoproyectoid.tipo}"/>
                             </p:column>
-<!--                            <p:column id="columnaOrganismo" filterBy="organismo" filterMatchMode="contains" sortBy="organismo">
+                            <p:column id="columnaOrganismo" filterBy="organismo" filterMatchMode="contains" sortBy="organismo">
                                 <f:facet name="header">
                                     <h:outputText value="Organismo"/>
                                 </f:facet>
                                 <h:outputText value="#{item.organismo}"/>
-                            </p:column>                            -->
-                            <p:column id="columnaTipoProyecto" filterBy="#{item.tipoproyectoid}" filterMatchMode="exact" filterOptions="#{tipoproyectoController.itemsAvailableSelectOne}" sortBy="#{item.tipoproyectoid.tipo}">
+                            </p:column>
+                            <p:column id="columnaBeneficiario" filterBy="beneficiario" filterMatchMode="contains" sortBy="beneficiario">
                                 <f:facet name="header">
-                                    <h:outputText value="Tipo de Proyecto"/>
+                                    <h:outputText value="Beneficiario"/>
                                 </f:facet>
-                                <h:outputText value="#{item.tipoproyectoid.tipo}"/>
+                                <h:outputText value="#{item.beneficiario}"/>
                             </p:column>
                             <p:column id="columnaMonto" filterBy="montofinanciamiento" filterMatchMode="contains" sortBy="montofinanciamiento">
                                 <f:facet name="header">
                                     <h:outputText value="Monto"/>
                                 </f:facet>
                                 <h:outputText value="#{item.montofinanciamiento}"/>
-                            </p:column>                            
+                            </p:column>
                             <p:column >
                                 <f:facet name="header">
                                     <h:outputText value="&nbsp;"/>
@@ -109,7 +112,6 @@
                         <h:link outcome="/index" value="Inicio"/>
                     </h:panelGroup>
                 </p:panel>
-
             </h:form>
         </ui:define>
     </ui:composition>

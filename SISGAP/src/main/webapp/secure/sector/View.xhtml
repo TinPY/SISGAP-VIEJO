@@ -3,35 +3,51 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.ViewSectorTitle}"></h:outputText>
+            <h:outputText value="Ver"></h:outputText>
         </ui:define>
         <ui:define name="body">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewSectorLabel_id}"/>
-                    <h:outputText value="#{sectorController.selected.id}" title="#{bundle.ViewSectorTitle_id}"/>
-                    <h:outputText value="#{bundle.ViewSectorLabel_sector}"/>
-                    <h:outputText value="#{sectorController.selected.sector}" title="#{bundle.ViewSectorTitle_sector}"/>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{sectorController.destroyAndView}" value="#{bundle.ViewSectorDestroyLink}"/>
-                <br />
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewSectorEditLink}"/>
-                <br />
-                <h:commandLink action="#{sectorController.prepareCreate}" value="#{bundle.ViewSectorCreateLink}" />
-                <br />
-                <h:commandLink action="#{sectorController.prepareList}" value="#{bundle.ViewSectorShowAllLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ViewSectorIndexLink}"/>
+                <p:panel id="pprincipal" header="Ver Sector" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
+
+                    <p:fieldset legend="Información del Sector">
+                        <p:panelGrid styleClass="sinBordes sinFondo">
+                            <p:row>
+                                <p:column style="width: 40%;">
+                                    <h:outputLabel value="Nro" for="sectorid" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <h:outputText id="sectorid" value="#{sectorController.selected.id}" title="Nro" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column style="width: 40%;">
+                                    <h:outputLabel value="Sector" for="sector" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <h:outputText id="sector" value="#{sectorController.selected.sector}" title="Sector" />
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </p:fieldset>
+
+                    <p:separator />
+
+                    <p:commandButton action="#{sectorController.prepareCreate}" value="Nuevo Sector" style="display: inline-block;" icon="ui-icon-plus" />
+                    <p:commandButton action="#{sectorController.destroyAndView}" value="Borrar Sector" style="display: inline-block;" icon="ui-icon-trash" />
+                    <p:commandButton action="#{sectorController.prepareList}" value="Lista de Sectores" style="display: inline-block;float:right;" icon="ui-icon-document"/>
+                    <br />
+                    <p:separator />
+                    <h:link outcome="/index" value="Inicio" />
+                </p:panel>
+
 
             </h:form>
         </ui:define>

@@ -3,32 +3,40 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.EditPerfilTitle}"></h:outputText>
+            <h:outputText value="Editar Perfil"></h:outputText>
         </ui:define>
         <ui:define name="body">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditPerfilLabel_rolid}" for="rolid" />
-                    <h:inputText id="rolid" value="#{perfilController.selected.rolid}" title="#{bundle.EditPerfilTitle_rolid}" required="true" requiredMessage="#{bundle.EditPerfilRequiredMessage_rolid}"/>
-                    <h:outputLabel value="#{bundle.EditPerfilLabel_rol}" for="rol" />
-                    <h:inputText id="rol" value="#{perfilController.selected.rol}" title="#{bundle.EditPerfilTitle_rol}" required="true" requiredMessage="#{bundle.EditPerfilRequiredMessage_rol}"/>
-                </h:panelGrid>
-                <h:commandLink action="#{perfilController.update}" value="#{bundle.EditPerfilSaveLink}"/>
-                <br />
-                <br />
-                <h:link outcome="View" value="#{bundle.EditPerfilViewLink}"/>
-                <br />
-                <h:commandLink action="#{perfilController.prepareList}" value="#{bundle.EditPerfilShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.EditPerfilIndexLink}" />
+                <p:panel id="pprincipal" header="Editar Perfil" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
+
+                    <p:fieldset legend="Información del Perfil">
+                        <p:panelGrid styleClass="sinBordes sinFondo">
+                            <p:row>
+                                <p:column style="width: 40%;">
+                                    <h:outputLabel value="Rol" for="rol" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <p:inputText id="rol" value="#{perfilController.selected.rol}" title="Rol" />
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </p:fieldset>
+
+                    <p:separator/>
+                    <p:commandButton action="#{perfilController.update}" value="Guardar Perfil" style="display: inline-block;" icon="ui-icon-disk" />
+                    <p:commandButton action="#{perfilController.prepareList}" value="Lista de Perfiles" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document"/>
+                    <p:separator/>
+                    <h:link outcome="/index" value="Inicio"/>
+                </p:panel>
+
             </h:form>
         </ui:define>
     </ui:composition>

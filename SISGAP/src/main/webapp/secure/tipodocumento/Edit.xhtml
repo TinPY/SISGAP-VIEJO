@@ -3,32 +3,40 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.EditTipodocumentoTitle}"></h:outputText>
+            <h:outputText value="Editar Tipo de Documento"></h:outputText>
         </ui:define>
         <ui:define name="body">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditTipodocumentoLabel_tipodocumentoid}" for="tipodocumentoid" />
-                    <h:inputText id="tipodocumentoid" value="#{tipodocumentoController.selected.tipodocumentoid}" title="#{bundle.EditTipodocumentoTitle_tipodocumentoid}" required="true" requiredMessage="#{bundle.EditTipodocumentoRequiredMessage_tipodocumentoid}"/>
-                    <h:outputLabel value="#{bundle.EditTipodocumentoLabel_tipodocumento}" for="tipodocumento" />
-                    <h:inputText id="tipodocumento" value="#{tipodocumentoController.selected.tipodocumento}" title="#{bundle.EditTipodocumentoTitle_tipodocumento}" required="true" requiredMessage="#{bundle.EditTipodocumentoRequiredMessage_tipodocumento}"/>
-                </h:panelGrid>
-                <h:commandLink action="#{tipodocumentoController.update}" value="#{bundle.EditTipodocumentoSaveLink}"/>
-                <br />
-                <br />
-                <h:link outcome="View" value="#{bundle.EditTipodocumentoViewLink}"/>
-                <br />
-                <h:commandLink action="#{tipodocumentoController.prepareList}" value="#{bundle.EditTipodocumentoShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.EditTipodocumentoIndexLink}" />
+                <p:panel id="pprincipal" header="Editar Tipo de Documento" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
+
+                    <p:fieldset legend="Información del Tipo de Documento">
+                        <p:panelGrid styleClass="sinBordes sinFondo">
+                            <p:row>
+                                <p:column style="width: 40%;">
+                                    <h:outputLabel value="Tipo de Documento" for="tipodocumento" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <p:inputText id="tipodocumento" value="#{tipodocumentoController.selected.tipodocumento}" title="Tipo de Documento" />
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </p:fieldset>
+
+                    <p:separator/>
+                    <p:commandButton action="#{tipodocumentoController.update}" value="Guardar Tipo de Documento" style="display: inline-block;" icon="ui-icon-disk" />
+                    <p:commandButton action="#{tipodocumentoController.prepareList}" value="Lista de Tipos de Documento" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document"/>
+                    <p:separator/>
+                    <h:link outcome="/index" value="Inicio"/>
+                </p:panel>
+
             </h:form>
         </ui:define>
     </ui:composition>

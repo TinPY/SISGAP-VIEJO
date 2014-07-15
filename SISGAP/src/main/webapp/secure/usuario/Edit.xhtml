@@ -15,37 +15,86 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="Id" for="usuarioid" />
-                    <p:inputText disabled="true" id="usuarioid" value="#{usuarioController.selected.usuarioid}" title="ID"/>
-                    <h:outputLabel value="Name" for="usuarionombre" />
-                    <p:inputText id="usuarionombre" value="#{usuarioController.selected.usuarionombre}" title="Name" />
-                    <h:outputLabel value="Password" for="usuarioclave" />
-                    <p:password id="usuarioclave" value="#{usuarioController.selected.usuarioclave}" title="Password" />
-                    <h:outputLabel value="Fecha de Alta" for="usuariofechaalta" />
-                    <p:inputText id="usuariofechaalta" value="#{usuarioController.selected.usuariofechaalta}" title="Fecha de Alta" >
-                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
-                    </p:inputText>
-                    <h:outputLabel value="Fecha de Baja" for="usuariofechabaja" />
-                    <p:inputText id="usuariofechabaja" value="#{usuarioController.selected.usuariofechabaja}" title="Fecha de Baja" >
-                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
-                    </p:inputText>
-                    <h:outputLabel value="Estado" for="usuarioestado" />
-                    <p:inputText id="usuarioestado" value="#{usuarioController.selected.usuarioestado}" title="Estado" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_usuarioestado}"/>
-                    <p:outputLabel value="Rol" for="ususariorol" />
-                    <p:selectOneMenu id="usuariorol" value="#{usuarioController.selected.usuariorol}" label="Rol" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_usuariorol}">
-                        <f:selectItems value="#{perfilController.itemsAvailableSelectOne}"/>
-                    </p:selectOneMenu>
-                </h:panelGrid>
-                <h:commandLink action="#{usuarioController.update}" value="#{bundle.EditUsuarioSaveLink}"/>
-                <br />
-                <br />
-                <h:link outcome="View" value="#{bundle.EditUsuarioViewLink}"/>
-                <br />
-                <h:commandLink action="#{usuarioController.prepareList}" value="#{bundle.EditUsuarioShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.EditUsuarioIndexLink}" />
+                <p:panel id="pprincipal" header="Editar Usuario" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
+
+                    <p:fieldset legend="Información del Usuario">
+                        <p:panelGrid styleClass="sinBordes sinFondo">
+                            <p:row>
+                                <p:column style="width: 40%;">
+                                    <h:outputLabel value="Usuario" for="usuarionombre" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <p:inputText id="usuarionombre" value="#{usuarioController.selected.usuarionombre}" title="Nombre de Usuario" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column style="width: 40%;">
+                                    <p:outputLabel value="Password" for="usuarioclave" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <p:password id="usuarioclave" value="#{usuarioController.selected.usuarioclave}" title="Password" feedback="true" required="true"  
+                                                promptLabel="Nivel de seguridad de la Contraseña" weakLabel="Debil"  
+                                                goodLabel="Buena" strongLabel="Muy Buena" match="usuarioclave2" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column style="width: 40%;">
+                                    <p:outputLabel value="Repita el password" for="usuarioclave2" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <p:password id="usuarioclave2" feedback="true" required="true"   
+                                                promptLabel="Nivel de seguridad de la Contraseña" weakLabel="Debil"  
+                                                goodLabel="Buena" strongLabel="Muy Buena" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column style="width: 40%;">
+                                    <p:outputLabel value="Fecha de Alta" for="usuariofechaalta" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <p:calendar id="usuariofechaalta" value="#{usuarioController.selected.usuariofechaalta}" showOn="button" pattern="dd/MM/yyyy HH:mm" title="Fecha de Alta" >
+                                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                                    </p:calendar>
+                                </p:column>
+                            </p:row>      
+                            <p:row>
+                                <p:column style="width: 40%;">
+                                    <p:outputLabel value="Fecha de Baja" for="usuariofechabaja" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <p:calendar id="usuariofechabaja" value="#{usuarioController.selected.usuariofechabaja}" showOn="button" pattern="dd/MM/yyyy HH:mm" title="Fecha de Baja" >
+                                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                                    </p:calendar>
+                                </p:column>
+                            </p:row>       
+                            <p:row>
+                                <p:column style="width: 40%;">
+                                    <p:outputLabel value="Estado" for="usuarioestado" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <p:inputText id="usuarioestado" value="#{usuarioController.selected.usuarioestado}" title="Estado" required="true" requiredMessage="Por favor Ingrese el Estado"/>
+                                </p:column>
+                            </p:row>   
+                            <p:row>
+                                <p:column style="width: 40%;">
+                                    <p:outputLabel value="Rol" for="ususariorol" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <p:selectOneMenu id="ususariorol" value="#{usuarioController.selected.usuariorol}" label="Rol" required="true" requiredMessage="Por favor ingrese el Rol">
+                                        <f:selectItems value="#{perfilController.itemsAvailableSelectOne}"/>
+                                    </p:selectOneMenu>
+                                </p:column>
+                            </p:row>                                  
+                        </p:panelGrid>
+                    </p:fieldset>
+
+                    <p:separator/>
+                    <p:commandButton action="#{usuarioController.update}" value="Guardar Usuario" style="display: inline-block;" icon="ui-icon-disk" />
+                    <p:commandButton action="#{usuarioController.prepareList}" value="Lista de Usuarios" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document"/>
+                    <p:separator/>
+                    <h:link outcome="/index" value="Inicio"/>
+                </p:panel>
+
             </h:form>
         </ui:define>
     </ui:composition>
