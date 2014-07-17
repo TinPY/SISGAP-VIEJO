@@ -140,6 +140,7 @@
 	<field name="localizacion" class="java.lang.String"/>
 	<field name="comitenteid.tipocomitenteid.tipoentidad" class="java.lang.String"/>
 	<field name="tipoproyectoid" class="java.lang.String"/>
+	<field name="convocatoriaid.organismo" class="java.lang.String"/>
 	<background>
 		<band/>
 	</background>
@@ -495,7 +496,7 @@
 				<text><![CDATA[Convocatoria]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="13" y="408" width="200" height="20" uuid="3b8ff168-9db7-42c7-839d-18b54bd4bea9"/>
+				<reportElement x="13" y="408" width="163" height="20" uuid="3b8ff168-9db7-42c7-839d-18b54bd4bea9"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
@@ -603,6 +604,22 @@
 				</textElement>
 				<text><![CDATA[Tipo de Entidad]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="190" y="386" width="89" height="20" forecolor="#FFFFFF" uuid="8e8eec13-ef6d-46b3-984b-c7e18378bb11">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Organismo]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="190" y="408" width="163" height="20" uuid="25b4cf0f-352b-4cfd-9341-752a5b999b80"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{convocatoriaid.organismo}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<columnFooter>

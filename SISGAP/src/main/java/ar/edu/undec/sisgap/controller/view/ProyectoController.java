@@ -814,11 +814,10 @@ public class ProyectoController implements Serializable {
         items = new ListDataModel(getFacade().buscarProyectoEstado(idEstado));
     }
 
-    public void buscarProyectoEstado(long estado) {
-        recreateModel();
-        items = new ListDataModel(getFacade().buscarProyectoEstado((int) estado));
-    }
-
+//    public void buscarProyectoEstado(long estado) {
+//        recreateModel();
+//        items = new ListDataModel(getFacade().buscarProyectoEstado((int) estado));
+//    }
     public boolean isColumnorganismo() {
         return columnorganismo;
     }
@@ -1096,7 +1095,7 @@ public class ProyectoController implements Serializable {
     public void pdfIdeaProyecto() throws JRException, IOException {
 
         // Obtengo la ruta absoluta del archivo compilado del reporte
-        String rutaJasper = FacesContext.getCurrentInstance().getExternalContext().getRealPath("secure/reportes/solicitud3.jasper");
+        String rutaJasper = FacesContext.getCurrentInstance().getExternalContext().getRealPath("secure/reportes/evaluacion.jasper");
 
         // Fuente de datos del reporte
         JRBeanArrayDataSource beanArrayDataSource = new JRBeanArrayDataSource(new Proyecto[]{this.getSelected()});
@@ -1168,7 +1167,7 @@ public class ProyectoController implements Serializable {
     }
 
     public void imprimirListaIdeasProyecto() throws JRException, IOException {
-        
+
         // Ruta absoluta del archivo compilado del reporte
         String rutaJasper = FacesContext.getCurrentInstance().getExternalContext().getRealPath("secure/reportes/listaSolicitudes.jasper");
 
@@ -1183,7 +1182,31 @@ public class ProyectoController implements Serializable {
                     archivo, true);
         }
 
-        
     }
 
+ 
+    // REPORTE GANTT
+    
+    public void pdfEtapas() throws JRException, IOException {
+
+       // Ruta absoluta del archivo compilado del reporte
+        String rutaJasper = FacesContext.getCurrentInstance().getExternalContext().getRealPath("secure/reportes/evaluacion.jasper");
+
+        // Fuente de datos del reporte
+        JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(this.ejbetapa.buscarEtapasProyecto(current.getId()));
+
+        // Llenamos el reporte con la fuente de datos
+        JasperPrint jasperPrint = JasperFillManager.fillReport(rutaJasper, null, beanCollectionDataSource);
+
+        // Generamos el archivo a descargar
+        HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        httpServletResponse.addHeader("Content-disposition", "attachment; filename=gantt.pdf");
+        ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
+        JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
+        FacesContext.getCurrentInstance().responseComplete();
+        
+    }
 }
+
+
+

@@ -513,5 +513,8 @@ public class EtapaController implements Serializable {
         this.paraeditar = paraeditar;
     }
     
-    
+    // Reporte de Proyecto (Etapas/Presupuesto/Equipo de trabajo)
+    public List<Etapa> etapasProyecto(int proyectoid){
+        return this.getFacade().buscarEtapasProyecto(proyectoid);
+    }
 }

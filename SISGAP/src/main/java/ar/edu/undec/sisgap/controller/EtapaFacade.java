@@ -30,5 +30,17 @@ public class EtapaFacade extends AbstractFacade<Etapa> {
         super(Etapa.class);
     }
     
+    //Para reporte de proyecto (Gantt etapas)
     
+    //Buscar las etapas de un proyecto
+    
+    public List<Etapa> buscarEtapasProyecto(int proyectoid){
+        
+        try {
+            return em.createQuery("select e from Etapa e join e.proyectoid p where p.id = :id ", Etapa.class).setParameter("id", proyectoid).getResultList();
+        } catch (Exception e) {
+            System.out.println("No se pudo realizar la consulta" + e);
+            return null;
+        }
+    }
 }
