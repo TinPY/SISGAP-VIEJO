@@ -508,7 +508,7 @@
                     <p:separator />
                     <br />
                     <div align="center">
-                        <p:commandButton icon="ui-icon-disk" actionListener="#{proyectoController.soloCrear}"  value="Enviar Para Evaluación" update="growlprincipal" ajax="false" />
+                        <p:commandButton icon="ui-icon-disk"  actionListener="#{proyectoController.soloCrear}" value="Enviar Para Evaluación" update="growlprincipal" />
                     </div>
                 </p:panel>
 
@@ -643,7 +643,7 @@
                 <p:dialog id="dfinal" widgetVar="dfinal"  modal="true" closable="false"  header="Alta Idea-Proyecto Creada" >
                     Felicitaciones la Alta Idea Proyecto fue creada Satisfactoriamente!!!
                     <div align="center" >
-                        <p:commandButton value="Imprimir" actionListener="#{proyectoController.pdfIdeaProyecto()}" />
+                        <p:commandButton value="Imprimir" actionListener="#{proyectoController.imprimirIdeaProyecto()}" ajax="false" />
                         <p:commandButton value="OK" action="View" />
                     </div>
 

@@ -1096,7 +1096,7 @@ public class ProyectoController implements Serializable {
     public void pdfIdeaProyecto() throws JRException, IOException {
 
         // Obtengo la ruta absoluta del archivo compilado del reporte
-        String rutaJasper = FacesContext.getCurrentInstance().getExternalContext().getRealPath("secure/reportes/evaluacion.jasper");
+        String rutaJasper = FacesContext.getCurrentInstance().getExternalContext().getRealPath("secure/reportes/solicitud.jasper");
 
         // Fuente de datos del reporte
         JRBeanArrayDataSource beanArrayDataSource = new JRBeanArrayDataSource(new Proyecto[]{this.getSelected()});
@@ -1105,10 +1105,23 @@ public class ProyectoController implements Serializable {
         Presupuesto presupuesto = this.ejbFacadep.findporProyecto(this.getSelected().getId());
         JRDataSource detallePresupuesto = new JRBeanCollectionDataSource(presupuesto.getPresupuestoRubroList());
 
+        // Fuente de datos para el equipo de trabajo
+        
+        List<Agente> listaAgentes = new ArrayList<Agente>() ;
+        List<ProyectoAgente> listaProyectoAgente = this.ejbproyectoagente.buscarEquipoTrabajo(current.getId());
+        
+        for(ProyectoAgente pa : listaProyectoAgente){
+            System.out.println(pa.getAgente().getApellido() + ", " + pa.getAgente().getNombres());
+            listaAgentes.add(pa.getAgente());
+        }
+        
+        JRDataSource equipoTrabajo = new JRBeanCollectionDataSource(listaAgentes);
+        
         //Agregando los parametros
         Hashtable<String, Object> parametros = new Hashtable<String, Object>();
         parametros.put("idProyecto", this.getSelected().getId());
         parametros.put("presupuesto", detallePresupuesto);
+        parametros.put("equipoTrabajo", equipoTrabajo);
 
         // Llenamos el reporte
         JasperPrint jasperPrint = JasperFillManager.fillReport(rutaJasper, parametros, beanArrayDataSource);
@@ -1152,10 +1165,23 @@ public class ProyectoController implements Serializable {
         Presupuesto presupuesto = this.ejbFacadep.findporProyecto(this.getSelected().getId());
         JRDataSource detallePresupuesto = new JRBeanCollectionDataSource(presupuesto.getPresupuestoRubroList());
 
+        // Fuente de datos para el equipo de trabajo
+        
+        List<Agente> listaAgentes = new ArrayList<Agente>() ;
+        List<ProyectoAgente> listaProyectoAgente = this.ejbproyectoagente.buscarEquipoTrabajo(current.getId());
+        
+        for(ProyectoAgente pa : listaProyectoAgente){
+            System.out.println(pa.getAgente().getApellido() + ", " + pa.getAgente().getNombres());
+            listaAgentes.add(pa.getAgente());
+        }
+        
+        JRDataSource equipoTrabajo = new JRBeanCollectionDataSource(listaAgentes);
+        
         //Agregando los parametros
         Hashtable<String, Object> parametros = new Hashtable<String, Object>();
         parametros.put("idProyecto", this.getSelected().getId());
         parametros.put("presupuesto", detallePresupuesto);
+        parametros.put("equipoTrabajo", equipoTrabajo);
 
         // Llenamos el reporte
         //JasperPrint jasperPrint = JasperFillManager.fillReport(rutaJasper, parametros, beanArrayDataSource);
@@ -1211,7 +1237,7 @@ public class ProyectoController implements Serializable {
     public void pdfTareas() throws JRException, IOException {
 
        // Ruta absoluta del archivo compilado del reporte
-        String rutaJasper = FacesContext.getCurrentInstance().getExternalContext().getRealPath("secure/reportes/evaluacion3.jasper");
+        String rutaJasper = FacesContext.getCurrentInstance().getExternalContext().getRealPath("secure/reportes/ganttTareas.jasper");
 
         // Fuente de datos del reporte
        
@@ -1228,8 +1254,7 @@ public class ProyectoController implements Serializable {
         for(Tarea t : listaTareas){
             System.out.println("ID: " + t.getId() + " - Nombre: " + t.getTarea() + " - Estado: " + t.getEstado() + " - Etapa: " + t.getEtapaid().getEtapa() );
         }
-        
-        
+       
         JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(listaTareas);
 
         // Llenamos el reporte con la fuente de datos
