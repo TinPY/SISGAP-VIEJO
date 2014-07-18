@@ -28,6 +28,7 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.Iterator;
@@ -496,7 +497,7 @@ public class ProyectoController implements Serializable {
                 System.out.println(agenteViewController.toString());
 
                 List<Agente> listaAgentes = agenteViewController.getCollectoragentes();
-                System.out.println("listaAgentes - Tamaño: " + String.valueOf(listaAgentes.size()));
+                System.out.println("(Equipo de Trabajo) listaAgentes - Tamaño: " + String.valueOf(listaAgentes.size()));
 
                 for (Agente a : listaAgentes) {
                     ProyectoAgente proyectoAgente = new ProyectoAgente();
@@ -511,7 +512,7 @@ public class ProyectoController implements Serializable {
                     proyectoAgente.setFuncionproyecto("solicitud");
 
                     ejbproyectoagente.createWithPersist(proyectoAgente);
-                    System.out.println("[ProyectoAgente] Proyecto: " + String.valueOf(proyectoAgente.getProyectoAgentePK().getProyectoid()) + " - Agente: " + String.valueOf(proyectoAgente.getProyectoAgentePK().getProyectoid()));
+                    System.out.println("[ProyectoAgente] Proyecto: " + String.valueOf(proyectoAgente.getProyectoAgentePK().getProyectoid()) + " - Agente: " + String.valueOf(proyectoAgente.getProyectoAgentePK().getAgenteid()));
                 }
 
                 // FIN - EQUIPO DE TRABAJO ******************
@@ -1186,14 +1187,50 @@ public class ProyectoController implements Serializable {
 
  
     // REPORTE GANTT
-    
     public void pdfEtapas() throws JRException, IOException {
 
        // Ruta absoluta del archivo compilado del reporte
         String rutaJasper = FacesContext.getCurrentInstance().getExternalContext().getRealPath("secure/reportes/evaluacion.jasper");
 
         // Fuente de datos del reporte
+        //JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(this.ejbetapa.buscarEtapasProyecto(current.getId()));
         JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(this.ejbetapa.buscarEtapasProyecto(current.getId()));
+
+        // Llenamos el reporte con la fuente de datos
+        JasperPrint jasperPrint = JasperFillManager.fillReport(rutaJasper, null, beanCollectionDataSource);
+
+        // Generamos el archivo a descargar
+        HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        httpServletResponse.addHeader("Content-disposition", "attachment; filename=gantt.pdf");
+        ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
+        JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
+        FacesContext.getCurrentInstance().responseComplete();
+        
+    }
+    
+    public void pdfTareas() throws JRException, IOException {
+
+       // Ruta absoluta del archivo compilado del reporte
+        String rutaJasper = FacesContext.getCurrentInstance().getExternalContext().getRealPath("secure/reportes/evaluacion3.jasper");
+
+        // Fuente de datos del reporte
+       
+        //Obtenemos las tareas de un proyecto
+        List<Etapa> listaEtapas = this.ejbetapa.buscarEtapasProyecto(current.getId());
+        List<Tarea> listaTareas = new ArrayList<Tarea>();
+        
+        for(Etapa e : listaEtapas){
+            for(Tarea t : this.ejbtarea.buscarTareasEtapa(e.getId())){
+                listaTareas.add(t);
+            }
+        }
+        
+        for(Tarea t : listaTareas){
+            System.out.println("ID: " + t.getId() + " - Nombre: " + t.getTarea() + " - Estado: " + t.getEstado() + " - Etapa: " + t.getEtapaid().getEtapa() );
+        }
+        
+        
+        JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(listaTareas);
 
         // Llenamos el reporte con la fuente de datos
         JasperPrint jasperPrint = JasperFillManager.fillReport(rutaJasper, null, beanCollectionDataSource);

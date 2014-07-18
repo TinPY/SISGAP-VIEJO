@@ -7,6 +7,7 @@
 package ar.edu.undec.sisgap.controller;
 
 import ar.edu.undec.sisgap.model.Tarea;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,6 +28,16 @@ public class TareaFacade extends AbstractFacade<Tarea> {
 
     public TareaFacade() {
         super(Tarea.class);
+    }
+    
+    public List<Tarea> buscarTareasEtapa(int etapaid){
+        
+        try {
+            return em.createQuery("select t from Tarea t join t.etapaid e where e.id = :id ", Tarea.class).setParameter("id", etapaid).getResultList();
+        } catch (Exception e) {
+            System.out.println("No se pudo realizar la consulta" + e);
+            return null;
+        }
     }
     
 }

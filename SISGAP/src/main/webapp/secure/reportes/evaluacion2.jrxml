@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version last-->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Etapas y Tareas del Proyecto" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="72ebd43c-52f2-46f0-9568-e638c814fc71">
+	<field name="etapaid.etapa" class="java.lang.String"/>
+	<field name="fechainicio" class="java.util.Date"/>
+	<field name="fechafin" class="java.util.Date"/>
+	<field name="tarea" class="java.lang.String"/>
+	<field name="estado" class="java.lang.Integer"/>
+	<field name="etapaid" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<detail>
+		<band height="377" splitType="Stretch">
+			<ganttChart>
+				<chart evaluationTime="Report">
+					<reportElement x="13" y="10" width="530" height="350" uuid="66cede93-d648-4f3e-8ab7-6aacd4bd441f"/>
+					<chartTitle>
+						<titleExpression><![CDATA["Etapas y Tareas del Proyecto"]]></titleExpression>
+					</chartTitle>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<ganttDataset>
+					<ganttSeries>
+						<seriesExpression><![CDATA[$F{etapaid.etapa}]]></seriesExpression>
+						<taskExpression><![CDATA[$F{tarea}]]></taskExpression>
+						<subtaskExpression><![CDATA[$F{tarea}]]></subtaskExpression>
+						<startDateExpression><![CDATA[$F{fechainicio}]]></startDateExpression>
+						<endDateExpression><![CDATA[$F{fechafin}]]></endDateExpression>
+						<percentExpression><![CDATA[$F{estado}]]></percentExpression>
+					</ganttSeries>
+				</ganttDataset>
+				<barPlot>
+					<plot/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</barPlot>
+			</ganttChart>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
