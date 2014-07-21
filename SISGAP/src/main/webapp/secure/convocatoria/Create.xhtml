@@ -24,7 +24,9 @@
                                     <p:outputLabel value="Convocatoria" for="convocatoria" style="font-weight: bold;"/>
                                 </p:column>
                                 <p:column style="width: 60%;">
-                                    <p:inputText id="convocatoria" value="#{convocatoriaController.selected.convocatoria}" title="Convocatoria" style="width: 100%;" />
+                                    <p:inputText id="convocatoria" value="#{convocatoriaController.selected.convocatoria}" style="width: 100%;" title="* Este campo es requerido"  required="true" requiredMessage="El campo convocatoria es requerido" />
+                                    <p:message for="convocatoria" display="icon"  /> 
+                                    <p:tooltip id="ttConvocatoria" for="convocatoria" showEvent="focus" hideEvent="blur" />
                                 </p:column>
                             </p:row>
                             <p:row >
@@ -32,9 +34,11 @@
                                     <p:outputLabel value="Tipo de Proyecto" for="tipoproyectoid" style="font-weight: bold;"/>
                                 </p:column>
                                 <p:column style="width: 60%;">
-                                    <p:selectOneMenu id="tipoproyectoid" value="#{convocatoriaController.selected.tipoproyectoid}" style="width: 100%;" >
+                                    <p:selectOneMenu id="tipoproyectoid" value="#{convocatoriaController.selected.tipoproyectoid}" style="width: 100%;" label="* Este campo es requerido" required="true" requiredMessage="El campo tipo de proyecto es requerido" >
                                         <f:selectItems value="#{tipoproyectoController.itemsAvailableSelectOne}"/>
                                     </p:selectOneMenu>
+                                    <p:message for="tipoproyectoid" display="icon"  /> 
+                                    <p:tooltip id="ttTipoProyecto" for="tipoproyectoid" showEvent="focus" hideEvent="blur" />
                                 </p:column>
                             </p:row>
                             <p:row >
@@ -42,7 +46,10 @@
                                     <p:outputLabel value="Organismo" for="organismo" style="font-weight: bold;"/>
                                 </p:column>
                                 <p:column style="width: 60%;">
-                                    <p:inputText id="organismo" value="#{convocatoriaController.selected.organismo}" title="Organismo" style="width: 100%;"/>
+                                    <p:inputText id="organismo" value="#{convocatoriaController.selected.organismo}" style="width: 100%;" title="* Este campo es requerido"  required="true" requiredMessage="El campo organismo es requerido" />
+                                    <p:message for="organismo" display="icon"  /> 
+                                    <p:tooltip id="ttOrganismo" for="organismo" showEvent="focus" hideEvent="blur" />
+                                    
                                 </p:column>
                             </p:row>
 
@@ -51,7 +58,9 @@
                                     <p:outputLabel value="Beneficiario" for="beneficiario" style="font-weight: bold;" />
                                 </p:column>
                                 <p:column style="width: 60%;">
-                                    <p:inputText id="beneficiario" value="#{convocatoriaController.selected.beneficiario}" title="Beneficiario" style="width: 100%;"/>
+                                    <p:inputText id="beneficiario" value="#{convocatoriaController.selected.beneficiario}" style="width: 100%;" title="* Este campo es requerido"  required="true" requiredMessage="El campo beneficiario es requerido"/>
+                                    <p:message for="beneficiario" display="icon"  /> 
+                                    <p:tooltip id="ttBeneficiario" for="beneficiario" showEvent="focus" hideEvent="blur" />
                                 </p:column>
                             </p:row>
                             <p:row >
@@ -59,90 +68,93 @@
                                     <p:outputLabel value="Monto Financiamiento" for="montofinanciamiento" style="font-weight: bold;" />
                                 </p:column>
                                 <p:column style="width: 60%;">
-                                    <p:inputText id="montofinanciamiento" value="#{convocatoriaController.selected.montofinanciamiento}" title="Monto de Financiamiento" style="width: 100%;" />
+                                    <p:inputText id="montofinanciamiento" value="#{convocatoriaController.selected.montofinanciamiento}" style="width: 100%;" title="* Este campo es requerido"  required="true" requiredMessage="El campo monto de financiamiento es requerido" />
+                                    <p:message for="montofinanciamiento" display="icon"  /> 
+                                    <p:tooltip id="ttMontoFinanciamiento" for="montofinanciamiento" showEvent="focus" hideEvent="blur" />
                                 </p:column>
                             </p:row>                            
                         </p:panelGrid>
                     </p:fieldset>
-                    
-                    <p:fieldset legend="Fechas" style="display: inline-block; width: 46%; float: right;">
-                        <p:panelGrid styleClass="sinBordes sinFondo">
-                            <p:row >
-                                <p:column style="width: 40%;">
-                                    <h:outputLabel value="Fecha Publicación" for="fechapublicacion" style="font-weight: bold;" />
-                                </p:column>
-                                <p:column style="width: 60%;">
-                                    <p:calendar id="fechapublicacion" styleClass="calendarFilter" value="#{convocatoriaController.selected.fechapublicacion}" style="width: 100%;" />
-                                </p:column>
-                            </p:row>
-                            <p:row >
-                                <p:column style="width: 40%;">
-                                    <p:outputLabel value="Fecha de Inicio" for="fechainicio" style="font-weight: bold;" />
-                                </p:column>
-                                <p:column style="width: 60%;">
-                                    <p:calendar id="fechainicio" styleClass="calendarFilter" value="#{convocatoriaController.selected.fechainicio}" style="width: 100%;" />
-                                </p:column>
-                            </p:row>              
-                            <p:row >
-                                <p:column style="width: 40%;">
-                                    <p:outputLabel value="Fecha de Cierre" for="fechacierre" style="font-weight: bold;" />
-                                </p:column>
-                                <p:column style="width: 60%;">
-                                    <p:calendar id="fechacierre" styleClass="calendarFilter" value="#{convocatoriaController.selected.fechacierre}" style="width: 100%;"/>
-                                </p:column>
-                            </p:row>
-                        </p:panelGrid>
-                    </p:fieldset>
 
-                    <p:fieldset legend="Documentación" style="display: inline-block; width: 46%; float: right;">
-                        <p:panelGrid styleClass="sinBordes sinFondo">
-                            <p:row>
-                                <p:column style="width: 40%;">
-                                    <p:outputLabel value="Bases" for="bases" style="font-weight: bold;"/>
-                                </p:column>
-                                <p:column style="width: 60%;">
-                                    <h:outputText id="bases" value="BASES [UPLOADFILE]"/>
-                                </p:column>
-                            </p:row>
-                            <p:row >
-                                <p:column style="width: 40%;">
-                                    <p:outputLabel value="Link" for="link" style="font-weight: bold;"/>
-                                </p:column>
-                                <p:column style="width: 60%;">
-                                    <p:inputText id="link" value="#{convocatoriaController.selected.link}" title="Link" style="width: 100%;"/>
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column style="width: 40%;">
-                                    <p:outputLabel value="Formulario" for="formulario" style="font-weight: bold;" />
-                                </p:column>
-                                <p:column style="width: 60%;">
-                                    <h:outputText id="formulario" value="FORMULARIO [UPLOADFILE]"/>
-                                </p:column>                                
-                            </p:row>
-                        </p:panelGrid>                            
-                    </p:fieldset>
+                    <p:accordionPanel style="display: inline-block; width: 50%; float: right; margin-bottom: 5px; margin-top: 15px;" activeIndex="null">
+                        <p:tab title="Fechas">
+                            <p:panelGrid styleClass="sinBordes sinFondo">
+                                <p:row >
+                                    <p:column style="width: 40%;">
+                                        <h:outputLabel value="Fecha Publicación" for="fechapublicacion" style="font-weight: bold;" />
+                                    </p:column>
+                                    <p:column style="width: 60%;">
+                                        <p:calendar id="fechapublicacion" styleClass="calendarFilter" value="#{convocatoriaController.selected.fechapublicacion}" style="width: 100%;" />
+                                    </p:column>
+                                </p:row>
+                                <p:row >
+                                    <p:column style="width: 40%;">
+                                        <p:outputLabel value="Fecha de Inicio" for="fechainicio" style="font-weight: bold;" />
+                                    </p:column>
+                                    <p:column style="width: 60%;">
+                                        <p:calendar id="fechainicio" styleClass="calendarFilter" value="#{convocatoriaController.selected.fechainicio}" style="width: 100%;" />
+                                    </p:column>
+                                </p:row>              
+                                <p:row >
+                                    <p:column style="width: 40%;">
+                                        <p:outputLabel value="Fecha de Cierre" for="fechacierre" style="font-weight: bold;" />
+                                    </p:column>
+                                    <p:column style="width: 60%;">
+                                        <p:calendar id="fechacierre" styleClass="calendarFilter" value="#{convocatoriaController.selected.fechacierre}" style="width: 100%;"/>
+                                    </p:column>
+                                </p:row>
+                            </p:panelGrid>
+                        </p:tab>
+                        <p:tab title="Documentación">
+                            <p:panelGrid styleClass="sinBordes sinFondo">
+                                <p:row>
+                                    <p:column style="width: 40%;">
+                                        <p:outputLabel value="Bases" for="bases" style="font-weight: bold;"/>
+                                    </p:column>
+                                    <p:column style="width: 60%;">
+                                        <h:outputText id="bases" value="BASES [UPLOADFILE]"/>
+                                    </p:column>
+                                </p:row>
+                                <p:row >
+                                    <p:column style="width: 40%;">
+                                        <p:outputLabel value="Link" for="link" style="font-weight: bold;"/>
+                                    </p:column>
+                                    <p:column style="width: 60%;">
+                                        <p:inputText id="link" value="#{convocatoriaController.selected.link}" title="Link" style="width: 100%;"/>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column style="width: 40%;">
+                                        <p:outputLabel value="Formulario" for="formulario" style="font-weight: bold;" />
+                                    </p:column>
+                                    <p:column style="width: 60%;">
+                                        <h:outputText id="formulario" value="FORMULARIO [UPLOADFILE]"/>
+                                    </p:column>                                
+                                </p:row>
+                            </p:panelGrid>    
+                        </p:tab>
+                    </p:accordionPanel>
 
-                    <p:fieldset legend="Descripción" style="clear: both;width: 100%;">
+                    <p:panel header="Descripción" toggleable="true" style="margin-bottom: 5px; clear: both; width: 100%;"  collapsed="true">
                         <p:panelGrid styleClass="sinBordes sinFondo" style="vertical-align: top; width: 100%; min-width: 100%;">
                             <p:row>
                                 <p:column style="width: 150px; vertical-align: top;">
                                     <p:outputLabel value="Descripcion" for="descripcion" style="vertical-align: top; font-weight: bold;" />
                                 </p:column>
                                 <p:column style="width: 98%;">
-                                    <p:inputTextarea id="descripcion" value="#{convocatoriaController.selected.descripcion}" rows="20"  autoResize="true" title="Descripción" style="width: 98%;" />
+                                    <p:inputTextarea id="descripcion" value="#{convocatoriaController.selected.descripcion}" rows="5" autoResize="true" title="Descripción" style="width: 98%;" />
                                 </p:column>
                             </p:row>
                         </p:panelGrid>
 
-                    </p:fieldset>
+                    </p:panel>
 
                     <p:separator/>
-                    
+
                     <p:commandButton action="#{convocatoriaController.create}" value="Crear Convocatoria" style="display: inline-block;" icon="ui-icon-disk" ajax="false" />
                     <p:commandButton action="#{convocatoriaController.prepareList}" value="Lista de Convocatorias" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document" ajax="false" />
                     <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
-                                        
+
                     <p:separator/>
 
 

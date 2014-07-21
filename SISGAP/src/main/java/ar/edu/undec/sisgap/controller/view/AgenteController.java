@@ -104,10 +104,10 @@ public class AgenteController implements Serializable {
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AgenteCreated"));
+            JsfUtil.addSuccessMessage("Agente Creado!");
             return prepareCreate();
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, "Ocurrio un error de persistencia");
             return null;
         }
     }
@@ -121,10 +121,10 @@ public class AgenteController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AgenteUpdated"));
+            JsfUtil.addSuccessMessage("Agente Actualizado!");
             return "View";
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, "Ocurrio un error de persistencia");
             return null;
         }
     }
@@ -136,7 +136,7 @@ public class AgenteController implements Serializable {
                System.out.println("-----------dependencia-----------"+current.getDependenciaid().getDependencia());
                 System.out.println("-----------profesion-----------"+current.getProfesion());
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AgenteUpdated"));
+            JsfUtil.addSuccessMessage("Agente Actualizado!");
           return null;  
         } catch (Exception e) {
             //JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -170,9 +170,9 @@ public class AgenteController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AgenteDeleted"));
+            JsfUtil.addSuccessMessage("Agente Borrado");
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, "Ocurrio un error durante el borrado del agente");
         }
     }
 

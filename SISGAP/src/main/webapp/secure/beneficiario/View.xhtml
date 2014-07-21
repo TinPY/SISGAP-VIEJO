@@ -11,12 +11,12 @@
             <h:outputText value="Ver"></h:outputText>
         </ui:define>
         <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
+
             <h:form>
                 <p:panel id="pprincipal" header="Ver Beneficiario" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
-
+                    <h:panelGroup id="messagePanel" layout="block">
+                        <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                    </h:panelGroup>
                     <p:fieldset legend="Información del Beneficiario">
                         <p:panelGrid styleClass="sinBordes sinFondo">
                             <p:row>
@@ -40,10 +40,10 @@
 
                     <p:separator />
 
-                    <p:commandButton action="#{beneficiarioController.prepareCreate}" value="Nuevo Beneficiario" style="display: inline-block;" icon="ui-icon-plus" />
-                    <p:commandButton action="#{beneficiarioController.destroyAndView}" value="Borrar Beneficiario" style="display: inline-block;" icon="ui-icon-trash" />
-                    <p:commandButton action="#{beneficiarioController.prepareList}" value="Lista de Beneficiarios" style="display: inline-block;float:right;" icon="ui-icon-document"/>
-                    <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" />
+                    <p:commandButton action="#{beneficiarioController.prepareCreate}" value="Nuevo Beneficiario" style="display: inline-block;" icon="ui-icon-plus" ajax="false" />
+                    <p:commandButton action="#{beneficiarioController.destroyAndView}" value="Borrar Beneficiario" style="display: inline-block;" icon="ui-icon-trash"  ajax="false"/>
+                    <p:commandButton action="#{beneficiarioController.prepareList}" value="Lista de Beneficiarios" style="display: inline-block;float:right;" icon="ui-icon-document" ajax="false"/>
+                    <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
 
                     <p:separator />
 

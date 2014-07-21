@@ -10,9 +10,9 @@
         <ui:define name="title">
             <h:outputText value="Nuevo Agente"></h:outputText>
         </ui:define>
-        <ui:define name="body">
+        <ui:define name="body" >
 
-            <h:form>
+            <h:form >
                 <p:panel id="pprincipal" header="Nuevo Agente" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
                     <h:panelGroup id="messagePanel" layout="block">
                         <h:messages errorStyle="color: red" infoStyle="color: green" layout="table" />
@@ -68,7 +68,7 @@
                         </p:panelGrid>
                     </p:fieldset>
 
-                    <p:accordionPanel style="display: inline-block; width: 50%; float: right; margin-bottom: 5px; margin-top: 15px;">
+                    <p:accordionPanel style="display: inline-block; width: 50%; float: right; margin-bottom: 5px; margin-top: 15px;" activeIndex="null">
                         <p:tab title="Información de Contacto">
                             <p:panelGrid styleClass="sinBordes sinFondo">
                                 <p:row>
@@ -145,7 +145,9 @@
                         </p:tab>
                     </p:accordionPanel>
 
-                    <p:separator style="clear:both;"/>
+                    <br style="clear: both;"/>
+                    
+                    <p:separator />
                     <p:commandButton action="#{agenteController.create}" value="Crear Agente" style="display: inline-block;" icon="ui-icon-disk"  ajax="false" />
                     <p:commandButton action="#{agenteController.prepareList}" value="Lista de Agentes" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document" ajax="false" />
                     <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home"  ajax="false" />

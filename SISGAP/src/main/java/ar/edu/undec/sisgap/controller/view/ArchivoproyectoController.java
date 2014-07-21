@@ -38,8 +38,8 @@ public class ArchivoproyectoController implements Serializable {
     private ar.edu.undec.sisgap.controller.ArchivoproyectoFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
-    private List<Archivoproyecto> collectorArchivoProyecto= new ArrayList<Archivoproyecto>();
-    private int contador=0;
+    private List<Archivoproyecto> collectorArchivoProyecto = new ArrayList<Archivoproyecto>();
+    private int contador = 0;
 
     public ArchivoproyectoController() {
     }
@@ -239,27 +239,25 @@ public class ArchivoproyectoController implements Serializable {
         }
 
     }
-    
-    public void handleFileUpload(FileUploadEvent event) { 
+
+    public void handleFileUpload(FileUploadEvent event) {
         System.out.println("fdsfdsdfadf");
-        current= new Archivoproyecto();
+        current = new Archivoproyecto();
         current.setId(++contador);
-       current.setNombre(event.getFile().getFileName());
-       current.setLink(event.getFile().getFileName());
-       current.getId();
-        	
-		try {
-			current.setArchivo(event.getFile().getContents());
-                         this.collectorArchivoProyecto.add(current);
-                         
-		
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		
-         
-       // FacesContext.getCurrentInstance().addMessage(null, msg);  
-    } 
+        current.setNombre(event.getFile().getFileName());
+        current.setLink(event.getFile().getFileName());
+        current.getId();
+
+        try {
+            current.setArchivo(event.getFile().getContents());
+            this.collectorArchivoProyecto.add(current);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // FacesContext.getCurrentInstance().addMessage(null, msg);  
+    }
 
     public List<Archivoproyecto> getCollectorArchivoProyecto() {
         return collectorArchivoProyecto;
@@ -268,12 +266,12 @@ public class ArchivoproyectoController implements Serializable {
     public void setCollectorArchivoProyecto(List<Archivoproyecto> collectorArchivoProyecto) {
         this.collectorArchivoProyecto = collectorArchivoProyecto;
     }
-    
-    public void setSelected(Archivoproyecto archivoproyecto){
-        current=archivoproyecto;
+
+    public void setSelected(Archivoproyecto archivoproyecto) {
+        current = archivoproyecto;
     }
-    
-    public void removerArchivoCollection(){
+
+    public void removerArchivoCollection() {
 //        int contador=0;
 //        int posicion=0;
 //        Iterator i = this.collectorArchivoProyecto.iterator();
@@ -286,12 +284,11 @@ public class ArchivoproyectoController implements Serializable {
 //            contador++;
 //        }
         this.collectorArchivoProyecto.remove(current);
-      
+
     }
-    
-    public void soloCrear(Archivoproyecto ap){
-       
-              
+
+    public void soloCrear(Archivoproyecto ap) {
+
         getFacade().create(ap);
     }
 }
