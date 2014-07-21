@@ -11,11 +11,12 @@
             <h:outputText value="Nuevo Agente"></h:outputText>
         </ui:define>
         <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
+
             <h:form>
                 <p:panel id="pprincipal" header="Nuevo Agente" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
+                    <h:panelGroup id="messagePanel" layout="block">
+                        <h:messages errorStyle="color: red" infoStyle="color: green" layout="table" />
+                    </h:panelGroup>
 
 <!--                    <h:outputLabel value="#{bundle.CreateAgenteLabel_id}" for="id" />
                     <h:inputText id="id" value="#{agenteController.selected.id}" title="#{bundle.CreateAgenteTitle_id}" required="true" requiredMessage="#{bundle.CreateAgenteRequiredMessage_id}"/>-->
@@ -27,7 +28,9 @@
                                     <p:outputLabel value="Apellido" for="apellido" style="font-weight: bold;" />
                                 </p:column>
                                 <p:column style="width: 60%;">
-                                    <p:inputText id="apellido" value="#{agenteController.selected.apellido}" title="#{bundle.CreateAgenteTitle_apellido}" />
+                                    <p:inputText id="apellido" value="#{agenteController.selected.apellido}" title="* Este campo es requerido"  required="true" requiredMessage="El campo apellido es requerido" />
+                                    <p:message for="apellido" display="icon"  /> 
+                                    <p:tooltip id="ttApellido" for="apellido" showEvent="focus" hideEvent="blur" />
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -35,7 +38,9 @@
                                     <p:outputLabel value="Nombres" for="nombres" style="font-weight: bold;" />
                                 </p:column>
                                 <p:column style="width: 60%;">
-                                    <p:inputText id="nombres" value="#{agenteController.selected.nombres}" title="#{bundle.CreateAgenteTitle_nombres}" />
+                                    <p:inputText id="nombres" value="#{agenteController.selected.nombres}" title="* Este campo es requerido" required="true" requiredMessage="El campo nombres es requerido"/>
+                                    <p:message for="nombres" display="icon" /> 
+                                    <p:tooltip id="ttNombres" for="nombres" showEvent="focus" hideEvent="blur" />
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -43,9 +48,11 @@
                                     <p:outputLabel value="Tipo de Documento" for="tipodocumentoid" style="font-weight: bold;" />
                                 </p:column>
                                 <p:column style="width: 60%;">
-                                    <p:selectOneMenu id="tipodocumentoid" value="#{agenteController.selected.tipodocumentoid}" >
+                                    <p:selectOneMenu id="tipodocumentoid" value="#{agenteController.selected.tipodocumentoid}" label="* Este campo es requerido" required="true" requiredMessage="El campo tipo de documento es requerido" >
                                         <f:selectItems value="#{tipodocumentoController.itemsAvailableSelectOne}"/>
                                     </p:selectOneMenu>
+                                    <p:message for="tipodocumentoid" display="icon" /> 
+                                    <p:tooltip id="ttTipoDocumento" for="tipodocumentoid" showEvent="focus" hideEvent="blur" />
                                 </p:column>
                             </p:row>
                             <p:row >
@@ -53,8 +60,10 @@
                                     <p:outputLabel value="Número de Documento" for="numerodocumento" style="font-weight: bold;" />
                                 </p:column>
                                 <p:column style="width: 60%;">
-                                    <p:inputText id="numerodocumento" value="#{agenteController.selected.numerodocumento}" title="#{bundle.CreateAgenteTitle_numerodocumento}" />
+                                    <p:inputText id="numerodocumento" value="#{agenteController.selected.numerodocumento}" title="* Este campo es requerido" required="true" requiredMessage="El campo numero de documento es requerido" />
                                 </p:column>
+                                <p:message for="numerodocumento" display="icon" /> 
+                                <p:tooltip id="ttNroDocumento" for="numerodocumento" showEvent="focus" hideEvent="blur" />
                             </p:row>
                         </p:panelGrid>
                     </p:fieldset>
@@ -136,12 +145,12 @@
                     </p:fieldset>
 
                     <p:separator/>
-                    <p:commandButton action="#{agenteController.create}" value="Crear Agente" style="display: inline-block;" icon="ui-icon-disk" />
-                    <p:commandButton action="#{agenteController.prepareList}" value="Lista de Agentes" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document"/>
-                    <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" />
+                    <p:commandButton action="#{agenteController.create}" value="Crear Agente" style="display: inline-block;" icon="ui-icon-disk"  ajax="false" />
+                    <p:commandButton action="#{agenteController.prepareList}" value="Lista de Agentes" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document" ajax="false" />
+                    <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home"  ajax="false" />
                     <p:separator/>
                     <!--<h:link outcome="/index" value="Inicio"/>-->
-                    
+
                 </p:panel>
 
             </h:form>

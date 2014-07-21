@@ -35,6 +35,7 @@ and open the template in the editor.
                     <h:outputText value="Name"/>
                     <p:inputText id="nombreusuario" maxlength="16" value="#{usuarioController.selected.usuarionombre}" title="Name" required="true" />
                     <p:message for="nombreusuario" /> 
+                    
                     <p:outputLabel value="Password" for="usuarioclave" />
                     <p:password  id="usuarioclave" value="#{usuarioController.selected.usuarioclave}" title="Password" feedback="true" required="true"  
                         promptLabel="Nivel de seguridad de la Contraseña" weakLabel="Debil"  

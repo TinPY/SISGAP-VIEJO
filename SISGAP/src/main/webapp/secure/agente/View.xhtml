@@ -133,9 +133,9 @@
 
                     <p:separator />
 
-                    <p:commandButton action="#{agenteController.prepareCreate}" value="Nuevo Agente" style="display: inline-block;" icon="ui-icon-plus" />
-                    <p:commandButton action="#{agenteController.destroyAndView}" value="Borrar Agente" style="display: inline-block;" icon="ui-icon-trash" />
-                    <p:commandButton action="#{agenteController.prepareList}" value="Lista de Agentes" style="display: inline-block;float:right;" icon="ui-icon-document"/>
+                    <p:commandButton action="#{agenteController.prepareCreate}" value="Nuevo Agente" style="display: inline-block;" icon="ui-icon-plus"  ajax="false" />
+                    <p:commandButton action="#{agenteController.destroyAndView}" value="Borrar Agente" style="display: inline-block;" icon="ui-icon-trash"  ajax="false" />
+                    <p:commandButton action="#{agenteController.prepareList}" value="Lista de Agentes" style="display: inline-block;float:right;" icon="ui-icon-document"  ajax="false" />
                     <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
 
                     <p:separator />
