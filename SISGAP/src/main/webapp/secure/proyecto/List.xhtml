@@ -15,105 +15,121 @@
                 <h:panelGroup id="messagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
-                
-                <p:panel id="pprincipal" header="Alta Idea-Proyecto" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
-                    
+
+                <p:panel id="pprincipal" header="Lista de Proyectos" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
+
                     <h:outputText escape="false" value="#{bundle.ListProyectoEmpty}" rendered="#{proyectoController.items.rowCount == 0}"/>
-                    
+
                     <h:panelGroup rendered="#{proyectoController.items.rowCount > 0}">
-                        
-                        <h:outputText value="#{proyectoController.pagination.pageFirstItem + 1}..#{proyectoController.pagination.pageLastItem + 1}/#{proyectoController.pagination.itemsCount}"/>&nbsp;
-                        <h:commandLink action="#{proyectoController.previous}" value="#{bundle.Previous} #{proyectoController.pagination.pageSize}" rendered="#{proyectoController.pagination.hasPreviousPage}"/>&nbsp;
-                        <h:commandLink action="#{proyectoController.next}" value="#{bundle.Next} #{proyectoController.pagination.pageSize}" rendered="#{proyectoController.pagination.hasNextPage}"/>&nbsp;
-                        
-                        <h:dataTable value="#{proyectoController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                            <h:column>
+
+                        <p:dataTable
+                            id="tbl" 
+                            value="#{proyectoController.items}" 
+                            var="item" 
+                            widgetVar="tblW"
+                            rowKey="#{item.id}" 
+                            filteredValue="#{proyectoController.proyectosFiltrados}"
+                            emptyMessage="No se encontraron resultados para el criterio de busqueda"
+                            paginator="true" rows="10" paginatorPosition="bottom"
+                            draggableColumns="true"
+                            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                            rowsPerPageTemplate="10,15,30">
+
+                            <p:column id="columnaId" sortBy="id" width="10px" style="width: 10px;">
                                 <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListProyectoTitle_fecha}"/>
+                                    <h:outputText value="Nº" />
                                 </f:facet>
-                                <h:outputText value="#{item.fecha}">
-                                    <f:convertDateTime pattern="HH:mm:ss" />
-                                </h:outputText>
-                            </h:column>
-                            <h:column>
+                                <h:outputText value="#{item.id}" />
+                            </p:column>
+
+                            <p:column id="columnaNombre" filterBy="nombre" filterMatchMode="contains" sortBy="nombre">
                                 <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListProyectoTitle_nombre}"/>
-                                </f:facet>
+                                    <h:outputText value="Titulo" />
+                                </f:facet>                        
                                 <h:outputText value="#{item.nombre}"/>
-                            </h:column>
-                            <h:column>
+                            </p:column>
+
+<!--                    <p:column id="columnaEstado" filterBy="#{item.estadoproyectoid}" filterMatchMode="exact" filterOptions="#{estadoproyectoController.itemsAvailableSelectOne}" sortBy="#{item.estadoproyectoid.estado}">
+                            <f:facet name="header">
+                                <h:outputText value="Estado" />
+                            </f:facet>                        
+                            <h:outputText value="#{item.estadoproyectoid.estado}"/>
+                        </p:column>-->
+
+                            <p:column id="columnaTipo" filterBy="#{item.tipoproyectoid}" filterMatchMode="exact" filterOptions="#{tipoproyectoController.itemsAvailableSelectOne}" sortBy="#{item.tipoproyectoid.tipo}">
                                 <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListProyectoTitle_resumen}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.resumen}"/>
-                            </h:column>
-                            <h:column>
+                                    <h:outputText value="Tipo" />
+                                </f:facet>                                                
+                                <h:outputText value="#{item.tipoproyectoid.tipo}"/>
+                            </p:column>
+
+                            <p:column id="columnaFinanciamiento" filterBy="#{item.fuentefinanciamientoid}" filterMatchMode="exact" filterOptions="#{fuentefinanciamientoController.itemsAvailableSelectOne}" sortBy="#{item.fuentefinanciamientoid.fuentefinanciamiento}">
                                 <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListProyectoTitle_documentacion}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.documentacion}"/>
-                            </h:column>
-                            <h:column>
+                                    <h:outputText value="Financiamiento" />
+                                </f:facet>                                                
+                                <h:outputText value="#{item.fuentefinanciamientoid.fuentefinanciamiento}"/>
+                            </p:column>                    
+
+                            <p:column id="columnaResponsable" filterBy="#{item.agenteid}" filterMatchMode="exact" filterOptions="#{agenteController.itemsAvailableSelectOne}" sortBy="#{item.agenteid.apellido}">
                                 <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListProyectoTitle_observaciones}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.observaciones}"/>
-                            </h:column>
-                            <h:column>
+                                    <h:outputText value="Responsable" />
+                                </f:facet>                                                                        
+                                <h:outputText value="#{item.agenteid.apellido}, #{item.agenteid.nombres}"/>
+                            </p:column>           
+
+                            <p:column id="columnaConvocatoria" filterBy="#{item.convocatoriaid}" filterMatchMode="exact" filterOptions="#{convocatoriaController.itemsAvailableSelectOne}" sortBy="#{item.convocatoriaid.convocatoria}">
                                 <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListProyectoTitle_duracion}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.duracion}"/>
-                            </h:column>
-                            <h:column>
+                                    <h:outputText value="Convocatoria" />
+                                </f:facet>                                                
+                                <h:outputText value="#{item.convocatoriaid.convocatoria}"/>
+                            </p:column>
+
+                            <p:column id="columnaPresupuesto" sortBy="presupuesto" style="text-align: right;">
                                 <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListProyectoTitle_estado}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.estado}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListProyectoTitle_id}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.id}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListProyectoTitle_cudap}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.cudap}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListProyectoTitle_tipoproyectoid}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.tipoproyectoid}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListProyectoTitle_concocatoriaid}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.concocatoriaid}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="&nbsp;"/>
-                                </f:facet>
-                                <h:commandLink action="#{proyectoController.prepareView}" value="#{bundle.ListProyectoViewLink}"/>
-                                <h:outputText value=" "/>
-                                <h:commandLink action="#{proyectoController.prepareEdit}" value="#{bundle.ListProyectoEditLink}"/>
-                                <h:outputText value=" "/>
-                                <h:commandLink action="#{proyectoController.destroy}" value="#{bundle.ListProyectoDestroyLink}"/>
-                            </h:column>
-                        </h:dataTable>
+                                    <h:outputText value="Presupuesto" />
+                                </f:facet>                                                
+                                <h:outputText id="presupuesto" value="#{proyectoController.obtenerPresupuestoTotalProyecto(item.id)}" />
+                            </p:column>
+
+                            <p:column style="width:4%" exportable="false">
+                                <p:commandButton icon="ui-icon-search" action="#{proyectoController.prepareView}" ajax="false"/>
+                                <p:commandButton icon="ui-icon-pencil" action="#{proyectoController.prepareEdit}" ajax="false" />
+                                <p:commandButton icon="ui-icon-trash" action="#{proyectoController.destroy}" ajax="false" />
+                            </p:column>    
+                        </p:dataTable>
                     </h:panelGroup>
+
+                    <p:panel header="Exportar"> 
+                        <p:commandLink action="#{proyectoController.imprimirListaIdeasProyecto()}" ajax="false">  
+                            <p:graphicImage value="/resources/img/print_printer.png" />  
+                        </p:commandLink>                          
+                        <p:commandLink action="#{proyectoController.pdfListaIdeasProyecto()}" ajax="false">  
+                            <p:graphicImage value="/resources/img/pdf.png" />  
+                        </p:commandLink>                          
+                        <p:commandLink>  
+                            <p:graphicImage value="/resources/img/excel.png" />  
+                            <p:dataExporter type="xls" target="tbl" fileName="datos" pageOnly="true"/>  
+                        </p:commandLink>  
+                        <p:commandLink>  
+                            <p:graphicImage value="/resources/img/csv.png" />  
+                            <p:dataExporter type="csv" target="tbl" fileName="datos" pageOnly="true"/>  
+                        </p:commandLink>  
+
+                        <p:commandLink>  
+                            <p:graphicImage value="/resources/img/xml.png" />  
+                            <p:dataExporter type="xml" target="tbl" fileName="datos" pageOnly="true"/>  
+                        </p:commandLink>  
+                    </p:panel>  
+
+                    <p:separator/>
+
+                    <p:commandButton action="/index?faces-redirect=true" value="Inicio" icon="ui-icon-home" ajax="false"/>
+
+                    <p:separator/>
+
                 </p:panel>
 
-                <br />
-                <h:commandLink action="#{proyectoController.prepareCreate}" value="#{bundle.ListProyectoCreateLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ListProyectoIndexLink}"/>
+
             </h:form>
         </ui:define>
     </ui:composition>

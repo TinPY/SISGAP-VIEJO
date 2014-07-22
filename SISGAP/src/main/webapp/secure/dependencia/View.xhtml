@@ -11,12 +11,12 @@
             <h:outputText value="Ver Dependencia"></h:outputText>
         </ui:define>
         <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <p:panel id="pprincipal" header="Ver Dependencia" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
 
+            <p:panel id="pprincipal" header="Ver Dependencia" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:form>
                     <p:fieldset legend="Información de la Dependencia">
                         <p:panelGrid styleClass="sinBordes sinFondo" style="width: 100%;">
                             <p:row>
@@ -40,14 +40,14 @@
 
                     <p:separator />
 
-                    <p:commandButton action="#{dependenciaController.prepareCreate}" value="Nueva Dependencia" style="display: inline-block;" icon="ui-icon-plus" />
-                    <p:commandButton action="#{dependenciaController.destroyAndView}" value="Borrar Dependencia" style="display: inline-block;" icon="ui-icon-trash" />
-                    <p:commandButton action="#{dependenciaController.prepareList}" value="Lista de Dependencias" style="display: inline-block;float:right;" icon="ui-icon-document"/>
+                    <p:commandButton action="#{dependenciaController.prepareCreate}" value="Nueva Dependencia" style="display: inline-block;" icon="ui-icon-plus"  ajax="false" />
+                    <p:commandButton action="#{dependenciaController.destroyAndView}" value="Borrar Dependencia" style="display: inline-block;" icon="ui-icon-trash"  ajax="false" />
+                    <p:commandButton action="#{dependenciaController.prepareList}" value="Lista de Dependencias" style="display: inline-block;float:right;" icon="ui-icon-document" ajax="false" />
                     <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />                    
 
                     <p:separator />
 
-                </p:panel>
+            </p:panel>
             </h:form>
         </ui:define>
     </ui:composition>

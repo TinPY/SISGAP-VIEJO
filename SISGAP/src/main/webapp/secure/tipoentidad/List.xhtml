@@ -48,22 +48,22 @@
                                 <f:facet name="header">
                                     <h:outputText value="Nombre del Tipo de Entidad"/>
                                 </f:facet>
-                                <h:outputText value="#{item.tipoentidad}"/>
+                                <h:outputText value="#{item.tipocomitente}"/>
                             </p:column>
                             <p:column >
                                 <f:facet name="header">
                                     <h:outputText value="&nbsp;"/>
                                 </f:facet>
-                                <p:commandButton action="#{tipocomitenteController.prepareView}" title="Ver" icon="ui-icon-search"/>
+                                <p:commandButton action="#{tipocomitenteController.prepareView}" title="Ver" icon="ui-icon-search" ajax="false" />
                                 <h:outputText value=" "/>
-                                <p:commandButton action="#{tipocomitenteController.prepareEdit}" title="Editar" icon="ui-icon-pencil"/>
+                                <p:commandButton action="#{tipocomitenteController.prepareEdit}" title="Editar" icon="ui-icon-pencil" ajax="false" />
                                 <h:outputText value=" "/>
-                                <p:commandButton action="#{tipocomitenteController.destroy}" title="Eliminar" icon="ui-icon-trash"/>
+                                <p:commandButton action="#{tipocomitenteController.destroy}" title="Eliminar" icon="ui-icon-trash" ajax="false" />
                             </p:column>
                         </p:dataTable>
 
                         <p:separator/>
-                        <p:commandButton action="#{tipocomitenteController.prepareCreate}" value="Nuevo Tipo de Entidad"/>
+                        <p:commandButton action="#{tipocomitenteController.prepareCreate}" value="Nuevo Tipo de Entidad" ajax="false" />
                         <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
                         <p:separator/>
 

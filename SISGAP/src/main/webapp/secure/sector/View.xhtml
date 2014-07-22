@@ -40,9 +40,9 @@
 
                     <p:separator />
 
-                    <p:commandButton action="#{sectorController.prepareCreate}" value="Nuevo Sector" style="display: inline-block;" icon="ui-icon-plus" />
-                    <p:commandButton action="#{sectorController.destroyAndView}" value="Borrar Sector" style="display: inline-block;" icon="ui-icon-trash" />
-                    <p:commandButton action="#{sectorController.prepareList}" value="Lista de Sectores" style="display: inline-block;float:right;" icon="ui-icon-document"/>
+                    <p:commandButton action="#{sectorController.prepareCreate}" value="Nuevo Sector" style="display: inline-block;" icon="ui-icon-plus"  ajax="false" />
+                    <p:commandButton action="#{sectorController.destroyAndView}" value="Borrar Sector" style="display: inline-block;" icon="ui-icon-trash" ajax="false"  />
+                    <p:commandButton action="#{sectorController.prepareList}" value="Lista de Sectores" style="display: inline-block;float:right;" icon="ui-icon-document" ajax="false" />
                     <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
 
                     <p:separator />

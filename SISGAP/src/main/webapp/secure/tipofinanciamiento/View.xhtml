@@ -15,9 +15,9 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <p:panel id="pprincipal" header="Ver Beneficiario" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
+                <p:panel id="pprincipal" header="Ver Tipo de Proyecto" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
 
-                    <p:fieldset legend="Información del Beneficiario">
+                    <p:fieldset legend="Información del Tipo de Proyecto">
                         <p:panelGrid styleClass="sinBordes sinFondo" style="width: 100%;">
                             <p:row>
                                 <p:column style="width: 40%;">
@@ -40,9 +40,9 @@
 
                     <p:separator />
 
-                    <p:commandButton action="#{tipofinanciamientoController.prepareCreate}" value="Nuevo Tipo de Financiamiento" style="display: inline-block;" icon="ui-icon-plus" />
-                    <p:commandButton action="#{tipofinanciamientoController.destroyAndView}" value="Borrar Tipo de Financiamiento" style="display: inline-block;" icon="ui-icon-trash" />
-                    <p:commandButton action="#{tipofinanciamientoController.prepareList}" value="Lista de Tipos de Financiamiento" style="display: inline-block;float:right;" icon="ui-icon-document"/>
+                    <p:commandButton action="#{tipofinanciamientoController.prepareCreate}" value="Nuevo Tipo de Financiamiento" style="display: inline-block;" icon="ui-icon-plus" ajax="false" />
+                    <p:commandButton action="#{tipofinanciamientoController.destroyAndView}" value="Borrar Tipo de Financiamiento" style="display: inline-block;" icon="ui-icon-trash" ajax="false" />
+                    <p:commandButton action="#{tipofinanciamientoController.prepareList}" value="Lista de Tipos de Financiamiento" style="display: inline-block;float:right;" icon="ui-icon-document" ajax="false" />
                     <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
 
                     <p:separator />

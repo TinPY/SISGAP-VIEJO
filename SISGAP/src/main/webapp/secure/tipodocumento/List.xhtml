@@ -56,16 +56,16 @@
                                 <f:facet name="header">
                                     <h:outputText value="&nbsp;"/>
                                 </f:facet>
-                                <p:commandButton action="#{tipodocumentoController.prepareView}" title="Ver" icon="ui-icon-search"/>
+                                <p:commandButton action="#{tipodocumentoController.prepareView}" title="Ver" icon="ui-icon-search" ajax="false" />
                                 <h:outputText value=" "/>
-                                <p:commandButton action="#{tipodocumentoController.prepareEdit}" title="Editar" icon="ui-icon-pencil"/>
+                                <p:commandButton action="#{tipodocumentoController.prepareEdit}" title="Editar" icon="ui-icon-pencil" ajax="false" />
                                 <h:outputText value=" "/>
-                                <p:commandButton action="#{tipodocumentoController.destroy}" title="Eliminar" icon="ui-icon-trash"/>
+                                <p:commandButton action="#{tipodocumentoController.destroy}" title="Eliminar" icon="ui-icon-trash" ajax="false" />
                             </p:column>
                         </p:dataTable>
 
                         <p:separator/>
-                        <p:commandButton action="#{tipodocumentoController.prepareCreate}" value="Nuevo Tipo de Documento"/>
+                        <p:commandButton action="#{tipodocumentoController.prepareCreate}" value="Nuevo Tipo de Documento" ajax="false" />
                         <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
                         <p:separator/>
 

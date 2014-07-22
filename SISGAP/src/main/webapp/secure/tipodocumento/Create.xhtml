@@ -11,12 +11,12 @@
             <h:outputText value="Nuevo Tipo de Documento"></h:outputText>
         </ui:define>
         <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
+
             <h:form>
                 <p:panel id="pprincipal" header="Nuevo Tipo de Documento" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
-
+                    <h:panelGroup id="messagePanel" layout="block">
+                        <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                    </h:panelGroup>
                     <p:fieldset legend="Información del Tipo de Documento">
                         <p:panelGrid styleClass="sinBordes sinFondo">
                             <p:row>
@@ -24,15 +24,17 @@
                                     <h:outputLabel value="Tipo de Documento" for="tipodocumento"  style="font-weight: bold;" />
                                 </p:column>
                                 <p:column style="width: 60%;">
-                                    <p:inputText id="tipodocumento" value="#{tipodocumentoController.selected.tipodocumento}" title="Tipo de Documento" />
+                                    <p:inputText id="tipodocumento" value="#{tipodocumentoController.selected.tipodocumento}" title="* Este campo es requerido"  required="true" requiredMessage="El campo tipo de documento es requerido" />
+                                    <p:message for="tipodocumento" display="icon"  /> 
+                                    <p:tooltip id="ttTipoDocumento" for="tipodocumento" showEvent="focus" hideEvent="blur" />
                                 </p:column>
                             </p:row>
                         </p:panelGrid>
                     </p:fieldset>
 
                     <p:separator/>
-                    <p:commandButton action="#{tipodocumentoController.create}" value="Crear Tipo de Documento" style="display: inline-block;" icon="ui-icon-disk" />
-                    <p:commandButton action="#{tipodocumentoController.prepareList}" value="Lista de Tipos de Documento" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document"/>
+                    <p:commandButton action="#{tipodocumentoController.create}" value="Crear Tipo de Documento" style="display: inline-block;" icon="ui-icon-disk" ajax="false" />
+                    <p:commandButton action="#{tipodocumentoController.prepareList}" value="Lista de Tipos de Documento" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document" ajax="false" />
                     <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
                     <p:separator/>
 

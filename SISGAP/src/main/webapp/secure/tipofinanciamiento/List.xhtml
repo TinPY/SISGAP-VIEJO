@@ -54,16 +54,16 @@
                                 <f:facet name="header">
                                     <h:outputText value="&nbsp;"/>
                                 </f:facet>
-                                <p:commandButton action="#{tipofinanciamientoController.prepareView}" title="Ver" icon="ui-icon-search"/>
+                                <p:commandButton action="#{tipofinanciamientoController.prepareView}" title="Ver" icon="ui-icon-search" ajax="false" />
                                 <h:outputText value=" "/>
-                                <p:commandButton action="#{tipofinanciamientoController.prepareEdit}" title="Editar" icon="ui-icon-pencil"/>
+                                <p:commandButton action="#{tipofinanciamientoController.prepareEdit}" title="Editar" icon="ui-icon-pencil" ajax="false" />
                                 <h:outputText value=" "/>
-                                <p:commandButton action="#{tipofinanciamientoController.destroy}" title="Eliminar" icon="ui-icon-trash"/>
+                                <p:commandButton action="#{tipofinanciamientoController.destroy}" title="Eliminar" icon="ui-icon-trash" ajax="false" />
                             </p:column>
                         </p:dataTable>
 
                         <p:separator/>
-                        <p:commandButton action="#{tipofinanciamientoController.prepareCreate}" value="Nuevo Tipo de Financiamiento"/>
+                        <p:commandButton action="#{tipofinanciamientoController.prepareCreate}" value="Nuevo Tipo de Financiamiento" ajax="false" />
                         <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
                         <p:separator/>
 

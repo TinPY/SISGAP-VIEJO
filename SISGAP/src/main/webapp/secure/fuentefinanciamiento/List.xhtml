@@ -54,16 +54,16 @@
                                 <f:facet name="header">
                                     <h:outputText value="&nbsp;"/>
                                 </f:facet>
-                                <p:commandButton action="#{fuentefinanciamientoController.prepareView}" title="Ver" icon="ui-icon-search"/>
+                                <p:commandButton id="btnVer" action="#{fuentefinanciamientoController.prepareView}" title="Ver Fuente de Financiamiento" icon="ui-icon-search" ajax="false" />
                                 <h:outputText value=" "/>
-                                <p:commandButton action="#{fuentefinanciamientoController.prepareEdit}" title="Editar" icon="ui-icon-pencil"/>
+                                <p:commandButton id="btnEditar" action="#{fuentefinanciamientoController.prepareEdit}" title="Editar Fuente de Financiamiento" icon="ui-icon-pencil" ajax="false"/>
                                 <h:outputText value=" "/>
-                                <p:commandButton action="#{fuentefinanciamientoController.destroy}" title="Eliminar" icon="ui-icon-trash"/>
+                                <p:commandButton id="btnEliminar" action="#{fuentefinanciamientoController.destroy}" title="Eliminar Fuente de Financiamiento" icon="ui-icon-trash" ajax="false"/>
                             </p:column>
                         </p:dataTable>
 
                         <p:separator />
-                        <p:commandButton action="#{fuentefinanciamientoController.prepareCreate}" value="Nuevo Beneficiario"/>
+                        <p:commandButton action="#{fuentefinanciamientoController.prepareCreate}" value="Nuevo Beneficiario" ajax="false" />
                         <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
                         <p:separator />
                     </h:panelGroup>

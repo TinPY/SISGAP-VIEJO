@@ -55,7 +55,7 @@ public class Tipocomitente implements Serializable {
         this.id = id;
     }
 
-    public String getTipoentidad() {
+    public String getTipocomitente() {
         return tipocomitente;
     }
 

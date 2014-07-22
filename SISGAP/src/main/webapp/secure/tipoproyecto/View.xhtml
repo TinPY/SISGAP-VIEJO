@@ -3,35 +3,52 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.ViewTipoproyectoTitle}"></h:outputText>
+            <h:outputText value="Ver"></h:outputText>
         </ui:define>
         <ui:define name="body">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewTipoproyectoLabel_id}"/>
-                    <h:outputText value="#{tipoproyectoController.selected.id}" title="#{bundle.ViewTipoproyectoTitle_id}"/>
-                    <h:outputText value="#{bundle.ViewTipoproyectoLabel_tipo}"/>
-                    <h:outputText value="#{tipoproyectoController.selected.tipo}" title="#{bundle.ViewTipoproyectoTitle_tipo}"/>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{tipoproyectoController.destroyAndView}" value="#{bundle.ViewTipoproyectoDestroyLink}"/>
-                <br />
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewTipoproyectoEditLink}"/>
-                <br />
-                <h:commandLink action="#{tipoproyectoController.prepareCreate}" value="#{bundle.ViewTipoproyectoCreateLink}" />
-                <br />
-                <h:commandLink action="#{tipoproyectoController.prepareList}" value="#{bundle.ViewTipoproyectoShowAllLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ViewTipoproyectoIndexLink}"/>
+                <p:panel id="pprincipal" header="Ver Tipo de Proyecto" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
+
+                    <p:fieldset legend="Información del Beneficiario">
+                        <p:panelGrid styleClass="sinBordes sinFondo" style="width: 100%;">
+                            <p:row>
+                                <p:column style="width: 40%;">
+                                    <h:outputLabel value="Nro" for="tipoproyectoid"  style="font-weight: bold;" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <h:outputText id="tipoproyectoid" value="#{tipoproyectoController.selected.id}" title="Nro" style="width: 100%;"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column style="width: 40%;">
+                                    <h:outputLabel value="Tipo de Proyecto" for="tipoproyecto"  style="font-weight: bold;" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <h:outputText id="tipoproyecto" value="#{tipoproyectoController.selected.tipo}" title="Tipo de Proyecto" style="width: 100%;" />
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </p:fieldset>
+
+                    <p:separator />
+
+                    <p:commandButton action="#{tipoproyectoController.prepareCreate}" value="Nuevo Tipo de Proyecto" style="display: inline-block;" icon="ui-icon-plus" ajax="false" />
+                    <p:commandButton action="#{tipoproyectoController.destroyAndView}" value="Borrar Tipo de Proyecto" style="display: inline-block;" icon="ui-icon-trash" ajax="false" />
+                    <p:commandButton action="#{tipoproyectoController.prepareList}" value="Lista de Tipos de Proyecto" style="display: inline-block;float:right;" icon="ui-icon-document" ajax="false" />
+                    <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
+
+                    <p:separator />
+
+                </p:panel>
+
 
             </h:form>
         </ui:define>

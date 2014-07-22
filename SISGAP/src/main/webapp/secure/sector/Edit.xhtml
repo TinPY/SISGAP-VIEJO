@@ -24,15 +24,17 @@
                                     <h:outputLabel value="Sector" for="sector"  style="font-weight: bold;" />
                                 </p:column>
                                 <p:column style="width: 60%;">
-                                    <p:inputText id="sector" value="#{sectorController.selected.sector}" title="Sector" />
+                                    <p:inputText id="sector" value="#{sectorController.selected.sector}" title="* Este campo es requerido"  required="true" requiredMessage="El campo sector es requerido"  />
+                                    <p:message for="sector" display="icon"  /> 
+                                    <p:tooltip id="ttSector" for="sector" showEvent="focus" hideEvent="blur" />                                    
                                 </p:column>
                             </p:row>
                         </p:panelGrid>
                     </p:fieldset>
 
                     <p:separator/>
-                    <p:commandButton action="#{sectorController.update}" value="Guardar Sector" style="display: inline-block;" icon="ui-icon-disk" />
-                    <p:commandButton action="#{sectorController.prepareList}" value="Lista de Sectores" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document"/>
+                    <p:commandButton action="#{sectorController.update}" value="Guardar Sector" style="display: inline-block;" icon="ui-icon-disk" ajax="false" />
+                    <p:commandButton action="#{sectorController.prepareList}" value="Lista de Sectores" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document" ajax="false" />
                     <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
                     <p:separator/>
 

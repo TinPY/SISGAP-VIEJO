@@ -52,16 +52,16 @@
                                 <f:facet name="header">
                                     <h:outputText value="&nbsp;"/>
                                 </f:facet>
-                                <p:commandButton action="#{dependenciaController.prepareView}" title="Ver" icon="ui-icon-search"/>
+                                <p:commandButton action="#{dependenciaController.prepareView}" title="Ver" icon="ui-icon-search" ajax="false" />
                                 <h:outputText value=" "/>
-                                <p:commandButton action="#{dependenciaController.prepareEdit}" title="Editar" icon="ui-icon-pencil"/>
+                                <p:commandButton action="#{dependenciaController.prepareEdit}" title="Editar" icon="ui-icon-pencil" ajax="false" />
                                 <h:outputText value=" "/>
-                                <p:commandButton action="#{dependenciaController.destroy}" title="Eliminar" icon="ui-icon-trash"/>
+                                <p:commandButton action="#{dependenciaController.destroy}" title="Eliminar" icon="ui-icon-trash" ajax="false" />
                             </p:column>
                         </p:dataTable>
 
                         <p:separator/>
-                        <p:commandButton action="#{dependenciaController.prepareCreate}" value="Nueva Dependencia"/>
+                        <p:commandButton action="#{dependenciaController.prepareCreate}" value="Nueva Dependencia" ajax="false"/>
                         <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
                         <p:separator/>
                         

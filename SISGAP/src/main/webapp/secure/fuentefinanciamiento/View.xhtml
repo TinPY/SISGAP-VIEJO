@@ -11,12 +11,12 @@
             <h:outputText value="Ver"></h:outputText>
         </ui:define>
         <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
+
             <h:form>
                 <p:panel id="pprincipal" header="Ver Fuente de Financiamiento" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
-
+                    <h:panelGroup id="messagePanel" layout="block">
+                        <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                    </h:panelGroup>
                     <p:fieldset legend="Información de la Fuente de Financiamiento">
                         <p:panelGrid styleClass="sinBordes sinFondo">
                             <p:row>
@@ -39,9 +39,9 @@
                     </p:fieldset>
 
                     <p:separator />
-                    <p:commandButton action="#{fuentefinanciamientoController.prepareCreate}" value="Nueva Fuente de Financiamiento" style="display: inline-block;" icon="ui-icon-plus" />
-                    <p:commandButton action="#{fuentefinanciamientoController.destroyAndView}" value="Borrar Fuente de Financiamiento" style="display: inline-block;" icon="ui-icon-trash" />
-                    <p:commandButton action="#{fuentefinanciamientoController.prepareList}" value="Lista de Fuentes de Financiamiento" style="display: inline-block;float:right;" icon="ui-icon-document"/>
+                    <p:commandButton action="#{fuentefinanciamientoController.prepareCreate}" value="Nueva Fuente de Financiamiento" style="display: inline-block;" icon="ui-icon-plus" ajax="false" />
+                    <p:commandButton action="#{fuentefinanciamientoController.destroyAndView}" value="Borrar Fuente de Financiamiento" style="display: inline-block;" icon="ui-icon-trash" ajax="false" />
+                    <p:commandButton action="#{fuentefinanciamientoController.prepareList}" value="Lista de Fuentes de Financiamiento" style="display: inline-block;float:right;" icon="ui-icon-document" ajax="false" />
                     <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
                     <p:separator />
 

@@ -32,7 +32,7 @@
                                     <h:outputLabel value="Tipo de Entidad" for="tipoentidad"  style="font-weight: bold;" />
                                 </p:column>
                                 <p:column style="width: 60%;">
-                                    <h:outputText id="tipoentidad" value="#{tipocomitenteController.selected.tipoentidad}" title="Tipo de Entidad" />
+                                    <h:outputText id="tipoentidad" value="#{tipocomitenteController.selected.tipocomitente}" title="Tipo de Entidad" />
                                 </p:column>
                             </p:row>
                         </p:panelGrid>
@@ -40,9 +40,9 @@
 
                     <p:separator />
 
-                    <p:commandButton action="#{tipocomitenteController.prepareCreate}" value="Nuevo Tipo de Entidad" style="display: inline-block;" icon="ui-icon-plus" />
-                    <p:commandButton action="#{tipocomitenteController.destroyAndView}" value="Borrar Tipo de Entidad" style="display: inline-block;" icon="ui-icon-trash" />
-                    <p:commandButton action="#{tipocomitenteController.prepareList}" value="Lista de Tipos de Entidad" style="display: inline-block;float:right;" icon="ui-icon-document"/>
+                    <p:commandButton action="#{tipocomitenteController.prepareCreate}" value="Nuevo Tipo de Entidad" style="display: inline-block;" icon="ui-icon-plus"  ajax="false" />
+                    <p:commandButton action="#{tipocomitenteController.destroyAndView}" value="Borrar Tipo de Entidad" style="display: inline-block;" icon="ui-icon-trash"  ajax="false" />
+                    <p:commandButton action="#{tipocomitenteController.prepareList}" value="Lista de Tipos de Entidad" style="display: inline-block;float:right;" icon="ui-icon-document" ajax="false" />
                     <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
 
                     <p:separator />

@@ -11,12 +11,12 @@
             <h:outputText value="Nueva Fuente de Financiamiento"></h:outputText>
         </ui:define>
         <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
+
             <h:form>
                 <p:panel id="pprincipal" header="Nueva Fuente de Financiamiento" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
-
+                    <h:panelGroup id="messagePanel" layout="block">
+                        <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                    </h:panelGroup>
                     <p:fieldset legend="Información de la Fuente de Financiamiento">
                         <p:panelGrid styleClass="sinBordes sinFondo">
                             <p:row>
@@ -24,18 +24,20 @@
                                     <h:outputLabel value="Fuente de Financiamiento" for="fuentefinanciamiento"  style="font-weight: bold;" />
                                 </p:column>
                                 <p:column style="width: 60%;">
-                                    <p:inputText id="fuentefinanciamiento" value="#{fuentefinanciamientoController.selected.fuentefinanciamiento}" title="Nombre de la fuente de financiamiento" />
+                                    <p:inputText id="fuentefinanciamiento" value="#{fuentefinanciamientoController.selected.fuentefinanciamiento}" title="* Este campo es requerido" required="true" requiredMessage="El campo fuente de financiamiento es requerido" />
+                                    <p:message for="fuentefinanciamiento" display="icon" /> 
+                                    <p:tooltip id="ttFuenteFinanciamiento" for="fuentefinanciamiento" showEvent="focus" hideEvent="blur" />
                                 </p:column>
                             </p:row>
                         </p:panelGrid>
                     </p:fieldset>
 
                     <p:separator/>
-                    <p:commandButton action="#{fuentefinanciamientoController.create}" value="Crear Fuente de Financiamiento" style="display: inline-block;" icon="ui-icon-disk" />
-                    <p:commandButton action="#{fuentefinanciamientoController.prepareList}" value="Lista de Fuentes de Financiamiento" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document"/>
+                    <p:commandButton action="#{fuentefinanciamientoController.create}" value="Crear Fuente de Financiamiento" style="display: inline-block;" icon="ui-icon-disk" ajax="false" />
+                    <p:commandButton action="#{fuentefinanciamientoController.prepareList}" value="Lista de Fuentes de Financiamiento" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document" ajax="false"/>
                     <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
                     <p:separator/>
-                    
+
                 </p:panel>
 
             </h:form>
