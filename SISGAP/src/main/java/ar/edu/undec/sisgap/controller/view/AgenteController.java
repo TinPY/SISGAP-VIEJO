@@ -77,7 +77,8 @@ public class AgenteController implements Serializable {
 
                 @Override
                 public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
+                    //return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
+                    return new ListDataModel(getFacade().findAll());
                 }
             };
         }
@@ -193,7 +194,8 @@ public class AgenteController implements Serializable {
 
     public DataModel getItems() {
         if (items == null) {
-            items = getPagination().createPageDataModel();
+            //items = getPagination().createPageDataModel();
+            items = new ListDataModel(this.ejbFacade.findAll());
         }
         return items;
     }

@@ -1268,6 +1268,18 @@ public class ProyectoController implements Serializable {
         FacesContext.getCurrentInstance().responseComplete();
         
     }
+    
+    public List<Agente> obtenerEquipoTrabajo(){
+        
+        List<Agente> listaAgentes = new ArrayList<Agente>() ;
+        List<ProyectoAgente> listaProyectoAgente = this.ejbproyectoagente.buscarEquipoTrabajo(current.getId());
+        
+        for(ProyectoAgente pa : listaProyectoAgente){
+            //System.out.println(pa.getAgente().getApellido() + ", " + pa.getAgente().getNombres());
+            listaAgentes.add(pa.getAgente());
+        }
+        return listaAgentes;
+    }
 }
 
 

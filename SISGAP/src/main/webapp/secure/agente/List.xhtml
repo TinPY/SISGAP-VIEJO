@@ -8,11 +8,10 @@
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.ListAgenteTitle}"></h:outputText>
+            <h:outputText value="Lista de Agentes"></h:outputText>
         </ui:define>
         <ui:define name="body">
             <h:form styleClass="jsfcrud_list_form">
-
 
                 <p:panel id="pprincipal" header="Lista de Agentes" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
                     <h:panelGroup id="messagePanel" layout="block">
@@ -23,11 +22,8 @@
                     <p:separator rendered="#{agenteController.items.rowCount == 0}" />
                     <p:commandButton action="#{agenteController.prepareCreate}" value="Nuevo Agente" rendered="#{agenteController.items.rowCount == 0}"/>
 
-
                     <h:panelGroup rendered="#{agenteController.items.rowCount > 0}">
                         
-                        <!-- filteredValue="#{proyectoController.proyectosFiltrados}" -->
-
 
                         <p:dataTable
                             id="tbl" 
@@ -53,36 +49,12 @@
                                 </f:facet>
                                 <h:outputText value="#{item.apellido}, #{item.nombres}"/>
                             </p:column>
-                            <!--                            <p:column id="columnaNombres" filterBy="nombres" filterMatchMode="contains" sortBy="nombres">
-                                                            <f:facet name="header">
-                                                                <h:outputText value="Nombres"/>
-                                                            </f:facet>
-                                                            <h:outputText value="#{item.nombres}"/>
-                                                        </p:column>-->
                             <p:column id="columnaNroDocumento" filterBy="numerodocumento" filterMatchMode="contains" sortBy="numerodocumento">
                                 <f:facet name="header">
                                     <h:outputText value="Documento"/>
                                 </f:facet>
                                 <h:outputText value="#{item.tipodocumentoid.tipodocumento} #{item.numerodocumento}"/>
                             </p:column>
-                            <!--                            <p:column id="columnaTelefono" filterBy="telefono" filterMatchMode="contains" sortBy="telefono">
-                                                            <f:facet name="header">
-                                                                <h:outputText value="Télefono"/>
-                                                            </f:facet>
-                                                            <h:outputText value="#{item.telefono}"/>
-                                                        </p:column>
-                                                        <p:column id="columnaCelular" filterBy="celular" filterMatchMode="contains" sortBy="celular">
-                                                            <f:facet name="header">
-                                                                <h:outputText value="Celular"/>
-                                                            </f:facet>
-                                                            <h:outputText value="#{item.celular}"/>
-                                                        </p:column>
-                                                        <p:column id="columnaEmail" filterBy="email" filterMatchMode="contains" sortBy="email">
-                                                            <f:facet name="header">
-                                                                <h:outputText value="E-mail"/>
-                                                            </f:facet>
-                                                            <h:outputText value="#{item.email}"/>
-                                                        </p:column>-->
                             <p:column id="columnaProfesion" filterBy="profesion" filterMatchMode="contains" sortBy="profesion">
                                 <f:facet name="header">
                                     <h:outputText value="Profesión"/>
