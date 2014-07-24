@@ -14,9 +14,11 @@
             <h:form styleClass="jsfcrud_list_form">
 
                 <p:panel id="pprincipal" header="Lista de Convocatorias" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
-                    <h:panelGroup id="messagePanel" layout="block">
-                        <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-                    </h:panelGroup>
+                    <!--                    <h:panelGroup id="messagePanel" layout="block">
+                                            <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                                        </h:panelGroup>-->
+
+                    <p:growl id="message" showDetail="true" autoUpdate="true" />
 
                     <h:outputText escape="false" value="La lista de convocatorias está vacía" rendered="#{convocatoriaController.items.rowCount == 0}"/>
                     <p:separator rendered="#{convocatoriaController.items.rowCount == 0}" />
@@ -50,12 +52,12 @@
                                 </f:facet>
                                 <h:outputText value="#{item.convocatoria}"/>
                             </p:column>
-<!--                            <p:column id="columnaEstado" filterBy="estado" filterMatchMode="contains" sortBy="estado">
-                                <f:facet name="header">
-                                    <h:outputText value="Estado"/>
-                                </f:facet>
-                                <h:outputText value="#{item.estado}"/>
-                            </p:column>-->
+                            <!--                            <p:column id="columnaEstado" filterBy="estado" filterMatchMode="contains" sortBy="estado">
+                                                            <f:facet name="header">
+                                                                <h:outputText value="Estado"/>
+                                                            </f:facet>
+                                                            <h:outputText value="#{item.estado}"/>
+                                                        </p:column>-->
                             <p:column id="columnaFechaInicio" filterBy="fechainicio" filterMatchMode="contains" sortBy="fechainicio">
                                 <f:facet name="header">
                                     <h:outputText value="Inicio"/>
@@ -72,12 +74,12 @@
                                     <f:convertDateTime dateStyle="short" type="date"/>
                                 </h:outputText>
                             </p:column>
-<!--                            <p:column id="columnaOrganismo" filterBy="organismo" filterMatchMode="contains" sortBy="organismo">
-                                <f:facet name="header">
-                                    <h:outputText value="Organismo"/>
-                                </f:facet>
-                                <h:outputText value="#{item.organismo}"/>
-                            </p:column>                            -->
+                            <!--                            <p:column id="columnaOrganismo" filterBy="organismo" filterMatchMode="contains" sortBy="organismo">
+                                                            <f:facet name="header">
+                                                                <h:outputText value="Organismo"/>
+                                                            </f:facet>
+                                                            <h:outputText value="#{item.organismo}"/>
+                                                        </p:column>                            -->
                             <p:column id="columnaTipoProyecto" filterBy="#{item.tipoproyectoid}" filterMatchMode="exact" filterOptions="#{tipoproyectoController.itemsAvailableSelectOne}" sortBy="#{item.tipoproyectoid.tipo}">
                                 <f:facet name="header">
                                     <h:outputText value="Tipo de Proyecto"/>
@@ -98,12 +100,14 @@
                                 <h:outputText value=" "/>
                                 <p:commandButton action="#{convocatoriaController.prepareEdit}" title="Editar" icon="ui-icon-pencil" ajax="false"/>
                                 <h:outputText value=" "/>
-                                <p:commandButton action="#{convocatoriaController.destroy}" title="Eliminar" icon="ui-icon-trash" ajax="false"/>
+                                <p:commandButton action="#{convocatoriaController.destroy}" title="Eliminar" icon="ui-icon-trash" update="tbl">
+                                    <p:confirm header="Eliminar" message="¿Esta seguro que desea eliminar la Convocatoria?" icon="ui-icon-alert"   />
+                                </p:commandButton>
                             </p:column>
                         </p:dataTable>
 
                         <p:separator/>
-                        
+
                         <p:commandButton action="#{convocatoriaController.prepareCreate}" value="Nueva Convocatoria" ajax="false" />
                         <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
 
@@ -111,6 +115,11 @@
                     </h:panelGroup>
                 </p:panel>
 
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" >
+                    <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update="tbl" style="float:left;" />
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" style="float: right;" />
+                </p:confirmDialog>
+                
             </h:form>
         </ui:define>
     </ui:composition>

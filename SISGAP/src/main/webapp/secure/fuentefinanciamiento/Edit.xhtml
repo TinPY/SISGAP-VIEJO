@@ -14,7 +14,7 @@
             <h:form>
                 <p:panel id="pprincipal" header="Editar Fuente de Financiamiento" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
                     <h:panelGroup id="messagePanel" layout="block">
-                        <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                        <p:messages autoUpdate="true"/>
                     </h:panelGroup>
 
                     <p:fieldset legend="Información de la Fuente de Financiamiento">
@@ -33,7 +33,7 @@
                     </p:fieldset>
 
                     <p:separator/>
-                    <p:commandButton action="#{fuentefinanciamientoController.update}" value="Guardar Fuente de Financiamiento" style="display: inline-block;" icon="ui-icon-disk" />
+                    <p:commandButton action="#{fuentefinanciamientoController.update}" value="Guardar Fuente de Financiamiento" style="display: inline-block;" icon="ui-icon-disk" validateClient="true" update="pprincipal" />
                     <p:commandButton action="#{fuentefinanciamientoController.prepareList}" value="Lista de Fuentes de Financiamiento" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document" ajax="false" />
                     <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
                     <p:separator/>

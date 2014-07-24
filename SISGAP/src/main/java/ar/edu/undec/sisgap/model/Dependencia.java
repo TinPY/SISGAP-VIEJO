@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -28,6 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "dependencia", schema = "ap")
+@SequenceGenerator(name="dependencia_id_seq", sequenceName="ap.dependencia_id_seq", allocationSize=1)
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Dependencia.findAll", query = "SELECT d FROM Dependencia d"),
@@ -36,7 +38,7 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Dependencia implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="dependencia_id_seq")
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;

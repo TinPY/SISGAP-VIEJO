@@ -11,11 +11,12 @@
             <h:outputText value="Nueva Convocatoria"></h:outputText>
         </ui:define>
         <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
             <h:form>
                 <p:panel id="pprincipal" header="Nueva Convocatoria" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
+
+                    <h:panelGroup id="messagePanel" layout="block">
+                        <p:messages autoUpdate="true" />
+                    </h:panelGroup>
 
                     <p:fieldset legend="Información General" style="display: inline-block; width: 46%; float: left;">
                         <p:panelGrid styleClass="sinBordes sinFondo">
@@ -151,14 +152,14 @@
 
                     <p:separator/>
 
-                    <p:commandButton action="#{convocatoriaController.create}" value="Crear Convocatoria" style="display: inline-block;" icon="ui-icon-disk" />
+                    <p:commandButton action="#{convocatoriaController.create}" value="Crear Convocatoria" style="display: inline-block;" icon="ui-icon-disk" validateClient="true" update="pprincipal" />
                     <p:commandButton action="#{convocatoriaController.prepareList}" value="Lista de Convocatorias" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document" ajax="false" />
                     <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
 
                     <p:separator/>
                 </p:panel>
             </h:form>
-            
+
             <h:form>
                 <p:dialog id="dfinal" widgetVar="dfinal"  modal="true" closable="false"  header="Alta de Convocatoria" >
                     La Convocatoria fue creada satisfactoriamente!
