@@ -15,7 +15,7 @@
             <h:form >
                 <p:panel id="pprincipal" header="Editar Agente" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
                     <h:panelGroup id="messagePanel" layout="block">
-                        <h:messages errorStyle="color: red" infoStyle="color: green" layout="table" />
+                        <p:messages autoUpdate="true"/>
                     </h:panelGroup>
 
                     <p:fieldset legend="Información Personal" style="display: inline-block; width: 46%; float: left;">
@@ -25,7 +25,7 @@
                                     <p:outputLabel value="Apellido" for="apellido" style="font-weight: bold;" />
                                 </p:column>
                                 <p:column style="width: 60%;">
-                                    <p:inputText id="apellido" value="#{agenteController.selected.apellido}" title="* Este campo es requerido"  required="true" requiredMessage="El campo apellido es requerido" />
+                                    <p:inputText id="apellido" value="#{agenteController.selected.apellido}" title="* Este campo es obligatorio"  required="true" requiredMessage="El campo apellido es obligatorio" />
                                     <p:message for="apellido" display="icon"  /> 
                                     <p:tooltip id="ttApellido" for="apellido" showEvent="focus" hideEvent="blur" />
                                 </p:column>
@@ -35,7 +35,7 @@
                                     <p:outputLabel value="Nombres" for="nombres" style="font-weight: bold;" />
                                 </p:column>
                                 <p:column style="width: 60%;">
-                                    <p:inputText id="nombres" value="#{agenteController.selected.nombres}" title="* Este campo es requerido" required="true" requiredMessage="El campo nombres es requerido"/>
+                                    <p:inputText id="nombres" value="#{agenteController.selected.nombres}" title="* Este campo es obligatorio" required="true" requiredMessage="El campo nombres es obligatorio"/>
                                     <p:message for="nombres" display="icon" /> 
                                     <p:tooltip id="ttNombres" for="nombres" showEvent="focus" hideEvent="blur" />
                                 </p:column>
@@ -45,7 +45,7 @@
                                     <p:outputLabel value="Tipo de Documento" for="tipodocumentoid" style="font-weight: bold;" />
                                 </p:column>
                                 <p:column style="width: 60%;">
-                                    <p:selectOneMenu id="tipodocumentoid" value="#{agenteController.selected.tipodocumentoid}" label="* Este campo es requerido" required="true" requiredMessage="El campo tipo de documento es requerido" >
+                                    <p:selectOneMenu id="tipodocumentoid" value="#{agenteController.selected.tipodocumentoid}" label="* Este campo es obligatorio" required="true" requiredMessage="El campo tipo de documento es obligatorio" >
                                         <f:selectItems value="#{tipodocumentoController.itemsAvailableSelectOne}"/>
                                     </p:selectOneMenu>
                                     <p:message for="tipodocumentoid" display="icon" /> 
@@ -57,7 +57,7 @@
                                     <p:outputLabel value="Número de Documento" for="numerodocumento" style="font-weight: bold;" />
                                 </p:column>
                                 <p:column style="width: 60%;">
-                                    <p:inputText id="numerodocumento" value="#{agenteController.selected.numerodocumento}" title="* Este campo es requerido" required="true" requiredMessage="El campo numero de documento es requerido" />
+                                    <p:inputText id="numerodocumento" value="#{agenteController.selected.numerodocumento}" title="* Este campo es obligatorio" required="true" requiredMessage="El campo numero de documento es obligatorio" />
                                 </p:column>
                                 <p:message for="numerodocumento" display="icon" /> 
                                 <p:tooltip id="ttNroDocumento" for="numerodocumento" showEvent="focus" hideEvent="blur" />
@@ -145,7 +145,7 @@
                     <br style="clear: both;"/>
                     
                     <p:separator />
-                    <p:commandButton action="#{agenteController.update}" value="Guardar Agente" style="display: inline-block;" icon="ui-icon-disk"  ajax="false" />
+                    <p:commandButton action="#{agenteController.update}" value="Guardar Agente" style="display: inline-block;" icon="ui-icon-disk" validateClient="true" update="pprincipal" />
                     <p:commandButton action="#{agenteController.prepareList}" value="Lista de Agentes" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document" ajax="false" />
                     <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home"  ajax="false" />
                     <p:separator/>
@@ -154,6 +154,17 @@
                 </p:panel>
 
             </h:form>
+            <h:form>
+                 <p:dialog id="dfinal" widgetVar="dfinal"  modal="true" closable="false"  header="Edición de Agente" >
+                    El Agente fue actualizado satisfactoriamente!
+                    <p:separator />
+                    <div align="center" >
+                        <p:commandButton value="Ir a Lista" action="#{agenteController.prepareList()}" ajax="false" />
+                    </div>
+
+                </p:dialog>
+            </h:form>
+            
         </ui:define>
     </ui:composition>
 

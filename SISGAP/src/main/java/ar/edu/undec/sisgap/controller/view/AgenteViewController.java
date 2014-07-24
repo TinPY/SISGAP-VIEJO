@@ -75,7 +75,7 @@ public class AgenteViewController implements Serializable {
 
     public ar.edu.undec.sisgap.controller.view.util.PaginationHelper getPagination() {
         if (pagination == null) {
-            pagination = new ar.edu.undec.sisgap.controller.view.util.PaginationHelper(10) {
+            pagination = new ar.edu.undec.sisgap.controller.view.util.PaginationHelper(10000000) {
 
                 @Override
                 public int getItemsCount() {

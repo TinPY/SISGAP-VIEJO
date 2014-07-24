@@ -14,6 +14,7 @@ import java.io.Serializable;
 import java.util.Hashtable;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
@@ -33,6 +34,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "agenteController")
 @SessionScoped
@@ -68,7 +70,7 @@ public class AgenteController implements Serializable {
 
     public PaginationHelper getPagination() {
         if (pagination == null) {
-            pagination = new PaginationHelper(10) {
+            pagination = new PaginationHelper(10000000) {
 
                 @Override
                 public int getItemsCount() {
@@ -77,8 +79,7 @@ public class AgenteController implements Serializable {
 
                 @Override
                 public DataModel createPageDataModel() {
-                    //return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
-                    return new ListDataModel(getFacade().findAll());
+                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
                 }
             };
         }
@@ -106,9 +107,11 @@ public class AgenteController implements Serializable {
         try {
             getFacade().create(current);
             JsfUtil.addSuccessMessage("Agente Creado!");
-            return prepareCreate();
+            //return prepareCreate();
+            RequestContext.getCurrentInstance().execute("dfinal.show()");
+            return null;
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, "Ocurrio un error de persistencia");
+            JsfUtil.addErrorMessage(e, "Ocurrio un error de persistencia al intentar crear un nuevo Agente.");
             return null;
         }
     }
@@ -123,9 +126,11 @@ public class AgenteController implements Serializable {
         try {
             getFacade().edit(current);
             JsfUtil.addSuccessMessage("Agente Actualizado!");
-            return "View";
+            //return "View";
+            RequestContext.getCurrentInstance().execute("dfinal.show()");
+            return null;
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, "Ocurrio un error de persistencia");
+            JsfUtil.addErrorMessage(e, "Ocurrio un error de persistencia al intentar actualizar el Agente.");
             return null;
         }
     }
@@ -171,7 +176,9 @@ public class AgenteController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage("Agente Borrado");
+            //JsfUtil.addSuccessMessage("Agente Borrado");
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "sisgap", "Agente Borrado");
+            FacesContext.getCurrentInstance().addMessage(null, message);
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, "Ocurrio un error durante el borrado del agente");
         }
@@ -194,8 +201,7 @@ public class AgenteController implements Serializable {
 
     public DataModel getItems() {
         if (items == null) {
-            //items = getPagination().createPageDataModel();
-            items = new ListDataModel(this.ejbFacade.findAll());
+            items = getPagination().createPageDataModel();
         }
         return items;
     }

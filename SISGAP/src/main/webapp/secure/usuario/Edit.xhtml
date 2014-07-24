@@ -97,6 +97,17 @@
                 </p:panel>
 
             </h:form>
+            
+            <h:form>
+                <p:dialog id="dfinal" widgetVar="dfinal"  modal="true" closable="false"  header="Edición de Usuario" >
+                    El Usuario fue actualizado satisfactoriamente!
+                    <p:separator />
+                    <div align="center" >
+                        <p:commandButton value="Volver a la Lista" action="#{usuarioController.prepareList()}" ajax="false" />
+                    </div>
+
+                </p:dialog>
+            </h:form>            
         </ui:define>
     </ui:composition>
 

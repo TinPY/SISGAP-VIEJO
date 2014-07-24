@@ -11,11 +11,11 @@
             <h:outputText value="Editar Agente"></h:outputText>
         </ui:define>
         <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
             <h:form>
                 <p:panel id="pprincipal" header="Editar Agente" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
+                    <h:panelGroup id="messagePanel" layout="block">
+                        <p:messages autoUpdate="true"/>
+                    </h:panelGroup>
 
 <!--                    <h:outputLabel value="#{bundle.CreateAgenteLabel_id}" for="id" />
                     <h:inputText id="id" value="#{agenteController.selected.id}" title="#{bundle.CreateAgenteTitle_id}" required="true" requiredMessage="#{bundle.CreateAgenteRequiredMessage_id}"/>-->
@@ -60,78 +60,78 @@
                     <p:accordionPanel  activeIndex="null" style="display: inline-block; width: 50%; float: right; margin-top: 15px; margin-bottom: 5px;">
                         <p:tab title="Información de Contacto">
                             <p:panelGrid styleClass="sinBordes sinFondo">
-                            <p:row>
-                                <p:column style="width: 40%;">
-                                    <h:outputLabel value="Domicilio" for="domicilio" style="font-weight: bold;" />
-                                </p:column>
-                                <p:column style="width: 60%;">
-                                    <h:outputText id="domicilio" value="#{agenteController.selected.domicilio}" title="#{bundle.CreateAgenteTitle_domicilio}" />
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column style="width: 40%;">
-                                    <h:outputLabel value="Teléfono" for="telefono" style="font-weight: bold;" />
-                                </p:column>
-                                <p:column style="width: 60%;">
-                                    <h:outputText id="telefono" value="#{agenteController.selected.telefono}" title="#{bundle.CreateAgenteTitle_telefono}" />
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column style="width: 40%;">
-                                    <h:outputLabel value="Celular" for="celular" style="font-weight: bold;" />
-                                </p:column>
-                                <p:column style="width: 60%;">
-                                    <h:outputText id="celular" value="#{agenteController.selected.celular}" title="#{bundle.CreateAgenteTitle_celular}" />
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column style="width: 40%;">
-                                    <h:outputLabel value="Email" for="email" style="font-weight: bold;" />
-                                </p:column>
-                                <p:column style="width: 60%;">
-                                    <h:outputText id="email" value="#{agenteController.selected.email}" title="#{bundle.CreateAgenteTitle_email}" />
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column style="width: 40%;">
-                                    <h:outputLabel value="Email Secundario" for="otroemail" style="font-weight: bold;" />
-                                </p:column>
-                                <p:column style="width: 60%;">
-                                    <h:outputText id="otroemail" value="#{agenteController.selected.otroemail}" title="#{bundle.CreateAgenteTitle_otroemail}" />
-                                </p:column>
-                            </p:row>                            
-                        </p:panelGrid>
+                                <p:row>
+                                    <p:column style="width: 40%;">
+                                        <h:outputLabel value="Domicilio" for="domicilio" style="font-weight: bold;" />
+                                    </p:column>
+                                    <p:column style="width: 60%;">
+                                        <h:outputText id="domicilio" value="#{agenteController.selected.domicilio}" title="#{bundle.CreateAgenteTitle_domicilio}" />
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column style="width: 40%;">
+                                        <h:outputLabel value="Teléfono" for="telefono" style="font-weight: bold;" />
+                                    </p:column>
+                                    <p:column style="width: 60%;">
+                                        <h:outputText id="telefono" value="#{agenteController.selected.telefono}" title="#{bundle.CreateAgenteTitle_telefono}" />
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column style="width: 40%;">
+                                        <h:outputLabel value="Celular" for="celular" style="font-weight: bold;" />
+                                    </p:column>
+                                    <p:column style="width: 60%;">
+                                        <h:outputText id="celular" value="#{agenteController.selected.celular}" title="#{bundle.CreateAgenteTitle_celular}" />
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column style="width: 40%;">
+                                        <h:outputLabel value="Email" for="email" style="font-weight: bold;" />
+                                    </p:column>
+                                    <p:column style="width: 60%;">
+                                        <h:outputText id="email" value="#{agenteController.selected.email}" title="#{bundle.CreateAgenteTitle_email}" />
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column style="width: 40%;">
+                                        <h:outputLabel value="Email Secundario" for="otroemail" style="font-weight: bold;" />
+                                    </p:column>
+                                    <p:column style="width: 60%;">
+                                        <h:outputText id="otroemail" value="#{agenteController.selected.otroemail}" title="#{bundle.CreateAgenteTitle_otroemail}" />
+                                    </p:column>
+                                </p:row>                            
+                            </p:panelGrid>
                         </p:tab>
                         <p:tab title="Informacion Profesional">
                             <p:panelGrid styleClass="sinBordes sinFondo" >
-                            <p:row>
-                                <p:column style="width: 20%;">
-                                    <h:outputLabel value="Profesión" for="profesion" style="font-weight: bold;" />
-                                </p:column>
-                                <p:column style="width: 80%;">
-                                    <h:outputText id="profesion" value="#{agenteController.selected.profesion}" title="#{bundle.CreateAgenteTitle_profesion}" />
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column style="width: 20%;">
-                                    <h:outputLabel value="Especialidad" for="especialidad" style="font-weight: bold;" />
-                                </p:column>
-                                <p:column style="width: 80%;">
-                                    <h:outputText id="especialidad" value="#{agenteController.selected.especialidad}" title="Especialidad" />
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column style="width: 20%;">
-                                    <h:outputLabel value="Dependencia" for="dependenciaid" style="font-weight: bold;" />
-                                </p:column>
-                                <p:column style="width: 80%;">
-                                    <h:outputText value="#{agenteController.selected.dependenciaid.dependencia}" />
-                                </p:column>
-                            </p:row>                            
-                        </p:panelGrid>
+                                <p:row>
+                                    <p:column style="width: 20%;">
+                                        <h:outputLabel value="Profesión" for="profesion" style="font-weight: bold;" />
+                                    </p:column>
+                                    <p:column style="width: 80%;">
+                                        <h:outputText id="profesion" value="#{agenteController.selected.profesion}" title="#{bundle.CreateAgenteTitle_profesion}" />
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column style="width: 20%;">
+                                        <h:outputLabel value="Especialidad" for="especialidad" style="font-weight: bold;" />
+                                    </p:column>
+                                    <p:column style="width: 80%;">
+                                        <h:outputText id="especialidad" value="#{agenteController.selected.especialidad}" title="Especialidad" />
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column style="width: 20%;">
+                                        <h:outputLabel value="Dependencia" for="dependenciaid" style="font-weight: bold;" />
+                                    </p:column>
+                                    <p:column style="width: 80%;">
+                                        <h:outputText value="#{agenteController.selected.dependenciaid.dependencia}" />
+                                    </p:column>
+                                </p:row>                            
+                            </p:panelGrid>
                         </p:tab>
                     </p:accordionPanel>
-                    
+
                     <br style="clear:both;"/>
 
                     <p:separator />

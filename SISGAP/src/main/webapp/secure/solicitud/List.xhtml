@@ -138,8 +138,10 @@
                             <p:dataExporter type="xml" target="tbl" fileName="datos" pageOnly="true"/>  
                         </p:commandLink>  
                     </p:panel>  
-                    <br />
-                    <h:link outcome="/index" value="Inicio"/>                    
+                    
+                    <p:separator/>
+                    <p:commandButton action="/index?faces-redirect=true" value="Inicio" icon="ui-icon-home"  ajax="false" />
+                    <p:separator/>
                 </p:panel>
 
 

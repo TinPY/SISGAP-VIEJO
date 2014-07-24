@@ -6,7 +6,9 @@
 
 package ar.edu.undec.sisgap.controller;
 
+import ar.edu.undec.sisgap.model.Presupuesto;
 import ar.edu.undec.sisgap.model.PresupuestoRubroitem;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,6 +29,11 @@ public class PresupuestoRubroitemFacade extends AbstractFacade<PresupuestoRubroi
 
     public PresupuestoRubroitemFacade() {
         super(PresupuestoRubroitem.class);
+    }
+    
+    public List<PresupuestoRubroitem> findByPresupuesto(Presupuesto pr){
+        System.out.println("iiiiiiiiiiiiiiiiiiii"+pr.getId());
+        return em.createQuery("select pri from PresupuestoRubroitem pri where pri.presupuesto.id="+pr.getId(), PresupuestoRubroitem.class).getResultList();
     }
     
 }

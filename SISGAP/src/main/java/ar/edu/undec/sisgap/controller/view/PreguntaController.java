@@ -46,7 +46,7 @@ public class PreguntaController implements Serializable {
 
     public PaginationHelper getPagination() {
         if (pagination == null) {
-            pagination = new PaginationHelper(10) {
+            pagination = new PaginationHelper(10000000) {
 
                 @Override
                 public int getItemsCount() {
@@ -82,10 +82,10 @@ public class PreguntaController implements Serializable {
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("PreguntaCreated"));
+            JsfUtil.addSuccessMessage("Pregunta creada!");
             return prepareCreate();
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, "Error de persistencia al intentar crear una nueva Pregunta");
             return null;
         }
     }

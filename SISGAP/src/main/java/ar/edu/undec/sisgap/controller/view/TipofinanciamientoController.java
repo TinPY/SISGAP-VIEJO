@@ -17,6 +17,7 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "tipofinanciamientoController")
 @SessionScoped
@@ -46,7 +47,7 @@ public class TipofinanciamientoController implements Serializable {
 
     public PaginationHelper getPagination() {
         if (pagination == null) {
-            pagination = new PaginationHelper(10) {
+            pagination = new PaginationHelper(10000000) {
 
                 @Override
                 public int getItemsCount() {
@@ -82,10 +83,12 @@ public class TipofinanciamientoController implements Serializable {
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TipofinanciamientoCreated"));
-            return prepareCreate();
+            JsfUtil.addSuccessMessage("Tipo de Financiamiento creado!");
+            //return prepareCreate();
+            RequestContext.getCurrentInstance().execute("dfinal.show()");
+            return null;
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, "Error de persistencia al intentar crear un nuevo Tipo de Financiamiento.");
             return null;
         }
     }
@@ -99,10 +102,12 @@ public class TipofinanciamientoController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TipofinanciamientoUpdated"));
-            return "View";
+            JsfUtil.addSuccessMessage("Tipo de Financiamiento actualizado satisfactoriamente!");
+            //return "View";
+            RequestContext.getCurrentInstance().execute("dfinal.show()");
+            return null;
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, "Error de persistencia al intentar actualizar el Tipo de Financiamiento.");
             return null;
         }
     }

@@ -53,7 +53,7 @@ public class EvaluacionPreguntaController implements Serializable {
 
     public PaginationHelper getPagination() {
         if (pagination == null) {
-            pagination = new PaginationHelper(10) {
+            pagination = new PaginationHelper(10000000) {
 
                 @Override
                 public int getItemsCount() {

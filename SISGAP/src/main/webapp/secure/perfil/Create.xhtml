@@ -33,13 +33,24 @@
                     </p:fieldset>
 
                     <p:separator/>
-                    <p:commandButton action="#{perfilController.create}" value="Crear Perfil" style="display: inline-block;" icon="ui-icon-disk" ajax="false" />
+                    <p:commandButton action="#{perfilController.create}" value="Crear Perfil" style="display: inline-block;" icon="ui-icon-disk" />
                     <p:commandButton action="#{perfilController.prepareList}" value="Lista de Perfiles" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document" ajax="false" />
                     <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
                     <p:separator/>
                 </p:panel>
 
             </h:form>
+            
+            <h:form>
+                 <p:dialog id="dfinal" widgetVar="dfinal"  modal="true" closable="false"  header="Alta de Perfil" >
+                    El Perfil fue creado satisfactoriamente!
+                    <p:separator />
+                    <div align="center" >
+                        <p:commandButton value="Volver a la Lista" action="#{perfilController.prepareList()}" ajax="false" />
+                    </div>
+
+                </p:dialog>
+            </h:form>            
         </ui:define>
     </ui:composition>
 

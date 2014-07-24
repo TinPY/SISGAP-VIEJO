@@ -33,14 +33,21 @@
                     </p:fieldset>
 
                     <p:separator/>
-                    <p:commandButton action="#{beneficiarioController.update}" value="Guardar Beneficiario" style="display: inline-block;" icon="ui-icon-disk" ajax="false" />
+                    <p:commandButton action="#{beneficiarioController.update}" value="Guardar Beneficiario" style="display: inline-block;" icon="ui-icon-disk" />
                     <p:commandButton action="#{beneficiarioController.prepareList}" value="Lista de Beneficiarios" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document" ajax="false"/>
                     <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
                     <p:separator/>
                 </p:panel>
+            </h:form>
+            <h:form>
+                 <p:dialog id="dfinal" widgetVar="dfinal"  modal="true" closable="false"  header="Edición de Beneficiario" >
+                    El Beneficiario fue actualizado satisfactoriamente!
+                    <p:separator />
+                    <div align="center" >
+                        <p:commandButton value="Volver a la Lista" action="#{beneficiarioController.prepareList()}" ajax="false" />
+                    </div>
 
-
-
+                </p:dialog>
             </h:form>
         </ui:define>
     </ui:composition>

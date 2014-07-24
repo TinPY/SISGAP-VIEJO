@@ -64,8 +64,8 @@
                             </p:row>                            
                         </p:panelGrid>
                     </p:fieldset>
-                    
-                     <p:accordionPanel style="display: inline-block; width: 50%; float: right; margin-bottom: 5px; margin-top: 15px;" activeIndex="null">
+
+                    <p:accordionPanel style="display: inline-block; width: 50%; float: right; margin-bottom: 5px; margin-top: 15px;" activeIndex="null">
                         <p:tab title="Fechas">
                             <p:panelGrid styleClass="sinBordes sinFondo">
                                 <p:row >
@@ -136,19 +136,29 @@
                             </p:row>
                         </p:panelGrid>
                     </p:panel>
-                    
-                    <p:separator/>
-                    
-                    <p:commandButton action="#{convocatoriaController.update}" value="Guardar Convocatoria" style="display: inline-block;" icon="ui-icon-disk" ajax="false" />
-                    <p:commandButton action="#{convocatoriaController.prepareList}" value="Lista de Convocatorias" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document" ajax="false" />
-                    <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
-                                        
+
                     <p:separator/>
 
+                    <p:commandButton action="#{convocatoriaController.update}" value="Guardar Convocatoria" style="display: inline-block;" icon="ui-icon-disk" />
+                    <p:commandButton action="#{convocatoriaController.prepareList}" value="Lista de Convocatorias" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document" ajax="false" />
+                    <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
+
+                    <p:separator/>
 
                 </p:panel>
 
 
+            </h:form>
+
+            <h:form>
+                <p:dialog id="dfinal" widgetVar="dfinal"  modal="true" closable="false"  header="Edición de Convocatoria" >
+                    La Convocatoria fue actualizada satisfactoriamente!
+                    <p:separator />
+                    <div align="center" >
+                        <p:commandButton value="Volver a la Lista" action="#{convocatoriaController.prepareList()}" ajax="false" />
+                    </div>
+
+                </p:dialog>
             </h:form>
         </ui:define>
     </ui:composition>

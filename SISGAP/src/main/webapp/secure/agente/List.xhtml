@@ -11,20 +11,21 @@
             <h:outputText value="Lista de Agentes"></h:outputText>
         </ui:define>
         <ui:define name="body">
-            <h:form styleClass="jsfcrud_list_form">
+            <h:form id="form" styleClass="jsfcrud_list_form">
 
                 <p:panel id="pprincipal" header="Lista de Agentes" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
-                    <h:panelGroup id="messagePanel" layout="block">
-                        <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-                    </h:panelGroup>
+                    
+                    <p:growl id="message" showDetail="true" autoUpdate="true" />
+                    
+<!--                    <h:panelGroup id="messagePanel" layout="block">
+                        <p:messages autoUpdate="true"/>
+                    </h:panelGroup>-->
 
                     <h:outputText escape="false" value="Lista de agentes vacia" rendered="#{agenteController.items.rowCount == 0}"/>
                     <p:separator rendered="#{agenteController.items.rowCount == 0}" />
                     <p:commandButton action="#{agenteController.prepareCreate}" value="Nuevo Agente" rendered="#{agenteController.items.rowCount == 0}"/>
 
                     <h:panelGroup rendered="#{agenteController.items.rowCount > 0}">
-                        
-
                         <p:dataTable
                             id="tbl" 
                             value="#{agenteController.items}" 
@@ -75,19 +76,25 @@
                                 <h:outputText value=" "/>
                                 <p:commandButton action="#{agenteController.prepareEdit}" title="Editar" icon="ui-icon-pencil" ajax="false"/>
                                 <h:outputText value=" "/>
-                                <p:commandButton action="#{agenteController.destroy}" title="Eliminar" icon="ui-icon-trash" ajax="false"/>
+                                <p:commandButton action="#{agenteController.destroy}" title="Eliminar" icon="ui-icon-trash"  >
+                                    <p:confirm header="Eliminar" message="Esta seguro que desea eliminar el Agente?" icon="ui-icon-alert"  />
+                                </p:commandButton>
                             </p:column>
                         </p:dataTable>
 
                         <p:separator/>
-                        
+
                         <p:commandButton action="#{agenteController.prepareCreate}" value="Nuevo Agente" ajax="false"/>
                         <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false"/>
-                        
+
                         <p:separator/>
                     </h:panelGroup>
                 </p:panel>
 
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update=":form:tbl" />
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>
 
             </h:form>
         </ui:define>
