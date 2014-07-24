@@ -76,8 +76,8 @@
                                 <h:outputText value=" "/>
                                 <p:commandButton action="#{agenteController.prepareEdit}" title="Editar" icon="ui-icon-pencil" ajax="false"/>
                                 <h:outputText value=" "/>
-                                <p:commandButton action="#{agenteController.destroy}" title="Eliminar" icon="ui-icon-trash"  >
-                                    <p:confirm header="Eliminar" message="Esta seguro que desea eliminar el Agente?" icon="ui-icon-alert"  />
+                                <p:commandButton action="#{agenteController.destroy}" title="Eliminar" icon="ui-icon-trash" update=":form:tbl" >
+                                    <p:confirm header="Eliminar" message="Esta seguro que desea eliminar el Agente?" icon="ui-icon-alert"   />
                                 </p:commandButton>
                             </p:column>
                         </p:dataTable>
@@ -91,7 +91,7 @@
                     </h:panelGroup>
                 </p:panel>
 
-                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" >
                     <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update=":form:tbl" />
                     <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                 </p:confirmDialog>
