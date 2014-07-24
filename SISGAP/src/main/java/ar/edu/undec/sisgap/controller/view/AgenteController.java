@@ -177,10 +177,12 @@ public class AgenteController implements Serializable {
         try {
             getFacade().remove(current);
             //JsfUtil.addSuccessMessage("Agente Borrado");
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "sisgap", "Agente Borrado");
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "SISGAP", "Agente Borrado");
             FacesContext.getCurrentInstance().addMessage(null, message);
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, "Ocurrio un error durante el borrado del agente");
+            //JsfUtil.addErrorMessage(e, "Ocurrio un error durante el borrado del agente");
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "SISGAP", "Error al intentar borrar un Agente: " + e.getMessage());
+            FacesContext.getCurrentInstance().addMessage(null, message);
         }
     }
 

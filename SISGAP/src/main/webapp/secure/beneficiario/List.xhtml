@@ -11,12 +11,13 @@
             <h:outputText value="Lista de Beneficiarios"></h:outputText>
         </ui:define>
         <ui:define name="body">
-            <h:form styleClass="jsfcrud_list_form">
+            <h:form id="form" styleClass="jsfcrud_list_form">
                 
                 <p:panel id="pprincipal" header="Lista de Beneficiarios" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
-                    <h:panelGroup id="messagePanel" layout="block">
+                    <p:growl id="message" showDetail="true" autoUpdate="true" />
+<!--                    <h:panelGroup id="messagePanel" layout="block">
                         <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-                    </h:panelGroup>
+                    </h:panelGroup>-->
 
                     <h:outputText escape="false" value="La lista de beneficiarios está vacía" rendered="#{beneficiarioController.items.rowCount == 0}"/>
                     <p:separator rendered="#{beneficiarioController.items.rowCount == 0}" />
@@ -58,7 +59,9 @@
                                 <h:outputText value=" "/>
                                 <p:commandButton action="#{beneficiarioController.prepareEdit}" title="Editar" icon="ui-icon-pencil"/>
                                 <h:outputText value=" "/>
-                                <p:commandButton action="#{beneficiarioController.destroy}" title="Eliminar" icon="ui-icon-trash"/>
+                                <p:commandButton action="#{beneficiarioController.destroy}" title="Eliminar" icon="ui-icon-trash" update=":form:tbl">
+                                    <p:confirm header="Eliminar" message="¿Esta seguro que desea eliminar el Beneficiario?" icon="ui-icon-alert"   />
+                                </p:commandButton>
                             </p:column>
                         </p:dataTable>
 
@@ -70,6 +73,10 @@
                     </h:panelGroup>
                 </p:panel>
                 
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" >
+                    <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update=":form:tbl" />
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>
             </h:form>
         </ui:define>
     </ui:composition>

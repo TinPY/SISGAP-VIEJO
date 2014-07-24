@@ -14,9 +14,10 @@
             <h:form styleClass="jsfcrud_list_form">
 
                 <p:panel id="pprincipal" header="Lista de Dependencias" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
-                    <h:panelGroup id="messagePanel" layout="block">
-                        <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-                    </h:panelGroup>
+                    <p:growl id="message" showDetail="true" autoUpdate="true" />
+                    <!--                    <h:panelGroup id="messagePanel" layout="block">
+                                            <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                                        </h:panelGroup>-->
 
                     <h:outputText escape="false" value="La lista de dependencias está vacía" rendered="#{dependenciaController.items.rowCount == 0}"/>
                     <p:separator rendered="#{dependenciaController.items.rowCount == 0}" />
@@ -56,7 +57,9 @@
                                 <h:outputText value=" "/>
                                 <p:commandButton action="#{dependenciaController.prepareEdit}" title="Editar" icon="ui-icon-pencil" ajax="false" />
                                 <h:outputText value=" "/>
-                                <p:commandButton action="#{dependenciaController.destroy}" title="Eliminar" icon="ui-icon-trash" ajax="false" />
+                                <p:commandButton action="#{dependenciaController.destroy}" title="Eliminar" icon="ui-icon-trash" update=":form:tbl" >
+                                    <p:confirm header="Eliminar" message="¿Esta seguro que desea eliminar la Dependencia?" icon="ui-icon-alert"   />
+                                </p:commandButton>
                             </p:column>
                         </p:dataTable>
 
@@ -64,9 +67,14 @@
                         <p:commandButton action="#{dependenciaController.prepareCreate}" value="Nueva Dependencia" ajax="false"/>
                         <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
                         <p:separator/>
-                        
+
                     </h:panelGroup>
                 </p:panel>
+
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" >
+                    <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update=":form:tbl" />
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>
 
             </h:form>
         </ui:define>
