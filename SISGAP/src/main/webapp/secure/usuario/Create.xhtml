@@ -92,29 +92,31 @@
 
                     <p:fieldset legend="Agente" style="width: 45%; display: inline-block; float: left;" >
 
-                        <p:panelGrid id="pSeleccionAgente" columns="2"  styleClass="sinBordes sinFondo" style="width: 100%;" >
-                            <p:row>
-                                <p:column>
-                                    <p:selectOneMenu id="seleccionAgente" widgetVar="seleccionAgente" value="#{usuarioController.selecteda}" label="Agente" required="true" requiredMessage="Por favor ingrese el Agente asociado">
-                                        <f:selectItems value="#{agenteController.itemsAvailableSelectOne}" />
-                                        <p:ajax update=":form:agenteSeleccionado" event="change" />
-                                    </p:selectOneMenu>
-                                </p:column>
-                                <p:column>
+                        <p:selectOneMenu id="seleccionAgente" widgetVar="seleccionAgente" value="#{agenteController.selected}" label="Agente" required="true" requiredMessage="Por favor ingrese el Agente asociado">
+                            <f:selectItems value="#{agenteController.itemsAvailableSelectOneAgentesSinUsuario}" />
+                            <p:ajax update="agenteSeleccionado" event="change"  />
+                        </p:selectOneMenu>
 
-                                </p:column>
-                            </p:row>                            
-                        </p:panelGrid>
-
-                        <p:panel id="agenteSeleccionado">
-                            <p:panelGrid id="pagente" columns="4" styleClass="sinBordes sinFondo" style="width: 100%;" >  
-
-                                <p:outputLabel style="font-weight:bold;" value="Apellido"/>
-                                <p:outputLabel style="font-weight:bold;" value="Nombres"/>
-                                <p:outputLabel value="#{usuarioController.selecteda.apellido}" title="Apellido" />
-                                <p:outputLabel value="#{usuarioController.selecteda.nombres}" title="Nombres" />
-                            </p:panelGrid>       
-                        </p:panel>
+                        <p:outputPanel id="agenteSeleccionado">
+                            <p:panelGrid>
+                                <p:row>
+                                    <p:column >
+                                        <p:outputLabel style="font-weight:bold;" value="Apellido"/>
+                                    </p:column>
+                                    <p:column >
+                                        <p:outputLabel style="font-weight:bold;" value="Nombres"/>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column >
+                                        <p:outputLabel value="#{agenteController.selected.apellido}" title="Apellido" />
+                                    </p:column>
+                                    <p:column >
+                                        <p:outputLabel value="#{agenteController.selected.nombres}" title="Nombres" />
+                                    </p:column>
+                                </p:row>
+                            </p:panelGrid>
+                        </p:outputPanel>
 
                         <p:separator />
                         <!--<p:commandButton onclick="dagenteeditar.show()" type="button" value="Editar Responsable Técnico" />-->                                 
@@ -139,7 +141,6 @@
                     <div align="center" >
                         <p:commandButton value="Volver a la Lista" action="#{usuarioController.prepareList()}" ajax="false" />
                     </div>
-
                 </p:dialog>
             </h:form>
         </ui:define>
