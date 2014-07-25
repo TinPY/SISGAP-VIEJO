@@ -86,7 +86,7 @@
                                 <h:outputText value=" "/>
                                 <p:commandButton action="#{usuarioController.prepareEdit}" title="Editar" icon="ui-icon-pencil"/>
                                 <h:outputText value=" "/>
-                                <p:commandButton action="#{perfilController.destroy}" title="Eliminar" icon="ui-icon-trash" update="tbl">
+                                <p:commandButton action="#{usuarioController.destroy}" title="Eliminar" icon="ui-icon-trash" update="tbl">
                                     <p:confirm header="Eliminar" message="¿Esta seguro que desea eliminar el Usuario?" icon="ui-icon-alert"   />
                                 </p:commandButton>
                             </p:column>

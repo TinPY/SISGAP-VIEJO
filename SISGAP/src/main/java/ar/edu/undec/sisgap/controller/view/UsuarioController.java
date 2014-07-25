@@ -112,7 +112,23 @@ public class UsuarioController implements Serializable {
 
     public String create() {
         try {
-            getFacade().create(current);
+            FacesContext contextoA = FacesContext.getCurrentInstance();
+            AgenteController agenteController = (AgenteController) contextoA.getApplication().evaluateExpressionGet(contextoA, "#{agenteController}", AgenteController.class);
+            
+            // Encriptar contraseña
+            current.setUsuarioclave(new EncriptarSHA256().hash256(current.getUsuarioclave().trim()));
+            
+            // Fecha de alta = Fecha Actual
+            current.setUsuariofechaalta(new java.sql.Timestamp(new Date().getTime()));
+            
+            getFacade().createWithPersist(current);
+            
+            currenta = agenteController.getSelected();
+            System.out.println("Agente >> Id: " + currenta.getId() + " - Apellido y nombre: " + currenta.getApellido() + ", " + currenta.getNombres());
+            currenta.setUsuarioid(current);
+            
+            getFacadea().edit(currenta);
+            
             JsfUtil.addSuccessMessage("Usuario creado!");
             //return prepareCreate();
             RequestContext.getCurrentInstance().execute("dfinal.show()");
@@ -388,5 +404,7 @@ public class UsuarioController implements Serializable {
         }
 
     }
+    
+   
     
 }
