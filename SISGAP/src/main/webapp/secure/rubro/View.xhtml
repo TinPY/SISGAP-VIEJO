@@ -38,13 +38,12 @@
                         </p:panelGrid>
                     </p:fieldset>
 
+                    <br style="clear: both;" />
+                    
                     <p:separator />
-
                     <p:commandButton action="#{rubroController.prepareCreate}" value="Nuevo Rubro" style="display: inline-block;" icon="ui-icon-plus"  ajax="false" />
-                    <p:commandButton action="#{rubroController.destroyAndView}" value="Borrar Rubro" style="display: inline-block;" icon="ui-icon-trash"  ajax="false" />
                     <p:commandButton action="#{rubroController.prepareList}" value="Lista de Rubros" style="display: inline-block;float:right;" icon="ui-icon-document" ajax="false" />
                     <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
-
                     <p:separator />
 
                 </p:panel>

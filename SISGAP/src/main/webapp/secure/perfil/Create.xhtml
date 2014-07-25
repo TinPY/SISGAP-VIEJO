@@ -15,7 +15,7 @@
             <h:form>
                 <p:panel id="pprincipal" header="Nuevo Perfil" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
                     <h:panelGroup id="messagePanel" layout="block">
-                        <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                        <p:messages autoUpdate="true" />
                     </h:panelGroup>
                     <p:fieldset legend="Información del Perfil">
                         <p:panelGrid styleClass="sinBordes sinFondo">
@@ -33,7 +33,7 @@
                     </p:fieldset>
 
                     <p:separator/>
-                    <p:commandButton action="#{perfilController.create}" value="Crear Perfil" style="display: inline-block;" icon="ui-icon-disk" />
+                    <p:commandButton action="#{perfilController.create}" value="Crear Perfil" style="display: inline-block;" icon="ui-icon-disk" validateClient="true" update="pprincipal" />
                     <p:commandButton action="#{perfilController.prepareList}" value="Lista de Perfiles" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document" ajax="false" />
                     <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
                     <p:separator/>

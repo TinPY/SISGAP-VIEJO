@@ -11,12 +11,11 @@
             <h:outputText value="Ver Usuario"></h:outputText>
         </ui:define>
         <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
             <h:form>
                 <p:panel id="pprincipal" header="Ver Usuario" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
-
+                    <h:panelGroup id="messagePanel" layout="block">
+                        <p:messages autoUpdate="true" />
+                    </h:panelGroup>
                     <p:fieldset legend="Información del Usuario">
                         <p:panelGrid styleClass="sinBordes sinFondo">
                             <p:row>
@@ -90,10 +89,11 @@
                         </p:panelGrid>
                     </p:fieldset>
 
+                    <br style="clear: both;" />
+
                     <p:separator />
 
                     <p:commandButton action="#{usuarioController.prepareCreate}" value="Nuevo Usuario" style="display: inline-block;" icon="ui-icon-plus" />
-                    <p:commandButton action="#{usuarioController.destroyAndView}" value="Borrar Usuario" style="display: inline-block;" icon="ui-icon-trash" />
                     <p:commandButton action="#{usuarioController.prepareList}" value="Lista de Usuarios" style="display: inline-block;float:right;" icon="ui-icon-document"/>
                     <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
 

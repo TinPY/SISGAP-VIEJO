@@ -15,7 +15,7 @@
             <h:form>
                 <p:panel id="pprincipal" header="Editar Tipo de Documento" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
                     <h:panelGroup id="messagePanel" layout="block">
-                        <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                        <p:messages autoUpdate="true" />
                     </h:panelGroup>
                     <p:fieldset legend="Información del Tipo de Documento">
                         <p:panelGrid styleClass="sinBordes sinFondo">
@@ -33,7 +33,7 @@
                     </p:fieldset>
 
                     <p:separator/>
-                    <p:commandButton action="#{tipodocumentoController.update}" value="Guardar Tipo de Documento" style="display: inline-block;" icon="ui-icon-disk"  />
+                    <p:commandButton action="#{tipodocumentoController.update}" value="Guardar Tipo de Documento" style="display: inline-block;" icon="ui-icon-disk"  validateClient="true" update="pprincipal" />
                     <p:commandButton action="#{tipodocumentoController.prepareList}" value="Lista de Tipos de Documento" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document" ajax="false" />
                     <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
                     <p:separator/>

@@ -387,4 +387,8 @@ public class AgenteController implements Serializable {
         
     }
 
+    // Rellenar combo de Agentes sin Usuario en Usuarios/Create
+    public SelectItem[] getItemsAvailableSelectOneAgentesSinUsuario() {
+        return JsfUtil.getSelectItems(ejbFacade.agentesSinUsuario(), true);
+    }
 }

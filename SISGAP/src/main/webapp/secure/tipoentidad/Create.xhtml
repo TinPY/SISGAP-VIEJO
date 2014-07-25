@@ -10,12 +10,12 @@
         <ui:define name="title">
             <h:outputText value="Nuevo Tipo de Entidad"></h:outputText>
         </ui:define>
-        <ui:define name="body">
 
+        <ui:define name="body">
             <h:form>
                 <p:panel id="pprincipal" header="Nuevo Tipo de Entidad" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
                     <h:panelGroup id="messagePanel" layout="block">
-                        <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                        <p:messages autoUpdate="true" />
                     </h:panelGroup>
                     <p:fieldset legend="Información del Tipo de Entidad">
                         <p:panelGrid styleClass="sinBordes sinFondo">
@@ -33,7 +33,7 @@
                     </p:fieldset>
 
                     <p:separator/>
-                    <p:commandButton action="#{tipocomitenteController.create}" value="Crear Tipo de Entidad" style="display: inline-block;" icon="ui-icon-disk" ajax="false" />
+                    <p:commandButton action="#{tipocomitenteController.create}" value="Crear Tipo de Entidad" style="display: inline-block;" icon="ui-icon-disk" validateClient="true" update="pprincipal" />
                     <p:commandButton action="#{tipocomitenteController.prepareList}" value="Lista de Tipos de Entidad" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document" ajax="false" />
                     <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
                     <p:separator/>
@@ -41,6 +41,17 @@
                 </p:panel>
 
             </h:form>
+            
+            <h:form>
+                 <p:dialog id="dfinal" widgetVar="dfinal"  modal="true" closable="false"  header="Alta de Tipo de Entidad" >
+                    El Tipo de Entidad fue creado satisfactoriamente!
+                    <p:separator />
+                    <div align="center" >
+                        <p:commandButton value="Volver a la Lista" action="#{tipocomitenteController.prepareList()}" ajax="false" />
+                    </div>
+
+                </p:dialog>
+            </h:form>            
         </ui:define>
     </ui:composition>
 

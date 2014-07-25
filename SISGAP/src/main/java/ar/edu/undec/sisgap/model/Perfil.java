@@ -18,6 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -30,6 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "perfil", schema = "ap")
+@SequenceGenerator(name="perfil_rolid_seq", sequenceName="ap.perfil_rolid_seq", allocationSize=1)
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Perfil.findAll", query = "SELECT p FROM Perfil p"),
@@ -38,7 +40,7 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Perfil implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="perfil_rolid_seq")
     @Basic(optional = false)
     @Column(name = "rolid")
     private Integer rolid;

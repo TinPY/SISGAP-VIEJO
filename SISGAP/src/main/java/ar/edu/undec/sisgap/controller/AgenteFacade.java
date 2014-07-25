@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ar.edu.undec.sisgap.controller;
 
 import ar.edu.undec.sisgap.model.Agente;
@@ -18,6 +17,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class AgenteFacade extends AbstractFacade<Agente> {
+
     @PersistenceContext(unitName = "ar.edu.undec_SYSGAP_war_1.0-SNAPSHOTPU")
     private EntityManager em;
 
@@ -29,30 +29,40 @@ public class AgenteFacade extends AbstractFacade<Agente> {
     public AgenteFacade() {
         super(Agente.class);
     }
+
+    public Agente agentedocumento(String documento) {
+        System.out.println("--------------" + documento);
+        try {
+            return em.createQuery("select a from Agente a where a.numerodocumento like '" + documento + "%'", Agente.class).getResultList().get(0);
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
+
+    public List<Agente> filtroDocumentooApellido(String documentooapellido) {
+        try {
+            System.out.println("ffffffffffffffffffffffffffffffff" + em.createNativeQuery("select * from ap.agente where numerodocumento like '%" + documentooapellido + "%' or apellido like '%" + documentooapellido + "%'", Agente.class).getResultList().size());
+            return em.createQuery("select a from Agente a where a.numerodocumento like '" + documentooapellido + "%' or a.apellido like '%" + documentooapellido + "%'", Agente.class).getResultList();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public List<Agente> filtroTipoUsuario(int tipo) {
+        try {
+            return em.createQuery("select a from Agente a where a.usuarioid.usuariorol.rolid = '" + tipo, Agente.class).getResultList();
+        } catch (Exception e) {
+            return null;
+        }
+    }
     
-    public Agente agentedocumento(String documento){
-        System.out.println("--------------"+documento);
+    public List<Agente> agentesSinUsuario(){
         try{
-           return em.createQuery("select a from Agente a where a.numerodocumento like '"+documento+"%'", Agente.class).getResultList().get(0); 
-        }catch(Exception e){
+            return em.createQuery("select a from Agente a where a.usuarioid is null", Agente.class).getResultList();
+        } catch (Exception e){
             return null;
         }
         
-    }
-    
-    public List<Agente> filtroDocumentooApellido(String documentooapellido){
-        try{
-           System.out.println("ffffffffffffffffffffffffffffffff"+em.createNativeQuery("select * from ap.agente where numerodocumento like '%"+documentooapellido+"%' or apellido like '%"+documentooapellido+"%'", Agente.class).getResultList().size()); 
-           return em.createQuery("select a from Agente a where a.numerodocumento like '"+documentooapellido+"%' or a.apellido like '%"+documentooapellido+"%'", Agente.class).getResultList(); 
-        }catch(Exception e){
-            return null;
-        }
-    }
-    public List<Agente> filtroTipoUsuario(int tipo){
-        try{
-            return em.createQuery("select a from Agente a where a.usuarioid.usuariorol.rolid = '"+tipo, Agente.class).getResultList(); 
-        }catch(Exception e){
-            return null;
-    }
     }
 }

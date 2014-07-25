@@ -11,20 +11,22 @@
             <h:outputText value="Nuevo Usuario"></h:outputText>
         </ui:define>
         <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
+            <h:form id="form">
                 <p:panel id="pprincipal" header="Nuevo Usuario" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
+                    <h:panelGroup id="messagePanel" layout="block">
+                        <p:messages autoUpdate="true" />
+                    </h:panelGroup>
 
-                    <p:fieldset legend="Información del Usuario">
+                    <p:fieldset legend="Información del Usuario" style="width: 45%; display: inline-block; float: left;" >
                         <p:panelGrid styleClass="sinBordes sinFondo">
                             <p:row>
                                 <p:column style="width: 40%;">
                                     <h:outputLabel value="Usuario" for="usuarionombre" style="font-weight: bold;"  />
                                 </p:column>
                                 <p:column style="width: 60%;">
-                                    <p:inputText id="usuarionombre" value="#{usuarioController.selected.usuarionombre}" title="Nombre de Usuario" />
+                                    <p:inputText id="usuarionombre" value="#{usuarioController.selected.usuarionombre}" title="* Este campo es requerido"  required="true" requiredMessage="El campo nombre de usuario es requerido" />
+                                    <p:message for="usuarionombre" display="icon" /> 
+                                    <p:tooltip id="ttRol" for="usuarionombre" showEvent="focus" hideEvent="blur" />
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -88,8 +90,40 @@
                         </p:panelGrid>
                     </p:fieldset>
 
+                    <p:fieldset legend="Agente" style="width: 45%; display: inline-block; float: left;" >
+
+                        <p:panelGrid id="pSeleccionAgente" columns="2"  styleClass="sinBordes sinFondo" style="width: 100%;" >
+                            <p:row>
+                                <p:column>
+                                    <p:selectOneMenu id="seleccionAgente" widgetVar="seleccionAgente" value="#{usuarioController.selecteda}" label="Agente" required="true" requiredMessage="Por favor ingrese el Agente asociado">
+                                        <f:selectItems value="#{agenteController.itemsAvailableSelectOne}" />
+                                        <p:ajax update=":form:agenteSeleccionado" event="change" />
+                                    </p:selectOneMenu>
+                                </p:column>
+                                <p:column>
+
+                                </p:column>
+                            </p:row>                            
+                        </p:panelGrid>
+
+                        <p:panel id="agenteSeleccionado">
+                            <p:panelGrid id="pagente" columns="4" styleClass="sinBordes sinFondo" style="width: 100%;" >  
+
+                                <p:outputLabel style="font-weight:bold;" value="Apellido"/>
+                                <p:outputLabel style="font-weight:bold;" value="Nombres"/>
+                                <p:outputLabel value="#{usuarioController.selecteda.apellido}" title="Apellido" />
+                                <p:outputLabel value="#{usuarioController.selecteda.nombres}" title="Nombres" />
+                            </p:panelGrid>       
+                        </p:panel>
+
+                        <p:separator />
+                        <!--<p:commandButton onclick="dagenteeditar.show()" type="button" value="Editar Responsable Técnico" />-->                                 
+                    </p:fieldset>
+
+                    <br style="clear: both;"/>
+
                     <p:separator/>
-                    <p:commandButton action="#{usuarioController.create}" value="Crear Usuario" style="display: inline-block;" icon="ui-icon-disk" />
+                    <p:commandButton action="#{usuarioController.create}" value="Crear Usuario" style="display: inline-block;" icon="ui-icon-disk" validateClient="true" update="pprincipal" />
                     <p:commandButton action="#{usuarioController.prepareList}" value="Lista de Usuarios" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document"/>
                     <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
                     <p:separator/>

@@ -30,6 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "tipodocumento", schema = "ap")
+@SequenceGenerator(name="tipodocumento_tipodocumentoid_seq", sequenceName="ap.tipodocumento_tipodocumentoid_seq", allocationSize=1)
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Tipodocumento.findAll", query = "SELECT t FROM Tipodocumento t"),
@@ -38,7 +39,7 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Tipodocumento implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="tipodocumento_tipodocumentoid_seq")
     @Basic(optional = false)
     @Column(name = "tipodocumentoid")
     private Integer tipodocumentoid;
