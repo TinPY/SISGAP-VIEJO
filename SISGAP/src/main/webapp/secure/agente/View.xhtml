@@ -35,7 +35,7 @@
                                     <h:outputLabel value="Nombres" for="nombres" style="font-weight: bold;" />
                                 </p:column>
                                 <p:column style="width: 60%;">
-                                    <h:outputText id="nombres" value="#{agenteController.selected.nombres}" title="#{bundle.CreateAgenteTitle_nombres}" />
+                                    <h:outputText id="nombres" value="#{agenteController.selected.nombres}" title="Nombres" />
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -43,7 +43,7 @@
                                     <h:outputLabel value="Tipo de Documento" for="tipodocumentoid" style="font-weight: bold;" />
                                 </p:column>
                                 <p:column style="width: 60%;">
-                                    <h:outputText value="#{agenteController.selected.tipodocumentoid.tipodocumento}" />
+                                    <h:outputText value="#{agenteController.selected.tipodocumentoid.tipodocumento}" title="Tipo de Documento" />
                                 </p:column>
                             </p:row>
                             <p:row >
@@ -51,7 +51,15 @@
                                     <h:outputLabel value="Número de Documento" for="numerodocumento" style="font-weight: bold;" />
                                 </p:column>
                                 <p:column style="width: 60%;">
-                                    <h:outputText id="numerodocumento" value="#{agenteController.selected.numerodocumento}" title="#{bundle.CreateAgenteTitle_numerodocumento}" />
+                                    <h:outputText id="numerodocumento" value="#{agenteController.selected.numerodocumento}" title="Número de Documento}" />
+                                </p:column>
+                            </p:row>
+                            <p:row >
+                                <p:column style="width: 40%;">
+                                    <h:outputLabel value="¿Tiene usuario?" for="usuario" style="font-weight: bold;" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <h:outputText id="usuario" value="#{not empty agenteController.selected.usuarioid.usuarionombre ? 'Si' : 'No'}" title="Usuario" />
                                 </p:column>
                             </p:row>
                         </p:panelGrid>
@@ -128,6 +136,26 @@
                                         <h:outputText value="#{agenteController.selected.dependenciaid.dependencia}" />
                                     </p:column>
                                 </p:row>                            
+                            </p:panelGrid>
+                        </p:tab>
+                        <p:tab title="Usuario" rendered="#{not empty agenteController.selected.usuarioid.usuarionombre}">
+                            <p:panelGrid styleClass="sinBordes sinFondo" >
+                                <p:row>
+                                    <p:column style="width: 20%;">
+                                        <h:outputLabel value="Nombre de Usuario" for="nombreusuario" style="font-weight: bold;" />
+                                    </p:column>
+                                    <p:column style="width: 80%;">
+                                        <h:outputText id="nombreusuario" value="#{agenteController.selected.usuarioid.usuarionombre}" title="Nombre de Usuario" />
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column style="width: 20%;">
+                                        <h:outputLabel value="Rol" for="rol" style="font-weight: bold;" />
+                                    </p:column>
+                                    <p:column style="width: 80%;">
+                                        <h:outputText id="rol" value="#{agenteController.selected.usuarioid.usuariorol.rol}" title="Rol" />
+                                    </p:column>
+                                </p:row>
                             </p:panelGrid>
                         </p:tab>
                     </p:accordionPanel>

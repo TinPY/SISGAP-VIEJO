@@ -384,19 +384,4 @@ public class AgenteController implements Serializable {
                     archivo, true);
         }
     }
-
-    // CREAR USUARIO
-    // Rellenar combo de Agentes sin Usuario en Usuarios/Create
-    public SelectItem[] getItemsAvailableSelectOneAgentesSinUsuario() {
-        
-        System.out.println("Agentes sin Usuario");
-        
-        for(Agente a: this.ejbFacade.agentesSinUsuario()){
-            System.out.println(a.getApellido() + ", " + a.getNombres());
-        }
-        
-        System.out.println("-------------");
-        
-        return JsfUtil.getSelectItems(ejbFacade.agentesSinUsuario(), true);
-    }
 }

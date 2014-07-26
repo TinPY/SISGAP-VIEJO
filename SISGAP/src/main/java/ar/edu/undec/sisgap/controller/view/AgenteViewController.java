@@ -355,10 +355,10 @@ public class AgenteViewController implements Serializable {
             System.out.println("---------------");
             ejbFacade.createWithPersist(agente1);
             System.out.println("lllllllllllllllllllllll");
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "OK", "La registracion fue Satisfactoria")); 
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Nuevo Agente", "La creación del nuevo Agente se realizó satisfactoriamente")); 
         }else{
             System.out.println("8888888888888888");
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Ya Existe Una Persona con Ese Numero de Documento")); 
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Ya Existe un Agente con ese número de documento.")); 
         }
     }
 
@@ -386,4 +386,18 @@ public class AgenteViewController implements Serializable {
         itemsAgentes=i;
     }
     
+    // CREAR USUARIO
+    // Rellenar combo de Agentes sin Usuario en Usuarios/Create
+    public SelectItem[] getItemsAvailableSelectOneAgentesSinUsuario() {
+        
+        System.out.println("Agentes sin Usuario");
+        
+        for(Agente a: this.ejbFacade.agentesSinUsuario()){
+            System.out.println(a.getApellido() + ", " + a.getNombres());
+        }
+        
+        System.out.println("-------------");
+        
+        return ar.edu.undec.sisgap.controller.view.util.JsfUtil.getSelectItems(ejbFacade.agentesSinUsuario(), true);
+    }
 }

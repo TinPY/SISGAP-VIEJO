@@ -113,7 +113,7 @@ public class UsuarioController implements Serializable {
     public String create() {
         try {
             FacesContext contextoA = FacesContext.getCurrentInstance();
-            AgenteController agenteController = (AgenteController) contextoA.getApplication().evaluateExpressionGet(contextoA, "#{agenteController}", AgenteController.class);
+            AgenteViewController agenteViewController = (AgenteViewController) contextoA.getApplication().evaluateExpressionGet(contextoA, "#{agenteViewController}", AgenteViewController.class);
             
             // Encriptar contraseña
             current.setUsuarioclave(new EncriptarSHA256().hash256(current.getUsuarioclave().trim()));
@@ -123,13 +123,13 @@ public class UsuarioController implements Serializable {
             
             getFacade().createWithPersist(current);
             
-            currenta = agenteController.getSelected();
+            currenta = agenteViewController.getAgente1();
             System.out.println("Agente >> Id: " + currenta.getId() + " - Apellido y nombre: " + currenta.getApellido() + ", " + currenta.getNombres());
             currenta.setUsuarioid(current);
             
             getFacadea().edit(currenta);
             
-            JsfUtil.addSuccessMessage("Usuario creado!");
+            JsfUtil.addSuccessMessage("Usuario creado y fue asignado al Agente seleccionado/creado!");
             //return prepareCreate();
             RequestContext.getCurrentInstance().execute("dfinal.show()");
             return null;
