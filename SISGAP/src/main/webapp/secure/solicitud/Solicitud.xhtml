@@ -113,7 +113,7 @@
                                                     
                                                     <p:row rendered="#{not empty proyectoController.selected.comitenteid.razonsocial}">
                                                         <p:column>
-                                                            <p:outputLabel value="#{proyectoController.selected.comitenteid.tipocomitenteid.tipoentidad}" title="Tipo" rendered="#{not empty proyectoController.selected.comitenteid.razonsocial}"/>                                                                                                                        
+                                                            <p:outputLabel value="#{proyectoController.selected.comitenteid.tipocomitenteid.tipocomitente}" title="Tipo" rendered="#{not empty proyectoController.selected.comitenteid.razonsocial}"/>                                                                                                                        
                                                         </p:column> 
                                                         <p:column>
                                                             <p:outputLabel value="#{proyectoController.selected.comitenteid.contacto}" title="Contacto" rendered="#{not empty proyectoController.selected.comitenteid.razonsocial}"/>
@@ -665,7 +665,7 @@
                         <p:outputLabel value="Email" for="email" style="font-weight: bold;"/>
                         <p:outputLabel id="email" value="#{proyectoController.selected.comitenteid.email}" />
                         <p:outputLabel value="Tipo de Comitente" for="tipo" style="font-weight: bold;"/>
-                        <p:outputLabel id="tipo" value="#{proyectoController.selected.comitenteid.tipocomitenteid.tipoentidad}" />
+                        <p:outputLabel id="tipo" value="#{proyectoController.selected.comitenteid.tipocomitenteid.tipocomitente}" />
                         <p:outputLabel value="Sector" for="sectorid" style="font-weight: bold;"/>
                         <p:outputLabel id="sectorid" value="#{proyectoController.selected.comitenteid.sectorid.sector}" />
                     </p:panelGrid>
