@@ -90,6 +90,32 @@
                                 <p:outputLabel value="#{proyectoController.selected.comitenteid.email}" />
                             </p:panelGrid>
                         </p:tab>
+                        <p:tab title="Responsable">
+                            <p:panelGrid style="width: 100%;" styleClass="sinBordes">
+                                <p:row>
+                                    <p:column >
+                                        <h:outputText value="Nombre" style="font-weight: bold; "/>
+                                    </p:column>
+                                    <p:column  >
+                                        <h:outputText value="Documento" style="font-weight: bold;"  />
+                                    </p:column>
+                                    <p:column  >
+                                        <h:outputText value="Email" style="font-weight: bold;" />
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column headerText="Nombre">
+                                        <h:outputText value="#{proyectoController.selected.agenteid.apellido}, #{proyectoController.selected.agenteid.nombres}" title="Nombre del Responsable"/>
+                                    </p:column>
+                                    <p:column headerText="Documento">
+                                        <h:outputText value="#{proyectoController.selected.agenteid.tipodocumentoid.tipodocumento} - #{proyectoController.selected.agenteid.numerodocumento}" title="Documento del Responsable"/>
+                                    </p:column>
+                                    <p:column headerText="Email">
+                                        <h:outputText value="#{proyectoController.selected.agenteid.email}" title="Email del Responsable"/>
+                                    </p:column>
+                                </p:row>
+                            </p:panelGrid>
+                        </p:tab>
                         <p:tab title="Convocatoria">
                             <p:panelGrid style="width: 100%;" columnClasses="right,left" columns="2" styleClass="sinBordes">
                                 <p:outputLabel value="Convocatoria" style="font-weight: bold;" />
@@ -109,12 +135,11 @@
                             <p:panelGrid style="width: 100%;" styleClass="sinBordes">
                                 <p:row>
                                     <p:column>
-                                        <p:outputLabel value="Documentación" style="font-weight: bold;" />
-                                    </p:column>
-                                    <p:column>
-                                        <p:commandLink id="downloadLink" value="#{proyectoController.selected.documentacionnombre}" ajax="false" process="@this" onclick="PrimeFaces.monitorDownload(showStatus, hideStatus)" >
-                                            <p:fileDownload id="f1" value="#{proyectoController.selected.documentacion}" contentDisposition="inline" />
-                                        </p:commandLink>
+                                        <p:dataTable id="tArchivosProyecto" var="archivo" value="#{proyectoController.obtenerArchivosProyecto()}" emptyMessage="Este proyecto no tiene archivos subidos" >  
+                                            <p:column headerText="Archivos">  
+                                                <h:outputText value="#{archivo.nombre}" />  
+                                            </p:column>
+                                        </p:dataTable>
                                     </p:column>
                                 </p:row>
                             </p:panelGrid>

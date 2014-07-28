@@ -1247,6 +1247,8 @@ public class ProyectoController implements Serializable {
         
         JRDataSource preguntas = new JRBeanCollectionDataSource(e.getEvaluacionPreguntaList());
         
+        String observacion = e.getObservacion();
+        
         //Agregando los parametros
         Hashtable<String, Object> parametros = new Hashtable<String, Object>();
         parametros.put("idProyecto", this.getSelected().getId());
@@ -1254,13 +1256,14 @@ public class ProyectoController implements Serializable {
         // parametros.put("equipoTrabajo", equipoTrabajo);
         parametros.put("evaluacion", evaluacion);
         parametros.put("preguntas", preguntas);
+        parametros.put("observacion", observacion);
 
         // Llenamos el reporte
         JasperPrint jasperPrint = JasperFillManager.fillReport(rutaJasper, parametros, beanArrayDataSource);
 
         // Generamos el archivo a descargar
         HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-        httpServletResponse.addHeader("Content-disposition", "attachment; filename=idea-proyecto.pdf");
+        httpServletResponse.addHeader("Content-disposition", "attachment; filename=evaluacion.pdf");
         ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
         JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
         FacesContext.getCurrentInstance().responseComplete();
@@ -1334,6 +1337,17 @@ public class ProyectoController implements Serializable {
             listaAgentes.add(pa.getAgente());
         }
         return listaAgentes;
+    }
+    
+    public List<Archivoproyecto> obtenerArchivosProyecto(){
+        
+//        List<Archivoproyecto> listaArchivos = this.ejbFacadeap.buscarArchivosProyecto(current.getId());
+//        
+//        for(Archivoproyecto ap : listaArchivos){
+//            System.out.println(ap.getNombre());
+//        }
+        
+        return this.ejbFacadeap.buscarArchivosProyecto(current.getId());
     }
 }
 

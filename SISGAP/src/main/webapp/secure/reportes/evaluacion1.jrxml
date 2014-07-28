@@ -332,7 +332,7 @@
 				<imageExpression><![CDATA["imagenes/vinculacionTecnologica2.png"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="430" y="93" width="120" height="21" forecolor="#F8CC28" uuid="fd3be625-ec53-419d-a235-4b33db5deeee"/>
+				<reportElement x="430" y="88" width="120" height="21" forecolor="#F8CC28" uuid="fd3be625-ec53-419d-a235-4b33db5deeee"/>
 				<textElement textAlignment="Right">
 					<font fontName="SansSerif" size="15" isBold="true" isItalic="false" isUnderline="false"/>
 				</textElement>
@@ -343,7 +343,7 @@
 	<detail>
 		<band height="640">
 			<rectangle radius="0">
-				<reportElement mode="Opaque" x="0" y="433" width="556" height="15" backcolor="#000000" uuid="9b63949f-5eb6-4c73-85dc-4e5ddc02b100">
+				<reportElement mode="Opaque" x="0" y="370" width="556" height="15" backcolor="#000000" uuid="9b63949f-5eb6-4c73-85dc-4e5ddc02b100">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
@@ -622,7 +622,7 @@
 				<text><![CDATA[Proyecto]]></text>
 			</staticText>
 			<componentElement>
-				<reportElement stretchType="RelativeToBandHeight" x="0" y="160" width="555" height="230" uuid="341c73b1-1c7a-4e2e-a808-68958615d0b2"/>
+				<reportElement x="0" y="160" width="555" height="200" uuid="341c73b1-1c7a-4e2e-a808-68958615d0b2"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="datasetPreguntas" uuid="c5f81895-ac55-4a93-8cf4-3678da976ff7">
 						<dataSourceExpression><![CDATA[$P{preguntas}]]></dataSourceExpression>
@@ -680,19 +680,19 @@
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table 7_TD" height="20">
-							<textField pattern="">
+							<textField>
 								<reportElement x="0" y="0" width="80" height="20" uuid="d09ae5bd-93f9-4d07-ae58-a2faadf617d5">
 									<property name="com.jaspersoft.studio.unit.height" value="px"/>
 								</reportElement>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{aprobado} == true ? "Si" : "No"]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{aprobado}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
 				</jr:table>
 			</componentElement>
 			<staticText>
-				<reportElement x="15" y="432" width="175" height="15" forecolor="#FFFFFF" uuid="8efe3696-e864-4ee1-adb3-ebd8052ec847">
+				<reportElement x="15" y="369" width="175" height="15" forecolor="#FFFFFF" uuid="8efe3696-e864-4ee1-adb3-ebd8052ec847">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="local_mesure_unity" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -703,15 +703,12 @@
 				<text><![CDATA[Observación]]></text>
 			</staticText>
 			<textField>
-				<reportElement stretchType="RelativeToBandHeight" x="11" y="453" width="539" height="177" isPrintWhenDetailOverflows="true" uuid="eb7439f7-efef-4746-8744-0f102b398ccc"/>
+				<reportElement x="11" y="390" width="539" height="240" uuid="eb7439f7-efef-4746-8744-0f102b398ccc"/>
 				<textElement>
-					<font size="12"/>
+					<font size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{observacion}]]></textFieldExpression>
 			</textField>
-			<break>
-				<reportElement x="0" y="419" width="556" height="1" uuid="44e57384-58e9-4a46-88e2-661e64960ab9"/>
-			</break>
 		</band>
 	</detail>
 	<columnFooter>

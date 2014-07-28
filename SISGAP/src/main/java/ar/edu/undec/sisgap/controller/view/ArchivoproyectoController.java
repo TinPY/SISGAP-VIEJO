@@ -291,4 +291,8 @@ public class ArchivoproyectoController implements Serializable {
 
         getFacade().create(ap);
     }
+    
+    public void archivosPorProyecto(int proyectoid){
+        this.setCollectorArchivoProyecto(this.ejbFacade.buscarArchivosProyecto(proyectoid));
+    }
 }

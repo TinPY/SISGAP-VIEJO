@@ -7,6 +7,8 @@
 package ar.edu.undec.sisgap.controller;
 
 import ar.edu.undec.sisgap.model.Archivoproyecto;
+import ar.edu.undec.sisgap.model.Proyecto;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,6 +29,17 @@ public class ArchivoproyectoFacade extends AbstractFacade<Archivoproyecto> {
 
     public ArchivoproyectoFacade() {
         super(Archivoproyecto.class);
+    }
+    
+    public List<Archivoproyecto> buscarArchivosProyecto(int proyectoId) {
+
+        try {
+            return em.createQuery("select ap from Archivoproyecto ap join ap.proyectoid p where p.id = :id ", Archivoproyecto.class).setParameter("id", proyectoId).getResultList();
+        } catch (Exception e) {
+            System.out.println("No se pudo realizar la consulta" + e);
+            return null;
+        }
+
     }
     
 }
