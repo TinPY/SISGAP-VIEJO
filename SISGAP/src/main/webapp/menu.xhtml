@@ -6,49 +6,46 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:form id="formmenu" styleClass="menu1 rounded-corners">
-        <p:menubar autoDisplay="Home"   >
+        <p:menubar autoDisplay="Home"    >
             <c:if test="#{request.isUserInRole('Administrador')}" > 
 
-                <p:submenu label="Idea Proyecto" icon="ui-icon-document">  
+                <p:submenu label="Idea Proyecto" >  
                     <p:menuitem value="Evaluacion de Ideas Proyectos" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/evaluacionideaproyecto/List.xhtml' />  
 
                 </p:submenu>  
 
-                <p:submenu label="Proyectos" icon="ui-icon-pencil">  
-                    <p:menuitem value="Listado de Proyectos" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/proyectos/List.xhtml' icon="ui-icon-arrowreturnthick-1-w" />  
-                    
+                <p:submenu label="Proyectos">  
+                    <p:menuitem value="Listado de Proyectos" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/proyectos/List.xhtml' />  
                 </p:submenu>
 
-                <p:submenu label="Sistema" icon="ui-icon-pencil">  
+                <p:submenu label="Sistema">  
                     
-                    <p:menuitem value="Agente" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/agente/List.xhtml' icon="ui-icon-arrowreturnthick-1-w" />  
-                    <p:menuitem value="Beneficiario" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/beneficiario/List.xhtml' icon="ui-icon-arrowreturnthick-1-w" />  
-                    <p:menuitem value="Convocatoria" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/convocatoria/List.xhtml' icon="ui-icon-arrowreturnthick-1-w" />  
-                    <p:menuitem value="Dependencia" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/dependencia/List.xhtml' icon="ui-icon-arrowreturnthick-1-w" />  
-                    <p:menuitem value="Evaluacion" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/evaluacion/List.xhtml' icon="ui-icon-arrowreturnthick-1-w" />  
-                    <p:menuitem value="Fuente de Financiamiento" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/fuentefinanciamiento/List.xhtml' icon="ui-icon-arrowreturnthick-1-w" />  
-                    <p:menuitem value="Perfil" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/perfil/List.xhtml' icon="ui-icon-arrowreturnthick-1-w" />  
-                    <p:menuitem value="Rubro" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/rubro/List.xhtml' icon="ui-icon-arrowreturnthick-1-w" />  
-                    <p:menuitem value="Sector" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/sector/List.xhtml' icon="ui-icon-arrowreturnthick-1-w" />  
-                    <p:menuitem value="Tipo de Documento" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/tipodocumento/List.xhtml' icon="ui-icon-arrowreturnthick-1-w" />  
-                    <p:menuitem value="Tipo de Financiamiento" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/tipofinanciamiento/List.xhtml' icon="ui-icon-arrowreturnthick-1-w" />  
-                    <p:menuitem value="Usuarios" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/usuario/List.xhtml' icon="ui-icon-arrowreturnthick-1-w" />  
-                    <p:menuitem value="Tipo de Entidad" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/tipoentidad/List.xhtml' icon="ui-icon-arrowreturnthick-1-w" />  
-                    <p:menuitem value="Tipo de proyecto" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/tipoproyecto/List.xhtml' icon="ui-icon-arrowreturnthick-1-w" />  
+                    <p:menuitem value="Agente" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/agente/List.xhtml' />  
+                    <p:menuitem value="Beneficiario" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/beneficiario/List.xhtml'  />  
+                    <p:menuitem value="Convocatoria" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/convocatoria/List.xhtml'  />  
+                    <p:menuitem value="Dependencia" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/dependencia/List.xhtml'  />  
+                    <p:menuitem value="Evaluacion" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/evaluacion/List.xhtml'  />  
+                    <p:menuitem value="Fuente de Financiamiento" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/fuentefinanciamiento/List.xhtml'  />  
+                    <p:menuitem value="Perfil" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/perfil/List.xhtml'  />  
+                    <p:menuitem value="Rubro" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/rubro/List.xhtml'  />  
+                    <p:menuitem value="Sector" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/sector/List.xhtml'  />  
+                    <p:menuitem value="Tipo de Documento" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/tipodocumento/List.xhtml'  />  
+                    <p:menuitem value="Tipo de Financiamiento" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/tipofinanciamiento/List.xhtml'  />  
+                    <p:menuitem value="Usuarios" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/usuario/List.xhtml'  />  
+                    <p:menuitem value="Tipo de Entidad" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/tipoentidad/List.xhtml'  />  
+                    <p:menuitem value="Tipo de proyecto" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/tipoproyecto/List.xhtml'  />  
 
                 </p:submenu>
-                <p:submenu label="Ayuda" icon="ui-icon-help">  
+                <p:submenu label="Ayuda" >  
                     <p:menuitem value="Acerca de ..." url="#" />  
-                    <p:submenu label="Manual" icon="ui-icon-search">  
+                    <p:submenu label="Manual" >  
 
                     </p:submenu>  
                 </p:submenu> 
 
-                <p:submenu label="Mi Cuenta" icon="ui-icon-help">  
-                    <p:menuitem value="Mi Cuenta" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/micuenta/Edit.xhtml' icon="ui-icon-close" />  
+                <p:submenu label="Mi Cuenta" >  
+                    <p:menuitem value="Mi Cuenta" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/micuenta/Edit.xhtml'  />  
                 </p:submenu> 
-
-
 
                 <f:facet name="options">  
                     <p:outputLabel value="Bienvenido #{request.getUserPrincipal()}" style="font-family: 'Montserrat'; font-size: 12px !important; margin-right: 10px;"/>
@@ -59,14 +56,14 @@
 
             <c:if test="#{!request.isUserInRole('Administrador')}" > 
 
-                <p:submenu label="Solicitudes" icon="ui-icon-document">  
+                <p:submenu label="Solicitudes" >  
                     <p:menuitem value="Nueva Solicitud" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/solicitud/Solicitud.xhtml' />  
                     <p:menuitem value="Listado de Solicitudes" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/solicitud/List.xhtml' />  
 
                 </p:submenu>  
 
-                <p:submenu label="Proyectos" icon="ui-icon-pencil">  
-                    <p:menuitem value="Plan y Equipo de trabajo" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/proyectos/List.xhtml' icon="ui-icon-arrowreturnthick-1-w" />  
+                <p:submenu label="Proyectos" >  
+                    <p:menuitem value="Plan y Equipo de trabajo" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/proyectos/List.xhtml'  />  
 
                 </p:submenu>
 

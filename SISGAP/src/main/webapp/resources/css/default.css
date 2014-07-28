@@ -3,11 +3,41 @@
   font-size: 13px !important;
 }*/
 
+html {
+	height: 100%;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary {
+	display: block;
+}
+
 body {
+    font-family: Arial, Helvetica, sans-serif;
+    
     font-size: 12px !important;
 
     background-image: url("#{resource['img:/tramaMediaClara.jpg']}");
     background-repeat: repeat;
+    
+    height: 100%;
+}
+
+.left {
+    text-align: left !important;
+}
+.right {
+    text-align: right !important;
+}
+
+.center {
+    text-align: center;
+}
+
+a {
+    color: #e33b06;
+}
+
+table {
+    empty-cells: show;
 }
 
 .fondoTextura{
@@ -79,4 +109,92 @@ body {
     font-weight: 400;
     /*src: local('Varela Round'), local('VarelaRound-Regular'), url(https://themes.googleusercontent.com/static/fonts/varelaround/v4/APH4jr0uSos5wiut5cpjrnhCUOGz7vYGh680lGh-uXM.woff) format('woff');*/
     src: local('Varela Round'), local('VarelaRound-Regular'), url("#{resource['fonts:/VarelaRound-Regular.ttf']}");;
+}
+
+
+.wrapper {
+	width: 100%;
+	min-width: 1000px;
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+}
+
+
+/* Header
+-----------------------------------------------------------------------------*/
+.header {
+	/*height: 18%;*/
+        width: 950px;
+        height: 191px;
+        margin: 0 auto;
+        background-color: #003366; 
+        background-image: url("#{resource['img:/vinculacionTecnologica.png']}");        
+        background-size: 100%;
+        background-repeat: no-repeat ;
+        
+        /*position: relative;*/
+}
+
+/* Middle
+-----------------------------------------------------------------------------*/
+.middle {
+	width: 100%;
+	padding: 0 0 100px;
+	position: relative;
+}
+.middle:after {
+	display: table;
+	clear: both;
+	content: '';
+}
+.container {
+	width: 100%;
+	float: left;
+	//overflow: hidden;
+}
+
+.menu1{
+    width: 950px; 
+    margin: 6px auto 6px auto;
+    
+}
+.content {
+	
+}
+
+/* Left Sidebar
+-----------------------------------------------------------------------------*/
+/*.left-sidebar {
+        float: left;
+	width: 15%;
+	margin-left: -100%;
+	position: relative;
+	background: #B5E3FF;
+}
+*/
+
+/* Footer
+-----------------------------------------------------------------------------*/
+.footer {
+        width: 950px;
+        /*min-width: 100%;*/        
+        background-color: #444444;    
+	margin: auto ;
+	height: 5%;
+        vertical-align: middle;
+        text-align: center;
+	position: relative;
+        /*background-color: #6685A3; */
+
+}
+
+.ui-icon-imprimir{   
+    width: 32px;   
+    height: 32px;   
+    background-image: url("#{resource['img/print_printer.png']}");   
+} 
+
+.ui-icon-cancelar{
+    background-image: url("#{resource['img/cancel.jpg']}") !important;
 }

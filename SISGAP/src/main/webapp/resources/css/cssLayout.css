@@ -39,8 +39,8 @@ body {
         background-image: url("#{resource['img:/vinculacionTecnologica.png']}");        
         background-size: 100%;
         background-repeat: no-repeat ;
-                          
-        position: relative;
+        
+        /*position: relative;*/
 }
 
 /* Middle
