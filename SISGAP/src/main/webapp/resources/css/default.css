@@ -64,8 +64,8 @@ table {
     -webkit-border-radius: 11px;
     -khtml-border-radius: 11px;        
     border-radius: 11px;
-    /*behavior: url(border-radius.htc);*/
-    behavior: url("#{resource['css:/border-radius.htc']}");
+    /*behavior: url(border-radius.htc); NO*/
+    /*behavior: url("#{resource['css:/border-radius.htc']}"); //FUNCIONA*/
 }
 
 .cabecera1 {
@@ -129,6 +129,7 @@ table {
         height: 191px;
         margin: 0 auto;
         background-color: #003366; 
+/*        background-color: transparent;*/
         background-image: url("#{resource['img:/vinculacionTecnologica.png']}");        
         background-size: 100%;
         background-repeat: no-repeat ;
