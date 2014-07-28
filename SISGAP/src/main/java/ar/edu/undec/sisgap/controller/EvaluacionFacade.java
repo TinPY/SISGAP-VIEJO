@@ -7,6 +7,7 @@
 package ar.edu.undec.sisgap.controller;
 
 import ar.edu.undec.sisgap.model.Evaluacion;
+import ar.edu.undec.sisgap.model.Proyecto;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,6 +28,11 @@ public class EvaluacionFacade extends AbstractFacade<Evaluacion> {
 
     public EvaluacionFacade() {
         super(Evaluacion.class);
+    }
+    
+    public Evaluacion obtenerEvaluacionPorProyecto(int proyectoId){
+        //return em.createQuery("select p from Proyecto p join p.agenteid a where a.id = :id ", Proyecto.class).setParameter("id", agenteid).getResultList();
+        return em.createQuery("SELECT e FROM Evaluacion e join e.proyectoid p WHERE p.id = :id", Evaluacion.class).setParameter("id", proyectoId).getSingleResult();
     }
     
 }

@@ -134,6 +134,16 @@
                                 <p:outputLabel value="#{proyectoController.selected.fuentefinanciamientoid.fuentefinanciamiento}" title="#{bundle.ViewProyectoTitle_convocatoriaid}"/>
                             </p:panelGrid>
                         </p:tab>
+                        <p:tab title="Equipo de Trabajo">
+                            <p:dataTable id="tEquipoTrabajo" var="integrante" value="#{proyectoController.obtenerEquipoTrabajo()}" >  
+                                <p:column headerText="Apellido y Nombre">  
+                                    <h:outputText value="#{integrante.apellido}, #{integrante.nombres}" />  
+                                </p:column>
+                                <p:column headerText="Email">
+                                    <h:outputText value="#{integrante.email}"/>
+                                </p:column>
+                            </p:dataTable>
+                        </p:tab>
                     </p:accordionPanel>
 
                     <p:panel header="Descripción" toggleable="true" style="margin-bottom: 5px; clear: both; width: 100%;" collapsed="true">

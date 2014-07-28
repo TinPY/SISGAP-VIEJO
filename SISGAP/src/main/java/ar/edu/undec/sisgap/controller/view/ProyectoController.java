@@ -9,6 +9,7 @@ import ar.edu.undec.sisgap.model.Agente;
 import ar.edu.undec.sisgap.model.Archivoproyecto;
 import ar.edu.undec.sisgap.model.Estadoproyecto;
 import ar.edu.undec.sisgap.model.Etapa;
+import ar.edu.undec.sisgap.model.Evaluacion;
 import ar.edu.undec.sisgap.model.EvaluacionPregunta;
 import ar.edu.undec.sisgap.model.EvaluacionPreguntaPK;
 import ar.edu.undec.sisgap.model.Presupuesto;
@@ -946,7 +947,9 @@ public class ProyectoController implements Serializable {
 
             this.ejbFacade.edit(current);
 
-            if (new EnviarMail().enviarMailEvaluacionIdeaProyecto(current.getAgenteid(), current.getObservaciones())) {
+            // PRUEBA [!!!!!!!!!!!!]
+            //if (new EnviarMail().enviarMailEvaluacionIdeaProyecto(current.getAgenteid(), current.getObservaciones())) {
+            if(true){
                 RequestContext.getCurrentInstance().execute("dfinal.show()");
             } else {
                 FacesContext.getCurrentInstance().addMessage("growlprincipal", new FacesMessage("Error! ", "No se pudo evaluar del Proyecto."));
@@ -957,9 +960,7 @@ public class ProyectoController implements Serializable {
             ejbevaluacion.remove(evaluacion.getSelected());
             this.ejbFacade.edit(proyectoViejo);
             FacesContext.getCurrentInstance().addMessage("growlprincipal", new FacesMessage("Error! ", "No se pudo evaluar del Proyecto "));
-
         }
-
     }
 
     public String armarObservaciones() {
@@ -1209,6 +1210,62 @@ public class ProyectoController implements Serializable {
                     archivo, true);
         }
     }
+    
+    // REPORTE EVALUACION IDEA PROYECTO
+    
+    public void pdfEvaluacionIdeaProyecto() throws JRException, IOException {
+
+        // Obtengo la ruta absoluta del archivo compilado del reporte
+        String rutaJasper = FacesContext.getCurrentInstance().getExternalContext().getRealPath("secure/reportes/evaluacion.jasper");
+
+        // Fuente de datos del reporte
+        JRBeanArrayDataSource beanArrayDataSource = new JRBeanArrayDataSource(new Proyecto[]{this.getSelected()});
+
+        // FUENTE DE DATOS PARA EL SUBREPORTE (DETALLE DEL PRESUPUESTO)
+        // Presupuesto presupuesto = this.ejbFacadep.findporProyecto(this.getSelected().getId());
+        // JRDataSource detallePresupuesto = new JRBeanCollectionDataSource(presupuesto.getPresupuestoRubroList());
+        
+        // FUENTE DE DATOS PARA EL EQUIPO DE TRABAJO
+//        List<Agente> listaAgentes = new ArrayList<Agente>() ;
+//        List<ProyectoAgente> listaProyectoAgente = this.ejbproyectoagente.buscarEquipoTrabajo(current.getId());
+//        
+//        for(ProyectoAgente pa : listaProyectoAgente){
+//            System.out.println(pa.getAgente().getApellido() + ", " + pa.getAgente().getNombres());
+//            listaAgentes.add(pa.getAgente());
+//        }
+//        
+//        JRDataSource equipoTrabajo = new JRBeanCollectionDataSource(listaAgentes);
+        
+        // FUENTE DE DATOS PARA LE EVALUACION
+        Evaluacion e = this.ejbevaluacion.obtenerEvaluacionPorProyecto(current.getId());
+        
+        JRBeanArrayDataSource evaluacion = new JRBeanArrayDataSource(new Evaluacion[]{e});
+        
+        for(EvaluacionPregunta ep : e.getEvaluacionPreguntaList()){
+            System.out.println("Pregunta: " + ep.getPregunta().getPregunta());
+        }
+        
+        JRDataSource preguntas = new JRBeanCollectionDataSource(e.getEvaluacionPreguntaList());
+        
+        //Agregando los parametros
+        Hashtable<String, Object> parametros = new Hashtable<String, Object>();
+        parametros.put("idProyecto", this.getSelected().getId());
+        // parametros.put("presupuesto", detallePresupuesto);
+        // parametros.put("equipoTrabajo", equipoTrabajo);
+        parametros.put("evaluacion", evaluacion);
+        parametros.put("preguntas", preguntas);
+
+        // Llenamos el reporte
+        JasperPrint jasperPrint = JasperFillManager.fillReport(rutaJasper, parametros, beanArrayDataSource);
+
+        // Generamos el archivo a descargar
+        HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        httpServletResponse.addHeader("Content-disposition", "attachment; filename=idea-proyecto.pdf");
+        ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
+        JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
+        FacesContext.getCurrentInstance().responseComplete();
+    }
+    
  
     // REPORTE GANTT
     public void pdfEtapas() throws JRException, IOException {
