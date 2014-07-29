@@ -1,9 +1,9 @@
 package ar.edu.undec.sisgap.controller.view;
 
-import ar.edu.undec.sisgap.model.Pregunta;
+import ar.edu.undec.sisgap.model.Tipoevaluacion;
 import ar.edu.undec.sisgap.controller.view.util.JsfUtil;
 import ar.edu.undec.sisgap.controller.view.util.PaginationHelper;
-import ar.edu.undec.sisgap.controller.PreguntaFacade;
+import ar.edu.undec.sisgap.controller.TipoevaluacionFacade;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -20,29 +20,29 @@ import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import org.primefaces.context.RequestContext;
 
-@ManagedBean(name = "preguntaController")
+@ManagedBean(name = "tipoevaluacionController")
 @SessionScoped
-public class PreguntaController implements Serializable {
+public class TipoevaluacionController implements Serializable {
 
-    private Pregunta current;
+    private Tipoevaluacion current;
     private DataModel items = null;
     @EJB
-    private ar.edu.undec.sisgap.controller.PreguntaFacade ejbFacade;
+    private ar.edu.undec.sisgap.controller.TipoevaluacionFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
-    public PreguntaController() {
+    public TipoevaluacionController() {
     }
 
-    public Pregunta getSelected() {
+    public Tipoevaluacion getSelected() {
         if (current == null) {
-            current = new Pregunta();
+            current = new Tipoevaluacion();
             selectedItemIndex = -1;
         }
         return current;
     }
 
-    private PreguntaFacade getFacade() {
+    private TipoevaluacionFacade getFacade() {
         return ejbFacade;
     }
 
@@ -70,13 +70,13 @@ public class PreguntaController implements Serializable {
     }
 
     public String prepareView() {
-        current = (Pregunta) getItems().getRowData();
+        current = (Tipoevaluacion) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
     public String prepareCreate() {
-        current = new Pregunta();
+        current = new Tipoevaluacion();
         selectedItemIndex = -1;
         return "Create";
     }
@@ -84,18 +84,18 @@ public class PreguntaController implements Serializable {
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage("Pregunta creada correctamente!");
+            JsfUtil.addSuccessMessage("Tipo de Evaluación creado correctamente!");
             //return prepareCreate();
             RequestContext.getCurrentInstance().execute("dfinal.show()");
             return null;
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, "Error de persistencia al intentar crear una nueva Pregunta.");
+            JsfUtil.addErrorMessage(e, "Error de persistencia al intentar crear un nuevo Tipo de Evaluación.");
             return null;
         }
     }
 
     public String prepareEdit() {
-        current = (Pregunta) getItems().getRowData();
+        current = (Tipoevaluacion) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
@@ -103,18 +103,18 @@ public class PreguntaController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage("Pregunta actualizada correctamente!");
+            JsfUtil.addSuccessMessage("Tipo de Evaluación actualizado correctamente!");
             //return "View";
             RequestContext.getCurrentInstance().execute("dfinal.show()");
             return null;
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, "Error de persistencia al intentar actualizar la Pregunta.");
+            JsfUtil.addErrorMessage(e, "Error de persistencia al intentar actualizar el Tipo de Evaluación.");
             return null;
         }
     }
 
     public String destroy() {
-        current = (Pregunta) getItems().getRowData();
+        current = (Tipoevaluacion) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
@@ -139,11 +139,11 @@ public class PreguntaController implements Serializable {
         try {
             getFacade().remove(current);
             //JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("BeneficiarioDeleted"));
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "SISGAP", "Pregunta Borrada");
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "SISGAP", "Tipo de Evaluación Borrado");
             FacesContext.getCurrentInstance().addMessage(null, message);
         } catch (Exception e) {
             //JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "SISGAP", "Error al intentar borrar la Pregunta: " + e.getMessage());
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "SISGAP", "Error al intentar borrar el Tipo de Evaluación: " + e.getMessage());
             FacesContext.getCurrentInstance().addMessage(null, message);
         }
     }
@@ -198,16 +198,16 @@ public class PreguntaController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    @FacesConverter(forClass = Pregunta.class)
-    public static class PreguntaControllerConverter implements Converter {
+    @FacesConverter(forClass = Tipoevaluacion.class)
+    public static class TipoevaluacionControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            PreguntaController controller = (PreguntaController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "preguntaController");
+            TipoevaluacionController controller = (TipoevaluacionController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "tipoevaluacionController");
             return controller.ejbFacade.find(getKey(value));
         }
 
@@ -228,11 +228,11 @@ public class PreguntaController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Pregunta) {
-                Pregunta o = (Pregunta) object;
-                return getStringKey(o.getId());
+            if (object instanceof Tipoevaluacion) {
+                Tipoevaluacion o = (Tipoevaluacion) object;
+                return getStringKey(o.getTipoevaluacionid());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Pregunta.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Tipoevaluacion.class.getName());
             }
         }
 

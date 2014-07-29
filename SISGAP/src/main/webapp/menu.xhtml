@@ -24,7 +24,11 @@
                     <p:menuitem value="Beneficiario" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/beneficiario/List.xhtml'  />  
                     <p:menuitem value="Convocatoria" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/convocatoria/List.xhtml'  />  
                     <p:menuitem value="Dependencia" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/dependencia/List.xhtml'  />  
-                    <p:menuitem value="Evaluacion" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/evaluacion/List.xhtml'  />  
+                    <p:submenu label="Evaluación">
+                        <p:menuitem value="Evaluacion" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/evaluacion/List.xhtml'  />  
+                        <p:menuitem value="Preguntas" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/pregunta/List.xhtml'  />  
+                        <p:menuitem value="Tipos de Evaluación" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/tipoevaluacion/List.xhtml'  />  
+                    </p:submenu>
                     <p:menuitem value="Fuente de Financiamiento" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/fuentefinanciamiento/List.xhtml'  />  
                     <p:menuitem value="Perfil" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/perfil/List.xhtml'  />  
                     <p:menuitem value="Rubro" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/rubro/List.xhtml'  />  

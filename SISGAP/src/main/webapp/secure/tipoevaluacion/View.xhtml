@@ -15,24 +15,24 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <p:panel id="pprincipal" header="Ver Tipo de Proyecto" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
+                <p:panel id="pprincipal" header="Ver Tipo de Evaluación" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
 
-                    <p:fieldset legend="Información del Tipo de Proyecto">
+                    <p:fieldset legend="Información del Tipo de Evaluación">
                         <p:panelGrid styleClass="sinBordes sinFondo" style="width: 100%;">
                             <p:row>
                                 <p:column style="width: 40%;">
-                                    <h:outputLabel value="Nro" for="tipoproyectoid"  style="font-weight: bold;" />
+                                    <h:outputLabel value="Nro" for="tipoevaluacionid"  style="font-weight: bold;" />
                                 </p:column>
                                 <p:column style="width: 60%;">
-                                    <h:outputText id="tipoproyectoid" value="#{tipoproyectoController.selected.id}" title="Nro" style="width: 100%;"/>
+                                    <h:outputText id="tipoevaluacionid" value="#{tipoevaluacionController.selected.tipoevaluacionid}" title="Nro" style="width: 100%;"/>
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column style="width: 40%;">
-                                    <h:outputLabel value="Tipo de Proyecto" for="tipoproyecto"  style="font-weight: bold;" />
+                                    <h:outputLabel value="Tipo de Evaluación" for="tipoevaluacion"  style="font-weight: bold;" />
                                 </p:column>
                                 <p:column style="width: 60%;">
-                                    <h:outputText id="tipoproyecto" value="#{tipoproyectoController.selected.tipo}" title="Tipo de Proyecto" style="width: 100%;" />
+                                    <h:outputText id="tipoevaluacion" value="#{tipoevaluacionController.selected.tipoevaluacion}" title="Tipo de Evaluación" style="width: 100%;" />
                                 </p:column>
                             </p:row>
                         </p:panelGrid>
@@ -42,8 +42,8 @@
                     
                     <p:separator />
 
-                    <p:commandButton action="#{tipoproyectoController.prepareCreate}" value="Nuevo Tipo de Proyecto" style="display: inline-block;" icon="ui-icon-plus" ajax="false" />
-                    <p:commandButton action="#{tipoproyectoController.prepareList}" value="Lista de Tipos de Proyecto" style="display: inline-block;float:right;" icon="ui-icon-document" ajax="false" />
+                    <p:commandButton action="#{tipoevaluacionController.prepareCreate}" value="Nuevo Tipo de Evaluación" style="display: inline-block;" icon="ui-icon-plus" ajax="false" />
+                    <p:commandButton action="#{tipoevaluacionController.prepareList}" value="Lista de Tipos de Evaluación" style="display: inline-block;float:right;" icon="ui-icon-document" ajax="false" />
                     <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
 
                     <p:separator />
