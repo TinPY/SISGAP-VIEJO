@@ -122,7 +122,7 @@ public class BeneficiarioController implements Serializable {
             RequestContext.getCurrentInstance().execute("dfinal.show()");
             return null;
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, "Error de persistencia al intentar actualizar un nuevo Beneficiario");
+            JsfUtil.addErrorMessage(e, "Error de persistencia al intentar actualizar un Beneficiario");
             return null;
         }
     }

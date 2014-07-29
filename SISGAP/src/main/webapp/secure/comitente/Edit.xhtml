@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="Editar Comitente"></h:outputText>
+        </ui:define>
+        <ui:define name="body" >
+
+            <h:form >
+                <p:panel id="pprincipal" header="Editar Comitente" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
+                    <h:panelGroup id="messagePanel" layout="block">
+                        <p:messages autoUpdate="true" />
+                    </h:panelGroup>
+
+                    <p:fieldset legend="Información General" style="display: inline-block; width: 46%; float: left;">
+                        <p:panelGrid styleClass="sinBordes sinFondo">
+                            <p:row>
+                                <p:column style="width: 40%;">
+                                    <p:outputLabel value="Razon Social" for="razonsocial" style="font-weight: bold;" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <p:inputText id="razonsocial" value="#{comitenteController.selected.razonsocial}" title="* Este campo es obligatorio"  required="true" requiredMessage="El campo Razon Social es obligatorio" />
+                                    <p:message for="razonsocial" display="icon"  /> 
+                                    <p:tooltip id="ttRazonSocial" for="razonsocial" showEvent="focus" hideEvent="blur" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column style="width: 40%;">
+                                    <p:outputLabel value="Cuit" for="cuit" style="font-weight: bold;" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <p:inputText id="cuit" value="#{comitenteController.selected.cuit}" title="* Este campo es obligatorio" required="true" requiredMessage="El campo CUIT es obligatorio"/>
+                                    <p:message for="cuit" display="icon" /> 
+                                    <p:tooltip id="ttCuit" for="cuit" showEvent="focus" hideEvent="blur" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column style="width: 40%;">
+                                    <p:outputLabel value="Tipo de Comitente" for="tipoComitente" style="font-weight: bold;" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <p:selectOneMenu id="tipoComitente" value="#{comitenteController.selected.tipocomitenteid}" label="* Este campo es obligatorio" required="true" requiredMessage="Por favor seleccione el Tipo de Comitente" >
+                                        <f:selectItems value="#{tipocomitenteController.itemsAvailableSelectOne}"/>                                    
+                                    </p:selectOneMenu>
+                                    <p:message for="tipoComitente" display="icon" /> 
+                                    <p:tooltip id="ttTipoComitente" for="tipoComitente" showEvent="focus" hideEvent="blur" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column style="width: 40%;">
+                                    <p:outputLabel value="Sector" for="sector" style="font-weight: bold;" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <p:selectOneMenu id="sector" value="#{comitenteController.selected.sectorid}" label="* Este campo es obligatorio" required="true" requiredMessage="Por favor seleccione el Sector" >
+                                        <f:selectItems value="#{sectorController.itemsAvailableSelectOne}"/>                                    
+                                    </p:selectOneMenu>
+                                    <p:message for="sector" display="icon" /> 
+                                    <p:tooltip id="ttSector" for="sector" showEvent="focus" hideEvent="blur" />
+                                </p:column>
+                            </p:row>                            
+                        </p:panelGrid>
+                    </p:fieldset>
+
+                    <p:accordionPanel style="display: inline-block; width: 50%; float: right; margin-bottom: 5px; margin-top: 15px;" >
+                        <p:tab title="Información de Contacto">
+                            <p:panelGrid styleClass="sinBordes sinFondo">
+                                <p:row>
+                                    <p:column style="width: 40%;">
+                                        <p:outputLabel value="Contacto" for="contacto" style="font-weight: bold;" />
+                                    </p:column>
+                                    <p:column style="width: 60%;">
+                                        <p:inputText id="contacto" value="#{comitenteController.selected.contacto}" title="* Este campo es obligatorio" required="true" requiredMessage="El campo Contacto es obligatorio"/>
+                                        <p:message for="contacto" display="icon" /> 
+                                        <p:tooltip id="ttContacto" for="contacto" showEvent="focus" hideEvent="blur" />
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column style="width: 40%;">
+                                        <p:outputLabel value="Cargo del Contacto" for="cargoContacto" style="font-weight: bold;" />
+                                    </p:column>
+                                    <p:column style="width: 60%;">
+                                        <p:inputText id="cargoContacto" value="#{comitenteController.selected.cuit}" title="* Este campo es obligatorio" required="true" requiredMessage="El campo Cargo del Contacto es obligatorio"/>
+                                        <p:message for="cargoContacto" display="icon" /> 
+                                        <p:tooltip id="ttCargoContacto" for="cargoContacto" showEvent="focus" hideEvent="blur" />
+                                    </p:column>
+                                </p:row>                     
+                                <p:row>
+                                    <p:column style="width: 40%;">
+                                        <p:outputLabel value="Teléfono" for="telefono" style="font-weight: bold;" />
+                                    </p:column>
+                                    <p:column style="width: 60%;">
+                                        <p:inputText id="telefono" value="#{comitenteController.selected.telefono}" title="* Este campo es obligatorio" required="true" requiredMessage="El campo Télefono es obligatorio"/>
+                                        <p:message for="telefono" display="icon" /> 
+                                        <p:tooltip id="ttTelefono" for="telefono" showEvent="focus" hideEvent="blur" />
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column style="width: 40%;">
+                                        <p:outputLabel value="Email" for="email" style="font-weight: bold;" />
+                                    </p:column>
+                                    <p:column style="width: 60%;">
+                                        <p:inputText id="email" value="#{comitenteController.selected.email}" title="* Este campo es obligatorio" required="true" requiredMessage="El campo Email es obligatorio"/>
+                                        <p:message for="email" display="icon" /> 
+                                        <p:tooltip id="ttEmail" for="email" showEvent="focus" hideEvent="blur" />
+                                    </p:column>
+                                </p:row>                                
+                            </p:panelGrid>
+                        </p:tab>
+                    </p:accordionPanel>
+
+                    <br style="clear: both;"/>
+
+                    <p:separator />
+                    <p:commandButton action="#{comitenteController.update}" value="Guardar Comitente" style="display: inline-block;" icon="ui-icon-disk" validateClient="true" update="pprincipal" />
+                    <p:commandButton action="#{comitenteController.prepareList}" value="Lista de Comitentes" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document" ajax="false" />
+                    <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home"  ajax="false" />
+                    <p:separator/>
+                    <!--<h:link outcome="/index" value="Inicio"/>-->
+
+                </p:panel>
+
+            </h:form>
+            <h:form>
+                <p:dialog id="dfinal" widgetVar="dfinal"  modal="true" closable="false"  header="Edición de Comitente" >
+                    El Comitente fue actualizado satisfactoriamente!
+                    <p:separator />
+                    <div align="center" >
+                        <p:commandButton value="Volver a la Lista" action="#{comitenteController.prepareList()}" ajax="false" />
+                    </div>
+
+                </p:dialog>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

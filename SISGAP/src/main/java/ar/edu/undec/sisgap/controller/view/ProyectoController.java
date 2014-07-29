@@ -1236,14 +1236,14 @@ public class ProyectoController implements Serializable {
 //        
 //        JRDataSource equipoTrabajo = new JRBeanCollectionDataSource(listaAgentes);
         
-        // FUENTE DE DATOS PARA LE EVALUACION
+        // FUENTE DE DATOS PARA LA EVALUACION
         Evaluacion e = this.ejbevaluacion.obtenerEvaluacionPorProyecto(current.getId());
         
         JRBeanArrayDataSource evaluacion = new JRBeanArrayDataSource(new Evaluacion[]{e});
         
-        for(EvaluacionPregunta ep : e.getEvaluacionPreguntaList()){
-            System.out.println("Pregunta: " + ep.getPregunta().getPregunta());
-        }
+//        for(EvaluacionPregunta ep : e.getEvaluacionPreguntaList()){
+//            System.out.println("Pregunta: " + ep.getPregunta().getPregunta());
+//        }
         
         JRDataSource preguntas = new JRBeanCollectionDataSource(e.getEvaluacionPreguntaList());
         
@@ -1350,6 +1350,3 @@ public class ProyectoController implements Serializable {
         return this.ejbFacadeap.buscarArchivosProyecto(current.getId());
     }
 }
-
-
-
