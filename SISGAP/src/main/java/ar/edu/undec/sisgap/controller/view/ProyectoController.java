@@ -1097,7 +1097,7 @@ public class ProyectoController implements Serializable {
     public void pdfIdeaProyecto() throws JRException, IOException {
 
         // Obtengo la ruta absoluta del archivo compilado del reporte
-        String rutaJasper = FacesContext.getCurrentInstance().getExternalContext().getRealPath("secure/reportes/solicitudB.jasper");
+        String rutaJasper = FacesContext.getCurrentInstance().getExternalContext().getRealPath("secure/reportes/solicitud.jasper");
 
         // Fuente de datos del reporte
         JRBeanArrayDataSource beanArrayDataSource = new JRBeanArrayDataSource(new Proyecto[]{this.getSelected()});
@@ -1157,7 +1157,7 @@ public class ProyectoController implements Serializable {
     public void imprimirIdeaProyecto() throws JRException, IOException {
 
         // Obtengo la ruta absoluta del archivo compilado del reporte
-        String rutaJasper = FacesContext.getCurrentInstance().getExternalContext().getRealPath("secure/reportes/solicitudB.jasper");
+        String rutaJasper = FacesContext.getCurrentInstance().getExternalContext().getRealPath("secure/reportes/solicitud.jasper");
 
         // Fuente de datos del reporte
         JRBeanArrayDataSource beanArrayDataSource = new JRBeanArrayDataSource(new Proyecto[]{this.getSelected()});
@@ -1274,7 +1274,7 @@ public class ProyectoController implements Serializable {
     public void pdfEtapas() throws JRException, IOException {
 
        // Ruta absoluta del archivo compilado del reporte
-        String rutaJasper = FacesContext.getCurrentInstance().getExternalContext().getRealPath("secure/reportes/evaluacion.jasper");
+        String rutaJasper = FacesContext.getCurrentInstance().getExternalContext().getRealPath("secure/reportes/proyecto.jasper");
 
         // Fuente de datos del reporte
         //JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(this.ejbetapa.buscarEtapasProyecto(current.getId()));
@@ -1309,6 +1309,7 @@ public class ProyectoController implements Serializable {
             }
         }
         
+        // Debug
         for(Tarea t : listaTareas){
             System.out.println("ID: " + t.getId() + " - Nombre: " + t.getTarea() + " - Estado: " + t.getEstado() + " - Etapa: " + t.getEtapaid().getEtapa() );
         }

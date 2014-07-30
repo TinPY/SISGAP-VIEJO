@@ -320,14 +320,14 @@
 		<band/>
 	</background>
 	<title>
-		<band height="127">
+		<band height="128">
 			<image>
-				<reportElement mode="Opaque" x="0" y="3" width="554" height="120" uuid="44368bef-e70c-4282-aa28-7904c5249d63"/>
+				<reportElement mode="Opaque" x="0" y="4" width="554" height="120" uuid="44368bef-e70c-4282-aa28-7904c5249d63"/>
 				<box>
 					<topPen lineWidth="2.0" lineStyle="Dotted" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Dotted" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="2.0" lineStyle="Dotted" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Dotted" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<imageExpression><![CDATA["imagenes/vinculacionTecnologica2.png"]]></imageExpression>
 			</image>
@@ -601,7 +601,7 @@
 				<text><![CDATA[Estado del Proyecto]]></text>
 			</staticText>
 			<rectangle radius="0">
-				<reportElement mode="Opaque" x="0" y="9" width="556" height="15" backcolor="#000000" uuid="86f7e8d4-ae8a-4ee1-831b-cdadce0ccfed">
+				<reportElement mode="Opaque" x="1" y="9" width="556" height="15" backcolor="#000000" uuid="86f7e8d4-ae8a-4ee1-831b-cdadce0ccfed">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
@@ -622,7 +622,7 @@
 				<text><![CDATA[Proyecto]]></text>
 			</staticText>
 			<componentElement>
-				<reportElement stretchType="RelativeToBandHeight" x="0" y="166" width="555" height="230" uuid="341c73b1-1c7a-4e2e-a808-68958615d0b2"/>
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="158" width="555" height="230" uuid="341c73b1-1c7a-4e2e-a808-68958615d0b2"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="datasetPreguntas" uuid="c5f81895-ac55-4a93-8cf4-3678da976ff7">
 						<dataSourceExpression><![CDATA[$P{preguntas}]]></dataSourceExpression>

@@ -1,0 +1,838 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version last-->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="solicitud" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="57f0488e-ee25-4833-aeef-dac18217699f">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="97"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Postgres localhost"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<style name="Table_TH" mode="Opaque" backcolor="#73B0E6">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Opaque" backcolor="#CFDBE6">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 1_TH" mode="Opaque" backcolor="#73B0E6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 1_CH" mode="Opaque" backcolor="#CFDBE6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab_CH" mode="Opaque" backcolor="#73B0E6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab_CG" mode="Opaque" backcolor="#CFDBE6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab_CT" mode="Opaque" backcolor="#406280">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab_CD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 2_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 2_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 3_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 3_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 4_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 4_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 4_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 5_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 5_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 5_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 6_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 6_TH" mode="Opaque" backcolor="#73B0E6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 6_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="datasetEquipoTrabajo" uuid="8d8ef3d6-0c18-49ee-a579-28acaa7376ff">
+		<field name="apellido" class="java.lang.String"/>
+		<field name="nombres" class="java.lang.String"/>
+		<field name="numerodocumento" class="java.lang.String"/>
+		<field name="tipodocumentoid.tipodocumento" class="java.lang.String"/>
+		<field name="email" class="java.lang.String"/>
+		<field name="profesion" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="idProyecto" class="java.lang.Integer">
+		<parameterDescription><![CDATA[Id del proyecto a mostrar]]></parameterDescription>
+		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
+	</parameter>
+	<parameter name="presupuesto" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource" isForPrompting="false"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="DIRECTORIO_REPORTES" class="java.lang.String"/>
+	<parameter name="equipoTrabajo" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="duracion" class="java.lang.Short"/>
+	<field name="tipoproyectoid.tipo" class="java.lang.String"/>
+	<field name="fecha" class="java.util.Date"/>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="comitenteid.id" class="java.lang.Integer"/>
+	<field name="comitenteid.razonsocial" class="java.lang.String"/>
+	<field name="comitenteid.cuit" class="java.lang.String"/>
+	<field name="comitenteid.contacto" class="java.lang.String"/>
+	<field name="comitenteid.cargocontacto" class="java.lang.String"/>
+	<field name="comitenteid.sectorid" class="java.lang.Integer"/>
+	<field name="convocatoriaid.id" class="java.lang.Integer"/>
+	<field name="convocatoriaid.convocatoria" class="java.lang.String"/>
+	<field name="agenteid.apellido" class="java.lang.String"/>
+	<field name="agenteid.nombres" class="java.lang.String"/>
+	<field name="agenteid.tipodocumentoid.tipodocumento" class="java.lang.Integer"/>
+	<field name="agenteid.numerodocumento" class="java.lang.String"/>
+	<field name="agenteid.telefono" class="java.lang.String"/>
+	<field name="agenteid.celular" class="java.lang.String"/>
+	<field name="agenteid.email" class="java.lang.String"/>
+	<field name="agenteid.otroemail" class="java.lang.String"/>
+	<field name="agenteid.profesion" class="java.lang.String"/>
+	<field name="agenteid.id" class="java.lang.Integer"/>
+	<field name="agenteid.domicilio" class="java.lang.String"/>
+	<field name="agenteid.dependenciaid" class="java.lang.Integer"/>
+	<field name="agenteid.usuarioid.usuarionombre" class="java.lang.Integer"/>
+	<field name="agenteid.especialidad" class="java.lang.String"/>
+	<field name="tipoproyectoid.id" class="java.lang.Integer"/>
+	<field name="beneficiarioid.id" class="java.lang.Integer"/>
+	<field name="beneficiarioid.beneficiario" class="java.lang.String"/>
+	<field name="tipofinanciamientoid.id" class="java.lang.Integer"/>
+	<field name="tipofinanciamientoid.tipofinanciamiento" class="java.lang.String"/>
+	<field name="fuentefinanciamientoid.id" class="java.lang.Integer"/>
+	<field name="fuentefinanciamientoid.fuentefinanciamiento" class="java.lang.String"/>
+	<field name="avanceproyectoid.avance" class="java.lang.String"/>
+	<field name="estadoproyectoid.id" class="java.lang.Integer"/>
+	<field name="estadoproyectoid.estado" class="java.lang.String"/>
+	<field name="resumen" class="java.lang.String"/>
+	<field name="observaciones" class="java.lang.String"/>
+	<field name="localizacion" class="java.lang.String"/>
+	<field name="comitenteid.tipocomitenteid.tipoentidad" class="java.lang.String"/>
+	<field name="tipoproyectoid" class="java.lang.String"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="122">
+			<image>
+				<reportElement x="0" y="0" width="554" height="120" uuid="44368bef-e70c-4282-aa28-7904c5249d63"/>
+				<imageExpression><![CDATA["imagenes/cabeceraSisgap.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="430" y="88" width="120" height="21" forecolor="#F8CC28" uuid="fd3be625-ec53-419d-a235-4b33db5deeee"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="15" isBold="true" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Idea - Proyecto]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="254" y="88" width="100" height="20" uuid="dd89f355-d26e-4dfa-8114-c6706434b265"/>
+				<textFieldExpression><![CDATA[$P{idProyecto}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="648">
+			<rectangle radius="5">
+				<reportElement mode="Opaque" x="0" y="420" width="554" height="35" backcolor="#F0F6FF" uuid="8551b5f2-345d-4d01-a049-93e01f80fdb8">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="5">
+				<reportElement mode="Opaque" x="0" y="348" width="554" height="65" backcolor="#F0F6FF" uuid="54913af8-f193-433f-ae3a-978ff12aafd1">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="5">
+				<reportElement mode="Opaque" x="0" y="301" width="554" height="40" backcolor="#F0F6FF" uuid="93ccbc19-7c8a-4bc7-8b44-9c8bd684d054">
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="5">
+				<reportElement mode="Opaque" x="284" y="45" width="270" height="37" backcolor="#F0F6FF" uuid="685a0d71-9bbe-407e-ab22-479fed34eef5">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="5">
+				<reportElement mode="Opaque" x="0" y="132" width="554" height="35" backcolor="#F0F6FF" uuid="f8a60ba2-f8f9-4c43-b7b0-43b84afdba99">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="5">
+				<reportElement mode="Opaque" x="0" y="89" width="554" height="35" backcolor="#F0F6FF" uuid="f34fbc3c-6514-4629-a255-7fbb19576de6">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="5">
+				<reportElement mode="Opaque" x="0" y="45" width="270" height="37" backcolor="#F0F6FF" uuid="b996b7a4-aa50-4045-bac7-2f88ecedad25">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="5">
+				<reportElement mode="Opaque" x="0" y="4" width="554" height="35" backcolor="#F0F6FF" uuid="db994b11-0900-49f2-9c9f-edc4d27d2d7d">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="13" y="12" width="24" height="20" forecolor="#000000" uuid="f4823625-8887-4f2c-ba6b-2bc722aa43a0">
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nº:]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Transparent" x="43" y="12" width="37" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="b4da8f4f-34f6-4539-959e-51f61bcf500d">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="92" y="12" width="48" height="20" forecolor="#000000" uuid="5a8fbabf-12cf-4bba-96ae-c7e71e0db15f">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Titulo:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="470" y="12" width="73" height="20" uuid="5469f99c-6225-44bc-b462-5b08029e5c66">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="390" y="12" width="77" height="20" uuid="beb80c83-34bb-4f05-9b78-9e710a81e80e">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Presentación]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="51" width="96" height="20" uuid="87635e55-03df-4116-a0ee-098c422247ae">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo de Proyecto:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="370" y="51" width="173" height="20" uuid="35b0548e-bf12-460b-a395-84bcbe0889fb">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{avanceproyectoid.avance}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="300" y="51" width="50" height="20" uuid="42d6d620-31d4-4dce-a07f-a3bed473ce38">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Avance:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="109" y="96" width="131" height="20" uuid="358020d3-4870-444f-a949-7a95b9c31d07"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{comitenteid.razonsocial}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="13" y="96" width="87" height="20" uuid="a21bef29-a30f-4b17-96c5-e3084c34be5e">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Comitente]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="254" y="96" width="50" height="20" uuid="11011719-129b-44b6-b7a9-25a29344e8ba"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{comitenteid.cuit}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="323" y="96" width="100" height="20" uuid="7eba63d9-6a2e-4e08-875d-2ec5780c33d2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{comitenteid.contacto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="433" y="96" width="100" height="20" uuid="e3e09727-36c5-40c1-9820-7b2ce07af3c6"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{comitenteid.cargocontacto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="13" y="139" width="89" height="20" uuid="f20dfaa2-51b7-4668-baf7-1f03858ee37d">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Responsable:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="109" y="139" width="111" height="20" uuid="5b879c65-bc64-4ac7-aae6-323f65632bb4"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{agenteid.apellido}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="230" y="139" width="100" height="20" uuid="b8dd4521-659c-4451-89cc-b975f4670d0f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{agenteid.nombres}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="346" y="139" width="70" height="20" uuid="ff0c555d-56df-47e4-9b7d-f2adc608f928"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{agenteid.numerodocumento}]]></textFieldExpression>
+			</textField>
+			<rectangle radius="5">
+				<reportElement mode="Opaque" x="0" y="174" width="271" height="120" backcolor="#F0F6FF" uuid="9e412b60-fbeb-4056-b98f-c17864022724">
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="5">
+				<reportElement mode="Opaque" x="284" y="174" width="270" height="120" backcolor="#F0F6FF" uuid="a8989afe-bb5b-4d1c-98b4-1802d5ad0c2a">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="12" y="184" width="247" height="100" uuid="cef61906-4d93-4d35-8a93-50b74b8919aa">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{resumen}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="298" y="184" width="243" height="100" uuid="940a8257-b375-4fc7-9fd4-bf949ff32caa"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{observaciones}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="13" y="311" width="61" height="20" uuid="865c1022-9d0d-403b-9b6f-095dfd064649">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Lugar:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="311" width="110" height="20" uuid="be849ce0-cc61-486a-acd6-821a1d900fba"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Duración (Meses):]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="430" y="311" width="113" height="20" uuid="8d072429-ad78-424d-a645-c34220d1d374"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{duracion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="70" y="311" width="200" height="20" uuid="493a0f79-869f-49c9-96bb-5f5e5168c93b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{localizacion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="13" y="355" width="89" height="20" uuid="7fe4ab52-c552-4434-b513-a024ac891e15">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Beneficiario:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="157" y="385" width="386" height="20" uuid="f17daec6-1423-48f2-8028-1a4d4f4b97a2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipofinanciamientoid.tipofinanciamiento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="107" y="355" width="163" height="20" uuid="2f2438af-8606-441e-aed5-82211aeabd0b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{beneficiarioid.beneficiario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="360" y="355" width="183" height="20" uuid="468cb12c-b447-454b-aafa-599169860adb"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fuentefinanciamientoid.fuentefinanciamiento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="281" y="355" width="62" height="20" uuid="56f1fdf6-3814-46bb-a567-98304d4e08b3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fuente:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="385" width="129" height="20" uuid="842074c3-bf5a-4eb8-8590-2eb5944b9aa2">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo de Financiamiento:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="427" width="89" height="20" uuid="700f1e7c-0f46-4b1c-97c6-7c5c704d434f">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Convocatoria:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="103" y="427" width="440" height="20" uuid="3b8ff168-9db7-42c7-839d-18b54bd4bea9"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{convocatoriaid.convocatoria}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="150" y="12" width="230" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="b6a2e81b-3ac9-4e7c-98d2-37bf8ac7a46f">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<break>
+				<reportElement x="0" y="606" width="556" height="1" uuid="a3c8a2d6-e7c0-4e95-8cc5-3d9b5fdbb7a0"/>
+			</break>
+			<textField>
+				<reportElement x="113" y="51" width="147" height="20" uuid="080cfb9f-43e7-45ea-9629-8331e7ac0cb2">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipoproyectoid.tipo}]]></textFieldExpression>
+			</textField>
+			<elementGroup/>
+			<subreport>
+				<reportElement x="11" y="610" width="530" height="30" uuid="94ddebaa-ce4c-44c9-8b81-536f90fb051f"/>
+				<dataSourceExpression><![CDATA[$P{presupuesto}]]></dataSourceExpression>
+				<subreportExpression><![CDATA["detallePresupuesto.jasper"]]></subreportExpression>
+			</subreport>
+			<rectangle radius="5">
+				<reportElement mode="Opaque" x="0" y="462" width="554" height="137" backcolor="#F0F6FF" uuid="ee7c9c70-5e14-404e-b5af-acef159f89f5">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="13" y="468" width="89" height="20" uuid="24207c9f-b546-46bc-99b6-9e4298b0502e">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Equipo de Trabajo]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement x="13" y="488" width="529" height="101" uuid="9ec69a77-de11-4c82-8d97-78ea3db079b6"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="datasetEquipoTrabajo" uuid="a74f937c-e559-4eed-8087-870186dc902a">
+						<dataSourceExpression><![CDATA[$P{equipoTrabajo}]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="170" uuid="6548a7fc-cfc6-4fa7-bc2a-3233f7709568">
+						<jr:tableHeader style="Table 6_TH" height="20">
+							<staticText>
+								<reportElement x="0" y="0" width="170" height="20" uuid="a98d760d-1ae2-4910-99d3-ca3a46432b1c"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Nombre de Integrante]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="Table 6_TD" height="20">
+							<textField>
+								<reportElement x="5" y="0" width="165" height="20" uuid="6e264464-71cf-4ec1-87e7-4ae31af188b6"/>
+								<textElement verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{apellido} + ", " + $F{nombres}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="91" uuid="00b79640-1bb1-4fb7-b8d7-c535fa62e3da">
+						<jr:tableHeader style="Table 6_TH" height="20">
+							<staticText>
+								<reportElement x="0" y="0" width="91" height="20" uuid="61f68ffa-a1c8-495f-ad5f-817b4f1337b8"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Documento]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="Table 6_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="91" height="20" uuid="e96639a2-3974-4a8b-b528-08fe60191503"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{tipodocumentoid.tipodocumento} + ": " + $F{numerodocumento}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="109" uuid="2cf19510-1547-4f3d-8e9a-2b09d953e17a">
+						<jr:tableHeader style="Table 6_TH" height="20">
+							<staticText>
+								<reportElement x="0" y="0" width="109" height="20" uuid="96ab7fde-2d47-4d09-a190-6a2d2be035e9"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Profesión]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="Table 6_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="109" height="20" uuid="8f60a351-d115-4652-afad-841e5b4120ea"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{profesion}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="159" uuid="2e416638-53d6-49dc-b949-1515f630c592">
+						<jr:tableHeader style="Table 6_TH" height="20">
+							<staticText>
+								<reportElement x="3" y="0" width="150" height="20" uuid="45b119cd-c044-453f-b646-0160c014ab9e">
+									<property name="local_mesure_unitwidth" value="pixel"/>
+									<property name="com.jaspersoft.studio.unit.width" value="px"/>
+								</reportElement>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Email]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="Table 6_TD" height="20">
+							<textField>
+								<reportElement x="3" y="0" width="150" height="20" uuid="2af0b9be-da79-44b0-be1f-2ee1c9d01366">
+									<property name="local_mesure_unitwidth" value="pixel"/>
+									<property name="com.jaspersoft.studio.unit.width" value="px"/>
+								</reportElement>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="ff1c3f16-987a-465a-babf-b68af6b1dfc7"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="b8bf9e73-b182-4c24-945b-1f3d29806d8c"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="100" height="13" uuid="12881ff9-a653-45ef-98ac-e410d8c77ce1"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

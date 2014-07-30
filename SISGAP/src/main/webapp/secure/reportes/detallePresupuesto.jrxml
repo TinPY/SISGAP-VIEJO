@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version last-->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="detallePresupuesto" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4ef8ae83-499f-4c9e-8d0a-af17296bd175">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="detallePresupuesto" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="20" uuid="4ef8ae83-499f-4c9e-8d0a-af17296bd175">
 	<property name="ireport.zoom" value="1.4641000000000006"/>
 	<property name="ireport.x" value="30"/>
 	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -48,10 +49,16 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="121" splitType="Stretch">
+		<band height="127" splitType="Stretch">
 			<image>
-				<reportElement x="0" y="0" width="554" height="120" uuid="3e587bc7-f544-4b53-9999-9e6ef8df6c2c"/>
-				<imageExpression><![CDATA["imagenes/cabeceraSisgap.png"]]></imageExpression>
+				<reportElement x="0" y="4" width="554" height="120" uuid="3e587bc7-f544-4b53-9999-9e6ef8df6c2c"/>
+				<box>
+					<topPen lineWidth="2.0" lineStyle="Dotted" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="2.0" lineStyle="Dotted" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<imageExpression><![CDATA["imagenes/vinculacionTecnologica2.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="189" y="91" width="361" height="21" forecolor="#F8CC28" uuid="afe59431-f238-4512-8427-3d83cce9d4ac"/>
@@ -63,43 +70,57 @@
 		</band>
 	</title>
 	<columnHeader>
-		<band height="27">
-			<rectangle radius="5">
-				<reportElement mode="Opaque" x="0" y="0" width="556" height="25" backcolor="#F0F6FF" uuid="d050502b-5df6-4f3a-a4f4-6c35c2f8d817"/>
+		<band height="23">
+			<rectangle radius="0">
+				<reportElement mode="Opaque" x="0" y="6" width="556" height="15" backcolor="#8A8A8A" uuid="d050502b-5df6-4f3a-a4f4-6c35c2f8d817">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<graphicElement>
-					<pen lineStyle="Solid"/>
+					<pen lineStyle="Solid" lineColor="#E3E3E3"/>
 				</graphicElement>
 			</rectangle>
 			<staticText>
-				<reportElement x="267" y="3" width="71" height="20" uuid="b4de9690-0da3-42b4-a283-b47abb93ac16"/>
+				<reportElement x="267" y="7" width="71" height="15" forecolor="#FFFFFF" uuid="b4de9690-0da3-42b4-a283-b47abb93ac16">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Comitente]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="338" y="3" width="71" height="20" uuid="1175df15-0d49-4467-97ed-12555663f2cd"/>
+				<reportElement x="338" y="7" width="71" height="15" forecolor="#FFFFFF" uuid="1175df15-0d49-4467-97ed-12555663f2cd">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Universidad]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="408" y="3" width="71" height="20" uuid="5a2a95f2-d3ee-4173-9832-5f56e083828a"/>
+				<reportElement x="408" y="7" width="71" height="15" forecolor="#FFFFFF" uuid="5a2a95f2-d3ee-4173-9832-5f56e083828a">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Organismo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="479" y="3" width="71" height="20" uuid="3f3a8c14-a9d3-4621-bde2-0c8da7bfb482"/>
+				<reportElement x="479" y="7" width="71" height="15" forecolor="#FFFFFF" uuid="3f3a8c14-a9d3-4621-bde2-0c8da7bfb482">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="3" width="208" height="20" uuid="f509aa2a-9b27-4db7-b6ed-be505b6e55ee"/>
+				<reportElement x="0" y="7" width="240" height="15" forecolor="#FFFFFF" uuid="f509aa2a-9b27-4db7-b6ed-be505b6e55ee">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
@@ -130,7 +151,7 @@
 				<textFieldExpression><![CDATA[$F{total}.floatValue()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="0" width="208" height="20" uuid="f8d21c7e-8b98-4e88-8c6d-bfba1dbaab5f"/>
+				<reportElement x="0" y="0" width="240" height="20" uuid="f8d21c7e-8b98-4e88-8c6d-bfba1dbaab5f"/>
 				<textFieldExpression><![CDATA[$F{rubro.rubro}]]></textFieldExpression>
 			</textField>
 			<line>
@@ -141,8 +162,8 @@
 	<columnFooter>
 		<band height="21">
 			<staticText>
-				<reportElement x="0" y="0" width="208" height="20" uuid="3c6037f8-86a2-42d0-baf4-b73f04090f1b"/>
-				<textElement textAlignment="Center">
+				<reportElement x="0" y="0" width="240" height="20" uuid="3c6037f8-86a2-42d0-baf4-b73f04090f1b"/>
+				<textElement textAlignment="Left">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Totales]]></text>
