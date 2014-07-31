@@ -37,10 +37,10 @@
                             </p:row>
                             <p:row>
                                 <p:column style="width: 40%;">
-                                    <h:outputLabel value="Tipo de Evaluacion" for="tipoevaluacion"  style="font-weight: bold;" />
+                                    <h:outputLabel value="Tipo de Pregunta" for="tipopregunta"  style="font-weight: bold;" />
                                 </p:column>
                                 <p:column style="width: 60%;">
-                                    <h:outputText id="tipoevaluacion" value="#{preguntaController.selected.tipoevaluacionid.tipoevaluacion}" title="Tipo de Evaluación" />
+                                    <h:outputText id="tipopregunta" value="#{item.proyecto == true ? 'Proyecto' : 'Idea-Proyecto'}" title="Tipo de Pregunta" />
                                 </p:column>
                             </p:row>                            
                         </p:panelGrid>

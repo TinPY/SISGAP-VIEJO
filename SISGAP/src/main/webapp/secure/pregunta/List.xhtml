@@ -48,11 +48,11 @@
                                 </f:facet>
                                 <h:outputText value="#{item.pregunta}"/>
                             </p:column>
-                            <p:column id="columnaTipoEvaluacion" filterBy="tipoevaluacion" filterMatchMode="contains" sortBy="tipoevaluacion">
+                            <p:column id="columnaTipoPregunta" filterBy="tipoevaluacion" filterMatchMode="contains" sortBy="tipoevaluacion">
                                 <f:facet name="header">
-                                    <h:outputText value="Tipo de Evaluación"/>
+                                    <h:outputText value="Tipo de Pregunta"/>
                                 </f:facet>
-                                <h:outputText value="#{item.tipoevaluacionid.tipoevaluacion}"/>
+                                <h:outputText value="#{item.proyecto == true ? 'Proyecto' : 'Idea-Proyecto'}" />
                             </p:column>
                             <p:column >
                                 <f:facet name="header">

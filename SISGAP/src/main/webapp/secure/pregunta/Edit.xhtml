@@ -31,16 +31,14 @@
                             </p:row>
                             <p:row>
                                 <p:column style="width: 40%;">
-                                    <p:outputLabel value="Tipo de Evaluación" for="tipoevaluacion"  style="font-weight: bold;" />
+                                    <p:outputLabel value="Tipo de Pregunta" for="tipopregunta"  style="font-weight: bold;" />
                                 </p:column>
                                 <p:column style="width: 60%;">
-                                    <p:selectOneMenu id="tipoevaluacion" value="#{preguntaController.selected.tipoevaluacionid}" label="Tipo de Evaluación" required="true" requiredMessage="Por favor seleccione el Tipo de Evaluación">
-                                        <f:selectItems value="#{tipoevaluacionController.itemsAvailableSelectOne}"/>
-                                    </p:selectOneMenu>
-                                    <p:message for="tipoevaluacion" display="icon"  /> 
-                                    <p:tooltip id="tttipoevaluacion" for="tipoevaluacion" showEvent="focus" hideEvent="blur" />
+                                    <p:selectBooleanButton id="tipopregunta" value="#{preguntaController.selected.proyecto}" onLabel="Proyecto" offLabel="Idea-Proyecto" style="width:150px" />
+                                    <p:message for="tipopregunta" display="icon"  /> 
+                                    <p:tooltip id="tttipopregunta" for="tipopregunta" showEvent="focus" hideEvent="blur" />
                                 </p:column>
-                            </p:row>                  
+                            </p:row>                    
                         </p:panelGrid>
                     </p:fieldset>
 

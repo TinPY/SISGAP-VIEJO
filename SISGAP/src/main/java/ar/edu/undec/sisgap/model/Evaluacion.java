@@ -42,7 +42,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Evaluacion.findAll", query = "SELECT e FROM Evaluacion e"),
     @NamedQuery(name = "Evaluacion.findById", query = "SELECT e FROM Evaluacion e WHERE e.id = :id"),
     @NamedQuery(name = "Evaluacion.findByFecha", query = "SELECT e FROM Evaluacion e WHERE e.fecha = :fecha"),
-    @NamedQuery(name = "Evaluacion.findByTipoEvaluacion", query = "SELECT e FROM Evaluacion e WHERE e.tipoevaluacionid = :tipoevaluacionid"),        
     @NamedQuery(name = "Evaluacion.findByObservacion", query = "SELECT e FROM Evaluacion e WHERE e.observacion = :observacion")})
 public class Evaluacion implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -65,9 +64,6 @@ public class Evaluacion implements Serializable {
     @JoinColumn(name = "usuarioid", referencedColumnName = "usuarioid")
     @ManyToOne
     private Usuario usuarioid;
-    @JoinColumn(name = "tipoevaluacionid", referencedColumnName = "tipoevaluacionid")
-    @ManyToOne
-    private Tipoevaluacion tipoevaluacionid;
     
     public Evaluacion() {
     }
@@ -125,15 +121,6 @@ public class Evaluacion implements Serializable {
         this.usuarioid = usuarioid;
     }
 
-    public Tipoevaluacion getTipoevaluacionid() {
-        return tipoevaluacionid;
-    }
-
-    public void setTipoevaluacionid(Tipoevaluacion tipoevaluacionid) {
-        this.tipoevaluacionid = tipoevaluacionid;
-    }
-    
-    
 
     @Override
     public int hashCode() {

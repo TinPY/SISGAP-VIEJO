@@ -38,7 +38,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Pregunta.findAll", query = "SELECT p FROM Pregunta p"),
     @NamedQuery(name = "Pregunta.findById", query = "SELECT p FROM Pregunta p WHERE p.id = :id"),
     @NamedQuery(name = "Pregunta.findByPregunta", query = "SELECT p FROM Pregunta p WHERE p.pregunta = :pregunta"),
-    @NamedQuery(name = "Pregunta.findByTipoEvaluacion", query = "SELECT p FROM Pregunta p WHERE p.tipoevaluacionid = :tipoevaluacionid"),    
     @NamedQuery(name = "Pregunta.findByProyecto", query = "SELECT p FROM Pregunta p WHERE p.proyecto = :proyecto")})
 public class Pregunta implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -54,9 +53,6 @@ public class Pregunta implements Serializable {
     private Boolean proyecto;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pregunta")
     private List<EvaluacionPregunta> evaluacionPreguntaList;
-    @JoinColumn(name = "tipoevaluacionid", referencedColumnName = "tipoevaluacionid")
-    @ManyToOne
-    private Tipoevaluacion tipoevaluacionid;
 
     public Pregunta() {
     }
@@ -98,13 +94,6 @@ public class Pregunta implements Serializable {
         this.evaluacionPreguntaList = evaluacionPreguntaList;
     }
 
-    public Tipoevaluacion getTipoevaluacionid() {
-        return tipoevaluacionid;
-    }
-
-    public void setTipoevaluacionid(Tipoevaluacion tipoevaluacionid) {
-        this.tipoevaluacionid = tipoevaluacionid;
-    }
 
     @Override
     public int hashCode() {
