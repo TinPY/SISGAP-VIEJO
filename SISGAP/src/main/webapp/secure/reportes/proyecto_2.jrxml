@@ -231,24 +231,6 @@
 			<bottomPen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<style name="Table 8_TH" mode="Opaque" backcolor="#8FAFCC">
-		<box>
-			<topPen lineWidth="0.5" lineColor="#000000"/>
-			<bottomPen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="Table 8_CH" mode="Opaque" backcolor="#CFDBE6">
-		<box>
-			<topPen lineWidth="0.5" lineColor="#000000"/>
-			<bottomPen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="Table 8_TD" mode="Opaque" backcolor="#FFFFFF">
-		<box>
-			<topPen lineWidth="0.5" lineColor="#000000"/>
-			<bottomPen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
 	<subDataset name="datasetEquipoTrabajo" uuid="8d8ef3d6-0c18-49ee-a579-28acaa7376ff">
 		<field name="apellido" class="java.lang.String"/>
 		<field name="nombres" class="java.lang.String"/>
@@ -258,18 +240,6 @@
 		<field name="profesion" class="java.lang.String"/>
 	</subDataset>
 	<subDataset name="datasetGantt" uuid="2931d237-8f97-4f77-af28-9e5cd0c864aa">
-		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
-		<queryString>
-			<![CDATA[]]>
-		</queryString>
-		<field name="tarea" class="java.lang.String"/>
-		<field name="estado" class="java.lang.Integer"/>
-		<field name="etapaid" class="java.lang.String"/>
-		<field name="etapaid.etapa" class="java.lang.String"/>
-		<field name="fechainicio" class="java.util.Date"/>
-		<field name="fechafin" class="java.util.Date"/>
-	</subDataset>
-	<subDataset name="datasetTablaTareas" uuid="3738a286-d2e3-4f44-979d-8fa1fc80a0c5">
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 		<queryString>
 			<![CDATA[]]>
@@ -292,7 +262,6 @@
 	<parameter name="DIRECTORIO_REPORTES" class="java.lang.String"/>
 	<parameter name="equipoTrabajo" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource" isForPrompting="false"/>
 	<parameter name="tareas" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource" isForPrompting="false"/>
-	<parameter name="gantt" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource" isForPrompting="false"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -365,19 +334,7 @@
 		</band>
 	</title>
 	<detail>
-		<band height="377">
-			<rectangle radius="0">
-				<reportElement mode="Opaque" x="0" y="180" width="785" height="15" backcolor="#000000" uuid="a05139d7-6679-4b63-b562-46e304ee8509">
-					<property name="local_mesure_unitheight" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="local_mesure_unitwidth" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-				</reportElement>
-				<graphicElement>
-					<pen lineWidth="0.0" lineStyle="Dotted" lineColor="#000000"/>
-				</graphicElement>
-			</rectangle>
+		<band height="397">
 			<elementGroup/>
 			<textField>
 				<reportElement mode="Transparent" x="13" y="45" width="37" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="7db4234e-a075-4d58-b361-e3b8651a6861">
@@ -640,15 +597,15 @@
 			</textField>
 			<ganttChart>
 				<chart evaluationTime="Report">
-					<reportElement stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="7" y="200" width="763" height="170" uuid="e3f41a57-6d19-4bf7-a49a-420b82bc4bf3"/>
+					<reportElement isPrintRepeatedValues="false" x="16" y="120" width="763" height="270" uuid="a005f26f-4c84-4b78-9456-40f662a0952d"/>
 					<chartTitle/>
 					<chartSubtitle/>
 					<chartLegend/>
 				</chart>
 				<ganttDataset>
 					<dataset>
-						<datasetRun subDataset="datasetGantt" uuid="6ef03aff-a5b7-463b-9894-6e106581a0ae">
-							<dataSourceExpression><![CDATA[$P{tareas}.cloneDataSource()]]></dataSourceExpression>
+						<datasetRun subDataset="datasetGantt" uuid="4647ac44-32a6-45e2-9095-46f184c843a1">
+							<dataSourceExpression><![CDATA[$P{tareas}]]></dataSourceExpression>
 						</datasetRun>
 					</dataset>
 					<ganttSeries>
@@ -657,6 +614,7 @@
 						<subtaskExpression><![CDATA[$F{tarea}]]></subtaskExpression>
 						<startDateExpression><![CDATA[$F{fechainicio}]]></startDateExpression>
 						<endDateExpression><![CDATA[$F{fechafin}]]></endDateExpression>
+						<percentExpression><![CDATA[0]]></percentExpression>
 					</ganttSeries>
 				</ganttDataset>
 				<barPlot>
@@ -670,130 +628,6 @@
 					</valueAxisFormat>
 				</barPlot>
 			</ganttChart>
-			<break>
-				<reportElement x="0" y="170" width="786" height="1" uuid="a02a786d-b5ba-4fe2-919e-c2c9cd05bb27"/>
-			</break>
-			<componentElement>
-				<reportElement stretchType="RelativeToTallestObject" x="0" y="120" width="779" height="50" uuid="38a35536-fbea-47ea-b327-c58e72acd096"/>
-				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="datasetTablaTareas" uuid="adc1142c-0051-4738-8a37-14b3c43be0ed">
-						<dataSourceExpression><![CDATA[$P{tareas}.cloneDataSource()]]></dataSourceExpression>
-					</datasetRun>
-					<jr:column width="240" uuid="551edb05-0810-49ed-82c8-0f351ff6ed53">
-						<property name="local_mesure_unitheight" value="cm"/>
-						<jr:columnHeader style="Table 8_CH" height="21">
-							<staticText>
-								<reportElement x="10" y="0" width="200" height="21" uuid="34aac9c9-aa51-4b3e-8d01-b61c8121f077">
-									<property name="com.jaspersoft.studio.unit.height" value="cm"/>
-								</reportElement>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<text><![CDATA[Etapa]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="Table 8_TD" height="21">
-							<textField>
-								<reportElement x="10" y="0" width="200" height="21" uuid="2a6c82e7-075b-4bb6-88e4-f3e06bc66227">
-									<property name="com.jaspersoft.studio.unit.height" value="cm"/>
-								</reportElement>
-								<textElement verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{etapaid.etapa}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="200" uuid="1feea52a-3773-496b-b1f5-e61c3ab5d904">
-						<jr:columnHeader style="Table 8_CH" height="21">
-							<staticText>
-								<reportElement x="10" y="0" width="180" height="21" uuid="c108ae92-dcbc-4fa0-8cb7-79d012c649fa">
-									<property name="com.jaspersoft.studio.unit.height" value="cm"/>
-								</reportElement>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<text><![CDATA[Tarea]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="Table 8_TD" height="21">
-							<textField>
-								<reportElement x="10" y="0" width="180" height="21" uuid="8f8b6aa6-5d2e-4071-96bc-48dd7a4364de">
-									<property name="com.jaspersoft.studio.unit.height" value="cm"/>
-								</reportElement>
-								<textElement verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{tarea}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="60" uuid="4b916cc2-8414-4c3b-afd3-5f747da03d2a">
-						<jr:columnHeader style="Table 8_CH" height="21">
-							<staticText>
-								<reportElement x="10" y="0" width="40" height="21" uuid="c171c475-9e77-4bb1-8c76-b24dd984d564">
-									<property name="com.jaspersoft.studio.unit.height" value="cm"/>
-								</reportElement>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<text><![CDATA[Estado]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="Table 8_TD" height="21">
-							<textField>
-								<reportElement x="10" y="0" width="40" height="21" uuid="81a7f48f-9bd2-4fbd-ba36-476cc184ded3">
-									<property name="local_mesure_unitheight" value="cm"/>
-									<property name="com.jaspersoft.studio.unit.height" value="cm"/>
-								</reportElement>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{estado} + " %"]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="150" uuid="6215f44e-e692-4ff1-aebf-6181323c2156">
-						<jr:columnHeader style="Table 8_CH" height="21">
-							<staticText>
-								<reportElement x="10" y="0" width="130" height="21" uuid="3214cab2-391b-4193-bec2-a92a6d2154ae">
-									<property name="com.jaspersoft.studio.unit.height" value="cm"/>
-								</reportElement>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<text><![CDATA[Fecha de Inicio]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="Table 8_TD" height="21">
-							<textField>
-								<reportElement x="10" y="0" width="130" height="21" uuid="0f8bc6dd-510a-459a-a6ce-d058491a90d8">
-									<property name="com.jaspersoft.studio.unit.height" value="cm"/>
-								</reportElement>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{fechainicio}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="140" uuid="3b281985-9f60-4e55-8c4b-c44703db0700">
-						<jr:columnHeader style="Table 8_CH" height="21">
-							<staticText>
-								<reportElement x="10" y="0" width="120" height="21" uuid="e0d725a8-2299-40c6-9430-3c7abcad3369">
-									<property name="com.jaspersoft.studio.unit.height" value="cm"/>
-								</reportElement>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<text><![CDATA[Fecha de Fin]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="Table 8_TD" height="21">
-							<textField>
-								<reportElement x="10" y="0" width="120" height="21" uuid="83f80e93-4c27-4c1e-a53d-33a454b947d7">
-									<property name="com.jaspersoft.studio.unit.height" value="cm"/>
-								</reportElement>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{fechafin}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-				</jr:table>
-			</componentElement>
-			<staticText>
-				<reportElement x="15" y="179" width="175" height="15" forecolor="#FFFFFF" uuid="df040502-8527-4698-9d3b-787e64db61c6">
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="local_mesure_unity" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="SansSerif" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Tareas]]></text>
-			</staticText>
 		</band>
 	</detail>
 	<columnFooter>
