@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version last-->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Etapas y Tareas del Proyecto" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isTitleNewPage="true" isIgnorePagination="true" uuid="72ebd43c-52f2-46f0-9568-e638c814fc71">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Etapas y Tareas del Proyecto" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isTitleNewPage="true" isIgnorePagination="true" uuid="72ebd43c-52f2-46f0-9568-e638c814fc71">
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 	<field name="etapaid.etapa" class="java.lang.String"/>
@@ -11,15 +11,15 @@
 	<field name="etapaid" class="java.lang.String"/>
 	<group name="nada">
 		<groupHeader>
-			<band height="842">
+			<band height="594">
 				<ganttChart>
 					<chart isShowLegend="true" evaluationTime="Report" renderType="draw">
-						<reportElement x="20" y="20" width="530" height="800" printWhenGroupChanges="nada" uuid="14fa1a42-5578-404b-87e1-4f1ad54441bd"/>
+						<reportElement stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="0" y="0" width="842" height="560" printWhenGroupChanges="nada" uuid="14fa1a42-5578-404b-87e1-4f1ad54441bd"/>
 						<chartTitle>
 							<titleExpression><![CDATA["Diagrama de Gantt"]]></titleExpression>
 						</chartTitle>
 						<chartSubtitle/>
-						<chartLegend/>
+						<chartLegend textColor="#FFFFFF" backgroundColor="#000000"/>
 					</chart>
 					<ganttDataset>
 						<ganttSeries>
@@ -43,22 +43,8 @@
 				</ganttChart>
 			</band>
 		</groupHeader>
-		<groupFooter>
-			<band height="50"/>
-		</groupFooter>
 	</group>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
-	<title>
-		<band height="91" splitType="Stretch">
-			<staticText>
-				<reportElement x="20" y="20" width="284" height="50" uuid="19354ab3-af52-433e-9165-75c174402575"/>
-				<textElement>
-					<font size="20"/>
-				</textElement>
-				<text><![CDATA[Etapas y Tareas del Proyecto]]></text>
-			</staticText>
-		</band>
-	</title>
 </jasperReport>

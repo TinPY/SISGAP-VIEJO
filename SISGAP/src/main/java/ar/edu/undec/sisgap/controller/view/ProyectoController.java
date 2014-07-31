@@ -1277,11 +1277,30 @@ public class ProyectoController implements Serializable {
         String rutaJasper = FacesContext.getCurrentInstance().getExternalContext().getRealPath("secure/reportes/proyecto.jasper");
 
         // Fuente de datos del reporte
-        //JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(this.ejbetapa.buscarEtapasProyecto(current.getId()));
-        JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(this.ejbetapa.buscarEtapasProyecto(current.getId()));
+        JRBeanArrayDataSource beanArrayDataSource = new JRBeanArrayDataSource(new Proyecto[]{this.getSelected()});
+
+        // Fuente de datos del subreporte [tareas >> gantt]
+        //Obtenemos las tareas de un proyecto
+        List<Etapa> listaEtapas = this.ejbetapa.buscarEtapasProyecto(current.getId());
+        List<Tarea> listaTareas = new ArrayList<Tarea>();
+        
+        for(Etapa e : listaEtapas){
+            for(Tarea t : this.ejbtarea.buscarTareasEtapa(e.getId())){
+                listaTareas.add(t);
+            }
+        }
+        
+        JRBeanCollectionDataSource tareas = new JRBeanCollectionDataSource(listaTareas);
+        
+        //Agregando los parametros
+        Hashtable<String, Object> parametros = new Hashtable<String, Object>();
+        parametros.put("idProyecto", this.getSelected().getId());
+        // parametros.put("presupuesto", detallePresupuesto);
+        // parametros.put("equipoTrabajo", equipoTrabajo);
+        parametros.put("tareas", tareas);
 
         // Llenamos el reporte con la fuente de datos
-        JasperPrint jasperPrint = JasperFillManager.fillReport(rutaJasper, null, beanCollectionDataSource);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(rutaJasper, parametros, beanArrayDataSource);
 
         // Generamos el archivo a descargar
         HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
@@ -1313,7 +1332,7 @@ public class ProyectoController implements Serializable {
         for(Tarea t : listaTareas){
             System.out.println("ID: " + t.getId() + " - Nombre: " + t.getTarea() + " - Estado: " + t.getEstado() + " - Etapa: " + t.getEtapaid().getEtapa() );
         }
-       
+        
         JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(listaTareas);
 
         // Llenamos el reporte con la fuente de datos
