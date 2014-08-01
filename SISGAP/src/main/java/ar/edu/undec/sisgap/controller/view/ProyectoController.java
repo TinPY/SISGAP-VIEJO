@@ -30,6 +30,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.Iterator;
@@ -949,7 +951,7 @@ public class ProyectoController implements Serializable {
 
             // PRUEBA [!!!!!!!!!!!!]
             //if (new EnviarMail().enviarMailEvaluacionIdeaProyecto(current.getAgenteid(), current.getObservaciones())) {
-            if(true){
+            if (true) {
                 RequestContext.getCurrentInstance().execute("dfinal.show()");
             } else {
                 FacesContext.getCurrentInstance().addMessage("growlprincipal", new FacesMessage("Error! ", "No se pudo evaluar del Proyecto."));
@@ -1107,17 +1109,16 @@ public class ProyectoController implements Serializable {
         JRDataSource detallePresupuesto = new JRBeanCollectionDataSource(presupuesto.getPresupuestoRubroList());
 
         // Fuente de datos para el equipo de trabajo
-        
-        List<Agente> listaAgentes = new ArrayList<Agente>() ;
+        List<Agente> listaAgentes = new ArrayList<Agente>();
         List<ProyectoAgente> listaProyectoAgente = this.ejbproyectoagente.buscarEquipoTrabajo(current.getId());
-        
-        for(ProyectoAgente pa : listaProyectoAgente){
+
+        for (ProyectoAgente pa : listaProyectoAgente) {
             System.out.println(pa.getAgente().getApellido() + ", " + pa.getAgente().getNombres());
             listaAgentes.add(pa.getAgente());
         }
-        
+
         JRDataSource equipoTrabajo = new JRBeanCollectionDataSource(listaAgentes);
-        
+
         //Agregando los parametros
         Hashtable<String, Object> parametros = new Hashtable<String, Object>();
         parametros.put("idProyecto", this.getSelected().getId());
@@ -1167,17 +1168,16 @@ public class ProyectoController implements Serializable {
         JRDataSource detallePresupuesto = new JRBeanCollectionDataSource(presupuesto.getPresupuestoRubroList());
 
         // Fuente de datos para el equipo de trabajo
-        
-        List<Agente> listaAgentes = new ArrayList<Agente>() ;
+        List<Agente> listaAgentes = new ArrayList<Agente>();
         List<ProyectoAgente> listaProyectoAgente = this.ejbproyectoagente.buscarEquipoTrabajo(current.getId());
-        
-        for(ProyectoAgente pa : listaProyectoAgente){
+
+        for (ProyectoAgente pa : listaProyectoAgente) {
             System.out.println(pa.getAgente().getApellido() + ", " + pa.getAgente().getNombres());
             listaAgentes.add(pa.getAgente());
         }
-        
+
         JRDataSource equipoTrabajo = new JRBeanCollectionDataSource(listaAgentes);
-        
+
         //Agregando los parametros
         Hashtable<String, Object> parametros = new Hashtable<String, Object>();
         parametros.put("idProyecto", this.getSelected().getId());
@@ -1210,9 +1210,8 @@ public class ProyectoController implements Serializable {
                     archivo, true);
         }
     }
-    
+
     // REPORTE EVALUACION IDEA PROYECTO
-    
     public void pdfEvaluacionIdeaProyecto() throws JRException, IOException {
 
         // Obtengo la ruta absoluta del archivo compilado del reporte
@@ -1224,7 +1223,6 @@ public class ProyectoController implements Serializable {
         // FUENTE DE DATOS PARA EL SUBREPORTE (DETALLE DEL PRESUPUESTO)
         // Presupuesto presupuesto = this.ejbFacadep.findporProyecto(this.getSelected().getId());
         // JRDataSource detallePresupuesto = new JRBeanCollectionDataSource(presupuesto.getPresupuestoRubroList());
-        
         // FUENTE DE DATOS PARA EL EQUIPO DE TRABAJO
 //        List<Agente> listaAgentes = new ArrayList<Agente>() ;
 //        List<ProyectoAgente> listaProyectoAgente = this.ejbproyectoagente.buscarEquipoTrabajo(current.getId());
@@ -1235,20 +1233,18 @@ public class ProyectoController implements Serializable {
 //        }
 //        
 //        JRDataSource equipoTrabajo = new JRBeanCollectionDataSource(listaAgentes);
-        
         // FUENTE DE DATOS PARA LA EVALUACION
         Evaluacion e = this.ejbevaluacion.obtenerEvaluacionPorProyecto(current.getId());
-        
+
         JRBeanArrayDataSource evaluacion = new JRBeanArrayDataSource(new Evaluacion[]{e});
-        
+
 //        for(EvaluacionPregunta ep : e.getEvaluacionPreguntaList()){
 //            System.out.println("Pregunta: " + ep.getPregunta().getPregunta());
 //        }
-        
         JRDataSource preguntas = new JRBeanCollectionDataSource(e.getEvaluacionPreguntaList());
-        
+
         String observacion = e.getObservacion();
-        
+
         //Agregando los parametros
         Hashtable<String, Object> parametros = new Hashtable<String, Object>();
         parametros.put("idProyecto", this.getSelected().getId());
@@ -1268,35 +1264,50 @@ public class ProyectoController implements Serializable {
         JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
         FacesContext.getCurrentInstance().responseComplete();
     }
-    
- 
+
     // REPORTE GANTT
     public void pdfEtapas() throws JRException, IOException {
 
-       // Ruta absoluta del archivo compilado del reporte
+        // Ruta absoluta del archivo compilado del reporte
         String rutaJasper = FacesContext.getCurrentInstance().getExternalContext().getRealPath("secure/reportes/proyecto.jasper");
 
-        // Fuente de datos del reporte
+        // FUENTES DE DATOS
         JRBeanArrayDataSource beanArrayDataSource = new JRBeanArrayDataSource(new Proyecto[]{this.getSelected()});
 
-        // Fuente de datos del subreporte [tareas >> gantt]
-        //Obtenemos las tareas de un proyecto
+        // TAREAS
+        // Obtenemos las tareas de un proyecto
         List<Etapa> listaEtapas = this.ejbetapa.buscarEtapasProyecto(current.getId());
         List<Tarea> listaTareas = new ArrayList<Tarea>();
-        
-        for(Etapa e : listaEtapas){
-            for(Tarea t : this.ejbtarea.buscarTareasEtapa(e.getId())){
+
+        for (Etapa e : listaEtapas) {
+            for (Tarea t : this.ejbtarea.buscarTareasEtapa(e.getId())) {
                 listaTareas.add(t);
             }
         }
-        
+
+        // Ordenación por fecha de inicio
+        Collections.sort(listaTareas, new Comparator<Tarea>() {
+            @Override
+            public int compare(Tarea tarea1, Tarea tarea2) {
+                return tarea1.getFechainicio().compareTo(tarea2.getFechainicio());
+            }
+        });
+
         JRBeanCollectionDataSource tareas = new JRBeanCollectionDataSource(listaTareas);
-        
+
+        // PRESUPUESTO
+        List<PresupuestoRubroitem> listaPresupuestoItems = this.ejbpresupuestorubroitem.findByPresupuesto(this.ejbFacadep.findporProyecto(current.getId()));
+
+        for (PresupuestoRubroitem pri : listaPresupuestoItems) {
+            System.out.println("PRI" + pri.getDescripcion() + " - " + pri.getCantidad().toString() + " - " + pri.getTotal().toString());
+        }
+
+        JRBeanCollectionDataSource presupuesto = new JRBeanCollectionDataSource(listaPresupuestoItems);
+
         //Agregando los parametros
         Hashtable<String, Object> parametros = new Hashtable<String, Object>();
         parametros.put("idProyecto", this.getSelected().getId());
-        // parametros.put("presupuesto", detallePresupuesto);
-        // parametros.put("equipoTrabajo", equipoTrabajo);
+        parametros.put("presupuesto", presupuesto);
         parametros.put("tareas", tareas);
 
         // Llenamos el reporte con la fuente de datos
@@ -1308,31 +1319,33 @@ public class ProyectoController implements Serializable {
         ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
         JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
         FacesContext.getCurrentInstance().responseComplete();
-        
+
     }
-    
+
+    /**
+     * SOLO DE PRUEBA
+     */
     public void pdfTareas() throws JRException, IOException {
 
-       // Ruta absoluta del archivo compilado del reporte
+        // Ruta absoluta del archivo compilado del reporte
         String rutaJasper = FacesContext.getCurrentInstance().getExternalContext().getRealPath("secure/reportes/ganttTareas.jasper");
 
         // Fuente de datos del reporte
-       
         //Obtenemos las tareas de un proyecto
         List<Etapa> listaEtapas = this.ejbetapa.buscarEtapasProyecto(current.getId());
         List<Tarea> listaTareas = new ArrayList<Tarea>();
-        
-        for(Etapa e : listaEtapas){
-            for(Tarea t : this.ejbtarea.buscarTareasEtapa(e.getId())){
+
+        for (Etapa e : listaEtapas) {
+            for (Tarea t : this.ejbtarea.buscarTareasEtapa(e.getId())) {
                 listaTareas.add(t);
             }
         }
-        
+
         // Debug
-        for(Tarea t : listaTareas){
-            System.out.println("ID: " + t.getId() + " - Nombre: " + t.getTarea() + " - Estado: " + t.getEstado() + " - Etapa: " + t.getEtapaid().getEtapa() );
+        for (Tarea t : listaTareas) {
+            System.out.println("ID: " + t.getId() + " - Nombre: " + t.getTarea() + " - Estado: " + t.getEstado() + " - Etapa: " + t.getEtapaid().getEtapa());
         }
-        
+
         JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(listaTareas);
 
         // Llenamos el reporte con la fuente de datos
@@ -1344,29 +1357,28 @@ public class ProyectoController implements Serializable {
         ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
         JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
         FacesContext.getCurrentInstance().responseComplete();
-        
+
     }
-    
-    public List<Agente> obtenerEquipoTrabajo(){
-        
-        List<Agente> listaAgentes = new ArrayList<Agente>() ;
+
+    public List<Agente> obtenerEquipoTrabajo() {
+
+        List<Agente> listaAgentes = new ArrayList<Agente>();
         List<ProyectoAgente> listaProyectoAgente = this.ejbproyectoagente.buscarEquipoTrabajo(current.getId());
-        
-        for(ProyectoAgente pa : listaProyectoAgente){
+
+        for (ProyectoAgente pa : listaProyectoAgente) {
             //System.out.println(pa.getAgente().getApellido() + ", " + pa.getAgente().getNombres());
             listaAgentes.add(pa.getAgente());
         }
         return listaAgentes;
     }
-    
-    public List<Archivoproyecto> obtenerArchivosProyecto(){
-        
+
+    public List<Archivoproyecto> obtenerArchivosProyecto() {
+
 //        List<Archivoproyecto> listaArchivos = this.ejbFacadeap.buscarArchivosProyecto(current.getId());
 //        
 //        for(Archivoproyecto ap : listaArchivos){
 //            System.out.println(ap.getNombre());
 //        }
-        
         return this.ejbFacadeap.buscarArchivosProyecto(current.getId());
     }
 }
