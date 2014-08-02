@@ -9,8 +9,9 @@
         <p:menubar autoDisplay="Home"    >
             <c:if test="#{request.isUserInRole('Administrador')}" > 
 
-                <p:submenu label="Idea Proyecto" >  
-                    <p:menuitem value="Evaluacion de Ideas Proyectos" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/evaluacionideaproyecto/List.xhtml' />  
+                <p:submenu label="Evaluaciones" >  
+                    <p:menuitem value="Evaluación de Ideas-Proyectos" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/evaluacionideaproyecto/List.xhtml' />  
+                    <p:menuitem value="Evaluación de Proyectos" url='#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}/secure/evaluacionproyecto/List.xhtml' />  
 
                 </p:submenu>  
 

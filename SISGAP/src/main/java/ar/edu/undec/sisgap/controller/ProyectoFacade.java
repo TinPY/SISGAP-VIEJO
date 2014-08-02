@@ -46,7 +46,6 @@ public class ProyectoFacade extends AbstractFacade<Proyecto> {
 
     public List<Proyecto> buscarProyectoEstado(int estado) {
 
-        List<Proyecto> proyecto;
         try {
             return em.createQuery("select p from Proyecto p join p.agenteid a where p.estadoproyectoid.id = :estado", Proyecto.class).setParameter("estado", estado).getResultList();
         } catch (Exception e) {
@@ -55,6 +54,19 @@ public class ProyectoFacade extends AbstractFacade<Proyecto> {
         }
 
     }
+
+    public List<Proyecto> buscarProyectoEstadoAbreviado(String estadoAbreviado) {
+
+        try {
+            return em.createQuery("select p from Proyecto p where p.estadoproyectoid.estadoabreviado = :estado", Proyecto.class).setParameter("estado", estadoAbreviado).getResultList();
+        } catch (Exception e) {
+            System.out.println("No se pudo realizar la consulta: " + e);
+            return null;
+        }
+
+    }
+    
+    
 
     public List<Proyecto> buscarProyectosAgente(boolean isproyecto, int agenteid) {
 

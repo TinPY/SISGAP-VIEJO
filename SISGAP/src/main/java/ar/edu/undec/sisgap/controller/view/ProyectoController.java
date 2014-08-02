@@ -400,6 +400,10 @@ public class ProyectoController implements Serializable {
                 public DataModel createPageDataModel() {
                     return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
                 }
+
+                public DataModel listaProyectosEvaluar(String estado){
+                    return new ListDataModel(getFacade().buscarProyectoEstadoAbreviado(estado));
+                }
             };
         }
         return pagination;
@@ -416,6 +420,11 @@ public class ProyectoController implements Serializable {
         return "View";
     }
 
+    public String prepareEvaluar(){
+        current = (Proyecto)getItems().getRowData();
+        return "View";
+    }
+    
     public String prepareCreate() {
         current = new Proyecto();
         selectedItemIndex = -1;
@@ -965,7 +974,7 @@ public class ProyectoController implements Serializable {
         }
     }
 
-    public String armarObservaciones() {
+    public String armarObservaciones(Boolean estadoProyecto) {
         observacionfinal = "";
         FacesContext context = FacesContext.getCurrentInstance();
         EvaluacionPreguntaController evaluacionpregunta = (EvaluacionPreguntaController) context.getApplication().evaluateExpressionGet(context, "#{evaluacionPreguntaController}", EvaluacionPreguntaController.class);
@@ -974,7 +983,7 @@ public class ProyectoController implements Serializable {
         String calificacionpregunta = "";
         try {
             observacionfinal = "Estimado docente-investigador:\n"
-                    + "Por medio del presente informamos a Ud. que la Idea-Proyecto Nº " + current.getId() + " de la cual Ud. Es responsable, ha sido " + current.getEstadoproyectoid().getEstado() + " según el siguiente detalle:\n"
+                    + "Por medio del presente informamos a Ud. que la " + estadoProyecto + " Nº "+ current.getId() + " de la cual Ud. Es responsable, ha sido " + current.getEstadoproyectoid().getEstado() + " según el siguiente detalle:\n"
                     + "Observaciones:\n";
             for (EvaluacionPregunta eval : evaluacionpregunta.getEvaluaciones()) {
 
@@ -1381,4 +1390,13 @@ public class ProyectoController implements Serializable {
 //        }
         return this.ejbFacadeap.buscarArchivosProyecto(current.getId());
     }
+
+    // EVALUACION DE IDEAS-PROYECTO y PROYECTOS
+    public void buscarProyectosPorEstado(String estadoAbreviado) {
+        
+        recreateModel();
+        items = new ListDataModel(getFacade().buscarProyectoEstadoAbreviado(estadoAbreviado));
+        
+    }
+
 }

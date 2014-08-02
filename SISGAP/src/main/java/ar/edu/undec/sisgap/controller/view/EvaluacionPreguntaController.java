@@ -33,7 +33,7 @@ public class EvaluacionPreguntaController implements Serializable {
     private ar.edu.undec.sisgap.controller.PreguntaFacade preguntaFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
-    private List<EvaluacionPregunta> evaluaciones=null;
+    private List<EvaluacionPregunta> evaluaciones = null;
 
     public EvaluacionPreguntaController() {
     }
@@ -247,21 +247,40 @@ public class EvaluacionPreguntaController implements Serializable {
         }
 
     }
-    
+
     public List<EvaluacionPregunta> getEvaluaciones() {
-       if (evaluaciones==null){
-          
-           evaluaciones = new ArrayList<EvaluacionPregunta>(); 
-           for (Pregunta pregunta : preguntaFacade.findAllProyecto(Boolean.FALSE)) {
-                   EvaluacionPregunta evaluacionpregunta=new EvaluacionPregunta();
-                   evaluacionpregunta.setPregunta(pregunta);
-                
-                   evaluaciones.add(evaluacionpregunta);
-               } 
-       }
-       return evaluaciones;
-         
-    
+        if (evaluaciones == null) {
+
+            evaluaciones = new ArrayList<EvaluacionPregunta>();
+            for (Pregunta pregunta : preguntaFacade.findAllProyecto(Boolean.FALSE)) {
+                EvaluacionPregunta evaluacionpregunta = new EvaluacionPregunta();
+                evaluacionpregunta.setPregunta(pregunta);
+
+                evaluaciones.add(evaluacionpregunta);
+            }
+        }
+        return evaluaciones;
     }
 
+    /**
+     * Para obtener las preguntas de la evaluacion, segun sea idea-proyecto o
+     * proyecto
+     *
+     * @param proyecto FALSE: Idea-Proyecto - TRUE: Proyecto
+     * @return Lista de EvaluacionPregunta
+     */
+    public List<EvaluacionPregunta> obtenerEvaluaciones(Boolean proyecto) {
+        
+        evaluaciones = null;
+        
+        evaluaciones = new ArrayList<EvaluacionPregunta>();
+        for (Pregunta pregunta : preguntaFacade.findAllProyecto(proyecto)) {
+            EvaluacionPregunta evaluacionpregunta = new EvaluacionPregunta();
+            evaluacionpregunta.setPregunta(pregunta);
+
+            evaluaciones.add(evaluacionpregunta);
+        }
+
+        return evaluaciones;
+    }
 }

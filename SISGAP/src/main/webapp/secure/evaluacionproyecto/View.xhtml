@@ -271,17 +271,17 @@
                             <p:outputLabel style="font-weight:bold;" value="Rating" /> 
                             <p:outputLabel style="font-weight:bold;" value="Observacion" /> 
 
-                            <c:forEach items="#{evaluacionPreguntaController.evaluaciones}" var="data">
+                            <c:forEach items="#{evaluacionPreguntaController.obtenerEvaluaciones(true)}" var="data">
 
                                 <p:outputLabel style="font-weight:bold;" value="#{data.pregunta.pregunta}"  />
                                 <p:selectBooleanCheckbox value="#{data.aprobado}" />
 
                                 <p:rating style="width:100px !important;"  value="#{data.rating}" >
-                                    <p:ajax event="rate" listener="#{proyectoController.armarObservaciones()}" update="observacionfinal"  />  
+                                    <p:ajax event="rate" listener="#{proyectoController.armarObservaciones('Proyecto')}" update="observacionfinal"  />  
                                 </p:rating>
 
                                 <p:inputTextarea value="#{data.observacion}" cols="70" rows="3" >
-                                    <p:ajax event="keyup" listener="#{proyectoController.armarObservaciones()}" update="observacionfinal"  />  
+                                    <p:ajax event="keyup" listener="#{proyectoController.armarObservaciones('Proyecto')}" update="observacionfinal"  />  
                                 </p:inputTextarea>
                             </c:forEach>
                         </h:panelGrid>
@@ -295,8 +295,8 @@
                                 </p:column>
                                 <p:column style="width: 80%;" styleClass="left">
                                     <p:selectOneMenu id="sestado" value="#{proyectoController.selected.estadoproyectoid}" >
-                                        <f:selectItems value="#{estadoproyectoController.getItemspersonalizado(false)}"/>
-                                        <p:ajax listener="#{proyectoController.armarObservaciones()}" update="observacionfinal"  />  
+                                        <f:selectItems value="#{estadoproyectoController.getItemspersonalizado(true)}"/>
+                                        <p:ajax listener="#{proyectoController.armarObservaciones('Proyecto')}" update="observacionfinal"  />  
                                     </p:selectOneMenu>
                                 </p:column>
                             </p:row>
@@ -315,7 +315,7 @@
 
                     <p:separator />
                     <div align="center" >
-                        <p:commandButton ajax="false" value="Guardar y enviar evaluacion" actionListener="#{proyectoController.evaluarIdea}" oncomplete="" />
+                        <p:commandButton ajax="false" value="Guardar evaluacion" actionListener="#{proyectoController.evaluarIdea}" oncomplete="" />
                     </div>
 
                 </p:panel>

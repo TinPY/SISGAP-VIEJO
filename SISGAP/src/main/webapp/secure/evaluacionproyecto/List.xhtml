@@ -11,6 +11,9 @@
             <h:outputText value="Lista de Proyectos a Evaluar"></h:outputText>
         </ui:define>
         <ui:define name="body">
+            
+            <f:event type="preRenderView" listener="#{proyectoController.buscarProyectosPorEstado('PE')}" />
+            
             <h:form styleClass="jsfcrud_list_form">
                 <p:panel id="pprincipal" header="Lista de Proyectos" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
                     <h:panelGroup id="messagePanel" layout="block">
@@ -26,7 +29,6 @@
                             var="item" 
                             widgetVar="tblW"
                             rowKey="#{item.id}" 
-                            filteredValue="#{proyectoController.proyectosFiltrados}"
                             emptyMessage="No se encontraron resultados para el criterio de busqueda"
                             paginator="true" rows="10" paginatorPosition="bottom"
                             draggableColumns="true"
@@ -90,12 +92,14 @@
                             </p:column>
 
                             <p:column style="width:4%" exportable="false">
-                                <p:commandButton id="btnEvaluar" icon="ui-icon-check" action="#{proyectoController.prepareView}" ajax="false" title="Evaluar Proyecto"/>
+                                <p:commandButton id="btnEvaluar" icon="ui-icon-check" action="#{proyectoController.prepareEvaluar}" ajax="false" title="Evaluar Proyecto"/>
                                 <p:tooltip id="ttEvaluar" for="btnEvaluar" value="Evaluar la Idea-Proyecto" />
                             </p:column>    
                         </p:dataTable>
                     </h:panelGroup>
 
+                    <p:separator/>
+                    
                     <p:panel header="Exportar"> 
                         <p:commandLink action="#{proyectoController.imprimirListaIdeasProyecto()}" ajax="false">  
                             <p:graphicImage value="/resources/img/print_printer.png" />  
