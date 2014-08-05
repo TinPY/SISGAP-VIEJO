@@ -9,98 +9,113 @@ and open the template in the editor.
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
-        <title>Sistema de Gestión y  Administración de Proyectos</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <!--<h:outputStylesheet name="./css/cssLayout.css"/>-->
+        <h:outputStylesheet name="./css/default.css"/>
+        <!--<h:outputStylesheet name="css/jsfcrud.css"/>-->
+        <title>sisgap - sistema de gestión de proyectos</title>
     </h:head>
     <h:body>
         <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/>  
-              
-        <p:dialog modal="true" widgetVar="statusDialog" header="Espere Por Favor"   
-                draggable="false" closable="false"> 
+
+        <p:dialog modal="true" widgetVar="statusDialog" header="Espere Por Favor"    
+                  draggable="false" closable="false"> 
             <div align="center">
                 <p:graphicImage value="/resources/img/ajaxloadingbar.gif" /> 
             </div>
         </p:dialog>  
-        <p:panel id="panel">
-        <p:dialog id="dialogoregistrar" appendTo="@(body)" maximizable="false" visible="true" 
-                  minimizable="false" modal="true" header="Registrar" closable="false"
-                  resizable="false" widgetVar="dregistrar" >
-            <h:form id="formresgistrar">
-                
-                <p:messages autoUpdate="true" />
-                <p:outputLabel style="color: red" value="Nota: en el Campo Email debe ser el correo de la Universidad Nacional de Chilecito" />
+        <p:panel id="panel" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
+
+            <p:dialog id="dialogoregistrar" appendTo="@(body)" maximizable="false" visible="true" 
+                      minimizable="false" modal="true" header="Registrar" closable="false"
+                      resizable="false" widgetVar="dregistrar" >
+                <h:form id="formresgistrar">
+                    <p:messages autoUpdate="true" />
+                    <p:outputLabel style="color: red" value="Nota: en el Campo Email debe ser el correo de la Universidad Nacional de Chilecito" />
+                    <p:outputLabel style="color: red" value=" (por ej: usuario@undec.edu.ar) para poder validar su registracion. Muchas Gracias." />
+
+                    <h:panelGrid id="panel" columns="3">
+                        <h:outputText value="Name"/>
+                        <p:inputText id="nombreusuario" maxlength="16" value="#{usuarioController.selected.usuarionombre}" title="Name" required="true" />
+                        <p:message for="nombreusuario" /> 
+
+                        <p:outputLabel value="Password" for="usuarioclave" />
+                        <p:password  id="usuarioclave" value="#{usuarioController.selected.usuarioclave}" title="Password" feedback="true" required="true"   
+                                     promptLabel="Nivel de seguridad de la Contraseña" weakLabel="Debil"  
+                                     goodLabel="Buena" strongLabel="Muy Buena" match="usuarioclave2" />
+                        <p:message for="usuarioclave" /> 
+                        
+                        <p:outputLabel value="Repita el password" for="usuarioclave2" />
+                        <p:password id="usuarioclave2" feedback="true" required="true"   
+                                    promptLabel="Nivel de seguridad de la Contraseña" weakLabel="Debil"  
+                                    goodLabel="Buena" strongLabel="Muy Buena" />
+                        <p:message for="usuarioclave2" /> 
+                        
+                        <h:outputLabel value="Apellido" for="apellido" />
+                        <h:inputText maxlength="30" id="apellido" value="#{usuarioController.selecteda.apellido}" title="Apellido" required="true" />
+                        <p:message for="apellido" /> 
+                        
+                        <h:outputLabel value="Nombres" for="nombres" />
+                        <h:inputText maxlength="45" id="nombres" value="#{usuarioController.selecteda.nombres}" title="Nombres" required="true" />
+                        <p:message for="nombres" /> 
+                        
+                        <p:outputLabel value="Tipo de Documento" for="tipodocumentoid" />
+                        <h:selectOneMenu id="tipodocumentoid" value="#{usuarioController.selecteda.tipodocumentoid}" title="Tipo de Documento" required="true" >
+                            <f:selectItems value="#{tipodocumentoController.itemsAvailableSelectOne}"/>
+                        </h:selectOneMenu>
+                        <p:message for="tipodocumentoid" /> 
+                        
+                        <h:outputLabel value="N° de Documento" for="numerodocumento" />
+                        <h:inputText id="numerodocumento" value="#{usuarioController.selecteda.numerodocumento}" title="Numero de Documento" required="true" />
+                        <p:message for="numerodocumento" /> 
+                        
+                        <h:outputLabel value="Teléfono" for="telefono" />
+                        <h:inputText id="telefono" value="#{usuarioController.selecteda.telefono}" title="Telefono" required="true" />
+                        <p:message for="telefono" /> 
+                        
+                        <h:outputLabel value="Celular" for="celular" />
+                        <h:inputText id="celular" value="#{usuarioController.selecteda.celular}" title="Celular" required="true" />
+                        <p:message for="celular" /> 
+                        
+                        <h:outputLabel value="Email" for="email" />
+                        <h:inputText id="email" value="#{usuarioController.selecteda.email}" validatorMessage="El email tiene que ser del modo loquesea@undec.edu.ar" required="true" >
+                            <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@undec.edu.ar" />
+                        </h:inputText>
+                        <p:message for="email" /> 
+                        
+                        <h:outputLabel value="Otro Email" for="otroemail" />
+                        <h:inputText id="otroemail" value="#{usuarioController.selecteda.otroemail}" validatorMessage="Email Incorrecto" required="true" >
+                            <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                        </h:inputText>   
+                        <p:message for="otroemail" /> 
+                        
+                        <h:outputLabel value="Profesion" for="profesion" />
+                        <h:inputText maxlength="70" id="profesion" value="#{usuarioController.selecteda.profesion}" title="Profesion" required="true" />
+                        <p:message for="profesion" /> 
+                        
+                        <h:outputLabel value="Domicilio" for="domicilio" />
+                        <h:inputText maxlength="200"  id="domicilio" value="#{usuarioController.selecteda.domicilio}" title="Domicilio" required="true" />
+                        <p:message for="domicilio" /> 
+                        
+                        <h:outputLabel value="Dependencia" for="dependenciaid" />
+                        <h:selectOneMenu id="dependenciaid" value="#{usuarioController.selecteda.dependenciaid}" title="Dependencia" required="true" >
+                            <f:selectItems value="#{dependenciaController.itemsAvailableSelectOne}"/>
+                        </h:selectOneMenu>
+                        <p:message for="dependenciaid" /> 
+                        
+                        <p:commandButton actionListener="#{usuarioController.registrar}" value="Crear" update="panel" />
                         <br />
-                        <p:outputLabel style="color: red" value=" (por ej: usuario@undec.edu.ar) para poder validar su registracion. Muchas Gracias." />
-                   
-                <h:panelGrid id="panel" columns="3">
-                    <h:outputText value="Name"/>
-                    <p:inputText id="nombreusuario" maxlength="16" value="#{usuarioController.selected.usuarionombre}" title="Name" required="true" />
-                    <p:message for="nombreusuario" /> 
-                    
-                    <p:outputLabel value="Password" for="usuarioclave" />
-                    <p:password  id="usuarioclave" value="#{usuarioController.selected.usuarioclave}" title="Password" feedback="true" required="true"  
-                        promptLabel="Nivel de seguridad de la Contraseña" weakLabel="Debil"  
-                        goodLabel="Buena" strongLabel="Muy Buena" match="usuarioclave2" />
-                    <p:message for="usuarioclave" /> 
-                    <p:outputLabel value="Repita el password" for="usuarioclave2" />
-                    <p:password id="usuarioclave2" feedback="true" required="true"   
-                        promptLabel="Nivel de seguridad de la Contraseña" weakLabel="Debil"  
-                        goodLabel="Buena" strongLabel="Muy Buena" />
-                    <p:message for="usuarioclave2" /> 
-                    <h:outputLabel value="Apellido" for="apellido" />
-                    <h:inputText maxlength="30" id="apellido" value="#{usuarioController.selecteda.apellido}" title="Apellido" required="true" />
-                    <p:message for="apellido" /> 
-                    <h:outputLabel value="Nombres" for="nombres" />
-                    <h:inputText maxlength="45" id="nombres" value="#{usuarioController.selecteda.nombres}" title="Nombres" required="true" />
-                    <p:message for="nombres" /> 
-                    <p:outputLabel value="Tipo de Documento" for="tipodocumentoid" />
-                    <h:selectOneMenu id="tipodocumentoid" value="#{usuarioController.selecteda.tipodocumentoid}" title="Tipo de Documento" required="true" >
-                        <f:selectItems value="#{tipodocumentoController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <p:message for="tipodocumentoid" /> 
-                    <h:outputLabel value="N° de Documento" for="numerodocumento" />
-                    <h:inputText id="numerodocumento" value="#{usuarioController.selecteda.numerodocumento}" title="Numero de Documento" required="true" />
-                    <p:message for="numerodocumento" /> 
-                    <h:outputLabel value="Teléfono" for="telefono" />
-                    <h:inputText id="telefono" value="#{usuarioController.selecteda.telefono}" title="Telefono" required="true" />
-                    <p:message for="telefono" /> 
-                    <h:outputLabel value="Celular" for="celular" />
-                    <h:inputText id="celular" value="#{usuarioController.selecteda.celular}" title="Celular" required="true" />
-                    <p:message for="celular" /> 
-                    <h:outputLabel value="Email" for="email" />
-                    <h:inputText id="email" value="#{usuarioController.selecteda.email}" validatorMessage="El email tiene que ser del modo loquesea@undec.edu.ar" required="true" >
-                        <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@undec.edu.ar" />
-                    </h:inputText>
-                    <p:message for="email" /> 
-                    <h:outputLabel value="Otro Email" for="otroemail" />
-                     
-                    <h:inputText id="otroemail" value="#{usuarioController.selecteda.otroemail}" validatorMessage="Email Incorrecto" required="true" >
-                        <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
-                    </h:inputText>   
-                    <p:message for="otroemail" /> 
-                    <h:outputLabel value="Profesion" for="profesion" />
-                    <h:inputText maxlength="70" id="profesion" value="#{usuarioController.selecteda.profesion}" title="Profesion" required="true" />
-                    <p:message for="profesion" /> 
-                    <h:outputLabel value="Domicilio" for="domicilio" />
-                    <h:inputText maxlength="200"  id="domicilio" value="#{usuarioController.selecteda.domicilio}" title="Domicilio" required="true" />
-                    <p:message for="domicilio" /> 
-                    <h:outputLabel value="Dependencia" for="dependenciaid" />
-                    <h:selectOneMenu id="dependenciaid" value="#{usuarioController.selecteda.dependenciaid}" title="Dependencia" required="true" >
-                        <f:selectItems value="#{dependenciaController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <p:message for="dependenciaid" /> 
-                    <p:commandButton actionListener="#{usuarioController.registrar}" value="Crear" update="panel" />
-                    <br />
-             
-               <p:button href="./index.xhtml" value="Cancelar" />
-                       
-                   
-                    
-                </h:panelGrid>
-                    
-             
-         
-            </h:form>
-             </p:dialog>
-          </p:panel>
+
+                        <p:button href="./index.xhtml" value="Cancelar" />
+
+
+
+                    </h:panelGrid>
+
+
+
+                </h:form>
+            </p:dialog>
+        </p:panel>
     </h:body>
 </html>

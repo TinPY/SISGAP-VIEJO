@@ -14,17 +14,15 @@
             <f:event type="preRenderView" listener="#{proyectoController.buscarTodos()}" ></f:event>
 
             <h:form >
-                <p:panel id="pprincipal" header="Lista de Beneficiarios" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
+                <p:panel id="pprincipal" header="Lista de Proyectos" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
 
 
                     <h:panelGroup id="messagePanel" layout="block">
                         <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                     </h:panelGroup>
-                    <h:outputText escape="false" value="#{bundle.ListProyectoEmpty}" rendered="#{proyectoController.items.rowCount == 0}"/>
+                    <h:outputText escape="false" value="La lista de proyectos está vacía" rendered="#{proyectoController.items.rowCount == 0}"/>
+
                     <h:panelGroup rendered="#{proyectoController.items.rowCount > 0}">
-                        <h:outputText value="#{proyectoController.pagination.pageFirstItem + 1}..#{proyectoController.pagination.pageLastItem + 1}/#{proyectoController.pagination.itemsCount}"/>&nbsp;
-                        <h:commandLink action="#{proyectoController.previous}" value="#{bundle.Previous} #{proyectoController.pagination.pageSize}" rendered="#{proyectoController.pagination.hasPreviousPage}"/>&nbsp;
-                        <h:commandLink action="#{proyectoController.next}" value="#{bundle.Next} #{proyectoController.pagination.pageSize}" rendered="#{proyectoController.pagination.hasNextPage}"/>&nbsp;
                         
                         <p:dataTable
                             id="tbl" 

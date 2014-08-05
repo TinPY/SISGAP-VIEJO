@@ -974,7 +974,7 @@ public class ProyectoController implements Serializable {
         }
     }
 
-    public String armarObservaciones(Boolean estadoProyecto) {
+    public String armarObservaciones(String estadoProyecto) {
         observacionfinal = "";
         FacesContext context = FacesContext.getCurrentInstance();
         EvaluacionPreguntaController evaluacionpregunta = (EvaluacionPreguntaController) context.getApplication().evaluateExpressionGet(context, "#{evaluacionPreguntaController}", EvaluacionPreguntaController.class);
@@ -983,7 +983,7 @@ public class ProyectoController implements Serializable {
         String calificacionpregunta = "";
         try {
             observacionfinal = "Estimado docente-investigador:\n"
-                    + "Por medio del presente informamos a Ud. que la " + estadoProyecto + " Nº "+ current.getId() + " de la cual Ud. Es responsable, ha sido " + current.getEstadoproyectoid().getEstado() + " según el siguiente detalle:\n"
+                    + "Por medio del presente le informamos a Ud. que el/la " + estadoProyecto + " Nº "+ current.getId() + " de la cual Ud. es responsable, ha cambiado de estado a " + current.getEstadoproyectoid().getEstado() + " según el siguiente detalle:\n"
                     + "Observaciones:\n";
             for (EvaluacionPregunta eval : evaluacionpregunta.getEvaluaciones()) {
 
@@ -1001,15 +1001,26 @@ public class ProyectoController implements Serializable {
                         calificacionpregunta = "EXCELENTE";
                     }
                 }
-                if (eval.getObservacion() != null) {
+                if (!eval.getObservacion().isEmpty()) {
                     observacionfinal += " - " + eval.getObservacion() + "\n";
                 }
                 obs += " - " + eval.getPregunta().getPregunta() + " - " + calificacionpregunta + "\n";
             }
-            String isaceptada = "";
-            if (current.getEstadoproyectoid().getId() == 2) {
-                isaceptada = "A partir de la recepción del presente correo, el sistema quedará habilitado para la carga del proyecto definitivo.\n";
+            String resultado = "";
+            
+            switch(current.getEstadoproyectoid().getId()){
+                // Estado: 
+                case 2:
+                    resultado = "A partir de la recepción del presente correo, el sistema quedará habilitado para la carga del proyecto definitivo.\n";
+                    break;
+                case 6:
+                    resultado = "A partir de la recepción del presente correo, comuniquese.\n";
+                    break;
+                default: 
+                    resultado = "Evaluacion Guardada.\n";
+                    break;
             }
+
             observacionfinal += "Resultados según criterios evaluados:\n" + obs
                     + "Sin otro particular lo saludo a Ud. cordialmente.\n"
                     + "Unidad de Vinculación Tecnológica";
