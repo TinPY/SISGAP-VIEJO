@@ -82,10 +82,10 @@ public class EstadoproyectoController implements Serializable {
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage("Estado de Proyecto creado!");
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("EstadoproyectoCreated"));
             return prepareCreate();
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, "Error de persistencia al intentar crear un nuevo Estado de Proyecto");
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
         }
     }

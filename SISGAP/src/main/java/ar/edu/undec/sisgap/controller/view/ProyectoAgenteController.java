@@ -5,6 +5,7 @@ import ar.edu.undec.sisgap.controller.view.util.JsfUtil;
 import ar.edu.undec.sisgap.controller.view.util.PaginationHelper;
 import ar.edu.undec.sisgap.controller.ProyectoAgenteFacade;
 import ar.edu.undec.sisgap.model.Agente;
+import ar.edu.undec.sisgap.model.Proyecto;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -31,8 +33,9 @@ public class ProyectoAgenteController implements Serializable {
     private ar.edu.undec.sisgap.controller.ProyectoAgenteFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    private boolean iseditar=true;
     
-    private List<Agente> equipoAgentesEnProyecto = new ArrayList<Agente>() ;
+    private List<ProyectoAgente> equipotrabajo = new ArrayList<ProyectoAgente>() ;
 
     public ProyectoAgenteController() {
     }
@@ -50,14 +53,6 @@ public class ProyectoAgenteController implements Serializable {
         return ejbFacade;
     }
 
-    public List<Agente> getEquipoAgentesEnProyecto() {
-        return equipoAgentesEnProyecto;
-    }
-
-    public void setEquipoAgentesEnProyecto(List<Agente> equipoAgentesEnProyecto) {
-        this.equipoAgentesEnProyecto = equipoAgentesEnProyecto;
-    }
-    
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10000000) {
@@ -96,8 +91,8 @@ public class ProyectoAgenteController implements Serializable {
 
     public String create() {
         try {
-            current.getProyectoAgentePK().setAgenteid(current.getAgente().getId());
             current.getProyectoAgentePK().setProyectoid(current.getProyecto().getId());
+            current.getProyectoAgentePK().setAgenteid(current.getAgente().getId());
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ProyectoAgenteCreated"));
             return prepareCreate();
@@ -115,8 +110,8 @@ public class ProyectoAgenteController implements Serializable {
 
     public String update() {
         try {
-            current.getProyectoAgentePK().setAgenteid(current.getAgente().getId());
             current.getProyectoAgentePK().setProyectoid(current.getProyecto().getId());
+            current.getProyectoAgentePK().setAgenteid(current.getAgente().getId());
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ProyectoAgenteUpdated"));
             return "View";
@@ -255,4 +250,47 @@ public class ProyectoAgenteController implements Serializable {
 
     }
 
+    public List<ProyectoAgente> getEquipotrabajo() {
+        return equipotrabajo;
+    }
+
+    public void setEquipotrabajo(List<ProyectoAgente> equipotrabajo) {
+        this.equipotrabajo = equipotrabajo;
+    }
+
+    public void buscarEquipoTrabajoEditar(int p){
+        if((equipotrabajo.isEmpty()) & (iseditar)){
+            this.equipotrabajo=this.ejbFacade.buscarEquipoTrabajo(p);
+            iseditar = false;
+        }
+    }
+    
+    public void agregarEquipo(){
+        boolean inserto =false;
+         FacesContext context = FacesContext.getCurrentInstance();
+        AgenteViewController agenteviewcontroller = (AgenteViewController) context.getApplication().evaluateExpressionGet(context, "#{agenteViewController}", AgenteViewController.class);
+     
+        for(ProyectoAgente pa:equipotrabajo){
+            if((agenteviewcontroller.getSelected().getId().equals(pa.getAgente().getId())) | (agenteviewcontroller.getSelected().getApellido().isEmpty()) ){
+                inserto=true;
+            }
+            
+        }
+        if(!inserto){
+            FacesContext context2 = FacesContext.getCurrentInstance();    
+            ProyectoController proyectocontroller = (ProyectoController) context2.getApplication().evaluateExpressionGet(context2, "#{proyectoController}", ProyectoController.class);
+            ProyectoAgente nuevo = new ProyectoAgente();
+            nuevo.setAgente(agenteviewcontroller.getSelected());
+            nuevo.setProyecto(proyectocontroller.getSelected());
+            equipotrabajo.add(nuevo);
+            
+        }
+        
+         for(ProyectoAgente pa:equipotrabajo){
+            System.out.println(pa.getAgente().getApellido());
+            
+        }
+        
+    }
+    
 }

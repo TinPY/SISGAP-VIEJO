@@ -33,7 +33,7 @@ public class EvaluacionPreguntaController implements Serializable {
     private ar.edu.undec.sisgap.controller.PreguntaFacade preguntaFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
-    private List<EvaluacionPregunta> evaluaciones = null;
+    private List<EvaluacionPregunta> evaluaciones=null;
 
     public EvaluacionPreguntaController() {
     }
@@ -247,19 +247,24 @@ public class EvaluacionPreguntaController implements Serializable {
         }
 
     }
-
+    
     public List<EvaluacionPregunta> getEvaluaciones() {
-        if (evaluaciones == null) {
-
-            evaluaciones = new ArrayList<EvaluacionPregunta>();
-            for (Pregunta pregunta : preguntaFacade.findAllProyecto(Boolean.FALSE)) {
-                EvaluacionPregunta evaluacionpregunta = new EvaluacionPregunta();
-                evaluacionpregunta.setPregunta(pregunta);
-
-                evaluaciones.add(evaluacionpregunta);
-            }
-        }
-        return evaluaciones;
+       if (evaluaciones==null){
+          
+           evaluaciones = new ArrayList<EvaluacionPregunta>(); 
+           for (Pregunta pregunta : preguntaFacade.findAllProyecto(Boolean.FALSE)) {
+                   EvaluacionPregunta evaluacionpregunta=new EvaluacionPregunta();
+                   evaluacionpregunta.setPregunta(pregunta);
+                   evaluacionpregunta.setAprobado(Boolean.FALSE);
+                   evaluacionpregunta.setObservacion("");
+                   evaluacionpregunta.setRating(0);
+                
+                   evaluaciones.add(evaluacionpregunta);
+               } 
+       }
+       return evaluaciones;
+         
+    
     }
 
     /**
@@ -280,7 +285,18 @@ public class EvaluacionPreguntaController implements Serializable {
 
             evaluaciones.add(evaluacionpregunta);
         }
-
+        
         return evaluaciones;
     }
+    
+    public void setCurrent(EvaluacionPregunta current) {
+        this.current = current;
+    }
+
+    public void setEvaluaciones(List<EvaluacionPregunta> evaluaciones) {
+        this.evaluaciones = evaluaciones;
+    }
+
+    
+    
 }

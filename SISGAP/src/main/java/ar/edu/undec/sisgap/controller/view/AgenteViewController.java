@@ -137,11 +137,6 @@ public class AgenteViewController implements Serializable {
     }
     public String solograbar() {
         try {
-            System.out.println("----------apellido------------"+current.getApellido());
-             System.out.println("---------n documento-------------"+current.getNumerodocumento());
-              System.out.println("---------tipodocumento-------------"+current.getTipodocumentoid().getTipodocumento());
-               System.out.println("-----------dependencia-----------"+current.getDependenciaid().getDependencia());
-                System.out.println("-----------profesion-----------"+current.getProfesion());
             getFacade().edit(current);
             ar.edu.undec.sisgap.controller.view.util.JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AgenteUpdated"));
           return null;  
@@ -320,8 +315,19 @@ public class AgenteViewController implements Serializable {
     }
     
     public void agregarEquipo(){
+        boolean inserto =false;
         System.out.println("-----"+current.getApellido());
-        collectoragentes.add(current);
+        for(Agente a:collectoragentes){
+            if((current.getId().equals(a.getId())) | (current.getApellido().isEmpty()) ){
+                inserto=true;
+            }
+            
+            
+        }
+        if(!inserto){
+            collectoragentes.add(current);
+            
+        }
     }
     
     public void removerAgenteCollector(){
@@ -352,13 +358,13 @@ public class AgenteViewController implements Serializable {
     public void registrar(){
         System.out.println("oooooooooo");
         if(this.ejbFacade.agentedocumento(agente1.getNumerodocumento())==null){
-            System.out.println("---------------");
+           
             ejbFacade.createWithPersist(agente1);
-            System.out.println("lllllllllllllllllllllll");
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Nuevo Agente", "La creación del nuevo Agente se realizó satisfactoriamente")); 
+           
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "OK", "La registracion fue Satisfactoria")); 
         }else{
             System.out.println("8888888888888888");
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Ya Existe un Agente con ese número de documento.")); 
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Ya Existe Una Persona con Ese Numero de Documento")); 
         }
     }
 
