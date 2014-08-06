@@ -14,9 +14,6 @@
 
             <h:form >
                 <p:panel id="pprincipal" header="Nuevo Agente" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
-                    <h:panelGroup id="messagePanel" layout="block">
-                        <p:messages autoUpdate="true" />
-                    </h:panelGroup>
 
                     <p:fieldset legend="Información Personal" style="display: inline-block; width: 46%; float: left;">
                         <p:panelGrid styleClass="sinBordes sinFondo">
@@ -143,7 +140,7 @@
                     </p:accordionPanel>
 
                     <br style="clear: both;"/>
-                    
+
                     <p:separator />
                     <p:commandButton action="#{agenteController.create}" value="Crear Agente" style="display: inline-block;" icon="ui-icon-disk" validateClient="true" update="pprincipal" oncomplete="dfinalW.show();" />
                     <p:commandButton action="#{agenteController.prepareList}" value="Lista de Agentes" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document" ajax="false" />
@@ -155,8 +152,10 @@
 
             </h:form>
             <h:form>
-                 <p:dialog id="dfinal" widgetVar="dfinalW"  modal="true" closable="false"  header="Alta de Agente" >
-                    El Agente fue creado satisfactoriamente!
+                <p:dialog id="dfinal" widgetVar="dfinalW" modal="true" header="Alta de Agente" >
+                    <h:panelGroup id="messagePanel" layout="block">
+                        <p:messages autoUpdate="true" />
+                    </h:panelGroup>
                     <p:separator />
                     <div align="center" >
                         <p:commandButton value="Volver a la Lista" action="#{agenteController.prepareList()}" ajax="false" />

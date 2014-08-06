@@ -84,12 +84,10 @@ public class DependenciaController implements Serializable {
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage("Dependencia creada!");
-            //return prepareCreate();
-            RequestContext.getCurrentInstance().execute("dfinal.show()");
-            return null;
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/BundleSISGAP").getString("DependenciaCreated"));
+            return prepareCreate();
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, "Error de persistencia al intentar crear una nueva Dependencia");
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/BundleSISGAP").getString("PersistenceErrorOccured"));
             return null;
         }
     }
@@ -103,12 +101,11 @@ public class DependenciaController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage("Dependencia actualizada correctamente!");
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/BundleSISGAP").getString("DependenciaUpdated"));
             //return "View";
-            RequestContext.getCurrentInstance().execute("dfinal.show()");
             return null;
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, "Error de persistencia al intentar actualizar la Dependecia");
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/BundleSISGAP").getString("PersistenceErrorOccured"));
             return null;
         }
     }
@@ -138,13 +135,9 @@ public class DependenciaController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            //JsfUtil.addSuccessMessage("Agente Borrado");
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "SISGAP", "Dependencia Borrada");
-            FacesContext.getCurrentInstance().addMessage(null, message);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/BundleSISGAP").getString("DependenciaDeleted"));
         } catch (Exception e) {
-            //JsfUtil.addErrorMessage(e, "Ocurrio un error durante el borrado del agente");
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "SISGAP", "Error al intentar borrar la Dependencia: " + e.getMessage());
-            FacesContext.getCurrentInstance().addMessage(null, message);
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/BundleSISGAP").getString("PersistenceErrorOccured"));
         }
     }
 

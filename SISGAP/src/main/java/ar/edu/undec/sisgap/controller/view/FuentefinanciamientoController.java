@@ -84,12 +84,10 @@ public class FuentefinanciamientoController implements Serializable {
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage("Fuente de Financiamiento creada!");
-            //return prepareCreate();
-            RequestContext.getCurrentInstance().execute("dfinal.show()");
-            return null;
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/BundleSISGAP").getString("FuentefinanciamientoCreated"));
+            return prepareCreate();
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, "Error de persistencia al intentar crear una nueva Fuente de Financiamiento.");
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/BundleSISGAP").getString("PersistenceErrorOccured"));
             return null;
         }
     }
@@ -103,12 +101,11 @@ public class FuentefinanciamientoController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage("Fuente de Financiamiento actualizada correctamente");
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/BundleSISGAP").getString("FuentefinanciamientoUpdated"));
             //return "View";
-            RequestContext.getCurrentInstance().execute("dfinal.show()");
             return null;
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, "Error de persistencia al intentar actualizar al Fuente de Financiamiento.");
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/BundleSISGAP").getString("PersistenceErrorOccured"));
             return null;
         }
     }
@@ -138,13 +135,9 @@ public class FuentefinanciamientoController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            //JsfUtil.addSuccessMessage("Agente Borrado");
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "SISGAP", "Fuente de Financiamiento Borrada");
-            FacesContext.getCurrentInstance().addMessage(null, message);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/BundleSISGAP").getString("FuentefinanciamientoDeleted"));
         } catch (Exception e) {
-            //JsfUtil.addErrorMessage(e, "Ocurrio un error durante el borrado del agente");
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "SISGAP", "Error al intentar borrar la Fuente de Financiamiento: " + e.getMessage());
-            FacesContext.getCurrentInstance().addMessage(null, message);
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/BundleSISGAP").getString("PersistenceErrorOccured"));
         }
     }
 

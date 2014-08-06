@@ -15,7 +15,7 @@
 
                 <p:panel id="pprincipal" header="Lista de Agentes" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
                     
-                    <p:growl id="message" showDetail="true" autoUpdate="true" />
+                    <p:growl id="message" autoUpdate="true" />
                     
 <!--                    <h:panelGroup id="messagePanel" layout="block">
                         <p:messages autoUpdate="true"/>
@@ -76,7 +76,7 @@
                                 <h:outputText value=" "/>
                                 <p:commandButton action="#{agenteController.prepareEdit}" title="Editar" icon="ui-icon-pencil" ajax="false"/>
                                 <h:outputText value=" "/>
-                                <p:commandButton action="#{agenteController.destroy}" title="Eliminar" icon="ui-icon-trash" update=":form:tbl" >
+                                <p:commandButton action="#{agenteController.destroy}" title="Eliminar" icon="ui-icon-trash" update=":form:tbl,:form" >
                                     <p:confirm header="Eliminar" message="Esta seguro que desea eliminar el Agente?" icon="ui-icon-alert"   />
                                 </p:commandButton>
                             </p:column>
@@ -92,7 +92,7 @@
                 </p:panel>
 
                 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" >
-                    <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update=":form:tbl" style="float:left;" />
+                    <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update=":form:tbl,:form" style="float:left;" />
                     <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" style="float: right;" />
                 </p:confirmDialog>
 

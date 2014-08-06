@@ -1,0 +1,4 @@
+ABM de Avanceproyecto: Completo
+ABM de Usuario: Modificar el metodo Edit en el controller
+
+Todos los ABM's: Modificar los Create, Edit, List para que muestren los mensajes, dialogos y growl

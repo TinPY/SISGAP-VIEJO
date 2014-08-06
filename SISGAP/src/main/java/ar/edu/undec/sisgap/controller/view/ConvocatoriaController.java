@@ -108,12 +108,10 @@ public class ConvocatoriaController implements Serializable {
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage("Convocatoria creada!");
-            //return prepareCreate();
-            RequestContext.getCurrentInstance().execute("dfinal.show()");
-            return null;
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/BundleSISGAP").getString("ConvocatoriaCreated"));
+            return prepareCreate();
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, "Error de persistencia al intentar crear una nueva Convocatoria");
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/BundleSISGAP").getString("PersistenceErrorOccured"));
             return null;
         }
     }
@@ -127,12 +125,11 @@ public class ConvocatoriaController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage("Convocatoria actualizada correctamente!");
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/BundleSISGAP").getString("ConvocatoriaUpdated"));
             //return "View";
-            RequestContext.getCurrentInstance().execute("dfinal.show()");
             return null;
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, "Error de persitencia al intentar actualizar la convocatoria");
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/BundleSISGAP").getString("PersistenceErrorOccured"));
             return null;
         }
     }
@@ -162,13 +159,9 @@ public class ConvocatoriaController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            //JsfUtil.addSuccessMessage("Agente Borrado");
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "SISGAP", "Convocatoria Borrada");
-            FacesContext.getCurrentInstance().addMessage(null, message);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/BundleSISGAP").getString("ConvocatoriaDeleted"));
         } catch (Exception e) {
-            //JsfUtil.addErrorMessage(e, "Ocurrio un error durante el borrado del agente");
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "SISGAP", "Error al intentar borrar una Convocatoria: " + e.getMessage());
-            FacesContext.getCurrentInstance().addMessage(null, message);
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/BundleSISGAP").getString("PersistenceErrorOccured"));
         }
     }
 

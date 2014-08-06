@@ -84,12 +84,10 @@ public class ComitenteController implements Serializable {
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage("Comitente Creado!");
-            //return prepareCreate();
-            RequestContext.getCurrentInstance().execute("dfinal.show()");
-            return null;
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/BundleSISGAP").getString("EntidadbeneficiariaCreated"));
+            return prepareCreate();
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, "Error de persistencia al intentar crear un nuevo Comitente");
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/BundleSISGAP").getString("PersistenceErrorOccured"));
             return null;
         }
     }
@@ -116,12 +114,11 @@ public class ComitenteController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage("Comitente actualizado!");
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/BundleSISGAP").getString("ComitenteUpdated"));
             //return "View";
-            RequestContext.getCurrentInstance().execute("dfinal.show()");
             return null;
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, "Error de persistencia al intentar actualizar un Comitente");
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/BundleSISGAP").getString("PersistenceErrorOccured"));
             return null;
         }
     }
@@ -151,13 +148,9 @@ public class ComitenteController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            //JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("BeneficiarioDeleted"));
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "SISGAP", "Comitente Borrado");
-            FacesContext.getCurrentInstance().addMessage(null, message);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/BundleSISGAP").getString("ComitenteDeleted"));
         } catch (Exception e) {
-            //JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "SISGAP", "Error al intentar borrar el Comitente: " + e.getMessage());
-            FacesContext.getCurrentInstance().addMessage(null, message);
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/BundleSISGAP").getString("PersistenceErrorOccured"));
         }
     }
 

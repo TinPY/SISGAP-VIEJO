@@ -84,12 +84,10 @@ public class RubroController implements Serializable {
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage("Rubro creado!");
-            //return prepareCreate();
-            RequestContext.getCurrentInstance().execute("dfinal.show()");
-            return null;
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/BundleSISGAP").getString("RubroCreated"));
+            return prepareCreate();
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, "Error de persistencia al intentar crear un nuevo Rubro.");
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/BundleSISGAP").getString("PersistenceErrorOccured"));
             return null;
         }
     }
@@ -103,12 +101,11 @@ public class RubroController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage("Rubro actualizado satisfactoriamente!");
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/BundleSISGAP").getString("RubroUpdated"));
             //return "View";
-            RequestContext.getCurrentInstance().execute("dfinal.show()");
             return null;
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, "Error de persistencia al intentar actualizar el Rubro");
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/BundleSISGAP").getString("PersistenceErrorOccured"));
             return null;
         }
     }
@@ -138,13 +135,9 @@ public class RubroController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            //JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("BeneficiarioDeleted"));
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "SISGAP", "Rubro Borrado");
-            FacesContext.getCurrentInstance().addMessage(null, message);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/BundleSISGAP").getString("RubroDeleted"));
         } catch (Exception e) {
-            //JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "SISGAP", "Error al intentar borrar el Rubro: " + e.getMessage());
-            FacesContext.getCurrentInstance().addMessage(null, message);
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/BundleSISGAP").getString("PersistenceErrorOccured"));
         }
     }
 

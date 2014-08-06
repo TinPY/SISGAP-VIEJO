@@ -123,18 +123,19 @@ public class UsuarioController implements Serializable {
             
             getFacade().createWithPersist(current);
             
+            // Usuario a Agente
             currenta = agenteViewController.getAgente1();
             System.out.println("Agente >> Id: " + currenta.getId() + " - Apellido y nombre: " + currenta.getApellido() + ", " + currenta.getNombres());
             currenta.setUsuarioid(current);
             
             getFacadea().edit(currenta);
             
-            JsfUtil.addSuccessMessage("Usuario creado y fue asignado al Agente seleccionado/creado!");
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/BundleSISGAP").getString("UsuarioCreated"));
             //return prepareCreate();
             RequestContext.getCurrentInstance().execute("dfinal.show()");
             return null;
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, "Error de persistencia al intentar crear un nuevo Usuario");
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/BundleSISGAP").getString("PersistenceErrorOccured"));
             return null;
         }
     }
@@ -145,15 +146,16 @@ public class UsuarioController implements Serializable {
         return "Edit";
     }
 
+    
+    // Hacer: similar a lo realizado en Create
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage("Usuario actualizado satisfactoriamente!");
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/BundleSISGAP").getString("UsuarioUpdated"));
             //return "View";
-            RequestContext.getCurrentInstance().execute("dfinal.show()");
             return null;
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, "Error de persistencia al intentar actualizar el Usuario");
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/BundleSISGAP").getString("PersistenceErrorOccured"));
             return null;
         }
     }
@@ -183,13 +185,9 @@ public class UsuarioController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            //JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("BeneficiarioDeleted"));
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "SISGAP", "Usuario Borrado");
-            FacesContext.getCurrentInstance().addMessage(null, message);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/BundleSISGAP").getString("UsuarioDeleted"));
         } catch (Exception e) {
-            //JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "SISGAP", "Error al intentar borrar el Usuario: " + e.getMessage());
-            FacesContext.getCurrentInstance().addMessage(null, message);
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/BundleSISGAP").getString("PersistenceErrorOccured"));
         }
     }
 

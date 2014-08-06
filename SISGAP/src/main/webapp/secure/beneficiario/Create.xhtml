@@ -14,9 +14,7 @@
             
             <h:form>
                 <p:panel id="pprincipal" header="Nuevo Beneficiario" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
-                    <h:panelGroup id="messagePanel" layout="block">
-                        <p:messages autoUpdate="true"/>
-                    </h:panelGroup>
+                    
                     <p:fieldset legend="Información del Beneficiario">
                         <p:panelGrid styleClass="sinBordes sinFondo">
                             <p:row>
@@ -42,7 +40,9 @@
             </h:form>
             <h:form>
                  <p:dialog id="dfinal" widgetVar="dfinal"  modal="true" closable="false"  header="Alta de Beneficiario" >
-                    El Beneficiario fue creado satisfactoriamente!
+                    <h:panelGroup id="messagePanel" layout="block">
+                        <p:messages autoUpdate="true"/>
+                    </h:panelGroup>
                     <p:separator />
                     <div align="center" >
                         <p:commandButton value="Volver a la Lista" action="#{beneficiarioController.prepareList()}" ajax="false" />

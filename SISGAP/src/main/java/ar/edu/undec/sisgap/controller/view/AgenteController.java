@@ -106,10 +106,10 @@ public class AgenteController implements Serializable {
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/BundleSISGAP").getString("AgenteCreated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AgenteCreated"));
             return prepareCreate();
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/BundleSISGAP").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
         }
     }
@@ -123,24 +123,18 @@ public class AgenteController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage("Agente Actualizado!");
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AgenteUpdated"));
             //return "View";
-            RequestContext.getCurrentInstance().execute("dfinal.show()");
             return null;
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, "Ocurrio un error de persistencia al intentar actualizar el Agente.");
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
         }
     }
     public String solograbar() {
         try {
-            System.out.println("----------apellido------------"+current.getApellido());
-             System.out.println("---------n documento-------------"+current.getNumerodocumento());
-              System.out.println("---------tipodocumento-------------"+current.getTipodocumentoid().getTipodocumento());
-               System.out.println("-----------dependencia-----------"+current.getDependenciaid().getDependencia());
-                System.out.println("-----------profesion-----------"+current.getProfesion());
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage("Agente Actualizado!");
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AgenteUpdated"));
           return null;  
         } catch (Exception e) {
             //JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -174,13 +168,9 @@ public class AgenteController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            //JsfUtil.addSuccessMessage("Agente Borrado");
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "SISGAP", "Agente Borrado");
-            FacesContext.getCurrentInstance().addMessage(null, message);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AgenteDeleted"));
         } catch (Exception e) {
-            //JsfUtil.addErrorMessage(e, "Ocurrio un error durante el borrado del agente");
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "SISGAP", "Error al intentar borrar un Agente: " + e.getMessage());
-            FacesContext.getCurrentInstance().addMessage(null, message);
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
     }
 
