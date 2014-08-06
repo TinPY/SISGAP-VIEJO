@@ -106,12 +106,10 @@ public class AgenteController implements Serializable {
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage("Agente Creado!");
-            //return prepareCreate();
-            RequestContext.getCurrentInstance().execute("dfinal.show()");
-            return null;
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/BundleSISGAP").getString("AgenteCreated"));
+            return prepareCreate();
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, "Ocurrio un error de persistencia al intentar crear un nuevo Agente.");
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/BundleSISGAP").getString("PersistenceErrorOccured"));
             return null;
         }
     }

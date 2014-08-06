@@ -17,11 +17,16 @@
                         <p:messages autoUpdate="true"/>
                     </h:panelGroup>
 
-<!--                    <h:outputLabel value="#{bundle.CreateAgenteLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{agenteController.selected.id}" title="#{bundle.CreateAgenteTitle_id}" required="true" requiredMessage="#{bundle.CreateAgenteRequiredMessage_id}"/>-->
-
                     <p:fieldset legend="Información Personal" style="display: inline-block; width: 46%; float: left;">
                         <p:panelGrid styleClass="sinBordes sinFondo">
+                            <p:row>
+                                <p:column style="width: 40%;">
+                                    <h:outputLabel value="Nro" for="id" style="font-weight: bold;" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <h:outputText id="id" value="#{agenteController.selected.id}" />
+                                </p:column>
+                            </p:row>
                             <p:row>
                                 <p:column style="width: 40%;">
                                     <h:outputLabel value="Apellido" for="apellido" style="font-weight: bold;" />
@@ -73,7 +78,7 @@
                                         <h:outputLabel value="Domicilio" for="domicilio" style="font-weight: bold;" />
                                     </p:column>
                                     <p:column style="width: 60%;">
-                                        <h:outputText id="domicilio" value="#{agenteController.selected.domicilio}" title="#{bundle.CreateAgenteTitle_domicilio}" />
+                                        <h:outputText id="domicilio" value="#{agenteController.selected.domicilio}" title="Domicilio" />
                                     </p:column>
                                 </p:row>
                                 <p:row>
@@ -81,7 +86,7 @@
                                         <h:outputLabel value="Teléfono" for="telefono" style="font-weight: bold;" />
                                     </p:column>
                                     <p:column style="width: 60%;">
-                                        <h:outputText id="telefono" value="#{agenteController.selected.telefono}" title="#{bundle.CreateAgenteTitle_telefono}" />
+                                        <h:outputText id="telefono" value="#{agenteController.selected.telefono}" title="Teléfono" />
                                     </p:column>
                                 </p:row>
                                 <p:row>
@@ -89,7 +94,7 @@
                                         <h:outputLabel value="Celular" for="celular" style="font-weight: bold;" />
                                     </p:column>
                                     <p:column style="width: 60%;">
-                                        <h:outputText id="celular" value="#{agenteController.selected.celular}" title="#{bundle.CreateAgenteTitle_celular}" />
+                                        <h:outputText id="celular" value="#{agenteController.selected.celular}" title="Celular" />
                                     </p:column>
                                 </p:row>
                                 <p:row>
@@ -97,7 +102,7 @@
                                         <h:outputLabel value="Email" for="email" style="font-weight: bold;" />
                                     </p:column>
                                     <p:column style="width: 60%;">
-                                        <h:outputText id="email" value="#{agenteController.selected.email}" title="#{bundle.CreateAgenteTitle_email}" />
+                                        <h:outputText id="email" value="#{agenteController.selected.email}" title="Email" />
                                     </p:column>
                                 </p:row>
                                 <p:row>
@@ -105,7 +110,7 @@
                                         <h:outputLabel value="Email Secundario" for="otroemail" style="font-weight: bold;" />
                                     </p:column>
                                     <p:column style="width: 60%;">
-                                        <h:outputText id="otroemail" value="#{agenteController.selected.otroemail}" title="#{bundle.CreateAgenteTitle_otroemail}" />
+                                        <h:outputText id="otroemail" value="#{agenteController.selected.otroemail}" title="Email Alternativo" />
                                     </p:column>
                                 </p:row>                            
                             </p:panelGrid>
@@ -117,7 +122,7 @@
                                         <h:outputLabel value="Profesión" for="profesion" style="font-weight: bold;" />
                                     </p:column>
                                     <p:column style="width: 80%;">
-                                        <h:outputText id="profesion" value="#{agenteController.selected.profesion}" title="#{bundle.CreateAgenteTitle_profesion}" />
+                                        <h:outputText id="profesion" value="#{agenteController.selected.profesion}" title="Profesión" />
                                     </p:column>
                                 </p:row>
                                 <p:row>

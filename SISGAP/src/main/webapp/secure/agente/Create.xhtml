@@ -73,7 +73,7 @@
                                         <p:outputLabel value="Domicilio" for="domicilio" style="font-weight: bold;" />
                                     </p:column>
                                     <p:column style="width: 60%;">
-                                        <p:inputText id="domicilio" value="#{agenteController.selected.domicilio}" title="#{bundle.CreateAgenteTitle_domicilio}" />
+                                        <p:inputText id="domicilio" value="#{agenteController.selected.domicilio}" title="Domicilio" />
                                     </p:column>
                                 </p:row>
                                 <p:row>
@@ -145,7 +145,7 @@
                     <br style="clear: both;"/>
                     
                     <p:separator />
-                    <p:commandButton action="#{agenteController.create}" value="Crear Agente" style="display: inline-block;" icon="ui-icon-disk" validateClient="true" update="pprincipal" />
+                    <p:commandButton action="#{agenteController.create}" value="Crear Agente" style="display: inline-block;" icon="ui-icon-disk" validateClient="true" update="pprincipal" oncomplete="dfinalW.show();" />
                     <p:commandButton action="#{agenteController.prepareList}" value="Lista de Agentes" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document" ajax="false" />
                     <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home"  ajax="false" />
                     <p:separator/>
@@ -155,7 +155,7 @@
 
             </h:form>
             <h:form>
-                 <p:dialog id="dfinal" widgetVar="dfinal"  modal="true" closable="false"  header="Alta de Agente" >
+                 <p:dialog id="dfinal" widgetVar="dfinalW"  modal="true" closable="false"  header="Alta de Agente" >
                     El Agente fue creado satisfactoriamente!
                     <p:separator />
                     <div align="center" >
