@@ -8,6 +8,7 @@ import ar.edu.undec.sisgap.controller.TipofinanciamientoFacade;
 import java.io.Serializable;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
@@ -17,6 +18,7 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "tipofinanciamientoController")
 @SessionScoped
@@ -82,10 +84,12 @@ public class TipofinanciamientoController implements Serializable {
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TipofinanciamientoCreated"));
-            return prepareCreate();
+            JsfUtil.addSuccessMessage("Tipo de Financiamiento creado!");
+            //return prepareCreate();
+            RequestContext.getCurrentInstance().execute("dfinal.show()");
+            return null;
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, "Error de persistencia al intentar crear un nuevo Tipo de Financiamiento.");
             return null;
         }
     }
@@ -99,10 +103,12 @@ public class TipofinanciamientoController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TipofinanciamientoUpdated"));
-            return "View";
+            JsfUtil.addSuccessMessage("Tipo de Financiamiento actualizado satisfactoriamente!");
+            //return "View";
+            RequestContext.getCurrentInstance().execute("dfinal.show()");
+            return null;
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, "Error de persistencia al intentar actualizar el Tipo de Financiamiento.");
             return null;
         }
     }
@@ -132,9 +138,13 @@ public class TipofinanciamientoController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TipofinanciamientoDeleted"));
+            //JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("BeneficiarioDeleted"));
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "SISGAP", "Tipo de Financiamiento Borrado");
+            FacesContext.getCurrentInstance().addMessage(null, message);
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            //JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "SISGAP", "Error al intentar borrar el Tipo de Financiamiento: " + e.getMessage());
+            FacesContext.getCurrentInstance().addMessage(null, message);
         }
     }
 

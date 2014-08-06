@@ -5,6 +5,7 @@ import ar.edu.undec.sisgap.controller.view.util.JsfUtil;
 import ar.edu.undec.sisgap.controller.view.util.PaginationHelper;
 import ar.edu.undec.sisgap.controller.TareaAgenteFacade;
 import ar.edu.undec.sisgap.model.Agente;
+import ar.edu.undec.sisgap.model.TareaAgentePK;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public class TareaAgenteController implements Serializable {
     public TareaAgente getSelected() {
         if (current == null) {
             current = new TareaAgente();
-            //current.setTareaAgentePK(new ar.edu.undec.sisgap.model.TareaAgentePK());
+            current.setTareaAgentePK(new ar.edu.undec.sisgap.model.TareaAgentePK());
             selectedItemIndex = -1;
         }
         return current;
@@ -80,7 +81,7 @@ public class TareaAgenteController implements Serializable {
 
     public String prepareCreate() {
         current = new TareaAgente();
-       // current.setTareaAgentePK(new ar.edu.undec.sisgap.model.TareaAgentePK());
+        current.setTareaAgentePK(new ar.edu.undec.sisgap.model.TareaAgentePK());
         selectedItemIndex = -1;
         return "Create";
     }
@@ -210,15 +211,20 @@ public class TareaAgenteController implements Serializable {
             return controller.ejbFacade.find(getKey(value));
         }
 
-        java.lang.Integer getKey(String value) {
-            java.lang.Integer key;
-            key = Integer.valueOf(value);
+        ar.edu.undec.sisgap.model.TareaAgentePK getKey(String value) {
+            ar.edu.undec.sisgap.model.TareaAgentePK key;
+            String values[] = value.split(SEPARATOR_ESCAPED);
+            key = new ar.edu.undec.sisgap.model.TareaAgentePK();
+            key.setTareaid(Integer.parseInt(values[0]));
+            key.setAgenteid(Integer.parseInt(values[1]));
             return key;
         }
 
-        String getStringKey(ar.edu.undec.sisgap.model.TareaAgente value) {
+        String getStringKey(ar.edu.undec.sisgap.model.TareaAgentePK value) {
             StringBuilder sb = new StringBuilder();
-            sb.append(value.getId());
+            sb.append(value.getTareaid());
+            sb.append(SEPARATOR);
+            sb.append(value.getAgenteid());
             return sb.toString();
         }
 
@@ -229,7 +235,7 @@ public class TareaAgenteController implements Serializable {
             }
             if (object instanceof TareaAgente) {
                 TareaAgente o = (TareaAgente) object;
-                return getStringKey(o);
+                return getStringKey(o.getTareaAgentePK());
             } else {
                 throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + TareaAgente.class.getName());
             }
@@ -251,21 +257,21 @@ public class TareaAgenteController implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         AgenteViewController agenteviewcontrol= (AgenteViewController) context.getApplication().evaluateExpressionGet(context, "#{agenteViewController}", AgenteViewController.class);
         TareaAgente ta = new TareaAgente();
-        ta.setAgenteid(agenteviewcontrol.getSelected());
-        
+        ta.setAgente(agenteviewcontrol.getSelected());
+        System.out.println("----------llllllllllllllllllllll-----------"+agenteviewcontrol.getSelected().getNumerodocumento());
         if(tareasagentes==null){
             tareasagentes= new ArrayList<TareaAgente>();
         }
         for (TareaAgente ta1:tareasagentes){
-            if(ta1.getAgenteid().getId().equals(agenteviewcontrol.getSelected().getId())){
+            if(ta1.getAgente().getId().equals(agenteviewcontrol.getSelected().getId())){
                 existe=true;
             }
         }
         if(!existe){
-           // TareaAgentePK tapk = new TareaAgentePK();
-            //tapk.setAgenteid(agenteviewcontrol.getSelected().getId());
-            //tapk.setTareaid(tareasagentes.size()+1);
-            //ta.setTareaAgentePK(tapk);
+            TareaAgentePK tapk = new TareaAgentePK();
+            tapk.setAgenteid(agenteviewcontrol.getSelected().getId());
+            tapk.setTareaid(tareasagentes.size()+1);
+            ta.setTareaAgentePK(tapk);
             tareasagentes.add(ta);
         }
     }
@@ -273,7 +279,7 @@ public class TareaAgenteController implements Serializable {
     public void removerEquipo(Agente a){
         
         for (TareaAgente ta1:tareasagentes){
-            if(ta1.getAgenteid().getId().equals(a.getId())){
+            if(ta1.getAgente().getId().equals(a.getId())){
                tareasagentes.remove(ta1);
             }
         }

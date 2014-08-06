@@ -11,7 +11,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
@@ -280,9 +279,9 @@ public class TareaController implements Serializable {
             current.setId(tareasdeproyecto.size()+1);
             //current.setEstado("0");
             for(TareaAgente ta:tareaagentecontroller.getTareasagentes()){
-               
+               System.out.println("pppppppppppppppppppppppppppppppp"+ta.getAgente().getApellido()); 
             }
-           current.setTareaAgenteList(tareaagentecontroller.getTareasagentes());
+            current.setTareaAgenteList(tareaagentecontroller.getTareasagentes());
             tareasdeproyecto.add(current);
         }
         
@@ -328,7 +327,7 @@ public class TareaController implements Serializable {
         long diffdias = Math.abs( diferenciaMilisegundos / (24 * 60 * 60 * 1000) );
         int entero=(int) diffdias;
         current.setDias(entero+1);
-       
+        System.out.println("-------------"+diffdias);
         
 
     }
@@ -344,7 +343,7 @@ public class TareaController implements Serializable {
     
     
     public void removerTareadeProyecto(){
-       
+        System.out.println("oooooooooooo"+current.getId());
        
         this.tareasdeproyecto.remove(current);
       //  crearChart();
@@ -357,15 +356,17 @@ public class TareaController implements Serializable {
         
     public void sumarDias(){
         Calendar cal=Calendar.getInstance();
+        System.out.println("nnnnnnnnnnnn"+current.getTarea());
+        System.out.println("nnnnnnnnnnnn"+current.getDias());
         cal.setTime(current.getFechainicio());
         cal.add(Calendar.DAY_OF_YEAR, current.getDias());
         current.setFechafin(cal.getTime());
-
+//        System.out.println("--------"+current.getFechafin());
                 
     }
     
     public void setSelected(Tarea tarea){
-        
+        System.out.println("llllllllllllll");
         current= tarea;
     }
 
@@ -387,7 +388,7 @@ public class TareaController implements Serializable {
     
     public void editarTarea(Tarea t){
         current = t;
-       tareaagentecontroller.setTareasagentes(current.getTareaAgenteList());
+        tareaagentecontroller.setTareasagentes(current.getTareaAgenteList());
         
     }
 

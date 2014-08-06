@@ -8,6 +8,7 @@ import ar.edu.undec.sisgap.controller.DependenciaFacade;
 import java.io.Serializable;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
@@ -17,6 +18,7 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "dependenciaController")
 @SessionScoped
@@ -82,10 +84,12 @@ public class DependenciaController implements Serializable {
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("DependenciaCreated"));
-            return prepareCreate();
+            JsfUtil.addSuccessMessage("Dependencia creada!");
+            //return prepareCreate();
+            RequestContext.getCurrentInstance().execute("dfinal.show()");
+            return null;
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, "Error de persistencia al intentar crear una nueva Dependencia");
             return null;
         }
     }
@@ -99,10 +103,12 @@ public class DependenciaController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("DependenciaUpdated"));
-            return "View";
+            JsfUtil.addSuccessMessage("Dependencia actualizada correctamente!");
+            //return "View";
+            RequestContext.getCurrentInstance().execute("dfinal.show()");
+            return null;
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, "Error de persistencia al intentar actualizar la Dependecia");
             return null;
         }
     }
@@ -132,9 +138,13 @@ public class DependenciaController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("DependenciaDeleted"));
+            //JsfUtil.addSuccessMessage("Agente Borrado");
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "SISGAP", "Dependencia Borrada");
+            FacesContext.getCurrentInstance().addMessage(null, message);
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            //JsfUtil.addErrorMessage(e, "Ocurrio un error durante el borrado del agente");
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "SISGAP", "Error al intentar borrar la Dependencia: " + e.getMessage());
+            FacesContext.getCurrentInstance().addMessage(null, message);
         }
     }
 

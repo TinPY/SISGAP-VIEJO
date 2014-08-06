@@ -228,10 +228,4 @@ public class EvaluacionController implements Serializable {
 
     }
 
-    public void setCurrent(Evaluacion current) {
-        this.current = current;
-    }
-    
-    
-
 }

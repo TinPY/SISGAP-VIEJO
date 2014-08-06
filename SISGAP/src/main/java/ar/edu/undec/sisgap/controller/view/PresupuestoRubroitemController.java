@@ -6,6 +6,7 @@ import ar.edu.undec.sisgap.controller.view.util.PaginationHelper;
 import ar.edu.undec.sisgap.controller.PresupuestoRubroitemFacade;
 import ar.edu.undec.sisgap.controller.RubroFacade;
 import ar.edu.undec.sisgap.model.Presupuesto;
+import ar.edu.undec.sisgap.model.PresupuestoRubroitemPK;
 import ar.edu.undec.sisgap.model.Proyecto;
 import ar.edu.undec.sisgap.model.Rubro;
 
@@ -55,6 +56,7 @@ public class PresupuestoRubroitemController implements Serializable {
     public PresupuestoRubroitem getSelected() {
         if (current == null) {
             current = new PresupuestoRubroitem();
+            current.setPresupuestoRubroitemPK(new ar.edu.undec.sisgap.model.PresupuestoRubroitemPK());
             selectedItemIndex = -1;
         }
         return current;
@@ -95,6 +97,7 @@ public class PresupuestoRubroitemController implements Serializable {
 
     public String prepareCreate() {
         current = new PresupuestoRubroitem();
+        current.setPresupuestoRubroitemPK(new ar.edu.undec.sisgap.model.PresupuestoRubroitemPK());
         selectedItemIndex = -1;
         return "Create";
     }
@@ -224,18 +227,22 @@ public class PresupuestoRubroitemController implements Serializable {
             return controller.ejbFacade.find(getKey(value));
         }
 
-           java.lang.Integer getKey(String value) {
-            java.lang.Integer key;
-            key = Integer.valueOf(value);
+        ar.edu.undec.sisgap.model.PresupuestoRubroitemPK getKey(String value) {
+            ar.edu.undec.sisgap.model.PresupuestoRubroitemPK key;
+            String values[] = value.split(SEPARATOR_ESCAPED);
+            key = new ar.edu.undec.sisgap.model.PresupuestoRubroitemPK();
+            key.setRubroid(Integer.parseInt(values[0]));
+            key.setPresupuestoid(Integer.parseInt(values[1]));
             return key;
         }
 
-        String getStringKey(java.lang.Integer value) {
+        String getStringKey(ar.edu.undec.sisgap.model.PresupuestoRubroitemPK value) {
             StringBuilder sb = new StringBuilder();
-            sb.append(value);
+            sb.append(value.getRubroid());
+            sb.append(SEPARATOR);
+            sb.append(value.getPresupuestoid());
             return sb.toString();
         }
-
 
         @Override
         public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
@@ -244,7 +251,7 @@ public class PresupuestoRubroitemController implements Serializable {
             }
             if (object instanceof PresupuestoRubroitem) {
                 PresupuestoRubroitem o = (PresupuestoRubroitem) object;
-                return getStringKey(o.getId());
+                return getStringKey(o.getPresupuestoRubroitemPK());
             } else {
                 throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + PresupuestoRubroitem.class.getName());
             }
@@ -252,237 +259,212 @@ public class PresupuestoRubroitemController implements Serializable {
 
     }
 
-    
-    public List<PresupuestoRubroitem> getPresupuestosrubrositems()
-  {
-    return this.presupuestosrubrositems;
-  }
-  
-  public void setPresupuestosrubrositems(List<PresupuestoRubroitem> presupuestosrubrositems)
-  {
-    this.presupuestosrubrositems = presupuestosrubrositems;
-  }
-  
-  public String reinit()
-  {
-    this.current2 = new PresupuestoRubroitem();
-    this.current2.setAportecomitente(BigDecimal.ZERO);
-    this.current2.setAporteorganismo(BigDecimal.ZERO);
-    this.current2.setAporteuniversidad(BigDecimal.ZERO);
-    this.current2.setCantidad(BigDecimal.ONE);
-    this.current2.setCostounitario(BigDecimal.ZERO);
-    return null;
-  }
-  
-  public PresupuestoRubroitem getCurrent2()
-  {
-    return this.current2;
-  }
-  
-  public void setCurrent2(PresupuestoRubroitem current2)
-  {
-    this.current2 = current2;
-  }
-  
-  public void sumarTotalCurrent()
-  {
-    this.current2.setTotal(this.current2.getCostounitario().multiply(this.current2.getCantidad()));
-  }
-  
-  public boolean verificarAportes()
-  {
-    int valor = 0;
-    BigDecimal sumaaportes = BigDecimal.ZERO;
-    
-    sumaaportes = this.current2.getAportecomitente().add(this.current2.getAporteorganismo()).add(this.current2.getAporteuniversidad());
-    sumaaportes.compareTo(this.current2.getTotal());
-    valor = sumaaportes.compareTo(this.current2.getTotal());
-    if (valor == 1) {
-      return false;
+    public List<PresupuestoRubroitem> getPresupuestosrubrositems() {
+        return this.presupuestosrubrositems;
     }
-    return true;
-  }
-  
-  public void armarPresupuestoNodos()
-  {
-    PresupuestoRubroitem pri;
-    TreeNode treeNode;
-    TreeNode treeNodech;
-    
-      this.root = new DefaultTreeNode("INICIO", null);
-      this.root.setExpanded(true);
-      this.root.setSelectable(false);
-      
-      for (Rubro rub : this.ejbFacadeRubro.findAll())
-      {
-          
-        pri = new PresupuestoRubroitem();
-        pri.setRubro(rub);
-        treeNode = new DefaultTreeNode(pri, this.root);
-        treeNode.setExpanded(true);
-        for (PresupuestoRubroitem p : getPresupuestosrubrositems()) {
-          if (p.getRubro().equals(pri.getRubro())) {
-            treeNodech = new DefaultTreeNode(p, treeNode);
-              
-          }
+
+    public void setPresupuestosrubrositems(List<PresupuestoRubroitem> presupuestosrubrositems) {
+        this.presupuestosrubrositems = presupuestosrubrositems;
+    }
+
+    public String reinit() {
+        this.current2 = new PresupuestoRubroitem();
+        this.current2.setAportecomitente(BigDecimal.ZERO);
+        this.current2.setAporteorganismo(BigDecimal.ZERO);
+        this.current2.setAporteuniversidad(BigDecimal.ZERO);
+        this.current2.setCantidad(BigDecimal.ONE);
+        this.current2.setCostounitario(BigDecimal.ZERO);
+        return null;
+    }
+
+    public PresupuestoRubroitem getCurrent2() {
+        return this.current2;
+    }
+
+    public void setCurrent2(PresupuestoRubroitem current2) {
+        this.current2 = current2;
+    }
+
+    public void sumarTotalCurrent() {
+        System.out.println(this.current2.getCostounitario());
+        System.out.println(this.current2.getCantidad());
+        this.current2.setTotal(this.current2.getCostounitario().multiply(this.current2.getCantidad()));
+    }
+
+    public boolean verificarAportes() {
+        int valor = 0;
+        BigDecimal sumaaportes = BigDecimal.ZERO;
+
+        sumaaportes = this.current2.getAportecomitente().add(this.current2.getAporteorganismo()).add(this.current2.getAporteuniversidad());
+        sumaaportes.compareTo(this.current2.getTotal());
+        valor = sumaaportes.compareTo(this.current2.getTotal());
+        if (valor == 1) {
+            return false;
         }
-      }
-   
-  }
-  
-  public void armarPresupuestosNodos2(Presupuesto presu){
-      if(this.getPresupuestosrubrositems().size()>0){
-         
-      }else{
-          
-       this.setPresupuestosrubrositems(this.ejbFacade.findByPresupuesto(presu));
-      }
-        this.root = null;
-        this.root = new DefaultTreeNode(new PresupuestoRubroitem(),null);
-       PresupuestoRubroitem pri;
+        return true;
+    }
+
+    public void armarPresupuestoNodos() {
+        PresupuestoRubroitem pri;
         TreeNode treeNode;
         TreeNode treeNodech;
-      this.root.setExpanded(true);
-      this.root.setSelectable(false);
-     
-      for (Rubro rub : this.ejbFacadeRubro.findAll())
-      {
-          
-        pri = new PresupuestoRubroitem();
-        pri.setRubro(rub);
-        treeNode = new DefaultTreeNode(pri, this.root);
-        treeNode.setExpanded(true);
+
+        this.root = new DefaultTreeNode("INICIO", null);
+        this.root.setExpanded(true);
+        this.root.setSelectable(false);
+        System.out.println("-------Rubro-------------");
+        for (Rubro rub : this.ejbFacadeRubro.findAll()) {
+
+            pri = new PresupuestoRubroitem();
+            pri.setPresupuestoRubroitemPK(new PresupuestoRubroitemPK());
+            pri.getPresupuestoRubroitemPK().setRubroid(rub.getId());
+            pri.setRubro(rub);
+            treeNode = new DefaultTreeNode(pri, this.root);
+            treeNode.setExpanded(true);
+            for (PresupuestoRubroitem p : getPresupuestosrubrositems()) {
+                if (p.getRubro().equals(pri.getRubro())) {
+                    treeNodech = new DefaultTreeNode(p, treeNode);
+
+                }
+            }
+        }
+
+    }
+
+    public void armarPresupuestosNodos2(Presupuesto presu) {
+        if (this.getPresupuestosrubrositems().size() > 0) {
+            System.out.println("uno");
+        } else {
+            System.out.println("dos");
+            this.setPresupuestosrubrositems(this.ejbFacade.findByPresupuesto(presu));
+        }
+        this.root = null;
+        this.root = new DefaultTreeNode(new PresupuestoRubroitem(), null);
+        PresupuestoRubroitem pri;
+        TreeNode treeNode;
+        TreeNode treeNodech;
+        this.root.setExpanded(true);
+        this.root.setSelectable(false);
+        System.out.println("-------Rubro2-------------");
+        for (Rubro rub : this.ejbFacadeRubro.findAll()) {
+
+            pri = new PresupuestoRubroitem();
+            pri.setPresupuestoRubroitemPK(new PresupuestoRubroitemPK());
+            pri.getPresupuestoRubroitemPK().setRubroid(rub.getId());
+            pri.setRubro(rub);
+            treeNode = new DefaultTreeNode(pri, this.root);
+            treeNode.setExpanded(true);
+            for (PresupuestoRubroitem p : getPresupuestosrubrositems()) {
+                if (p.getRubro().equals(pri.getRubro())) {
+                    treeNodech = new DefaultTreeNode(p, treeNode);
+                    System.out.println("bbbbbbbbbbbb2" + p.getDescripcion());
+                }
+            }
+        }
+
+    }
+
+    public TreeNode getRoot() {
+        return this.root;
+    }
+
+    public void setRoot(TreeNode root) {
+        this.root = root;
+    }
+
+    public void agregarPresupuesto() {
+        if (verificarAportes()) {
+            this.presupuestosrubrositems.add(this.current2);
+            armarPresupuestoNodos();
+        } else {
+            reinit();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "La suma de Aportes no puede superar al Total"));
+        }
+        armarGraficosPresupuesto();
+    }
+
+    public void eliminarPresupuesto(PresupuestoRubroitem pri) {
+
+        int contador = 0;
+        int posicion = 0;
         for (PresupuestoRubroitem p : getPresupuestosrubrositems()) {
-          if (p.getRubro().equals(pri.getRubro())) {
-            treeNodech = new DefaultTreeNode(p, treeNode);
-              
-          }
-        }
-      }
-   
-  }
-  
-  public TreeNode getRoot()
-  {
-    return this.root;
-  }
-  
-  public void setRoot(TreeNode root)
-  {
-    this.root = root;
-  }
-  
-  public void agregarPresupuesto()
-  {
-    if (verificarAportes()){
-      this.presupuestosrubrositems.add(this.current2);
-      armarPresupuestoNodos();
-     }
-    else
-    {
-      reinit();
-      FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "La suma de Aportes no puede superar al Total"));
-    }
-    armarGraficosPresupuesto();
-  }
-  
-  public void eliminarPresupuesto(PresupuestoRubroitem pri)
-  {
-      
-      
-    int contador = 0;
-    int posicion = 0;
-    for (PresupuestoRubroitem p : getPresupuestosrubrositems())
-    {
-      if ((p.getRubro().equals(pri.getRubro())) && 
-        (p.getDescripcion().equals(pri.getDescripcion())) && 
-        (p.getTotal().equals(pri.getTotal()))) {
-        posicion = contador;
-      }
-      
-      contador++;
-    }
-    getPresupuestosrubrositems().remove(posicion);
-    //getPresupuestosrubrositems().remove(pri);
-     
-    armarPresupuestoNodos();
-  }
-  
-  public void eliminarPresupuesto2(PresupuestoRubroitem pri)
-  {
-      
-    getPresupuestosrubrositems().remove(pri);
-     
-    //ejbFacade.remove(pri);
-  }
-  
-  public void armarGraficosPresupuesto()
-  {
-    this.pieModelAportes = new PieChartModel();
-    this.pieModelRubros = new PieChartModel();
-    BigDecimal sumaaportecomitente = BigDecimal.ZERO;
-    BigDecimal sumaaporteorganismo = BigDecimal.ZERO;
-    BigDecimal sumaaporteuniversidad = BigDecimal.ZERO;
-    for (PresupuestoRubroitem pri : getPresupuestosrubrositems())
-    {
-      sumaaportecomitente = sumaaportecomitente.add(pri.getAportecomitente());
-      sumaaporteorganismo = sumaaporteorganismo.add(pri.getAporteorganismo());
-      sumaaporteuniversidad = sumaaporteuniversidad.add(pri.getAporteuniversidad());
-     
-    }
-    this.pieModelAportes.set("Aporte Comitente", sumaaportecomitente);
-    this.pieModelAportes.set("Aporte Organismo", sumaaporteorganismo);
-    this.pieModelAportes.set("Aporte Universidad", sumaaporteuniversidad);
-    
+            if ((p.getRubro().equals(pri.getRubro()))
+                    && (p.getDescripcion().equals(pri.getDescripcion()))
+                    && (p.getTotal().equals(pri.getTotal()))) {
+                posicion = contador;
+            }
 
-
-    BigDecimal sumarubro = BigDecimal.ZERO;
-    for (Rubro rub : this.ejbFacadeRubro.findAll())
-    {
-      for (PresupuestoRubroitem p : getPresupuestosrubrositems()) {
-        if (rub.getRubro().equals(p.getRubro().getRubro())) {
-          sumarubro = sumarubro.add(p.getTotal());
+            contador++;
         }
-      }
-      this.pieModelRubros.set(rub.getRubro(), sumarubro);
-      sumarubro = BigDecimal.ZERO;
+        getPresupuestosrubrositems().remove(posicion);
+        //getPresupuestosrubrositems().remove(pri);
+        System.out.println("hhhhhhhhhhhhhhhhhhhhhhhhhh" + this.presupuestosrubrositems.size());
+        armarPresupuestoNodos();
     }
-  }
-  
-  public PieChartModel getPieModelAportes()
-  {
-      
-    if (this.pieModelAportes == null)
-    {
-      this.pieModelAportes = new PieChartModel();
-      
-      this.pieModelAportes.set("Gasto Organismo", Integer.valueOf(0));
-      this.pieModelAportes.set("Gasto Comitente", Integer.valueOf(0));
-      this.pieModelAportes.set("Gasto Universidad", Integer.valueOf(0));
+
+    public void eliminarPresupuesto2(PresupuestoRubroitem pri) {
+
+        getPresupuestosrubrositems().remove(pri);
+        System.out.println("hhhhhhhhhhhhhhhhhhhhhhhhhh" + this.presupuestosrubrositems.size());
+        ejbFacade.remove(pri);
     }
-    return this.pieModelAportes;
-  }
-  
-  public void setPieModelAportes(PieChartModel pieModelAportes)
-  {
-    this.pieModelAportes = pieModelAportes;
-  }
-  
-  public PieChartModel getPieModelRubros()
-  {
-    if (this.pieModelRubros == null)
-    {
-      this.pieModelRubros = new PieChartModel();
-      for (Rubro r : this.ejbFacadeRubro.findAll()) {
-        this.pieModelRubros.set(r.getRubro(), Integer.valueOf(0));
-      }
+
+    public void armarGraficosPresupuesto() {
+        this.pieModelAportes = new PieChartModel();
+        this.pieModelRubros = new PieChartModel();
+        BigDecimal sumaaportecomitente = BigDecimal.ZERO;
+        BigDecimal sumaaporteorganismo = BigDecimal.ZERO;
+        BigDecimal sumaaporteuniversidad = BigDecimal.ZERO;
+        for (PresupuestoRubroitem pri : getPresupuestosrubrositems()) {
+            sumaaportecomitente = sumaaportecomitente.add(pri.getAportecomitente());
+            sumaaporteorganismo = sumaaporteorganismo.add(pri.getAporteorganismo());
+            sumaaporteuniversidad = sumaaporteuniversidad.add(pri.getAporteuniversidad());
+
+        }
+        this.pieModelAportes.set("Aporte Comitente", sumaaportecomitente);
+        this.pieModelAportes.set("Aporte Organismo", sumaaporteorganismo);
+        this.pieModelAportes.set("Aporte Universidad", sumaaporteuniversidad);
+
+        BigDecimal sumarubro = BigDecimal.ZERO;
+        for (Rubro rub : this.ejbFacadeRubro.findAll()) {
+            for (PresupuestoRubroitem p : getPresupuestosrubrositems()) {
+                if (rub.getRubro().equals(p.getRubro().getRubro())) {
+                    sumarubro = sumarubro.add(p.getTotal());
+                }
+            }
+            this.pieModelRubros.set(rub.getRubro(), sumarubro);
+            sumarubro = BigDecimal.ZERO;
+        }
     }
-    return this.pieModelRubros;
-  }
-  
-  public void setPieModelRubros(PieChartModel pieModelRubros)
-  {
-    this.pieModelRubros = pieModelRubros;
-  }
-    
+
+    public PieChartModel getPieModelAportes() {
+
+        if (this.pieModelAportes == null) {
+            this.pieModelAportes = new PieChartModel();
+
+            this.pieModelAportes.set("Gasto Organismo", Integer.valueOf(0));
+            this.pieModelAportes.set("Gasto Comitente", Integer.valueOf(0));
+            this.pieModelAportes.set("Gasto Universidad", Integer.valueOf(0));
+        }
+        return this.pieModelAportes;
+    }
+
+    public void setPieModelAportes(PieChartModel pieModelAportes) {
+        this.pieModelAportes = pieModelAportes;
+    }
+
+    public PieChartModel getPieModelRubros() {
+        if (this.pieModelRubros == null) {
+            this.pieModelRubros = new PieChartModel();
+            for (Rubro r : this.ejbFacadeRubro.findAll()) {
+                this.pieModelRubros.set(r.getRubro(), Integer.valueOf(0));
+            }
+        }
+        return this.pieModelRubros;
+    }
+
+    public void setPieModelRubros(PieChartModel pieModelRubros) {
+        this.pieModelRubros = pieModelRubros;
+    }
+
 }

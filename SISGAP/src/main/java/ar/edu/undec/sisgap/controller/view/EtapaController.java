@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -50,8 +49,8 @@ public class EtapaController implements Serializable {
     private String dataactual;
     private long mindate;
     private Tarea tareaseleccionada;
-    private boolean paraeditar;
-    private boolean paraeditar2;
+    private boolean paraeditar=false;
+    
     public EtapaController() {
     }
 
@@ -291,65 +290,43 @@ public class EtapaController implements Serializable {
     }
     
     public void agregaralListadoEtapas(){
-         if(this.current.getEtapa()!=null) {
-             boolean encontro = false;
-             for(Etapa etapa: etapas){
-                 System.out.println("agregar Etapa1 "+etapa.getEtapa());
-                 if(etapa.getEtapa().equals(current.getEtapa())){
-                     System.out.println("agregar Etapa encontro "+etapa.getEtapa());
-                    encontro = true;
-                 }
-             }
-             if(!encontro){
-
-                 int contardias = 0;
-                 Date mindia = new Date("2999/12/12");
-                 Date maxdia = new Date("2001/01/01");
-                 root = new DefaultTreeNode(new Tarea(),null);
-                 root.setExpanded(true);
-                 current.setTareaList(tareacontroller.getTareasdeproyecto());
-                 System.out.println("agregar Etapa current "+current.getEtapa());
-                 for(Tarea t:tareacontroller.getTareasdeproyecto()){
-                     contardias = contardias + t.getDias();
-                     if(t.getFechainicio().before(mindia)){
-                        mindia=t.getFechainicio();
-                     }
-                     if(t.getFechafin().after(maxdia)){
-                         maxdia=t.getFechafin();
-                     }
-                 }
-                 current.setFechainicio(mindia);
-                 current.setFechafin(maxdia);
-                 current.setDias(contardias);
-                 etapas.add(current);
-                 System.out.println("inserto");
-                 for(Etapa etapa: etapas){
-                     System.out.println("agregar Etapa contiene "+etapa.getEtapa());
-                     Tarea t = new Tarea();
-                     t.setTarea(etapa.getEtapa());
-                     t.setFechainicio(etapa.getFechainicio());
-                     t.setFechafin(etapa.getFechafin());
-                     t.setDias(etapa.getDias());
-                     TreeNode et = new DefaultTreeNode(t,root);
-                     et.setExpanded(true);
-                     for(Tarea tarea:etapa.getTareaList()){
-                         TreeNode tar = new DefaultTreeNode(tarea,et);
-                     }
-
-                 }
-             }   
-             crearChart();
-              current=null;
-              tareacontroller.setTareasdeproyecto(null);
-        }else{
-            FacesMessage message = new FacesMessage();
-                message.setSeverity(FacesMessage.SEVERITY_ERROR);
-                 message.setSummary("ERROR");
-                 message.setDetail("Ingrese el nombre de la Etapa ");
-             FacesContext.getCurrentInstance().addMessage("growlprincipal", message);
+        int contardias = 0;
+        Date mindia = new Date("2999/12/12");
+        Date maxdia = new Date("2001/01/01");
+        root = new DefaultTreeNode(new Tarea(),null);
+        root.setExpanded(true);
+        current.setTareaList(tareacontroller.getTareasdeproyecto());
+        for(Tarea t:tareacontroller.getTareasdeproyecto()){
+            contardias = contardias + t.getDias();
+            if(t.getFechainicio().before(mindia)){
+               mindia=t.getFechainicio();
+            }
+            if(t.getFechafin().after(maxdia)){
+                maxdia=t.getFechafin();
+            }
         }
-       
-   }
+        current.setFechainicio(mindia);
+        current.setFechafin(maxdia);
+        current.setDias(contardias);
+        etapas.add(current);
+        for(Etapa etapa: etapas){
+            System.out.println("fffffffffffff"+etapa.getEtapa());
+            Tarea t = new Tarea();
+            t.setTarea(etapa.getEtapa());
+            t.setFechainicio(etapa.getFechainicio());
+            t.setFechafin(etapa.getFechafin());
+            t.setDias(etapa.getDias());
+            TreeNode et = new DefaultTreeNode(t,root);
+            et.setExpanded(true);
+            for(Tarea tarea:etapa.getTareaList()){
+                TreeNode tar = new DefaultTreeNode(tarea,et);
+            }
+            
+        }
+        crearChart();
+         current=null;
+         tareacontroller.setTareasdeproyecto(null);
+    }
     
     public void eliminaralListadoEtapas(){
         etapas.remove(current);
@@ -401,8 +378,8 @@ public class EtapaController implements Serializable {
         gsoncategoria=""+gson.toJson(categoria).replace('\"', '\'');
         data+="]";
         dataactual+="]";
-       
-        
+        System.out.println("--------------------"+gsoncategoria);
+        System.out.println("--------------------"+data);
     }
 
     public String getData() {
@@ -424,8 +401,7 @@ public class EtapaController implements Serializable {
     public void rearmarEtapasProyecto(){
          current=null;
          tareacontroller.setTareasdeproyecto(null);
-          this.paraeditar=false;
-         this.paraeditar2=false;
+         
      }
 
     public String getDataactual() {
@@ -486,7 +462,6 @@ public class EtapaController implements Serializable {
         
         tareacontroller.setTareasdeproyecto(current.getTareaList());
         this.paraeditar=true;
-        this.paraeditar2=true;
     }
     
     public void editarListadoEtapas(){
@@ -510,7 +485,7 @@ public class EtapaController implements Serializable {
         current.setDias(contardias);
         //etapas.add(current);
         for(Etapa etapa: etapas){
-            
+            System.out.println("fffffffffffff"+etapa.getEtapa());
             Tarea t = new Tarea();
             t.setTarea(etapa.getEtapa());
             t.setFechainicio(etapa.getFechainicio());
@@ -526,7 +501,7 @@ public class EtapaController implements Serializable {
         crearChart();
          current=null;
          tareacontroller.setTareasdeproyecto(null);
-        
+         this.paraeditar=false;
         
     }
 
@@ -538,38 +513,8 @@ public class EtapaController implements Serializable {
         this.paraeditar = paraeditar;
     }
     
-    public boolean isParaeditar2() {
-        return paraeditar2;
+    // Reporte de Proyecto (Etapas/Presupuesto/Equipo de trabajo)
+    public List<Etapa> etapasProyecto(int proyectoid){
+        return this.getFacade().buscarEtapasProyecto(proyectoid);
     }
-
-    public void setParaeditar2(boolean paraeditar2) {
-        this.paraeditar2 = paraeditar2;
-    }
-    public void prepareEditarListadoEtapas(){
-          
-                 int contardias = 0;
-                 Date mindia = new Date("2999/12/12");
-                 Date maxdia = new Date("2001/01/01");
-                 root = new DefaultTreeNode(new Tarea(),null);
-                 root.setExpanded(true);
-                 
-                 for(Etapa etapa: etapas){
-                     Tarea t = new Tarea();
-                     t.setTarea(etapa.getEtapa());
-                     t.setFechainicio(etapa.getFechainicio());
-                     t.setFechafin(etapa.getFechafin());
-                     t.setDias(etapa.getDias());
-                     TreeNode et = new DefaultTreeNode(t,root);
-                     et.setExpanded(true);
-                     for(Tarea tarea:etapa.getTareaList()){
-                         TreeNode tar = new DefaultTreeNode(tarea,et);
-                     }
-               crearChart();
-              current=null;
-              tareacontroller.setTareasdeproyecto(null);
-             }
-               
-    }
-    
-    
 }

@@ -6,10 +6,15 @@ import ar.edu.undec.sisgap.controller.view.util.PaginationHelper;
 import ar.edu.undec.sisgap.controller.AgenteFacade;
 import ar.edu.undec.sisgap.controller.EncriptarSHA256;
 import ar.edu.undec.sisgap.controller.UsuarioFacade;
+import ar.edu.undec.sisgap.model.Presupuesto;
+import ar.edu.undec.sisgap.model.Proyecto;
+import java.io.IOException;
 
 import java.io.Serializable;
+import java.util.Hashtable;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
@@ -19,6 +24,17 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
+import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "agenteController")
 @SessionScoped
@@ -90,10 +106,10 @@ public class AgenteController implements Serializable {
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AgenteCreated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/BundleSISGAP").getString("AgenteCreated"));
             return prepareCreate();
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/BundleSISGAP").getString("PersistenceErrorOccured"));
             return null;
         }
     }
@@ -107,17 +123,24 @@ public class AgenteController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AgenteUpdated"));
-            return "View";
+            JsfUtil.addSuccessMessage("Agente Actualizado!");
+            //return "View";
+            RequestContext.getCurrentInstance().execute("dfinal.show()");
+            return null;
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, "Ocurrio un error de persistencia al intentar actualizar el Agente.");
             return null;
         }
     }
     public String solograbar() {
         try {
+            System.out.println("----------apellido------------"+current.getApellido());
+             System.out.println("---------n documento-------------"+current.getNumerodocumento());
+              System.out.println("---------tipodocumento-------------"+current.getTipodocumentoid().getTipodocumento());
+               System.out.println("-----------dependencia-----------"+current.getDependenciaid().getDependencia());
+                System.out.println("-----------profesion-----------"+current.getProfesion());
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AgenteUpdated"));
+            JsfUtil.addSuccessMessage("Agente Actualizado!");
           return null;  
         } catch (Exception e) {
             //JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -151,9 +174,13 @@ public class AgenteController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AgenteDeleted"));
+            //JsfUtil.addSuccessMessage("Agente Borrado");
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "SISGAP", "Agente Borrado");
+            FacesContext.getCurrentInstance().addMessage(null, message);
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            //JsfUtil.addErrorMessage(e, "Ocurrio un error durante el borrado del agente");
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "SISGAP", "Error al intentar borrar un Agente: " + e.getMessage());
+            FacesContext.getCurrentInstance().addMessage(null, message);
         }
     }
 
@@ -271,5 +298,88 @@ public class AgenteController implements Serializable {
     }
     public void setSelected(Agente agente){
         current = agente;
+    }
+    
+    // **************************  REPORTES  **********************************
+    public void pdfAgente() throws JRException, IOException {
+
+        // Obtengo la ruta absoluta del archivo compilado del reporte
+        String rutaJasper = FacesContext.getCurrentInstance().getExternalContext().getRealPath("secure/reportes/agente.jasper");
+
+        // Fuente de datos del reporte
+        JRBeanArrayDataSource beanArrayDataSource = new JRBeanArrayDataSource(new Agente[]{this.getSelected()});
+
+        //Agregando los parametros
+        Hashtable<String, Object> parametros = new Hashtable<String, Object>();
+        parametros.put("idAgente", this.getSelected().getId());
+
+        // Llenamos el reporte
+        JasperPrint jasperPrint = JasperFillManager.fillReport(rutaJasper, parametros, beanArrayDataSource);
+
+        // Generamos el archivo a descargar
+        HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        httpServletResponse.addHeader("Content-disposition", "attachment; filename=idea-proyecto.pdf");
+        ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
+        JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
+        FacesContext.getCurrentInstance().responseComplete();
+    }
+
+    public void pdfListaAgentes() throws JRException, IOException {
+
+        // Ruta absoluta del archivo compilado del reporte
+        String rutaJasper = FacesContext.getCurrentInstance().getExternalContext().getRealPath("secure/reportes/listaAgentes.jasper");
+
+        // Fuente de datos del reporte
+        JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(this.getFacade().findAll());
+
+        // Llenamos el reporte con la fuente de datos
+        JasperPrint jasperPrint = JasperFillManager.fillReport(rutaJasper, null, beanCollectionDataSource);
+
+        // Generamos el archivo a descargar
+        HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        httpServletResponse.addHeader("Content-disposition", "attachment; filename=listaIdeasProyecto.pdf");
+        ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
+        JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
+        FacesContext.getCurrentInstance().responseComplete();
+    }
+
+    public void imprimirAgente() throws JRException, IOException {
+
+        // Obtengo la ruta absoluta del archivo compilado del reporte
+        String rutaJasper = FacesContext.getCurrentInstance().getExternalContext().getRealPath("secure/reportes/agente.jasper");
+
+        // Fuente de datos del reporte
+        JRBeanArrayDataSource beanArrayDataSource = new JRBeanArrayDataSource(new Agente[]{this.getSelected()});
+
+
+        //Agregando los parametros
+        Hashtable<String, Object> parametros = new Hashtable<String, Object>();
+        parametros.put("idAgente", this.getSelected().getId());
+
+        // Llenamos el reporte
+        //JasperPrint jasperPrint = JasperFillManager.fillReport(rutaJasper, parametros, beanArrayDataSource);
+        String archivo = JasperFillManager.fillReportToFile(rutaJasper, parametros, beanArrayDataSource);
+
+        if (archivo != null) {
+            JasperPrintManager.printReport(
+                    archivo, true);
+        }
+    }
+
+    public void imprimirListaAgentes() throws JRException, IOException {
+        
+        // Ruta absoluta del archivo compilado del reporte
+        String rutaJasper = FacesContext.getCurrentInstance().getExternalContext().getRealPath("secure/reportes/listaAgentes.jasper");
+
+        // Fuente de datos del reporte
+        JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(this.getFacade().findAll());
+
+        // Llenamos el reporte con la fuente de datos
+        String archivo = JasperFillManager.fillReportToFile(rutaJasper, null, beanCollectionDataSource);
+
+        if (archivo != null) {
+            JasperPrintManager.printReport(
+                    archivo, true);
+        }
     }
 }
