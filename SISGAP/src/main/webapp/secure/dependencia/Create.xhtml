@@ -14,9 +14,7 @@
 
             <h:form>
                 <p:panel id="pprincipal" header="Nueva Dependencia" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
-                    <h:panelGroup id="messagePanel" layout="block">
-                        <p:messages autoUpdate="true" />
-                    </h:panelGroup>
+
                     <p:fieldset legend="Información de la Dependencia">
                         <p:panelGrid styleClass="sinBordes sinFondo">
                             <p:row>
@@ -34,7 +32,7 @@
 
                     <p:separator/>
 
-                    <p:commandButton action="#{dependenciaController.create}" value="Crear Dependencia" style="display: inline-block;" icon="ui-icon-disk" validateClient="true" update="pprincipal" />
+                    <p:commandButton action="#{dependenciaController.create}" value="Crear Dependencia" style="display: inline-block;" icon="ui-icon-disk" validateClient="true" update="pprincipal" oncomplete="dfinalW.show();" />
                     <p:commandButton action="#{dependenciaController.prepareList}" value="Lista de Dependencias" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document" ajax="false" />
                     <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
 
@@ -43,8 +41,10 @@
             </h:form>
 
             <h:form>
-                <p:dialog id="dfinal" widgetVar="dfinal"  modal="true" closable="false"  header="Alta de Dependencia" >
-                    La Dependencia fue creada satisfactoriamente!
+                <p:dialog id="dfinal" widgetVar="dfinalW"  modal="true" header="Alta de Dependencia" >
+                    <h:panelGroup id="messagePanel" layout="block">
+                        <p:messages autoUpdate="true" />
+                    </h:panelGroup>
                     <p:separator />
                     <div align="center" >
                         <p:commandButton value="Volver a la Lista" action="#{dependenciaController.prepareList()}" ajax="false" />

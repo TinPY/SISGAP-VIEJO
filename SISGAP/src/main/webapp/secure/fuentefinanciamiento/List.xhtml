@@ -11,14 +11,14 @@
             <h:outputText value="Lista de Fuentes de Financiamiento"></h:outputText>
         </ui:define>
         <ui:define name="body">
-            <h:form styleClass="jsfcrud_list_form">
+            <h:form id="form" styleClass="jsfcrud_list_form">
 
                 <p:panel id="pprincipal" header="Lista de Fuentes de Financiamiento" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
                     <!--                    <h:panelGroup id="messagePanel" layout="block">
                                             <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                                         </h:panelGroup>-->
 
-                    <p:growl id="message" showDetail="true" autoUpdate="true" />
+                    <p:growl id="message" autoUpdate="true" />
 
                     <h:outputText escape="false" value="La lista de fuentes de financiamiento está vacía" rendered="#{fuentefinanciamientoController.items.rowCount == 0}"/>
                     <p:separator rendered="#{fuentefinanciamientoController.items.rowCount == 0}" />
@@ -60,7 +60,7 @@
                                 <h:outputText value=" "/>
                                 <p:commandButton id="btnEditar" action="#{fuentefinanciamientoController.prepareEdit}" title="Editar Fuente de Financiamiento" icon="ui-icon-pencil" ajax="false"/>
                                 <h:outputText value=" "/>
-                                <p:commandButton action="#{fuentefinanciamientoController.destroy}" title="Eliminar" icon="ui-icon-trash" update="tbl" >
+                                <p:commandButton action="#{fuentefinanciamientoController.destroy}" title="Eliminar" icon="ui-icon-trash" update=":form:tbl,:form" >
                                     <p:confirm header="Eliminar" message="¿Esta seguro que desea eliminar la Fuente de Financiamiento?" icon="ui-icon-alert"   />
                                 </p:commandButton>
                             </p:column>
@@ -74,7 +74,7 @@
                 </p:panel>
 
                 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" >
-                    <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update="tbl" style="float:left;" />
+                    <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update=":form:tbl,:form" style="float:left;" />
                     <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" style="float: right;" />
                 </p:confirmDialog>
 

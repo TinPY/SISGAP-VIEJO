@@ -8,15 +8,13 @@
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="Nuevo Tipo de Proyecto"></h:outputText>
+            <h:outputText value="Editar Tipo de Proyecto"></h:outputText>
         </ui:define>
         <ui:define name="body">
 
             <h:form>
-                <p:panel id="pprincipal" header="Edición de Tipo de Proyecto" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
-                    <h:panelGroup id="messagePanel" layout="block">
-                        <p:messages autoUpdate="true" />
-                    </h:panelGroup>
+                <p:panel id="pprincipal" header="Editar Tipo de Proyecto" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
+
                     <p:fieldset legend="Información del Tipo de Proyecto">
                         <p:panelGrid styleClass="sinBordes sinFondo" style="width: 100%">
                             <p:row>
@@ -33,7 +31,7 @@
                     </p:fieldset>
 
                     <p:separator/>
-                    <p:commandButton action="#{tipoproyectoController.update}" value="Guardar Tipo de Proyecto" style="display: inline-block;" icon="ui-icon-disk" validateClient="true" update="pprincipal" />
+                    <p:commandButton action="#{tipoproyectoController.update}" value="Guardar Tipo de Proyecto" style="display: inline-block;" icon="ui-icon-disk" validateClient="true" update="pprincipal" oncomplete="dfinalW.show();" />
                     <p:commandButton action="#{tipoproyectoController.prepareList}" value="Lista de Tipos de Proyecto" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document" ajax="false" />
                     <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
                     <p:separator/>
@@ -41,17 +39,19 @@
                 </p:panel>
 
             </h:form>
-            
+
             <h:form>
-                 <p:dialog id="dfinal" widgetVar="dfinal"  modal="true" closable="false"  header="Edición de Tipo de Proyecto" >
-                    El Tipo de Proyecto fue actualizado satisfactoriamente!
+                <p:dialog id="dfinal" widgetVar="dfinalW" modal="true" header="Edición de Tipo de Proyecto" >
+                    <h:panelGroup id="messagePanel" layout="block">
+                        <p:messages autoUpdate="true" />
+                    </h:panelGroup>
                     <p:separator />
                     <div align="center" >
                         <p:commandButton value="Volver a la Lista" action="#{tipoproyectoController.prepareList()}" ajax="false" />
                     </div>
 
                 </p:dialog>
-            </h:form>                        
+            </h:form>            
         </ui:define>
     </ui:composition>
 

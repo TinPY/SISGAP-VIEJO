@@ -131,9 +131,9 @@ public class UsuarioController implements Serializable {
             getFacadea().edit(currenta);
             
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/BundleSISGAP").getString("UsuarioCreated"));
-            //return prepareCreate();
-            RequestContext.getCurrentInstance().execute("dfinal.show()");
-            return null;
+            return prepareCreate();
+            //RequestContext.getCurrentInstance().execute("dfinal.show()");
+            //return null;
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/BundleSISGAP").getString("PersistenceErrorOccured"));
             return null;
@@ -149,8 +149,16 @@ public class UsuarioController implements Serializable {
     
     // Hacer: similar a lo realizado en Create
     public String update() {
+        
         try {
+            // Encriptar contraseña
+            current.setUsuarioclave(new EncriptarSHA256().hash256(current.getUsuarioclave().trim()));
+            
+            // Fecha de alta = Fecha Actual
+            //current.setUsuariofechaalta(new java.sql.Timestamp(new Date().getTime()));
+            
             getFacade().edit(current);
+            
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/BundleSISGAP").getString("UsuarioUpdated"));
             //return "View";
             return null;
@@ -184,8 +192,22 @@ public class UsuarioController implements Serializable {
 
     private void performDestroy() {
         try {
-            getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/BundleSISGAP").getString("UsuarioDeleted"));
+            // DESACTIVAR USUARIO
+            
+            String usuarioLogeado =  FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName();
+            
+            System.out.println("Usuario Logeado: " + usuarioLogeado);
+
+            // Verificar que el usuario a eliminar, no sea igual al que esta actualmente logeado
+            if(usuarioLogeado.equals(current.getUsuarionombre())){
+                JsfUtil.addSuccessMessage("No se permite desactivar el usuario logeado actualmente");
+            }else{
+                current.setUsuarioestado('P');
+                getFacade().edit(current);
+                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/BundleSISGAP").getString("UsuarioDeleted"));
+            }
+            //getFacade().remove(current);
+            //JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/BundleSISGAP").getString("UsuarioDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/BundleSISGAP").getString("PersistenceErrorOccured"));
         }

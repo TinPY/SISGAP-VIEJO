@@ -11,10 +11,10 @@
             <h:outputText value="Lista de Tipos de Entidad"></h:outputText>
         </ui:define>
         <ui:define name="body">
-            <h:form styleClass="jsfcrud_list_form">
+            <h:form id="form" styleClass="jsfcrud_list_form">
                 
                 <p:panel id="pprincipal" header="Lista de Tipos de Entidad" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
-                    <p:growl id="message" showDetail="true" autoUpdate="true" />
+                    <p:growl id="message" autoUpdate="true" />
 <!--                    <h:panelGroup id="messagePanel" layout="block">
                         <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                     </h:panelGroup>-->
@@ -59,14 +59,14 @@
                                 <h:outputText value=" "/>
                                 <p:commandButton action="#{tipocomitenteController.prepareEdit}" title="Editar" icon="ui-icon-pencil" ajax="false" />
                                 <h:outputText value=" "/>
-                                <p:commandButton action="#{tipocomitenteController.destroy}" title="Eliminar" icon="ui-icon-trash" update="tbl">
-                                    <p:confirm header="Eliminar" message="¿Esta seguro que desea eliminar el Tipo de Entidad?" icon="ui-icon-alert"   />
+                                <p:commandButton action="#{tipocomitenteController.destroy}" title="Eliminar" icon="ui-icon-trash" update=":form:tbl,:form" >
+                                    <p:confirm header="Eliminar" message="¿Esta seguro que desea eliminar el Tipo de Entidad/Comitente?" icon="ui-icon-alert"   />
                                 </p:commandButton>
                             </p:column>
                         </p:dataTable>
 
                         <p:separator/>
-                        <p:commandButton action="#{tipocomitenteController.prepareCreate}" value="Nuevo Tipo de Entidad" ajax="false" />
+                        <p:commandButton action="#{tipocomitenteController.prepareCreate}" value="Nuevo Tipo de Entidad/Comitente" ajax="false" />
                         <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
                         <p:separator/>
 
@@ -74,7 +74,7 @@
                 </p:panel>
                 
                 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" >
-                    <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update="tbl" style="float: left;" />
+                    <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update=":form:tbl,:form" style="float:left;" />
                     <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" style="float: right;" />
                 </p:confirmDialog>
                 

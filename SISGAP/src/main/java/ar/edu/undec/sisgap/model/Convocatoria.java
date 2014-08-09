@@ -27,6 +27,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -86,6 +87,7 @@ public class Convocatoria implements Serializable {
     @Column(name="beneficiario")
     private String beneficiario;
     @Digits(integer=9, fraction=2)
+    @Min(value = 0) // Solo números positivos
     @Column(name="montofinanciamiento")
     private BigDecimal montofinanciamiento;
     

@@ -348,17 +348,17 @@ public class AgenteViewController implements Serializable {
     public void setAgente1(Agente agente1) {
         this.agente1 = agente1;
     }
-    
-    public void registrar(){
+
+    public void registrar() {
         System.out.println("oooooooooo");
-        if(this.ejbFacade.agentedocumento(agente1.getNumerodocumento())==null){
+        if (this.ejbFacade.agentedocumento(agente1.getNumerodocumento()) == null) {
             System.out.println("---------------");
             ejbFacade.createWithPersist(agente1);
             System.out.println("lllllllllllllllllllllll");
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Nuevo Agente", "La creación del nuevo Agente se realizó satisfactoriamente")); 
-        }else{
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Nuevo Agente", "La creación del nuevo Agente se realizó satisfactoriamente"));
+        } else {
             System.out.println("8888888888888888");
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Ya Existe un Agente con ese número de documento.")); 
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Ya Existe un Agente con ese número de documento."));
         }
     }
 
@@ -377,27 +377,33 @@ public class AgenteViewController implements Serializable {
     public void setFiltrodocumento(boolean filtrodocumento) {
         this.filtrodocumento = filtrodocumento;
     }
-    
+
     public SelectItem[] getItemsAgentes() {
         return itemsAgentes;
     }
-    
+
     public void setItemsAgentes(SelectItem[] i) {
-        itemsAgentes=i;
+        itemsAgentes = i;
     }
-    
+
     // CREAR USUARIO
     // Rellenar combo de Agentes sin Usuario en Usuarios/Create
     public SelectItem[] getItemsAvailableSelectOneAgentesSinUsuario() {
-        
+
         System.out.println("Agentes sin Usuario");
-        
-        for(Agente a: this.ejbFacade.agentesSinUsuario()){
+
+        for (Agente a : this.ejbFacade.agentesSinUsuario()) {
             System.out.println(a.getApellido() + ", " + a.getNombres());
         }
-        
+
         System.out.println("-------------");
-        
+
         return ar.edu.undec.sisgap.controller.view.util.JsfUtil.getSelectItems(ejbFacade.agentesSinUsuario(), true);
+    }
+
+    public void findAgente1(String nombreusuario) {
+        agente1 = null;
+        agente1 = (Agente) getFacade().findAgente(nombreusuario);
+
     }
 }

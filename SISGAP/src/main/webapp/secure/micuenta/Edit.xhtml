@@ -12,9 +12,7 @@
         </ui:define>
         <ui:define name="body">
             <f:event type="preRenderView" listener="#{agenteController.findAgente(request.getUserPrincipal().toString())}" ></f:event>
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
+
             <h:form>
                 <p:panel id="pprincipal" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
 
@@ -27,7 +25,7 @@
                                             <p:outputLabel value="Apellido" for="apellido" style="font-weight: bold;" />
                                         </p:column>
                                         <p:column style="width: 60%;">
-                                            <p:inputText id="apellido" value="#{agenteController.selected.apellido}" title="#{bundle.CreateAgenteTitle_apellido}" />
+                                            <p:inputText id="apellido" value="#{agenteController.selected.apellido}" title="#{bundleSISGAP.CreateAgenteTitle_apellido}" />
                                         </p:column>
                                     </p:row>
                                     <p:row>
@@ -35,7 +33,7 @@
                                             <p:outputLabel value="Nombres" for="nombres"  style="font-weight: bold;" />
                                         </p:column>
                                         <p:column style="width: 60%;">
-                                            <p:inputText id="nombres" value="#{agenteController.selected.nombres}" title="#{bundle.CreateAgenteTitle_nombres}" />
+                                            <p:inputText id="nombres" value="#{agenteController.selected.nombres}" title="#{bundleSISGAP.CreateAgenteTitle_nombres}" />
                                         </p:column>
                                     </p:row>
                                     <p:row>
@@ -53,7 +51,7 @@
                                             <p:outputLabel value="Número de Documento" for="numerodocumento" style="font-weight: bold;"  />
                                         </p:column>
                                         <p:column style="width: 60%;">
-                                            <p:inputText id="numerodocumento" value="#{agenteController.selected.numerodocumento}" title="#{bundle.CreateAgenteTitle_numerodocumento}" />
+                                            <p:inputText id="numerodocumento" value="#{agenteController.selected.numerodocumento}" title="#{bundleSISGAP.CreateAgenteTitle_numerodocumento}" />
                                         </p:column>
                                     </p:row>
                                 </p:panelGrid>
@@ -66,7 +64,7 @@
                                             <p:outputLabel value="Domicilio" for="domicilio" style="font-weight: bold;"  />
                                         </p:column>
                                         <p:column style="width: 60%;">
-                                            <p:inputText id="domicilio" value="#{agenteController.selected.domicilio}" title="#{bundle.CreateAgenteTitle_domicilio}" />
+                                            <p:inputText id="domicilio" value="#{agenteController.selected.domicilio}" title="#{bundleSISGAP.CreateAgenteTitle_domicilio}" />
                                         </p:column>
                                     </p:row>
                                     <p:row>
@@ -74,7 +72,7 @@
                                             <p:outputLabel value="Teléfono" for="telefono" style="font-weight: bold;"  />
                                         </p:column>
                                         <p:column style="width: 60%;">
-                                            <p:inputText id="telefono" value="#{agenteController.selected.telefono}" title="#{bundle.CreateAgenteTitle_telefono}" />
+                                            <p:inputText id="telefono" value="#{agenteController.selected.telefono}" title="#{bundleSISGAP.CreateAgenteTitle_telefono}" />
                                         </p:column>
                                     </p:row>
                                     <p:row>
@@ -82,7 +80,7 @@
                                             <p:outputLabel value="Celular" for="celular"  style="font-weight: bold;" />
                                         </p:column>
                                         <p:column style="width: 60%;">
-                                            <p:inputText id="celular" value="#{agenteController.selected.celular}" title="#{bundle.CreateAgenteTitle_celular}" />
+                                            <p:inputText id="celular" value="#{agenteController.selected.celular}" title="#{bundleSISGAP.CreateAgenteTitle_celular}" />
                                         </p:column>
                                     </p:row>
                                     <p:row>
@@ -90,7 +88,7 @@
                                             <p:outputLabel value="Email" for="email" style="font-weight: bold;"  />
                                         </p:column>
                                         <p:column style="width: 60%;">
-                                            <p:inputText id="email" value="#{agenteController.selected.email}" title="#{bundle.CreateAgenteTitle_email}" />
+                                            <p:inputText id="email" value="#{agenteController.selected.email}" title="#{bundleSISGAP.CreateAgenteTitle_email}" />
                                         </p:column>
                                     </p:row>
                                     <p:row>
@@ -98,7 +96,7 @@
                                             <p:outputLabel value="Email Secundario" for="otroemail" style="font-weight: bold;"  />
                                         </p:column>
                                         <p:column style="width: 60%;">
-                                            <p:inputText id="otroemail" value="#{agenteController.selected.otroemail}" title="#{bundle.CreateAgenteTitle_otroemail}" />
+                                            <p:inputText id="otroemail" value="#{agenteController.selected.otroemail}" title="#{bundleSISGAP.CreateAgenteTitle_otroemail}" />
                                         </p:column>
                                     </p:row>                            
                                 </p:panelGrid>
@@ -111,7 +109,7 @@
                                             <p:outputLabel value="Profesión" for="profesion"  style="font-weight: bold;" />
                                         </p:column>
                                         <p:column style="width: 80%;">
-                                            <p:inputText id="profesion" value="#{agenteController.selected.profesion}" title="#{bundle.CreateAgenteTitle_profesion}" />
+                                            <p:inputText id="profesion" value="#{agenteController.selected.profesion}" title="#{bundleSISGAP.CreateAgenteTitle_profesion}" />
                                         </p:column>
                                     </p:row>
                                     <p:row>
@@ -154,7 +152,9 @@
                 </p:panel>
 
                 <p:dialog id="drespuesta" widgetVar="drespuesta" header="Agente Modificado" modal="true" closable="false">
-                    El Agente fue modificado! Muchas Gracias!
+                    <h:panelGroup id="messagePanel" layout="block">
+                        <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                    </h:panelGroup>
                     <div align="center" >
                         <p:commandButton value="Ok" actionListener="#{usuarioController.logout()}" />
                     </div>

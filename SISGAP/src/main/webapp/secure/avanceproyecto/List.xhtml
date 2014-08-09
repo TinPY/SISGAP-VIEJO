@@ -3,52 +3,78 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.ListAvanceproyectoTitle}"></h:outputText>
+            <h:outputText value="Lista de Avances de Proyecto"></h:outputText>
         </ui:define>
         <ui:define name="body">
-            <h:form styleClass="jsfcrud_list_form">
-                <h:panelGroup id="messagePanel" layout="block">
-                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-                </h:panelGroup>
-                <h:outputText escape="false" value="#{bundle.ListAvanceproyectoEmpty}" rendered="#{avanceproyectoController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{avanceproyectoController.items.rowCount > 0}">
-                    <h:outputText value="#{avanceproyectoController.pagination.pageFirstItem + 1}..#{avanceproyectoController.pagination.pageLastItem + 1}/#{avanceproyectoController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{avanceproyectoController.previous}" value="#{bundle.Previous} #{avanceproyectoController.pagination.pageSize}" rendered="#{avanceproyectoController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{avanceproyectoController.next}" value="#{bundle.Next} #{avanceproyectoController.pagination.pageSize}" rendered="#{avanceproyectoController.pagination.hasNextPage}"/>&nbsp;
-                    <h:dataTable value="#{avanceproyectoController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAvanceproyectoTitle_id}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.id}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAvanceproyectoTitle_avance}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.avance}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
-                            </f:facet>
-                            <h:commandLink action="#{avanceproyectoController.prepareView}" value="#{bundle.ListAvanceproyectoViewLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{avanceproyectoController.prepareEdit}" value="#{bundle.ListAvanceproyectoEditLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{avanceproyectoController.destroy}" value="#{bundle.ListAvanceproyectoDestroyLink}"/>
-                        </h:column>
-                    </h:dataTable>
-                </h:panelGroup>
-                <br />
-                <h:commandLink action="#{avanceproyectoController.prepareCreate}" value="#{bundle.ListAvanceproyectoCreateLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ListAvanceproyectoIndexLink}"/>
+            <h:form id="form" styleClass="jsfcrud_list_form">
+                
+                <p:panel id="pprincipal" header="Lista de Avances de Proyecto" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
+                    <p:growl id="message" autoUpdate="true" />
+<!--                    <h:panelGroup id="messagePanel" layout="block">
+                        <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                    </h:panelGroup>-->
+
+                    <h:outputText escape="false" value="La lista de avances de proyecto está vacía" rendered="#{avanceproyectoController.items.rowCount == 0}"/>
+                    <p:separator rendered="#{avanceproyectoController.items.rowCount == 0}" />
+                    <p:commandButton action="#{avanceproyectoController.prepareCreate}" value="Nuevo Beneficiario" rendered="#{avanceproyectoController.items.rowCount == 0}"/>
+
+                    <h:panelGroup rendered="#{avanceproyectoController.items.rowCount > 0}">
+                        
+                        <p:dataTable
+                            id="tbl" 
+                            value="#{avanceproyectoController.items}" 
+                            var="item" 
+                            widgetVar="tblW"
+                            rowKey="#{item.id}" 
+                            emptyMessage="No se encontraron resultados para el criterio de busqueda"
+                            paginator="true" rows="10" paginatorPosition="bottom"
+                            draggableColumns="true"
+                            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                            rowsPerPageTemplate="10,15,30">
+
+                            <p:column id="columnaId" sortBy="id" width="10px" style="width: 10px;">
+                                <f:facet name="header">
+                                    <h:outputText value="Nº" />
+                                </f:facet>
+                                <h:outputText value="#{item.id}" />
+                            </p:column>
+                            <p:column id="columnaAvance" filterBy="avance" filterMatchMode="contains" sortBy="avance">
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre"/>
+                                </f:facet>
+                                <h:outputText value="#{item.avance}"/>
+                            </p:column>
+                            <p:column >
+                                <f:facet name="header">
+                                    <h:outputText value="&nbsp;"/>
+                                </f:facet>
+                                <p:commandButton action="#{avanceproyectoController.prepareView}" title="Ver" icon="ui-icon-search"/>
+                                <h:outputText value=" "/>
+                                <p:commandButton action="#{avanceproyectoController.prepareEdit}" title="Editar" icon="ui-icon-pencil"/>
+                                <h:outputText value=" "/>
+                                <p:commandButton action="#{avanceproyectoController.destroy}" title="Eliminar" icon="ui-icon-trash" update=":form:tbl,:form" >
+                                    <p:confirm header="Eliminar" message="¿Esta seguro que desea eliminar el Avance de Proyecto?" icon="ui-icon-alert"   />
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+
+                        <p:separator/>
+                        <p:commandButton action="#{avanceproyectoController.prepareCreate}" value="Nuevo Avance de Proyecto"/>
+                        <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" />
+                        <p:separator/>
+
+                    </h:panelGroup>
+                </p:panel>
+                
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" >
+                    <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update=":form:tbl,:form" style="float:left;" />
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" style="float: right;" />
+                </p:confirmDialog>
             </h:form>
         </ui:define>
     </ui:composition>

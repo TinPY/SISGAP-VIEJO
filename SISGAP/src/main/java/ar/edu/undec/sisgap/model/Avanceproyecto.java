@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "avanceproyecto", schema = "ap")
-@SequenceGenerator(name="avanceproyecto_id_seq", sequenceName="ap.avanceproyecto_id_seq", allocationSize=1)
+@SequenceGenerator(name="avance_proyecto_id_seq", sequenceName="ap.avance_proyecto_id_seq", allocationSize=1)
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Avanceproyecto.findAll", query = "SELECT a FROM Avanceproyecto a"),
@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Avanceproyecto implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="avanceproyecto_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="avance_proyecto_id_seq")
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;

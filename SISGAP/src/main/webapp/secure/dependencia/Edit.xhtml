@@ -8,15 +8,13 @@
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="Editar Dependencia"></h:outputText>
+            <h:outputText value="Editar Dependecia"></h:outputText>
         </ui:define>
         <ui:define name="body">
 
             <h:form>
                 <p:panel id="pprincipal" header="Editar Dependencia" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
-                    <h:panelGroup id="messagePanel" layout="block">
-                        <p:messages autoUpdate="true" />
-                    </h:panelGroup>
+
                     <p:fieldset legend="Información de la Dependencia">
                         <p:panelGrid styleClass="sinBordes sinFondo">
                             <p:row>
@@ -24,8 +22,8 @@
                                     <h:outputLabel value="Dependencia" for="dependencia" style="font-weight: bold;" />
                                 </p:column>
                                 <p:column style="width: 60%;">
-                                    <p:inputText id="dependencia"  value="#{dependenciaController.selected.dependencia}" title="* Este campo es requerido"  required="true" requiredMessage="El campo dependencia es requerido" />
-                                    <p:message for="dependencia" display="icon"  /> 
+                                    <p:inputText id="dependencia" value="#{dependenciaController.selected.dependencia}" title="* Este campo es requerido"  required="true" requiredMessage="El campo dependencia es requerido"/>
+                                    <p:message for="dependencia" display="icon"   /> 
                                     <p:tooltip id="ttDependencia" for="dependencia" showEvent="focus" hideEvent="blur" />
                                 </p:column>
                             </p:row>
@@ -33,24 +31,27 @@
                     </p:fieldset>
 
                     <p:separator/>
-                    <p:commandButton action="#{dependenciaController.update}" value="Guardar Dependencia" style="display: inline-block;" icon="ui-icon-disk" validateClient="true" update="pprincipal" />
+
+                    <p:commandButton action="#{dependenciaController.update}" value="Guardar Dependencia" style="display: inline-block;" icon="ui-icon-disk" validateClient="true" update="pprincipal" oncomplete="dfinalW.show();" />
                     <p:commandButton action="#{dependenciaController.prepareList}" value="Lista de Dependencias" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document" ajax="false" />
                     <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
-                    <p:separator/>
 
+                    <p:separator/>
                 </p:panel>
             </h:form>
-            
+
             <h:form>
-                <p:dialog id="dfinal" widgetVar="dfinal"  modal="true" closable="false"  header="Edición de Dependencia" >
-                    La Dependencia fue actualizada satisfactoriamente!
+                <p:dialog id="dfinal" widgetVar="dfinalW"  modal="true" header="Edición de Dependencia" >
+                    <h:panelGroup id="messagePanel" layout="block">
+                        <p:messages autoUpdate="true" />
+                    </h:panelGroup>
                     <p:separator />
                     <div align="center" >
                         <p:commandButton value="Volver a la Lista" action="#{dependenciaController.prepareList()}" ajax="false" />
                     </div>
 
                 </p:dialog>
-            </h:form>            
+            </h:form>
         </ui:define>
     </ui:composition>
 

@@ -8,14 +8,11 @@
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="Nueva Pregunta"></h:outputText>
+            <h:outputText value="Editar Pregunta"></h:outputText>
         </ui:define>
         <ui:define name="body">
             <h:form>
-                <p:panel id="pprincipal" header="Nueva Pregunta" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
-                    <h:panelGroup id="messagePanel" layout="block">
-                        <p:messages autoUpdate="true" />
-                    </h:panelGroup>
+                <p:panel id="pprincipal" header="Editar Pregunta" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
 
                     <p:fieldset legend="Pregunta">
                         <p:panelGrid styleClass="sinBordes sinFondo">
@@ -38,12 +35,12 @@
                                     <p:message for="tipopregunta" display="icon"  /> 
                                     <p:tooltip id="tttipopregunta" for="tipopregunta" showEvent="focus" hideEvent="blur" />
                                 </p:column>
-                            </p:row>                    
+                            </p:row>                  
                         </p:panelGrid>
                     </p:fieldset>
 
                     <p:separator/>
-                    <p:commandButton action="#{preguntaController.update}" value="Guardar Pregunta" style="display: inline-block;" icon="ui-icon-disk" validateClient="true" update="pprincipal" />
+                    <p:commandButton action="#{preguntaController.update}" value="Guardar Pregunta" style="display: inline-block;" icon="ui-icon-disk" validateClient="true" update="pprincipal" oncomplete="dfinalW.show();" />
                     <p:commandButton action="#{preguntaController.prepareList}" value="Lista de Preguntas" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document" ajax="false"/>
                     <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
                     <p:separator/>
@@ -53,8 +50,10 @@
             </h:form>
 
             <h:form>
-                <p:dialog id="dfinal" widgetVar="dfinal"  modal="true" closable="false"  header="Alta de Pregunta" >
-                    La Pregunta fue actualizada satisfactoriamente!
+                <p:dialog id="dfinal" widgetVar="dfinalW"  modal="true" header="Edición de Pregunta" >
+                    <h:panelGroup id="messagePanel" layout="block">
+                        <p:messages autoUpdate="true" />
+                    </h:panelGroup>
                     <p:separator />
                     <div align="center" >
                         <p:commandButton value="Volver a la Lista" action="#{preguntaController.prepareList()}" ajax="false" />

@@ -3,32 +3,52 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.EditAvanceproyectoTitle}"></h:outputText>
+            <h:outputText value="Edición de Avance de Proyecto"></h:outputText>
         </ui:define>
         <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
+
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditAvanceproyectoLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{avanceproyectoController.selected.id}" title="#{bundle.EditAvanceproyectoTitle_id}" required="true" requiredMessage="#{bundle.EditAvanceproyectoRequiredMessage_id}"/>
-                    <h:outputLabel value="#{bundle.EditAvanceproyectoLabel_avance}" for="avance" />
-                    <h:inputText id="avance" value="#{avanceproyectoController.selected.avance}" title="#{bundle.EditAvanceproyectoTitle_avance}" />
-                </h:panelGrid>
-                <h:commandLink action="#{avanceproyectoController.update}" value="#{bundle.EditAvanceproyectoSaveLink}"/>
-                <br />
-                <br />
-                <h:link outcome="View" value="#{bundle.EditAvanceproyectoViewLink}"/>
-                <br />
-                <h:commandLink action="#{avanceproyectoController.prepareList}" value="#{bundle.EditAvanceproyectoShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.EditAvanceproyectoIndexLink}" />
+                <p:panel id="pprincipal" header="Edición de Avance de Proyecto" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
+
+                    <p:fieldset legend="Información del Avance de Proyecto">
+                        <p:panelGrid styleClass="sinBordes sinFondo">
+                            <p:row>
+                                <p:column style="width: 40%;">
+                                    <h:outputLabel value="Avance de Proyecto" for="avanceproyecto" style="font-weight: bold;" />
+                                </p:column>
+                                <p:column style="width: 60%;">
+                                    <p:inputText id="avanceproyecto" value="#{avanceproyectoController.selected.avance}" title="* Este campo es requerido"  required="true" requiredMessage="El campo avance de proyecto es requerido" />
+                                    <p:message for="avanceproyecto" display="icon"  /> 
+                                    <p:tooltip id="ttavanceproyecto" for="avanceproyecto" showEvent="focus" hideEvent="blur" />
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </p:fieldset>
+
+                    <p:separator/>
+                    <p:commandButton action="#{avanceproyectoController.update}" value="Guardar Avance de Proyecto" style="display: inline-block;" icon="ui-icon-disk" validateClient="true" update="pprincipal" oncomplete="dfinalW.show();" />
+                    <p:commandButton action="#{avanceproyectoController.prepareList}" value="Lista de Avances de Proyecto" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document" ajax="false"/>
+                    <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
+                    <p:separator/>
+                </p:panel>
+
+            </h:form>
+            <h:form>
+                <p:dialog id="dfinal" widgetVar="dfinalW" modal="true" header="Edición de Avance de Proyecto" >
+                    <h:panelGroup id="messagePanel" layout="block">
+                        <p:messages autoUpdate="true"/>
+                    </h:panelGroup>
+                    <p:separator />
+                    <div align="center" >
+                        <p:commandButton value="Volver a la Lista" action="#{avanceproyectoController.prepareList()}" ajax="false" />
+                    </div>
+
+                </p:dialog>
             </h:form>
         </ui:define>
     </ui:composition>

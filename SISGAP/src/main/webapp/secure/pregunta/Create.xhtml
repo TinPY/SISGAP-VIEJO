@@ -13,9 +13,6 @@
         <ui:define name="body">
             <h:form>
                 <p:panel id="pprincipal" header="Nueva Pregunta" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
-                    <h:panelGroup id="messagePanel" layout="block">
-                        <p:messages autoUpdate="true" />
-                    </h:panelGroup>
 
                     <p:fieldset legend="Pregunta">
                         <p:panelGrid styleClass="sinBordes sinFondo">
@@ -43,7 +40,7 @@
                     </p:fieldset>
 
                     <p:separator/>
-                    <p:commandButton action="#{preguntaController.create}" value="Crear Pregunta" style="display: inline-block;" icon="ui-icon-disk" validateClient="true" update="pprincipal" />
+                    <p:commandButton action="#{preguntaController.create}" value="Crear Pregunta" style="display: inline-block;" icon="ui-icon-disk" validateClient="true" update="pprincipal" oncomplete="dfinalW.show();" />
                     <p:commandButton action="#{preguntaController.prepareList}" value="Lista de Preguntas" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document" ajax="false"/>
                     <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
                     <p:separator/>
@@ -53,8 +50,10 @@
             </h:form>
 
             <h:form>
-                <p:dialog id="dfinal" widgetVar="dfinal"  modal="true" closable="false"  header="Alta de Pregunta" >
-                    La Pregunta fue creada satisfactoriamente!
+                <p:dialog id="dfinal" widgetVar="dfinalW"  modal="true" header="Alta de Pregunta" >
+                    <h:panelGroup id="messagePanel" layout="block">
+                        <p:messages autoUpdate="true" />
+                    </h:panelGroup>
                     <p:separator />
                     <div align="center" >
                         <p:commandButton value="Volver a la Lista" action="#{preguntaController.prepareList()}" ajax="false" />

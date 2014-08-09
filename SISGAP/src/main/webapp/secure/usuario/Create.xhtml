@@ -10,12 +10,10 @@
         <ui:define name="title">
             <h:outputText value="Nuevo Usuario"></h:outputText>
         </ui:define>
+        
         <ui:define name="body">
             <h:form id="form">
                 <p:panel id="pprincipal" header="Nuevo Usuario" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
-                    <h:panelGroup id="messagePanel" layout="block">
-                        <p:messages autoUpdate="true" />
-                    </h:panelGroup>
 
                     <p:fieldset legend="Información del Usuario" style="width: 46%; display: inline-block; float: left;" >
                         <p:panelGrid styleClass="sinBordes sinFondo">
@@ -59,7 +57,7 @@
                                                                 </p:calendar>
                                                             </p:column>
                                                         </p:row>      -->
-                            <p:row>
+<!--                            <p:row>
                                 <p:column style="width: 40%;">
                                     <p:outputLabel value="Fecha de Baja" for="usuariofechabaja" style="font-weight: bold;"  />
                                 </p:column>
@@ -68,7 +66,7 @@
                                         <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
                                     </p:calendar>
                                 </p:column>
-                            </p:row>       
+                            </p:row>       -->
                             <p:row>
                                 <p:column style="width: 40%;">
                                     <p:outputLabel value="Estado" for="usuarioestado"  style="font-weight: bold;" />
@@ -135,7 +133,7 @@
                     <br style="clear: both;"/>
 
                     <p:separator/>
-                    <p:commandButton action="#{usuarioController.create}" value="Crear Usuario" style="display: inline-block;" icon="ui-icon-disk" validateClient="true" update="pprincipal" />
+                    <p:commandButton action="#{usuarioController.create}" value="Crear Usuario" style="display: inline-block;" icon="ui-icon-disk" validateClient="true" update="pprincipal" oncomplete="dfinalW.show();" />
                     <p:commandButton action="#{usuarioController.prepareList}" value="Lista de Usuarios" immediate="true" style="display: inline-block; float: right;" icon="ui-icon-document"/>
                     <p:commandButton action="/index?faces-redirect=true" value="Inicio" style="display: inline-block;float:right;" icon="ui-icon-home" ajax="false" />
                     <p:separator/>
@@ -145,8 +143,10 @@
             </h:form>
 
             <h:form>
-                <p:dialog id="dfinal" widgetVar="dfinal"  modal="true" closable="false"  header="Alta de Usuario" >
-                    El Usuario fue creado satisfactoriamente!
+                <p:dialog id="dfinal" widgetVar="dfinalW" modal="true" header="Alta de Usuario" >
+                    <h:panelGroup id="messagePanel" layout="block">
+                        <p:messages autoUpdate="true" />
+                    </h:panelGroup>
                     <p:separator />
                     <div align="center" >
                         <p:commandButton value="Volver a la Lista" action="#{usuarioController.prepareList()}" ajax="false" />
@@ -155,7 +155,7 @@
             </h:form>
 
             <h:form id="formresgistrar">
-                <p:dialog id="dialogoregistrar" maximizable="false" 
+                <p:dialog id="dialogoregistrar" maximizable="false"  modal="true"
                           minimizable="false"  header="Registrar Persona" closable="true"
                           resizable="false" widgetVar="dregistrar" >
 
@@ -163,53 +163,62 @@
 
                     <p:growl id="msgs" showDetail="true" />
 
-                    <h:panelGrid id="panel" columns="3">
-                        <h:outputLabel value="Apellido" for="apellido" />
-                        <h:inputText maxlength="30" id="apellido" value="#{agenteViewController.agente1.apellido}" title="Apellido" required="true" />
+                    <h:panelGrid id="panel" columnClasses="right,left,left" columns="3">
+                        <p:outputLabel value="Apellido" for="apellido" style="font-weight: bold; text-align: right;" />
+                        <p:inputText maxlength="30" id="apellido" value="#{agenteViewController.agente1.apellido}" title="Apellido" required="true" style="width: 100%;" />
                         <p:message for="apellido" /> 
-                        <h:outputLabel value="Nombres" for="nombres" />
-                        <h:inputText maxlength="45" id="nombres" value="#{agenteViewController.agente1.nombres}" title="Nombres" required="true" />
+                        
+                        <p:outputLabel value="Nombres" for="nombres" style="font-weight: bold; text-align: right;"  />
+                        <p:inputText maxlength="45" id="nombres" value="#{agenteViewController.agente1.nombres}" title="Nombres" required="true" style="width: 100%;"  />
                         <p:message for="nombres" /> 
-                        <p:outputLabel value="Tipo de Documento" for="tipodocumentoid" />
-                        <h:selectOneMenu id="tipodocumentoid" value="#{agenteViewController.agente1.tipodocumentoid}" title="Tipo de Documento" required="true" >
+                        
+                        <p:outputLabel value="Tipo de Documento" for="tipodocumentoid" style="font-weight: bold; text-align: right;"  />
+                        <p:selectOneMenu id="tipodocumentoid" value="#{agenteViewController.agente1.tipodocumentoid}" label="Tipo de Documento" required="true" style="width: 100%;"  >
                             <f:selectItems value="#{tipodocumentoController.itemsAvailableSelectOne}"/>
-                        </h:selectOneMenu>
+                        </p:selectOneMenu>
                         <p:message for="tipodocumentoid" /> 
-                        <h:outputLabel value="N° de Documento" for="numerodocumento" />
-                        <h:inputText id="numerodocumento" value="#{agenteViewController.agente1.numerodocumento}" title="Numero de Documento" required="true" />
+                        
+                        <p:outputLabel value="N° de Documento" for="numerodocumento" style="font-weight: bold; text-align: right;"  />
+                        <p:inputText id="numerodocumento" value="#{agenteViewController.agente1.numerodocumento}" title="Numero de Documento" required="true" style="width: 100%;"  />
                         <p:message for="numerodocumento" /> 
-                        <h:outputLabel value="Teléfono" for="telefono" />
-                        <h:inputText id="telefono" value="#{agenteViewController.agente1.telefono}" title="Telefono" required="true" />
+                        
+                        <p:outputLabel value="Teléfono" for="telefono" style="font-weight: bold; text-align: right;"  />
+                        <p:inputText id="telefono" value="#{agenteViewController.agente1.telefono}" title="Telefono" required="true" style="width: 100%;"  />
                         <p:message for="telefono" /> 
-                        <h:outputLabel value="Celular" for="celular" />
-                        <h:inputText id="celular" value="#{agenteViewController.agente1.celular}" title="Celular" required="false" />
+                        
+                        <p:outputLabel value="Celular" for="celular" style="font-weight: bold; text-align: right;"  />
+                        <p:inputText id="celular" value="#{agenteViewController.agente1.celular}" title="Celular" required="false" style="width: 100%;"  />
                         <p:message for="celular" /> 
-                        <h:outputLabel value="Email" for="email" />
-                        <h:inputText id="email" value="#{agenteViewController.agente1.email}" validatorMessage="Email Incorrecto" required="true" >
+                        
+                        <p:outputLabel value="Email" for="email"  style="font-weight: bold; text-align: right;" />
+                        <p:inputText id="email" value="#{agenteViewController.agente1.email}" validatorMessage="Email Incorrecto" required="true" style="width: 100%;"  >
                             <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
-                        </h:inputText>
+                        </p:inputText>
                         <p:message for="email" /> 
-                        <h:outputLabel value="Otro Email" for="otroemail" />
-
-                        <h:inputText id="otroemail" value="#{agenteViewController.agente1.otroemail}" validatorMessage="Email Incorrecto" required="false" >
+                        
+                        <p:outputLabel value="Otro Email" for="otroemail"  style="font-weight: bold; text-align: right;" />
+                        <p:inputText id="otroemail" value="#{agenteViewController.agente1.otroemail}" validatorMessage="Email Incorrecto" required="false" style="width: 100%;"  >
                             <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
-                        </h:inputText>   
+                        </p:inputText>   
                         <p:message for="otroemail" /> 
 
-                        <h:outputLabel value="Domicilio" for="domicilio" />
-                        <h:inputText maxlength="200"  id="domicilio" value="#{agenteViewController.agente1.domicilio}" title="Domicilio" required="true" />
+                        <p:outputLabel value="Domicilio" for="domicilio" style="font-weight: bold; text-align: right;"  />
+                        <p:inputText maxlength="200"  id="domicilio" value="#{agenteViewController.agente1.domicilio}" title="Domicilio" required="true"  style="width: 100%;" />
                         <p:message for="domicilio" />
-                        <h:outputLabel value="Profesion" for="profesion" />
-                        <h:inputText maxlength="70" id="profesion" value="#{agenteViewController.agente1.profesion}" title="Profesion" required="true" />
+
+                        <p:outputLabel value="Profesion" for="profesion" style="font-weight: bold; text-align: right;"  />
+                        <p:inputText maxlength="70" id="profesion" value="#{agenteViewController.agente1.profesion}" title="Profesion" required="true" style="width: 100%;"  />
                         <p:message for="profesion" /> 
-                        <h:outputLabel value="Especialidad" for="especialidad" />
-                        <h:inputText maxlength="70" id="especialidad" value="#{agenteViewController.agente1.especialidad}" title="Especialidad" required="true" />
+
+                        <p:outputLabel value="Especialidad" for="especialidad"  style="font-weight: bold; text-align: right;" />
+                        <p:inputText maxlength="70" id="especialidad" value="#{agenteViewController.agente1.especialidad}" title="Especialidad" required="true" style="width: 100%;"  />
                         <p:message for="especialidad" /> 
 
-                        <p:commandButton onclick="rc()" oncomplete="PF('dregistrar').hide()" update=":form:pprincipal,:form:agenteSeleccionado" value="Crear Agente" />
-                        <br />
-
                     </h:panelGrid>
+                    
+                    <p:separator/>
+                    
+                    <p:commandButton onclick="rc()" oncomplete="PF('dregistrar').hide()" update=":form:pprincipal,:form:agenteSeleccionado" value="Crear Agente" />
 
                 </p:dialog>
 
