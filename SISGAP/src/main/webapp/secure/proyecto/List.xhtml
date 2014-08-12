@@ -8,7 +8,7 @@
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.ListProyectoTitle}"></h:outputText>
+            <h:outputText value="#{bundleSISGAP.ListProyectoTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
             <h:form styleClass="jsfcrud_list_form">
@@ -18,7 +18,7 @@
 
                 <p:panel id="pprincipal" header="Lista de Proyectos" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
 
-                    <h:outputText escape="false" value="#{bundle.ListProyectoEmpty}" rendered="#{proyectoController.items.rowCount == 0}"/>
+                    <h:outputText escape="false" value="#{bundleSISGAP.ListProyectoEmpty}" rendered="#{proyectoController.items.rowCount == 0}"/>
 
                     <h:panelGroup rendered="#{proyectoController.items.rowCount > 0}">
 
@@ -63,12 +63,19 @@
                                 <h:outputText value="#{item.tipoproyectoid.tipo}"/>
                             </p:column>
 
-                            <p:column id="columnaFinanciamiento" filterBy="#{item.fuentefinanciamientoid}" filterMatchMode="exact" filterOptions="#{fuentefinanciamientoController.itemsAvailableSelectOne}" sortBy="#{item.fuentefinanciamientoid.fuentefinanciamiento}">
+<!--                            <p:column id="columnaFinanciamiento" filterBy="#{item.fuentefinanciamientoid}" filterMatchMode="exact" filterOptions="#{fuentefinanciamientoController.itemsAvailableSelectOne}" sortBy="#{item.fuentefinanciamientoid.fuentefinanciamiento}">
                                 <f:facet name="header">
                                     <h:outputText value="Financiamiento" />
                                 </f:facet>                                                
                                 <h:outputText value="#{item.fuentefinanciamientoid.fuentefinanciamiento}"/>
-                            </p:column>                    
+                            </p:column>   -->
+                            
+                            <p:column id="columnaEstado" filterBy="#{item.estadoproyectoid}" filterMatchMode="exact" filterOptions="#{estadoproyectoController.itemsAvailableSelectOne}" sortBy="#{item.estadoproyectoid.estado}">
+                                <f:facet name="header">
+                                    <h:outputText value="Estado" />
+                                </f:facet>                                                
+                                <h:outputText value="#{item.estadoproyectoid.estado}"/>
+                            </p:column>                               
 
                             <p:column id="columnaResponsable" filterBy="#{item.agenteid}" filterMatchMode="exact" filterOptions="#{agenteController.itemsAvailableSelectOne}" sortBy="#{item.agenteid.apellido}">
                                 <f:facet name="header">

@@ -23,7 +23,7 @@
                     <h:outputText escape="false" value="La lista de proyectos está vacía" rendered="#{proyectoController.items.rowCount == 0}"/>
 
                     <h:panelGroup rendered="#{proyectoController.items.rowCount > 0}">
-                        
+
                         <p:dataTable
                             id="tbl" 
                             value="#{proyectoController.items}" 
@@ -55,11 +55,17 @@
                                 </f:facet>
                                 <h:outputText value="#{item.agenteid.apellido}, #{item.agenteid.nombres}"/>
                             </p:column>
-                            <p:column id="columnaDuracion" filterBy="duracion" filterMatchMode="contains" sortBy="duracion">
+                            <!--                            <p:column id="columnaDuracion" filterBy="duracion" filterMatchMode="contains" sortBy="duracion">
+                                                            <f:facet name="header">
+                                                                <h:outputText value="Duración (Meses)"/>
+                                                            </f:facet>
+                                                            <h:outputText value="#{item.duracion}"/>
+                                                        </p:column>-->
+                            <p:column id="columnaEstado" filterBy="#{item.estadoproyectoid}" filterMatchMode="exact" filterOptions="#{estadoproyectoController.itemsAvailableSelectOne}" sortBy="#{item.estadoproyectoid.estado}">
                                 <f:facet name="header">
-                                    <h:outputText value="Duración (Meses)"/>
+                                    <h:outputText value="Estado"/>
                                 </f:facet>
-                                <h:outputText value="#{item.duracion}"/>
+                                <h:outputText value="#{item.estadoproyectoid.estado}"/>
                             </p:column>
                             <p:column id="columnaTipoProyecto" filterBy="#{item.tipoproyectoid}" filterMatchMode="exact" filterOptions="#{tipoproyectoController.itemsAvailableSelectOne}" sortBy="#{item.tipoproyectoid.tipo}">
                                 <f:facet name="header">

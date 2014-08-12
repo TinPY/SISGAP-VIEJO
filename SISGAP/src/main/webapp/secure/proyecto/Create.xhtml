@@ -8,7 +8,7 @@
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.CreateProyectoTitle}"></h:outputText>
+            <h:outputText value="#{bundleSISGAP.CreateProyectoTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
             <h:panelGroup id="messagePanel" layout="block">
@@ -16,32 +16,32 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <p:outputLabel value="#{bundle.CreateProyectoLabel_fecha}" for="fecha" />
-                    <p:calendar id="fecha" value="#{proyectoController.selected.fecha}" title="#{bundle.CreateProyectoTitle_fecha}" required="true" requiredMessage="#{bundle.CreateProyectoRequiredMessage_fecha}">
+                    <p:outputLabel value="#{bundleSISGAP.CreateProyectoLabel_fecha}" for="fecha" />
+                    <p:calendar id="fecha" value="#{proyectoController.selected.fecha}" title="#{bundleSISGAP.CreateProyectoTitle_fecha}" required="true" requiredMessage="#{bundleSISGAP.CreateProyectoRequiredMessage_fecha}">
                         <f:convertDateTime pattern=" dd/MM/yyyy HH:mm:ss" />
                     </p:calendar>
-                    <h:outputLabel value="#{bundle.CreateProyectoLabel_nombre}" for="nombre" />
-                    <p:inputText size="200"  maxlength="200" id="nombre" value="#{proyectoController.selected.nombre}" title="#{bundle.CreateProyectoTitle_nombre}" />
-                    <h:outputLabel value="#{bundle.CreateProyectoLabel_resumen}" for="resumen" />
-                    <h:inputText id="resumen" value="#{proyectoController.selected.resumen}" title="#{bundle.CreateProyectoTitle_resumen}" />
-                    <h:outputLabel value="#{bundle.CreateProyectoLabel_documentacion}" for="documentacion" />
-                    <h:inputTextarea rows="4" cols="30" id="documentacion" value="#{proyectoController.selected.documentacion}" title="#{bundle.CreateProyectoTitle_documentacion}" />
-                    <h:outputLabel value="#{bundle.CreateProyectoLabel_observaciones}" for="observaciones" />
-                    <h:inputText id="observaciones" value="#{proyectoController.selected.observaciones}" title="#{bundle.CreateProyectoTitle_observaciones}" />
-                    <h:outputLabel value="#{bundle.CreateProyectoLabel_duracion}" for="duracion" />
-                    <h:inputText id="duracion" value="#{proyectoController.selected.duracion}" title="#{bundle.CreateProyectoTitle_duracion}" />
-                    <h:outputLabel value="#{bundle.CreateProyectoLabel_estado}" for="estado" />
-                    <h:inputText id="estado" value="#{proyectoController.selected.estadoproyectoid.estado}" title="#{bundle.CreateProyectoTitle_estado}" />
-                    <h:outputLabel value="#{bundle.CreateProyectoLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{proyectoController.selected.id}" title="#{bundle.CreateProyectoTitle_id}" required="true" requiredMessage="#{bundle.CreateProyectoRequiredMessage_id}"/>
-                    <h:outputLabel value="#{bundle.CreateProyectoLabel_cudap}" for="cudap" />
-                    <h:inputText id="cudap" value="#{proyectoController.selected.cudap}" title="#{bundle.CreateProyectoTitle_cudap}" />
-                    <h:outputLabel value="#{bundle.CreateProyectoLabel_tipoproyectoid}" for="tipoproyectoid" />
-                    <p:selectOneMenu id="tipoproyectoid" value="#{proyectoController.selected.tipoproyectoid}" label="#{bundle.CreateProyectoTitle_tipoproyectoid}" >
+                    <h:outputLabel value="#{bundleSISGAP.CreateProyectoLabel_nombre}" for="nombre" />
+                    <p:inputText size="200"  maxlength="200" id="nombre" value="#{proyectoController.selected.nombre}" title="#{bundleSISGAP.CreateProyectoTitle_nombre}" />
+                    <h:outputLabel value="#{bundleSISGAP.CreateProyectoLabel_resumen}" for="resumen" />
+                    <h:inputText id="resumen" value="#{proyectoController.selected.resumen}" title="#{bundleSISGAP.CreateProyectoTitle_resumen}" />
+                    <h:outputLabel value="#{bundleSISGAP.CreateProyectoLabel_documentacion}" for="documentacion" />
+                    <h:inputTextarea rows="4" cols="30" id="documentacion" value="#{proyectoController.selected.documentacion}" title="#{bundleSISGAP.CreateProyectoTitle_documentacion}" />
+                    <h:outputLabel value="#{bundleSISGAP.CreateProyectoLabel_observaciones}" for="observaciones" />
+                    <h:inputText id="observaciones" value="#{proyectoController.selected.observaciones}" title="#{bundleSISGAP.CreateProyectoTitle_observaciones}" />
+                    <h:outputLabel value="#{bundleSISGAP.CreateProyectoLabel_duracion}" for="duracion" />
+                    <h:inputText id="duracion" value="#{proyectoController.selected.duracion}" title="#{bundleSISGAP.CreateProyectoTitle_duracion}" />
+                    <h:outputLabel value="#{bundleSISGAP.CreateProyectoLabel_estadoproyectoid.estado}" for="estadoproyectoid.estado" />
+                    <h:inputText id="estadoproyectoid.estado" value="#{proyectoController.selected.estadoproyectoid.estadoproyectoid.estadoproyectoid.estado}" title="#{bundleSISGAP.CreateProyectoTitle_estadoproyectoid.estado}" />
+                    <h:outputLabel value="#{bundleSISGAP.CreateProyectoLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{proyectoController.selected.id}" title="#{bundleSISGAP.CreateProyectoTitle_id}" required="true" requiredMessage="#{bundleSISGAP.CreateProyectoRequiredMessage_id}"/>
+                    <h:outputLabel value="#{bundleSISGAP.CreateProyectoLabel_cudap}" for="cudap" />
+                    <h:inputText id="cudap" value="#{proyectoController.selected.cudap}" title="#{bundleSISGAP.CreateProyectoTitle_cudap}" />
+                    <h:outputLabel value="#{bundleSISGAP.CreateProyectoLabel_tipoproyectoid}" for="tipoproyectoid" />
+                    <p:selectOneMenu id="tipoproyectoid" value="#{proyectoController.selected.tipoproyectoid}" label="#{bundleSISGAP.CreateProyectoTitle_tipoproyectoid}" >
                         <f:selectItems value="#{tipoproyectoController.itemsAvailableSelectOne}"/>
                     </p:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreateProyectoLabel_concocatoriaid}" for="concocatoriaid" />
-                    <h:selectOneMenu id="concocatoriaid" value="#{proyectoController.selected.concocatoriaid}" title="#{bundle.CreateProyectoTitle_concocatoriaid}" >
+                    <h:outputLabel value="#{bundleSISGAP.CreateProyectoLabel_concocatoriaid}" for="concocatoriaid" />
+                    <h:selectOneMenu id="concocatoriaid" value="#{proyectoController.selected.concocatoriaid}" title="#{bundleSISGAP.CreateProyectoTitle_concocatoriaid}" >
                         <f:selectItems value="#{convocatoriaController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
                     <h:outputLabel value="Entidad Beneficiaria" for="entidadid" />
@@ -50,13 +50,13 @@
                     </h:selectOneMenu>
                 </h:panelGrid>
                 <br />
-                <h:commandLink action="#{proyectoController.create}" value="#{bundle.CreateProyectoSaveLink}" />
+                <h:commandLink action="#{proyectoController.create}" value="#{bundleSISGAP.CreateProyectoSaveLink}" />
                 <br />
                 <br />
-                <p:commandLink  action="#{proyectoController.prepareList}" value="#{bundle.CreateProyectoShowAllLink}" immediate="true"/>
+                <p:commandLink  action="#{proyectoController.prepareList}" value="#{bundleSISGAP.CreateProyectoShowAllLink}" immediate="true"/>
                 <br />
                 <br />
-                <h:link outcome="/index" value="#{bundle.CreateProyectoIndexLink}"/>
+                <h:link outcome="/index" value="#{bundleSISGAP.CreateProyectoIndexLink}"/>
             </h:form>
         </ui:define>
     </ui:composition>
