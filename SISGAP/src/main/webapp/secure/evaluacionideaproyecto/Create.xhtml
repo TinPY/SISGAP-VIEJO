@@ -30,7 +30,7 @@
             <h:form>
                 <p:growl for="growlprincipal" id="growlprincipal" showDetail="true" sticky="true" />
 
-                <p:panel id="pprincipal" header="Lista de Ideas-Proyecto" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
+                <p:panel id="pprincipal" header="Crear Evaluación de Idea-Proyecto" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
 
                     <h:panelGroup id="messagePanel" layout="block">
                         <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
@@ -271,17 +271,17 @@
                             <p:outputLabel style="font-weight:bold;" value="Rating" /> 
                             <p:outputLabel style="font-weight:bold;" value="Observacion" /> 
 
-                            <c:forEach items="#{evaluacionPreguntaController.obtenerEvaluaciones(true)}" var="data">
+                            <c:forEach items="#{evaluacionPreguntaController.obtenerEvaluaciones(false)}" var="data">
 
                                 <p:outputLabel style="font-weight:bold;" value="#{data.pregunta.pregunta}"  />
                                 <p:selectBooleanCheckbox value="#{data.aprobado}" />
 
                                 <p:rating style="width:100px !important;"  value="#{data.rating}" >
-                                    <p:ajax event="rate" listener="#{proyectoController.armarObservaciones('Proyecto')}" update="observacionfinal"  />  
+                                    <p:ajax event="rate" listener="#{proyectoController.armarObservaciones('Idea-Proyecto')}" update="observacionfinal"  />  
                                 </p:rating>
 
                                 <p:inputTextarea value="#{data.observacion}" cols="70" rows="3" >
-                                    <p:ajax event="keyup" listener="#{proyectoController.armarObservaciones('Proyecto')}" update="observacionfinal"  />  
+                                    <p:ajax event="keyup" listener="#{proyectoController.armarObservaciones('Idea-Proyecto')}" update="observacionfinal"  />  
                                 </p:inputTextarea>
                             </c:forEach>
                         </h:panelGrid>
@@ -295,8 +295,8 @@
                                 </p:column>
                                 <p:column style="width: 80%;" styleClass="left">
                                     <p:selectOneMenu id="sestado" value="#{proyectoController.selected.estadoproyectoid}" >
-                                        <f:selectItems value="#{estadoproyectoController.getItemspersonalizado(true)}"/>
-                                        <p:ajax listener="#{proyectoController.armarObservaciones('Proyecto')}" update="observacionfinal"  />  
+                                        <f:selectItems value="#{estadoproyectoController.getItemspersonalizado(false)}"/>
+                                        <p:ajax listener="#{proyectoController.armarObservaciones('Idea-Proyecto')}" update="observacionfinal"  />  
                                     </p:selectOneMenu>
                                 </p:column>
                             </p:row>
@@ -315,12 +315,12 @@
 
                     <p:separator />
                     <div align="center" >
-                        <p:commandButton ajax="false" value="Guardar evaluacion" actionListener="#{proyectoController.evaluarIdea}" oncomplete="" />
+                        <p:commandButton ajax="false" value="Guardar evaluación" actionListener="#{proyectoController.evaluarIdea}" oncomplete="" />
                     </div>
 
                 </p:panel>
 
-                <p:dialog id="dfinal" widgetVar="dfinal"  modal="true" closable="false"  header="Evaluacion del Proyecto Creado" >
+                <p:dialog id="dfinal" widgetVar="dfinal"  modal="true" closable="false"  header="Evaluacion de Idea Proyecto Creada" >
                     La Evaluación fue creada Satisfactoriamente!!! en breve le llegara un email al Docente - Investigador
                     <div align="center" ><p:commandButton value="OK" action="List" ></p:commandButton></div>
 

@@ -35,4 +35,18 @@ public class EvaluacionFacade extends AbstractFacade<Evaluacion> {
         return em.createQuery("SELECT e FROM Evaluacion e join e.proyectoid p WHERE p.id = :id", Evaluacion.class).setParameter("id", proyectoId).getSingleResult();
     }
     
+    public Evaluacion obtenerEvaluacionPorProyectoyEstado(int idProyecto, Boolean proyecto){
+        //return em.createQuery("select p from Proyecto p join p.agenteid a where a.id = :id ", Proyecto.class).setParameter("id", agenteid).getResultList();
+        
+        try{
+            return em.createQuery("SELECT e FROM Evaluacion e join e.proyectoid p WHERE p.id = :id AND p.estadoproyectoid.proyecto = :proyecto", Evaluacion.class).setParameter("id", idProyecto).setParameter("proyecto", proyecto).getSingleResult();
+        }catch(Exception e){
+            // javax.persistence.NoResultException
+            System.out.println(e.getMessage());
+            return null;
+        }
+        
+        
+    }
+    
 }

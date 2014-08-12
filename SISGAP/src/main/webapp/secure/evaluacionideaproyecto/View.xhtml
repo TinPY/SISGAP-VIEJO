@@ -57,7 +57,7 @@
                             <p:outputLabel value="#{proyectoController.selected.duracion} Meses" />
 
                             <p:outputLabel value="Alta" style="font-weight: bold;" />
-                            <p:outputLabel value="#{proyectoController.selected.fecha}" title="#{bundle.ViewProyectoTitle_fecha}">
+                            <p:outputLabel value="#{proyectoController.selected.fecha}" title="#{bundleSISGAP.ViewProyectoTitle_fecha}">
                                 <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
                             </p:outputLabel>
 
@@ -150,13 +150,13 @@
                         <p:tab title="Financiamiento">
                             <p:panelGrid columns="2" columnClasses="right,left" styleClass="sinBordes">
                                 <p:outputLabel value="Beneficiario" style="font-weight: bold;" />
-                                <p:outputLabel value="#{proyectoController.selected.beneficiarioid.beneficiario}" title="#{bundle.ViewProyectoTitle_convocatoriaid}"/>
+                                <p:outputLabel value="#{proyectoController.selected.beneficiarioid.beneficiario}" title="#{bundleSISGAP.ViewProyectoTitle_convocatoriaid}"/>
 
                                 <p:outputLabel value="Tipo de Financiamiento" style="font-weight: bold;" />
-                                <p:outputLabel value="#{proyectoController.selected.tipofinanciamientoid.tipofinanciamiento}" title="#{bundle.ViewProyectoTitle_convocatoriaid}"/>
+                                <p:outputLabel value="#{proyectoController.selected.tipofinanciamientoid.tipofinanciamiento}" title="#{bundleSISGAP.ViewProyectoTitle_convocatoriaid}"/>
 
                                 <p:outputLabel value="Fuente de Financiamiento" style="font-weight: bold;" />
-                                <p:outputLabel value="#{proyectoController.selected.fuentefinanciamientoid.fuentefinanciamiento}" title="#{bundle.ViewProyectoTitle_convocatoriaid}"/>
+                                <p:outputLabel value="#{proyectoController.selected.fuentefinanciamientoid.fuentefinanciamiento}" title="#{bundleSISGAP.ViewProyectoTitle_convocatoriaid}"/>
                             </p:panelGrid>
                         </p:tab>
                         <p:tab title="Equipo de Trabajo">

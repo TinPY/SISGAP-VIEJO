@@ -12,6 +12,7 @@
         <ui:define name="body">
             <f:event type="preRenderView" listener="#{presupuestoController.findProyecto(proyectoController.selected.id)}" />
             <f:event type="preRenderView" listener="#{presupuestoController.sumarGastosView}" />
+            <f:event type="preRenderView" listener="#{evaluacionController.obtenerEvaluacionPorProyecto(proyectoController.selected.id, true)}" />
 
             <script type="text/javascript">
                 function showStatus() {
@@ -30,7 +31,7 @@
             <h:form>
                 <p:growl for="growlprincipal" id="growlprincipal" showDetail="true" sticky="true" />
 
-                <p:panel id="pprincipal" header="Lista de Ideas-Proyecto" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
+                <p:panel id="pprincipal" header="Editar Evaluacion de Proyecto" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
 
                     <h:panelGroup id="messagePanel" layout="block">
                         <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
@@ -271,7 +272,7 @@
                             <p:outputLabel style="font-weight:bold;" value="Rating" /> 
                             <p:outputLabel style="font-weight:bold;" value="Observacion" /> 
 
-                            <c:forEach items="#{evaluacionPreguntaController.obtenerEvaluaciones(true)}" var="data">
+                            <c:forEach items="#{evaluacionPreguntaController.obtenerPreguntasEvaluacion(evaluacionController.selected.id)}" var="data">
 
                                 <p:outputLabel style="font-weight:bold;" value="#{data.pregunta.pregunta}"  />
                                 <p:selectBooleanCheckbox value="#{data.aprobado}" />

@@ -6,7 +6,9 @@
 
 package ar.edu.undec.sisgap.controller;
 
+import ar.edu.undec.sisgap.model.Evaluacion;
 import ar.edu.undec.sisgap.model.EvaluacionPregunta;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,6 +29,10 @@ public class EvaluacionPreguntaFacade extends AbstractFacade<EvaluacionPregunta>
 
     public EvaluacionPreguntaFacade() {
         super(EvaluacionPregunta.class);
+    }
+    
+    public List<EvaluacionPregunta> listaEvaluaciones(int evaluacionId){
+        return em.createQuery("SELECT ep FROM EvaluacionPregunta ep join ep.evaluacion e WHERE e.id = :id", EvaluacionPregunta.class).setParameter("id", evaluacionId).getResultList();
     }
     
 }

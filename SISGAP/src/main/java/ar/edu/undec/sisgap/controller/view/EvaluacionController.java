@@ -227,5 +227,9 @@ public class EvaluacionController implements Serializable {
         }
 
     }
+    
+    public void obtenerEvaluacionPorProyecto(int proyectoId, Boolean proyecto){
+        current = this.ejbFacade.obtenerEvaluacionPorProyectoyEstado(proyectoId, proyecto);
+    }
 
 }

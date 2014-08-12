@@ -401,9 +401,6 @@ public class ProyectoController implements Serializable {
                     return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
                 }
 
-                public DataModel listaProyectosEvaluar(String estado){
-                    return new ListDataModel(getFacade().buscarProyectoEstadoAbreviado(estado));
-                }
             };
         }
         return pagination;
@@ -420,9 +417,20 @@ public class ProyectoController implements Serializable {
         return "View";
     }
 
-    public String prepareEvaluar(){
+    // Evaluar proyecto o idea-proyecto
+    public String prepareEvaluar(Boolean proyecto){
         current = (Proyecto)getItems().getRowData();
-        return "View";
+        
+        //evaluacionProyecto = this.ejbevaluacion.obtenerEvaluacionPorProyecto(current.getId());
+        Evaluacion evaluacionProyecto = this.ejbevaluacion.obtenerEvaluacionPorProyectoyEstado(current.getId(), proyecto);
+        
+        if(evaluacionProyecto != null){
+            System.out.println("Evaluacion >> Edit");
+            return "Edit";
+        }else{
+            System.out.println("Evaluacion >> Create");
+            return "Create";
+        }
     }
     
     public String prepareCreate() {
@@ -434,10 +442,10 @@ public class ProyectoController implements Serializable {
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ProyectoCreated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/BundleSISGAP").getString("ProyectoCreated"));
             return prepareCreate();
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/BundleSISGAP").getString("PersistenceErrorOccured"));
             return null;
         }
     }
@@ -625,10 +633,10 @@ public class ProyectoController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ProyectoUpdated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/BundleSISGAP").getString("ProyectoUpdated"));
             return "View";
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/BundleSISGAP").getString("PersistenceErrorOccured"));
             return null;
         }
     }
@@ -658,9 +666,9 @@ public class ProyectoController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ProyectoDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/BundleSISGAP").getString("ProyectoDeleted"));
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/BundleSISGAP").getString("PersistenceErrorOccured"));
         }
     }
 

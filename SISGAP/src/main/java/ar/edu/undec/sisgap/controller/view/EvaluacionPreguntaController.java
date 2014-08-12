@@ -283,4 +283,9 @@ public class EvaluacionPreguntaController implements Serializable {
 
         return evaluaciones;
     }
+    
+    public List<EvaluacionPregunta> obtenerPreguntasEvaluacion(int evaluacionId){
+        return this.ejbFacade.listaEvaluaciones(evaluacionId);
+    }
+    
 }
