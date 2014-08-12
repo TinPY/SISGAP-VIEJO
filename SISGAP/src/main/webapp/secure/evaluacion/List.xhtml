@@ -44,7 +44,7 @@
                             </p:column>
                             <p:column id="columnaFecha" filterBy="fecha" filterMatchMode="contains" sortBy="fecha">
                                 <f:facet name="header">
-                                    <h:outputText value="Nombre del Rol"/>
+                                    <h:outputText value="Fecha"/>
                                 </f:facet>
                                 <h:outputText value="#{item.fecha}"/>
                             </p:column>
@@ -54,12 +54,18 @@
                                 </f:facet>
                                 <h:outputText value="#{item.proyectoid.nombre}"/>
                             </p:column>
-                            <p:column id="columnaUsuario" filterBy="usuarionombre" filterMatchMode="contains" sortBy="usuarionombre">
+                             <p:column id="columnaEstado" filterBy="#{item.proyectoid.estadoproyectoid.estado}" filterMatchMode="exact" filterOptions="#{estadoproyectoController.itemsAvailableSelectOne}" sortBy="#{item.proyectoid.estadoproyectoid.estado}">
+                                <f:facet name="header">
+                                    <h:outputText value="Estado" />
+                                </f:facet>                                                
+                                <h:outputText value="#{item.proyectoid.estadoproyectoid.estado}"/>
+                            </p:column>      
+<!--                            <p:column id="columnaUsuario" filterBy="usuarionombre" filterMatchMode="contains" sortBy="usuarionombre">
                                 <f:facet name="header">
                                     <h:outputText value="Nombre del Usuario"/>
                                 </f:facet>
                                 <h:outputText value="#{item.usuarioid.usuarionombre}"/>
-                            </p:column>                            
+                            </p:column>                            -->
                             <p:column >
                                 <f:facet name="header">
                                     <h:outputText value="&nbsp;"/>
