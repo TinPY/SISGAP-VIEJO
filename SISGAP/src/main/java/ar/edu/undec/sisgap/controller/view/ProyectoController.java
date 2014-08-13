@@ -450,6 +450,12 @@ public class ProyectoController implements Serializable {
         }
     }
 
+    public String prepareSolicitud(){
+        current = new Proyecto();
+        //selectedItemIndex = -1;
+        return "Solicitud";
+    }
+    
     public String soloCrear() {
         try {
             //Capturo el managed bean en el contexto

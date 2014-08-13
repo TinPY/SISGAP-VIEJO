@@ -3,36 +3,39 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.EditEvaluacionTitle}"></h:outputText>
+            <h:outputText value="#{bundleSISGAP.EditEvaluacionTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditEvaluacionLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{evaluacionController.selected.id}" title="#{bundle.EditEvaluacionTitle_id}" required="true" requiredMessage="#{bundle.EditEvaluacionRequiredMessage_id}"/>
-                    <h:outputLabel value="#{bundle.EditEvaluacionLabel_fecha}" for="fecha" />
-                    <h:inputText id="fecha" value="#{evaluacionController.selected.fecha}" title="#{bundle.EditEvaluacionTitle_fecha}" >
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                    </h:inputText>
-                    <h:outputLabel value="#{bundle.EditEvaluacionLabel_observacion}" for="observacion" />
-                    <h:inputText id="observacion" value="#{evaluacionController.selected.observacion}" title="#{bundle.EditEvaluacionTitle_observacion}" />
-                </h:panelGrid>
-                <h:commandLink action="#{evaluacionController.update}" value="#{bundle.EditEvaluacionSaveLink}"/>
-                <br />
-                <br />
-                <h:link outcome="View" value="#{bundle.EditEvaluacionViewLink}"/>
-                <br />
-                <h:commandLink action="#{evaluacionController.prepareList}" value="#{bundle.EditEvaluacionShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.EditEvaluacionIndexLink}" />
+                <p:panel id="pprincipal" header="Alta Idea-Proyecto" style="padding: 0px; width: 950px; margin: 0 auto; overflow: hidden;">
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="#{bundleSISGAP.EditEvaluacionLabel_id}" for="id" />
+                        <h:inputText id="id" value="#{evaluacionController.selected.id}" title="#{bundleSISGAP.EditEvaluacionTitle_id}" required="true" requiredMessage="#{bundleSISGAP.EditEvaluacionRequiredMessage_id}"/>
+                        <h:outputLabel value="#{bundleSISGAP.EditEvaluacionLabel_fecha}" for="fecha" />
+                        <h:inputText id="fecha" value="#{evaluacionController.selected.fecha}" title="#{bundleSISGAP.EditEvaluacionTitle_fecha}" >
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:inputText>
+                        <h:outputLabel value="#{bundleSISGAP.EditEvaluacionLabel_observacion}" for="observacion" />
+                        <h:inputText id="observacion" value="#{evaluacionController.selected.observacion}" title="#{bundleSISGAP.EditEvaluacionTitle_observacion}" />
+                    </h:panelGrid>
+                    <h:commandLink action="#{evaluacionController.update}" value="#{bundleSISGAP.EditEvaluacionSaveLink}"/>
+                    <br />
+                    <br />
+                    <h:link outcome="View" value="#{bundleSISGAP.EditEvaluacionViewLink}"/>
+                    <br />
+                    <h:commandLink action="#{evaluacionController.prepareList}" value="#{bundleSISGAP.EditEvaluacionShowAllLink}" immediate="true"/>
+                    <br />
+                    <br />
+                    <h:link outcome="/index" value="#{bundleSISGAP.EditEvaluacionIndexLink}" />
+                </p:panel>
             </h:form>
         </ui:define>
     </ui:composition>
