@@ -4,12 +4,14 @@ import ar.edu.undec.sisgap.model.Convocatoria;
 import ar.edu.undec.sisgap.controller.view.util.JsfUtil;
 import ar.edu.undec.sisgap.controller.view.util.PaginationHelper;
 import ar.edu.undec.sisgap.controller.ConvocatoriaFacade;
+import ar.edu.undec.sisgap.model.Archivoproyecto;
 import ar.edu.undec.sisgap.model.Beneficiario;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
 import java.io.Serializable;
+import java.nio.file.Files;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -36,6 +38,7 @@ import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
@@ -50,7 +53,7 @@ public class ConvocatoriaController implements Serializable {
     private PaginationHelper pagination;
     private int selectedItemIndex;
     private StreamedContent file;
-    private List<Convocatoria> tablafiltrada; 
+    private List<Convocatoria> tablafiltrada;
 
     public ConvocatoriaController() {
     }
@@ -62,8 +65,9 @@ public class ConvocatoriaController implements Serializable {
         }
         return current;
     }
-    public void setSelected(Convocatoria convocatoria){
-        current=convocatoria;
+
+    public void setSelected(Convocatoria convocatoria) {
+        current = convocatoria;
     }
 
     private ConvocatoriaFacade getFacade() {
@@ -214,17 +218,15 @@ public class ConvocatoriaController implements Serializable {
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
-    
-    
-    
-       public StreamedContent getFile() {          
+
+    public StreamedContent getFile() {
         System.out.println("vvvvvvvvvvv");
         InputStream stream = new ByteArrayInputStream(current.getFormulario());
-        file = new DefaultStreamedContent(stream, "docx/doc/pdf/rar", current.getLink());  
-            System.out.println("qqqqqqqqqqqqqqqq");
-            return file;
-        
-    }  
+        file = new DefaultStreamedContent(stream, "docx/doc/pdf/rar", current.getLink());
+        System.out.println("qqqqqqqqqqqqqqqq");
+        return file;
+
+    }
 
     @FacesConverter(forClass = Convocatoria.class)
     public static class ConvocatoriaControllerConverter implements Converter {
@@ -266,18 +268,18 @@ public class ConvocatoriaController implements Serializable {
 
     }
 
-    public void findConvocatoriafinanciamiento(Integer tipoproyectoid, Integer tipofinanciamientoid){
-        
-        items= new ListDataModel(getFacade().findConvocatoriafinanciamiento(tipoproyectoid, tipofinanciamientoid));
+    public void findConvocatoriafinanciamiento(Integer tipoproyectoid, Integer tipofinanciamientoid) {
+
+        items = new ListDataModel(getFacade().findConvocatoriafinanciamiento(tipoproyectoid, tipofinanciamientoid));
     }
-    
-    public StreamedContent getFileConvocatoria() {          
+
+    public StreamedContent getFileConvocatoria() {
         System.out.println("vvvvvvvvvvv");
         InputStream stream = new ByteArrayInputStream(this.getSelected().getFormulario());
-        file = new DefaultStreamedContent(stream, "docx/doc/pdf/rar", current.getLink());  
-            System.out.println("qqqqqqqqqqqqqqqq");
-            return file;
-            
+        file = new DefaultStreamedContent(stream, "docx/doc/pdf/rar", current.getLink());
+        System.out.println("qqqqqqqqqqqqqqqq");
+        return file;
+
     }
 
     public List<Convocatoria> getTablafiltrada() {
@@ -288,87 +290,37 @@ public class ConvocatoriaController implements Serializable {
         this.tablafiltrada = tablafiltrada;
     }
 
-     // **************************  REPORTES  **********************************
-        public void pdfConvocatoria() throws JRException, IOException {
+    public void handleFileUploadBases(FileUploadEvent event) {
 
-            // Obtengo la ruta absoluta del archivo compilado del reporte
-            String rutaJasper = FacesContext.getCurrentInstance().getExternalContext().getRealPath("secure/reportes/convocatoria.jasper");
+        try {
+            current.setBases(event.getFile().getContents());
 
-            // Fuente de datos del reporte
-            JRBeanArrayDataSource beanArrayDataSource = new JRBeanArrayDataSource(new Convocatoria[]{this.getSelected()});
-            
-            //Agregando los parametros
-            Hashtable<String, Object> parametros = new Hashtable<String, Object>();
-            parametros.put("idConvocatoria", this.getSelected().getId());
-
-            // Llenamos el reporte
-            JasperPrint jasperPrint = JasperFillManager.fillReport(rutaJasper, parametros, beanArrayDataSource);
-
-            // Generamos el archivo a descargar
-            HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-            httpServletResponse.addHeader("Content-disposition", "attachment; filename=convocatoria.pdf");
-            ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
-            JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
-            FacesContext.getCurrentInstance().responseComplete();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+    }
 
-        public void pdfListaConvocatorias() throws JRException, IOException {
-
-            // Ruta absoluta del archivo compilado del reporte
-            String rutaJasper = FacesContext.getCurrentInstance().getExternalContext().getRealPath("secure/reportes/listaConvocatorias.jasper");
-
-            // Fuente de datos del reporte
-            JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(this.getFacade().findAll());
-
-            // Llenamos el reporte con la fuente de datos
-            JasperPrint jasperPrint = JasperFillManager.fillReport(rutaJasper, null, beanCollectionDataSource);
-
-            // Generamos el archivo a descargar
-            HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-            httpServletResponse.addHeader("Content-disposition", "attachment; filename=listaConvocatorias.pdf");
-            ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
-            JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
-            FacesContext.getCurrentInstance().responseComplete();
+    public void handleFileUploadFormulario(FileUploadEvent event) {
+        try {
+            current.setFormulario(event.getFile().getContents());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+    }
 
-        public void imprimirConvocatoria() throws JRException, IOException {
+    public StreamedContent obtenerBases() {
+        InputStream is = new ByteArrayInputStream(current.getBases());
 
-            // Obtengo la ruta absoluta del archivo compilado del reporte
-            String rutaJasper = FacesContext.getCurrentInstance().getExternalContext().getRealPath("secure/reportes/convocatoria.jasper");
+        StreamedContent sc = new DefaultStreamedContent(is);
 
-            // Fuente de datos del reporte
-            JRBeanArrayDataSource beanArrayDataSource = new JRBeanArrayDataSource(new Convocatoria[]{this.getSelected()});
+        return sc;
+    }
 
-            //Agregando los parametros
-            Hashtable<String, Object> parametros = new Hashtable<String, Object>();
-            parametros.put("idConvocatoria", this.getSelected().getId());
+    public StreamedContent obtenerFormulario() {
+        InputStream is = new ByteArrayInputStream(current.getFormulario());
 
-            // Llenamos el reporte
-            //JasperPrint jasperPrint = JasperFillManager.fillReport(rutaJasper, parametros, beanArrayDataSource);
-            String archivo = JasperFillManager.fillReportToFile(rutaJasper, parametros, beanArrayDataSource);
+        StreamedContent sc = new DefaultStreamedContent(is);
 
-            if (archivo != null) {
-                JasperPrintManager.printReport(
-                        archivo, true);
-            }
-        }
-
-        public void imprimirListaConvocatorias() throws JRException, IOException {
-
-            // Ruta absoluta del archivo compilado del reporte
-            String rutaJasper = FacesContext.getCurrentInstance().getExternalContext().getRealPath("secure/reportes/listaConvocatorias.jasper");
-
-            // Fuente de datos del reporte
-            JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(this.getFacade().findAll());
-
-            // Llenamos el reporte con la fuente de datos
-            String archivo = JasperFillManager.fillReportToFile(rutaJasper, null, beanCollectionDataSource);
-
-            if (archivo != null) {
-                JasperPrintManager.printReport(
-                        archivo, true);
-            }
-
-        }
-    
+        return sc;
+    }
 }

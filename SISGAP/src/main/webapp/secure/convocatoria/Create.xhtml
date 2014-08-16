@@ -106,10 +106,15 @@
                             <p:panelGrid styleClass="sinBordes sinFondo">
                                 <p:row>
                                     <p:column style="width: 40%;">
-                                        <p:outputLabel value="Bases" for="bases" style="font-weight: bold;"/>
+                                        <p:outputLabel value="Bases" for="fuploadBases" style="font-weight: bold;"/>
                                     </p:column>
                                     <p:column style="width: 60%;">
-                                        <h:outputText id="bases" value="BASES [UPLOADFILE]"/>
+                                        <h:form id="fuploadBases" enctype="multipart/form-data">
+                                            <p:fileUpload label="Bases para subir" id="basesConvocatoria" fileUploadListener="#{convocatoriaController.handleFileUploadBases}" mode="advanced"  
+                                                          sizeLimit="10000000" auto="true" allowTypes="/(\.|\/)(gif|jpe?g|png|doc|docx|pdf)$/"  >
+
+                                            </p:fileUpload>    
+                                        </h:form>
                                     </p:column>
                                 </p:row>
                                 <p:row >
@@ -122,10 +127,16 @@
                                 </p:row>
                                 <p:row>
                                     <p:column style="width: 40%;">
-                                        <p:outputLabel value="Formulario" for="formulario" style="font-weight: bold;" />
+                                        <p:outputLabel value="Formulario" for="fuploadFormulario" style="font-weight: bold;" />
                                     </p:column>
                                     <p:column style="width: 60%;">
-                                        <h:outputText id="formulario" value="FORMULARIO [UPLOADFILE]"/>
+                                        <h:form id="fuploadFormulario" enctype="multipart/form-data">
+                                            <p:fileUpload label="Formulario para subir" id="formularioConvocatoria" fileUploadListener="#{convocatoriaController.handleFileUploadFormulario}" mode="advanced"  
+                                                          sizeLimit="10000000" auto="true" allowTypes="/(\.|\/)(gif|jpe?g|png|doc|docx|pdf)$/"  >
+                                                
+
+                                            </p:fileUpload>    
+                                        </h:form>
                                     </p:column>                                
                                 </p:row>
                             </p:panelGrid>    

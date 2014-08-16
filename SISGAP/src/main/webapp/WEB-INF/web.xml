@@ -8,10 +8,7 @@
         <param-name>primefaces.THEME</param-name>
         <!--<param-value>delta</param-value>-->
         <!--<param-value>hot-sneaks</param-value>-->
-        <!--<param-value>excite-bike</param-value>-->                
-        <!--<param-value>flick</param-value>-->                        
         <param-value>start</param-value>
-        <!--<param-value>south-street</param-value>-->
         <!--<param-value>smoothness</param-value>-->
         <!--<param-value>redmond</param-value>-->
     </context-param>

@@ -105,7 +105,9 @@
                                         <p:outputLabel value="Bases" for="bases" style="font-weight: bold;"/>
                                     </p:column>
                                     <p:column style="width: 60%;">
-                                        <h:outputText id="bases" value="BASES [UPLOADFILE]"/>
+                                        <p:commandButton id="bases" value="Bajar Bases" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
+                                            <p:fileDownload value="#{convocatoriaController.obtenerBases()}" />
+                                        </p:commandButton>
                                     </p:column>
                                 </p:row>
                                 <p:row >
@@ -121,7 +123,9 @@
                                         <p:outputLabel value="Formulario" for="formulario" style="font-weight: bold;" />
                                     </p:column>
                                     <p:column style="width: 60%;">
-                                        <h:outputText id="formulario" value="FORMULARIO [UPLOADFILE]"/>
+                                        <p:commandButton id="formulario" value="Bajar Formulario" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
+                                            <p:fileDownload value="#{convocatoriaController.obtenerFormulario()}" />
+                                        </p:commandButton>
                                     </p:column>                                
                                 </p:row>
                             </p:panelGrid>
@@ -140,7 +144,7 @@
                             </p:row>
                         </p:panelGrid>
                     </p:panel>
-                    
+
                     <p:separator/>
 
                     <p:commandButton action="#{convocatoriaController.prepareList}" value="Lista de Convocatorias" immediate="true" style="display: inline-block; " icon="ui-icon-document" ajax="false" />

@@ -63,7 +63,7 @@
                     </p:fieldset>
 
                     <p:accordionPanel style="display: inline-block; width: 50%; float: right; margin-bottom: 5px; margin-top: 15px;" activeIndex="null">
-                        <p:tab title="Comitente">
+                        <p:tab title="Comitente" rendered="#{not empty proyectoController.selected.comitenteid.razonsocial}">
                             <p:panelGrid columnClasses="right,left" style="width: 100%;" columns="2" styleClass="sinBordes" >
                                 <p:outputLabel value="Razón Social" style="font-weight: bold;"/>
                                 <p:outputLabel value="#{proyectoController.selected.comitenteid.razonsocial}" />
@@ -116,7 +116,7 @@
                                 </p:row>
                             </p:panelGrid>
                         </p:tab>
-                        <p:tab title="Convocatoria">
+                        <p:tab title="Convocatoria" rendered="#{not empty proyectoController.selected.convocatoriaid.convocatoria}">
                             <p:panelGrid style="width: 100%;" columnClasses="right,left" columns="2" styleClass="sinBordes">
                                 <p:outputLabel value="Convocatoria" style="font-weight: bold;" />
                                 <p:outputLabel value="#{proyectoController.selected.convocatoriaid.convocatoria}"/>
