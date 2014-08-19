@@ -418,21 +418,21 @@ public class ProyectoController implements Serializable {
     }
 
     // Evaluar proyecto o idea-proyecto
-    public String prepareEvaluar(Boolean proyecto){
-        current = (Proyecto)getItems().getRowData();
-        
+    public String prepareEvaluar(Boolean proyecto) {
+        current = (Proyecto) getItems().getRowData();
+
         //evaluacionProyecto = this.ejbevaluacion.obtenerEvaluacionPorProyecto(current.getId());
         Evaluacion evaluacionProyecto = this.ejbevaluacion.obtenerEvaluacionPorProyectoyEstado(current.getId(), proyecto);
-        
-        if(evaluacionProyecto != null){
+
+        if (evaluacionProyecto != null) {
             System.out.println("Evaluacion >> Edit");
             return "Edit";
-        }else{
+        } else {
             System.out.println("Evaluacion >> Create");
             return "Create";
         }
     }
-    
+
     public String prepareCreate() {
         current = new Proyecto();
         selectedItemIndex = -1;
@@ -450,12 +450,12 @@ public class ProyectoController implements Serializable {
         }
     }
 
-    public String prepareSolicitud(){
+    public String prepareSolicitud() {
         current = new Proyecto();
         //selectedItemIndex = -1;
         return "Solicitud";
     }
-    
+
     public String soloCrear() {
         try {
             //Capturo el managed bean en el contexto
@@ -988,7 +988,46 @@ public class ProyectoController implements Serializable {
         }
     }
 
-    public String armarObservaciones(String estadoProyecto) {
+    public void evaluarProyecto() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        EvaluacionPreguntaController evaluacionpregunta = (EvaluacionPreguntaController) context.getApplication().evaluateExpressionGet(context, "#{evaluacionPreguntaController}", EvaluacionPreguntaController.class);
+        EvaluacionController evaluacion = (EvaluacionController) context.getApplication().evaluateExpressionGet(context, "#{evaluacionController}", EvaluacionController.class);;
+        AgenteController agente = (AgenteController) context.getApplication().evaluateExpressionGet(context, "#{agenteController}", AgenteController.class);;
+
+        try {
+
+            evaluacion.getSelected().setFecha(new Date());
+            evaluacion.getSelected().setProyectoid(current);
+            evaluacion.getSelected().setUsuarioid(agente.getSelected().getUsuarioid());
+            ejbevaluacion.createWithPersist(evaluacion.getSelected());
+            proyectoViejo = current;
+            for (EvaluacionPregunta eval : evaluacionpregunta.getEvaluaciones()) {
+                eval.setEvaluacionPreguntaPK(new EvaluacionPreguntaPK());
+                eval.getEvaluacionPreguntaPK().setEvaluacionid(evaluacion.getSelected().getId());
+                eval.getEvaluacionPreguntaPK().setPreguntaid(eval.getPregunta().getId());
+
+                ejbevaluacionproyecto.create(eval);
+            }
+
+            this.ejbFacade.edit(current);
+
+            // PRUEBA [!!!!!!!!!!!!]
+            //if (new EnviarMail().enviarMailEvaluacionIdeaProyecto(current.getAgenteid(), current.getObservaciones())) {
+            if (true) {
+                RequestContext.getCurrentInstance().execute("dfinal.show()");
+            } else {
+                FacesContext.getCurrentInstance().addMessage("growlprincipal", new FacesMessage("Error! ", "No se pudo evaluar del Proyecto."));
+                this.ejbFacade.edit(proyectoViejo);
+                ejbevaluacion.remove(evaluacion.getSelected());
+            }
+        } catch (Exception e) {
+            ejbevaluacion.remove(evaluacion.getSelected());
+            this.ejbFacade.edit(proyectoViejo);
+            FacesContext.getCurrentInstance().addMessage("growlprincipal", new FacesMessage("Error! ", "No se pudo evaluar del Proyecto "));
+        }
+    }
+
+    public String armarObservacionesIdea() {
         observacionfinal = "";
         FacesContext context = FacesContext.getCurrentInstance();
         EvaluacionPreguntaController evaluacionpregunta = (EvaluacionPreguntaController) context.getApplication().evaluateExpressionGet(context, "#{evaluacionPreguntaController}", EvaluacionPreguntaController.class);
@@ -997,7 +1036,7 @@ public class ProyectoController implements Serializable {
         String calificacionpregunta = "";
         try {
             observacionfinal = "Estimado docente-investigador:\n"
-                    + "Por medio del presente le informamos a Ud. que el/la " + estadoProyecto + " Nº "+ current.getId() + " de la cual Ud. es responsable, ha cambiado de estado a " + current.getEstadoproyectoid().getEstado() + " según el siguiente detalle:\n"
+                    + "Por medio del presente informamos a Ud. que la Idea-Proyecto Nº " + current.getId() + " de la cual Ud. Es responsable, ha sido " + current.getEstadoproyectoid().getEstado() + " según el siguiente detalle:\n"
                     + "Observaciones:\n";
             for (EvaluacionPregunta eval : evaluacionpregunta.getEvaluaciones()) {
 
@@ -1015,31 +1054,69 @@ public class ProyectoController implements Serializable {
                         calificacionpregunta = "EXCELENTE";
                     }
                 }
-                if (!eval.getObservacion().isEmpty()) {
+                if (eval.getObservacion() != null) {
                     observacionfinal += " - " + eval.getObservacion() + "\n";
                 }
                 obs += " - " + eval.getPregunta().getPregunta() + " - " + calificacionpregunta + "\n";
             }
-            String resultado = "";
-            
-            switch(current.getEstadoproyectoid().getId()){
-                // Estado: 
-                case 2:
-                    resultado = "A partir de la recepción del presente correo, el sistema quedará habilitado para la carga del proyecto definitivo.\n";
-                    break;
-                case 6:
-                    resultado = "A partir de la recepción del presente correo, comuniquese.\n";
-                    break;
-                default: 
-                    resultado = "Evaluacion Guardada.\n";
-                    break;
+            String isaceptada = "";
+            if (current.getEstadoproyectoid().getId() == 2) {
+                isaceptada = "A partir de la recepción del presente correo, el sistema quedará habilitado para la carga del proyecto definitivo.\n";
             }
-
             observacionfinal += "Resultados según criterios evaluados:\n" + obs
                     + "Sin otro particular lo saludo a Ud. cordialmente.\n"
                     + "Unidad de Vinculación Tecnológica";
             evaluacion.getSelected().setObservacion(observacionfinal);
         } catch (Exception e) {
+            System.out.println("Evaluacion de Idea-Proyecto: armarObservacionesIdea");
+            System.out.println(e);
+
+        }
+        return null;
+    }
+
+    public String armarObservacionesProyecto() {
+        observacionfinal = "";
+        FacesContext context = FacesContext.getCurrentInstance();
+        EvaluacionPreguntaController evaluacionpregunta = (EvaluacionPreguntaController) context.getApplication().evaluateExpressionGet(context, "#{evaluacionPreguntaController}", EvaluacionPreguntaController.class);
+        EvaluacionController evaluacion = (EvaluacionController) context.getApplication().evaluateExpressionGet(context, "#{evaluacionController}", EvaluacionController.class);;
+        String obs = "";
+        String calificacionpregunta = "";
+        try {
+            observacionfinal = "Estimado docente-investigador:\n"
+                    + "Por medio del presente informamos a Ud. que el Proyecto Nº " + current.getId() + " de la cual Ud. Es responsable cambió de estado a " + current.getEstadoproyectoid().getEstado() + " según el siguiente detalle:\n"
+                    + "Observaciones:\n";
+            for (EvaluacionPregunta eval : evaluacionpregunta.getEvaluaciones()) {
+
+                if (eval.getRating() != null) {
+                    if (eval.getRating().intValue() < 3) {
+                        calificacionpregunta = "REGULAR";
+                    }
+                    if (eval.getRating().intValue() == 3) {
+                        calificacionpregunta = "CORRECTO";
+                    }
+                    if (eval.getRating() == 4) {
+                        calificacionpregunta = "MUY BUENO";
+                    }
+                    if (eval.getRating() == 5) {
+                        calificacionpregunta = "EXCELENTE";
+                    }
+                }
+                if (eval.getObservacion() != null) {
+                    observacionfinal += " - " + eval.getObservacion() + "\n";
+                }
+                obs += " - " + eval.getPregunta().getPregunta() + " - " + calificacionpregunta + "\n";
+            }
+            String isaceptada = "";
+            if (current.getEstadoproyectoid().getId() == 2) {
+                isaceptada = "A partir de la recepción del presente correo, el sistema quedará habilitado para que el administrador evalue su proyecto.\n";
+            }
+            observacionfinal += "Resultados según criterios evaluados:\n" + obs
+                    + "Sin otro particular lo saludo a Ud. cordialmente.\n"
+                    + "Unidad de Vinculación Tecnológica";
+            evaluacion.getSelected().setObservacion(observacionfinal);
+        } catch (Exception e) {
+            System.out.println("Evaluacion de Proyecto: armarObservacionesProyecto");
             System.out.println(e);
 
         }
@@ -1418,10 +1495,10 @@ public class ProyectoController implements Serializable {
 
     // EVALUACION DE IDEAS-PROYECTO y PROYECTOS
     public void buscarProyectosPorEstado(String estadoAbreviado) {
-        
+
         recreateModel();
         items = new ListDataModel(getFacade().buscarProyectoEstadoAbreviado(estadoAbreviado));
-        
+
     }
 
 }

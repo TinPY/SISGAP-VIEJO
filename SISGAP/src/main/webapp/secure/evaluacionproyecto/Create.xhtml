@@ -277,11 +277,11 @@
                                 <p:selectBooleanCheckbox value="#{data.aprobado}" />
 
                                 <p:rating style="width:100px !important;"  value="#{data.rating}" >
-                                    <p:ajax event="rate" listener="#{proyectoController.armarObservaciones('Proyecto')}" update="observacionfinal"  />  
+                                    <p:ajax event="rate" listener="#{proyectoController.armarObservacionesProyecto()}" update="observacionfinal"  />  
                                 </p:rating>
 
                                 <p:inputTextarea value="#{data.observacion}" cols="70" rows="3" >
-                                    <p:ajax event="keyup" listener="#{proyectoController.armarObservaciones('Proyecto')}" update="observacionfinal"  />  
+                                    <p:ajax event="keyup" listener="#{proyectoController.armarObservacionesProyecto()}" update="observacionfinal"  />  
                                 </p:inputTextarea>
                             </c:forEach>
                         </h:panelGrid>
@@ -296,7 +296,7 @@
                                 <p:column style="width: 80%;" styleClass="left">
                                     <p:selectOneMenu id="sestado" value="#{proyectoController.selected.estadoproyectoid}" >
                                         <f:selectItems value="#{estadoproyectoController.getItemspersonalizado(true)}"/>
-                                        <p:ajax listener="#{proyectoController.armarObservaciones('Proyecto')}" update="observacionfinal"  />  
+                                        <p:ajax listener="#{proyectoController.armarObservacionesProyecto()}" update="observacionfinal"  />  
                                     </p:selectOneMenu>
                                 </p:column>
                             </p:row>
