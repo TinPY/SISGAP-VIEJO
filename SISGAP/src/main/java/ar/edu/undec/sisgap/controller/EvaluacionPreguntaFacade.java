@@ -33,9 +33,10 @@ public class EvaluacionPreguntaFacade extends AbstractFacade<EvaluacionPregunta>
     
     public List<EvaluacionPregunta> listaEvaluaciones(int evaluacionId){
         try{
-            return em.createQuery("SELECT ep FROM EvaluacionPregunta ep join ep.evaluacion e WHERE e.id = :id", EvaluacionPregunta.class).setParameter("id", evaluacionId).getResultList();
+            //return em.createQuery("SELECT ep FROM EvaluacionPregunta ep join ep.evaluacion e WHERE e.id = :id", EvaluacionPregunta.class).setParameter("id", evaluacionId).getResultList();
+            return em.createQuery("SELECT ep FROM EvaluacionPregunta ep WHERE ep.evaluacionPreguntaPK.evaluacionid = :id",EvaluacionPregunta.class).setParameter("id", evaluacionId).getResultList();
         }catch(Exception e){
-            System.out.println("Error en query EvaluacionPreguntaFacade.listaEvaluaciones(int evaluacionId)");
+            System.out.println("Error en query EvaluacionPreguntaFacade.listaEvaluaciones(int evaluacionId) " + e.getMessage() );
             return null;
         }
         

@@ -249,7 +249,7 @@ public class EvaluacionPreguntaController implements Serializable {
     }
 
     public List<EvaluacionPregunta> getEvaluaciones() {
-        
+
         if (evaluaciones == null) {
 
             evaluaciones = new ArrayList<EvaluacionPregunta>();
@@ -284,7 +284,7 @@ public class EvaluacionPreguntaController implements Serializable {
         if (evaluaciones == null) {
 
             evaluaciones = new ArrayList<EvaluacionPregunta>();
-            
+
             for (Pregunta pregunta : preguntaFacade.obtenerPreguntasProyecto()) {
                 EvaluacionPregunta evaluacionpregunta = new EvaluacionPregunta();
                 evaluacionpregunta.setPregunta(pregunta);
@@ -296,13 +296,22 @@ public class EvaluacionPreguntaController implements Serializable {
     }
 
     public List<EvaluacionPregunta> obtenerPreguntasEvaluacionIdea(int evaluacionId) {
-        System.out.println("listaEvaluaciones: (idea)" + this.ejbFacade.listaEvaluaciones(evaluacionId).size());
+
+//        if (evaluaciones == null) {
+//            evaluaciones = this.ejbFacade.listaEvaluaciones(evaluacionId);
+//        }
+//        return evaluaciones;
+        System.out.println("listaEvaluaciones (cantidad): " + this.ejbFacade.listaEvaluaciones(evaluacionId).size());
         return this.ejbFacade.listaEvaluaciones(evaluacionId);
-        
     }
 
     public List<EvaluacionPregunta> obtenerPreguntasEvaluacionProyecto(int evaluacionId) {
-        System.out.println("listaEvaluaciones (proyecto): " + this.ejbFacade.listaEvaluaciones(evaluacionId).size());
+        
+//        if (evaluaciones == null) {
+//            evaluaciones = this.ejbFacade.listaEvaluaciones(evaluacionId);
+//        }
+//        return evaluaciones;
+        System.out.println("listaEvaluaciones (cantidad): " + this.ejbFacade.listaEvaluaciones(evaluacionId).size());
         return this.ejbFacade.listaEvaluaciones(evaluacionId);
     }
 
