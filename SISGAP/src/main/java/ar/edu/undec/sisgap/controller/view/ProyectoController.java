@@ -962,7 +962,7 @@ public class ProyectoController implements Serializable {
             evaluacion.getSelected().setUsuarioid(agente.getSelected().getUsuarioid());
             ejbevaluacion.createWithPersist(evaluacion.getSelected());
             proyectoViejo = current;
-            for (EvaluacionPregunta eval : evaluacionpregunta.getEvaluaciones()) {
+            for (EvaluacionPregunta eval : evaluacionpregunta.obtenerEvaluacionesIdea()) {
                 eval.setEvaluacionPreguntaPK(new EvaluacionPreguntaPK());
                 eval.getEvaluacionPreguntaPK().setEvaluacionid(evaluacion.getSelected().getId());
                 eval.getEvaluacionPreguntaPK().setPreguntaid(eval.getPregunta().getId());
@@ -1001,7 +1001,7 @@ public class ProyectoController implements Serializable {
             evaluacion.getSelected().setUsuarioid(agente.getSelected().getUsuarioid());
             ejbevaluacion.createWithPersist(evaluacion.getSelected());
             proyectoViejo = current;
-            for (EvaluacionPregunta eval : evaluacionpregunta.getEvaluaciones()) {
+            for (EvaluacionPregunta eval : evaluacionpregunta.obtenerEvaluacionesProyecto()) {
                 eval.setEvaluacionPreguntaPK(new EvaluacionPreguntaPK());
                 eval.getEvaluacionPreguntaPK().setEvaluacionid(evaluacion.getSelected().getId());
                 eval.getEvaluacionPreguntaPK().setPreguntaid(eval.getPregunta().getId());
@@ -1031,33 +1031,47 @@ public class ProyectoController implements Serializable {
         observacionfinal = "";
         FacesContext context = FacesContext.getCurrentInstance();
         EvaluacionPreguntaController evaluacionpregunta = (EvaluacionPreguntaController) context.getApplication().evaluateExpressionGet(context, "#{evaluacionPreguntaController}", EvaluacionPreguntaController.class);
-        EvaluacionController evaluacion = (EvaluacionController) context.getApplication().evaluateExpressionGet(context, "#{evaluacionController}", EvaluacionController.class);;
+        EvaluacionController evaluacion = (EvaluacionController) context.getApplication().evaluateExpressionGet(context, "#{evaluacionController}", EvaluacionController.class);
+
         String obs = "";
         String calificacionpregunta = "";
+        
         try {
             observacionfinal = "Estimado docente-investigador:\n"
                     + "Por medio del presente informamos a Ud. que la Idea-Proyecto Nº " + current.getId() + " de la cual Ud. Es responsable, ha sido " + current.getEstadoproyectoid().getEstado() + " según el siguiente detalle:\n"
                     + "Observaciones:\n";
-            for (EvaluacionPregunta eval : evaluacionpregunta.getEvaluaciones()) {
+            
+            int contador = 0;
+            
+            for (EvaluacionPregunta eval : evaluacionpregunta.obtenerEvaluacionesIdea()) {
 
-                if (eval.getRating() != null) {
+                System.out.println("armarObservacionesIdea - Contador: " + contador++);
+                //System.out.println("armarObservacionesIdea - observacion pregunta: " + eval.getObservacion());
+                //System.out.println("armarObservacionesIdea - rating" + eval.getRating().toString());
+                
+                if (!(eval.getRating() == null || eval.getRating().equals(0))) {
                     if (eval.getRating().intValue() < 3) {
                         calificacionpregunta = "REGULAR";
                     }
                     if (eval.getRating().intValue() == 3) {
                         calificacionpregunta = "CORRECTO";
                     }
-                    if (eval.getRating() == 4) {
+                    if (eval.getRating().intValue() == 4) {
                         calificacionpregunta = "MUY BUENO";
                     }
-                    if (eval.getRating() == 5) {
+                    if (eval.getRating().intValue() == 5) {
                         calificacionpregunta = "EXCELENTE";
                     }
                 }
+                
                 if (eval.getObservacion() != null) {
+                    System.out.println("eval.getObservacion != NULL");
                     observacionfinal += " - " + eval.getObservacion() + "\n";
                 }
+                
+                
                 obs += " - " + eval.getPregunta().getPregunta() + " - " + calificacionpregunta + "\n";
+
             }
             String isaceptada = "";
             if (current.getEstadoproyectoid().getId() == 2) {
@@ -1067,8 +1081,9 @@ public class ProyectoController implements Serializable {
                     + "Sin otro particular lo saludo a Ud. cordialmente.\n"
                     + "Unidad de Vinculación Tecnológica";
             evaluacion.getSelected().setObservacion(observacionfinal);
+            
         } catch (Exception e) {
-            System.out.println("Evaluacion de Idea-Proyecto: armarObservacionesIdea");
+            System.out.println("Evaluacion de Idea-Proyecto: Excepcion >> armarObservacionesIdea");
             System.out.println(e);
 
         }
@@ -1086,7 +1101,7 @@ public class ProyectoController implements Serializable {
             observacionfinal = "Estimado docente-investigador:\n"
                     + "Por medio del presente informamos a Ud. que el Proyecto Nº " + current.getId() + " de la cual Ud. Es responsable cambió de estado a " + current.getEstadoproyectoid().getEstado() + " según el siguiente detalle:\n"
                     + "Observaciones:\n";
-            for (EvaluacionPregunta eval : evaluacionpregunta.getEvaluaciones()) {
+            for (EvaluacionPregunta eval : evaluacionpregunta.obtenerEvaluacionesProyecto()) {
 
                 if (eval.getRating() != null) {
                     if (eval.getRating().intValue() < 3) {

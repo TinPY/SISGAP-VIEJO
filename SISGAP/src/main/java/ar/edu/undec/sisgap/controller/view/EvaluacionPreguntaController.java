@@ -249,10 +249,11 @@ public class EvaluacionPreguntaController implements Serializable {
     }
 
     public List<EvaluacionPregunta> getEvaluaciones() {
+        
         if (evaluaciones == null) {
 
             evaluaciones = new ArrayList<EvaluacionPregunta>();
-            for (Pregunta pregunta : preguntaFacade.findAllProyecto(Boolean.FALSE)) {
+            for (Pregunta pregunta : preguntaFacade.obtenerPreguntasIdea()) {
                 EvaluacionPregunta evaluacionpregunta = new EvaluacionPregunta();
                 evaluacionpregunta.setPregunta(pregunta);
 
@@ -262,30 +263,47 @@ public class EvaluacionPreguntaController implements Serializable {
         return evaluaciones;
     }
 
-    /**
-     * Para obtener las preguntas de la evaluacion, segun sea idea-proyecto o
-     * proyecto
-     *
-     * @param proyecto FALSE: Idea-Proyecto - TRUE: Proyecto
-     * @return Lista de EvaluacionPregunta
-     */
-    public List<EvaluacionPregunta> obtenerEvaluaciones(Boolean proyecto) {
-        
-        evaluaciones = null;
-        
-        evaluaciones = new ArrayList<EvaluacionPregunta>();
-        for (Pregunta pregunta : preguntaFacade.findAllProyecto(proyecto)) {
-            EvaluacionPregunta evaluacionpregunta = new EvaluacionPregunta();
-            evaluacionpregunta.setPregunta(pregunta);
+    public List<EvaluacionPregunta> obtenerEvaluacionesIdea() {
 
-            evaluaciones.add(evaluacionpregunta);
+        if (evaluaciones == null) {
+
+            evaluaciones = new ArrayList<EvaluacionPregunta>();
+            for (Pregunta pregunta : preguntaFacade.obtenerPreguntasIdea()) {
+                EvaluacionPregunta evaluacionpregunta = new EvaluacionPregunta();
+                evaluacionpregunta.setPregunta(pregunta);
+
+                evaluaciones.add(evaluacionpregunta);
+            }
         }
 
         return evaluaciones;
     }
-    
-    public List<EvaluacionPregunta> obtenerPreguntasEvaluacion(int evaluacionId){
+
+    public List<EvaluacionPregunta> obtenerEvaluacionesProyecto() {
+
+        if (evaluaciones == null) {
+
+            evaluaciones = new ArrayList<EvaluacionPregunta>();
+            
+            for (Pregunta pregunta : preguntaFacade.obtenerPreguntasProyecto()) {
+                EvaluacionPregunta evaluacionpregunta = new EvaluacionPregunta();
+                evaluacionpregunta.setPregunta(pregunta);
+
+                evaluaciones.add(evaluacionpregunta);
+            }
+        }
+        return evaluaciones;
+    }
+
+    public List<EvaluacionPregunta> obtenerPreguntasEvaluacionIdea(int evaluacionId) {
+        System.out.println("listaEvaluaciones: (idea)" + this.ejbFacade.listaEvaluaciones(evaluacionId).size());
+        return this.ejbFacade.listaEvaluaciones(evaluacionId);
+        
+    }
+
+    public List<EvaluacionPregunta> obtenerPreguntasEvaluacionProyecto(int evaluacionId) {
+        System.out.println("listaEvaluaciones (proyecto): " + this.ejbFacade.listaEvaluaciones(evaluacionId).size());
         return this.ejbFacade.listaEvaluaciones(evaluacionId);
     }
-    
+
 }

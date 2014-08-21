@@ -30,8 +30,12 @@ public class PreguntaFacade extends AbstractFacade<Pregunta> {
         super(Pregunta.class);
     }
     
-    public List<Pregunta> findAllProyecto(Boolean x){
-       return em.createQuery("select p from Pregunta p where p.proyecto=:proyecto",Pregunta.class).setParameter("proyecto", x).getResultList();
+    public List<Pregunta> obtenerPreguntasIdea(){
+       return em.createQuery("select p from Pregunta p where p.proyecto=false",Pregunta.class).getResultList();
+    }
+    
+    public List<Pregunta> obtenerPreguntasProyecto(){
+       return em.createQuery("select p from Pregunta p where p.proyecto=true",Pregunta.class).getResultList();
     }
     
 }

@@ -271,7 +271,7 @@
                             <p:outputLabel style="font-weight:bold;" value="Rating" /> 
                             <p:outputLabel style="font-weight:bold;" value="Observacion" /> 
 
-                            <c:forEach items="#{evaluacionPreguntaController.obtenerEvaluaciones(true)}" var="data">
+                            <c:forEach items="#{evaluacionPreguntaController.obtenerEvaluacionesProyecto()}" var="data">
 
                                 <p:outputLabel style="font-weight:bold;" value="#{data.pregunta.pregunta}"  />
                                 <p:selectBooleanCheckbox value="#{data.aprobado}" />
